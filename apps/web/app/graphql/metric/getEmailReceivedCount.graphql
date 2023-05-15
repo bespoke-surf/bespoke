@@ -1,0 +1,3 @@
+query GetEmailReceivedCount($subscriberId: String!) {
+  getEmailReceivedCount(subscriberId: $subscriberId)
+}

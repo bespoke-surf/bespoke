@@ -1,0 +1,3 @@
+query GetWorkflowCount($subdomain: String!) {
+  getWorkflowCount(subdomain: $subdomain)
+}

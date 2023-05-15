@@ -1,0 +1,7 @@
+mutation UpdateConditionalSplitState(
+  $input: UpdateConditionalSplitStateInput!
+) {
+  updateConditionalSplitState(input: $input) {
+    ...WorkflowState
+  }
+}

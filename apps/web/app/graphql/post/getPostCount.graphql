@@ -1,0 +1,3 @@
+query GetPostCount($subdomain: String!) {
+  getPostCount(subdomain: $subdomain)
+}

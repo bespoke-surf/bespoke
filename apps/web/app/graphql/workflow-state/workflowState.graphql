@@ -1,0 +1,10 @@
+fragment WorkflowState on WorkflowState {
+  id
+  name
+  description
+  workflowStateType
+  workflowActivityType
+  value {
+    ...WorkflowStateValueUnion
+  }
+}

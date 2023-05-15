@@ -1,0 +1,3 @@
+query GetStoreDailyRevenueTrend($subdomain: String!) {
+  getStoreDailyRevenueTrend(subdomain: $subdomain)
+}

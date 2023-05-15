@@ -1,0 +1,5 @@
+mutation UnsubscribeFromList($listId: String!, $unsubscribeId: String!) {
+  unsubscribeFromList(listId: $listId, unsubscribeId: $unsubscribeId) {
+    ...SubscriberList
+  }
+}

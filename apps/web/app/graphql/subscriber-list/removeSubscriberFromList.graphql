@@ -1,0 +1,5 @@
+mutation RemoveSubscriberFromList($listId: String!, $subscriberId: String!) {
+  removeSubscriberFromList(listId: $listId, subscriberId: $subscriberId) {
+    ...SubscriberList
+  }
+}

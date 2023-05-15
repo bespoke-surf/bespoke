@@ -1,0 +1,29 @@
+fragment Store on Store {
+  id
+  subdomain
+  name
+  currency
+  userId
+  defaultListIdToCollectEmail
+  contactLimitStatus
+  emailSentLimitStatus
+  createdAt
+  contact {
+    senderName
+    senderEmail
+    address1
+    address2
+    city
+    state
+    country
+    zipCode
+  }
+  displayPicture {
+    height
+    src
+    width
+  }
+  about {
+    ...About
+  }
+}

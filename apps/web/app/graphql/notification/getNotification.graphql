@@ -1,0 +1,5 @@
+query GetNotification($subdomain: String!) {
+  getNotification(subdomain: $subdomain) {
+    ...Notification
+  }
+}

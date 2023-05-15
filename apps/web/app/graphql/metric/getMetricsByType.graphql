@@ -1,0 +1,17 @@
+query GetMetricsByType(
+  $subdomain: String!
+  $metricType: MetricType
+  $allMetric: Boolean
+  $take: Int!
+  $skip: Int!
+) {
+  getMetricsByType(
+    subdomain: $subdomain
+    metricType: $metricType
+    allMetric: $allMetric
+    take: $take
+    skip: $skip
+  ) {
+    ...Metric
+  }
+}

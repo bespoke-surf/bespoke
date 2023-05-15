@@ -1,0 +1,15 @@
+mutation CreateNodeConnection(
+  $workflowId: String!
+  $sourceId: String!
+  $targetId: String!
+  $otherWise: Boolean!
+) {
+  createNodeConnection(
+    workflowId: $workflowId
+    sourceId: $sourceId
+    targetId: $targetId
+    otherWise: $otherWise
+  ) {
+    ...Workflow
+  }
+}

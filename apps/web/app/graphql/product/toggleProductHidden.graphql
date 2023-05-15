@@ -1,0 +1,3 @@
+mutation ToggleProductHidden($productId: String!) {
+  toggleProductHidden(productId: $productId)
+}

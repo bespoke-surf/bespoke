@@ -1,0 +1,3 @@
+query CheckAbleToSendEmailToList($listId: String!, $subdomain: String!) {
+  checkAbleToSendEmailToList(listId: $listId, subdomain: $subdomain)
+}

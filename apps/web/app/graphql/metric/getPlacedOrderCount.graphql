@@ -1,0 +1,3 @@
+query GetPlacedOrderCount($subscriberId: String!) {
+  getPlacedOrderCount(subscriberId: $subscriberId)
+}

@@ -1,0 +1,3 @@
+query GetTotalFormSubmitRate($subdomain: String!) {
+  getTotalFormSubmitRate(subdomain: $subdomain)
+}

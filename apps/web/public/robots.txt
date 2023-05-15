@@ -1,0 +1,23 @@
+User-agent: Applebot
+Allow: /
+Sitemap: https://bespoke.surf/sitemap.xml
+
+User-agent: Bingbot
+Allow: /
+Sitemap: https://bespoke.surf/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+Sitemap: https://bespoke.surf/sitemap.xml
+
+User-agent: Googlebot-Image
+Allow: /
+Sitemap: https://bespoke.surf/sitemap.xml
+
+User-agent: Twitterbot
+Allow: /
+Sitemap: https://bespoke.surf/sitemap.xml
+
+User-agent: *
+Allow: /
+Sitemap: https://bespoke.surf/sitemap.xml

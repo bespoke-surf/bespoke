@@ -1,0 +1,5 @@
+mutation createTriggerSplitNode($input: CreateTriggerSplitNodeInput!) {
+  createTriggerSplitNode(input: $input) {
+    ...WorkflowState
+  }
+}

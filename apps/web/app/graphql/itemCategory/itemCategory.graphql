@@ -1,0 +1,4 @@
+fragment ItemCategory on ItemCategory {
+  id
+  type
+}

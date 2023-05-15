@@ -1,0 +1,5 @@
+mutation DeleteList($listId: String!) {
+  deleteList(listId: $listId) {
+    ...List
+  }
+}

@@ -1,0 +1,5 @@
+mutation RemoveCollectEmailSubscribers($shopifyId: String!) {
+  removeCollectEmailSubscribers(shopifyId: $shopifyId) {
+    ...Shopify
+  }
+}

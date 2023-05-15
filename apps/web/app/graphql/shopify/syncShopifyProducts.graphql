@@ -1,0 +1,5 @@
+mutation SyncShopifyProducts($shopifyId: String!) {
+  syncShopifyProducts(shopifyId: $shopifyId) {
+    ...Shopify
+  }
+}

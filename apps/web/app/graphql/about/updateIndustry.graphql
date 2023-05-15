@@ -1,0 +1,5 @@
+mutation UpdateIndustry($aboutId: String!, $industry: AboutIndustryEnum!) {
+  updateIndustry(aboutId: $aboutId, industry: $industry) {
+    ...About
+  }
+}

@@ -1,0 +1,5 @@
+query GetSubscriberLists($listId: String!, $skip: Int!, $take: Int!) {
+  getSubscriberLists(listId: $listId, skip: $skip, take: $take) {
+    ...SubscriberList
+  }
+}

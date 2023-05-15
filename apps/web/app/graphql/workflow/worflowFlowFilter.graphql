@@ -1,0 +1,20 @@
+fragment BaseConditionalFilter on BaseConditionalFilter {
+  condition
+  value {
+    ... on BaseConditionalFilterHasDoneOrNotDoneValue {
+      trigger
+      inequality {
+        expression
+        value
+      }
+      time {
+        expression
+        value1
+        value2
+        date1
+        date2
+        delayType
+      }
+    }
+  }
+}

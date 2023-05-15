@@ -1,0 +1,99 @@
+.TextArea_placeholder::-webkit-input-placeholder {
+  color: white;
+}
+
+.TextArea_placeholder:-moz-placeholder {
+  color: white;
+}
+
+.TextArea_placeholder::-moz-placeholder {
+  color: white;
+}
+
+.TextArea_placeholder:-ms-input-placeholder {
+  color: white;
+}
+
+.TextArea_placeholder::placeholder {
+  color: white;
+}
+
+.TextArea__enabled {
+  cursor: text;
+}
+.TextArea__white {
+  color: white;
+}
+.TextArea__whiteCaret {
+  caret-color: white;
+}
+.TextArea__wrap {
+  white-space: pre-wrap;
+}
+.TextArea__large {
+  font-size: 36px;
+}
+
+.TextArea__medium {
+  font-size: 28px;
+}
+
+.TextArea__small {
+  font-size: 18px;
+  text-align: start;
+}
+
+.TextArea__bold {
+  font-weight: 700;
+}
+
+.TextArea__textArea {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  word-wrap: break-word;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  overflow: hidden;
+  padding: 0;
+  resize: none;
+  width: 100%;
+}
+
+textarea {
+  border: none;
+  overflow: hidden;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none; /*remove the resize handle on the bottom right*/
+  vertical-align: top;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+}
+textarea {
+  writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  color: fieldtext;
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  appearance: auto;
+  -webkit-rtl-ordering: logical;
+  resize: auto;
+  cursor: text;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  background-color: field;
+  column-count: initial !important;
+}

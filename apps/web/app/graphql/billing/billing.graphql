@@ -1,0 +1,9 @@
+fragment Billing on Billing {
+  id
+  cancelAtPeriodEnd
+  billingPlanStatus
+  billingSubscriptionEntity
+  currentPeriodEnd
+  contactsQuantity
+  emailSendQuantity
+}

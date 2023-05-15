@@ -1,0 +1,219 @@
+# flyctl launch added from .gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+**/node_modules
+**/.pnp
+**/.pnp.js
+
+# testing
+**/coverage
+
+# next.js
+**/.next
+**/out
+**/build
+
+# misc
+**/.DS_Store
+**/*.pem
+
+# debug
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/.pnpm-debug.log*
+
+**/.env
+# local env files
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+
+# turbo
+
+**/.turbo
+
+# flyctl launch added from apps/web/.gitignore
+apps/web/**/node_modules
+
+apps/web/.cache
+apps/web/build
+apps/web/public/build
+apps/web/**/.env
+
+# flyctl launch added from node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/.gitignore
+# ignore most things, include some others
+node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/*
+node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/.*
+
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/bin
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/lib
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/docs
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/package.json
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/package-lock.json
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/README.md
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/CONTRIBUTING.md
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/LICENSE
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/CHANGELOG.md
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/example
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/scripts
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/tap-snapshots
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/test
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/.github
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/.travis.yml
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/.gitignore
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/.gitattributes
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/coverage-map.js
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/map.js
+!node_modules/@npmcli/installed-package-contents/node_modules/npm-normalize-package-bin/**/index.js
+
+# flyctl launch added from node_modules/macaddress/.gitignore
+node_modules/macaddress/**/.*
+!node_modules/macaddress/.gitignore
+!node_modules/macaddress/.editorconfig
+!node_modules/macaddress/.travis.yml
+!node_modules/macaddress/.github
+node_modules/macaddress/node_modules
+node_modules/macaddress/dist
+node_modules/macaddress/**/*.log
+
+# flyctl launch added from node_modules/minipass-sized/.gitignore
+# ignore most things, include some others
+node_modules/minipass-sized/*
+node_modules/minipass-sized/.*
+
+!node_modules/minipass-sized/**/bin
+!node_modules/minipass-sized/**/lib
+!node_modules/minipass-sized/**/docs
+!node_modules/minipass-sized/**/package.json
+!node_modules/minipass-sized/**/package-lock.json
+!node_modules/minipass-sized/**/README.md
+!node_modules/minipass-sized/**/CONTRIBUTING.md
+!node_modules/minipass-sized/**/LICENSE
+!node_modules/minipass-sized/**/CHANGELOG.md
+!node_modules/minipass-sized/**/example
+!node_modules/minipass-sized/**/scripts
+!node_modules/minipass-sized/**/tap-snapshots
+!node_modules/minipass-sized/**/test
+!node_modules/minipass-sized/**/.travis.yml
+!node_modules/minipass-sized/**/.gitignore
+!node_modules/minipass-sized/**/.gitattributes
+!node_modules/minipass-sized/**/coverage-map.js
+!node_modules/minipass-sized/**/index.js
+
+# flyctl launch added from node_modules/npm-bundled/node_modules/npm-normalize-package-bin/.gitignore
+# ignore most things, include some others
+node_modules/npm-bundled/node_modules/npm-normalize-package-bin/*
+node_modules/npm-bundled/node_modules/npm-normalize-package-bin/.*
+
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/bin
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/lib
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/docs
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/package.json
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/package-lock.json
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/README.md
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/CONTRIBUTING.md
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/LICENSE
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/CHANGELOG.md
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/example
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/scripts
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/tap-snapshots
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/test
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/.github
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/.travis.yml
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/.gitignore
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/.gitattributes
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/coverage-map.js
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/map.js
+!node_modules/npm-bundled/node_modules/npm-normalize-package-bin/**/index.js
+
+# flyctl launch added from node_modules/promise-all-reject-late/.gitignore
+# ignore most things, include some others
+node_modules/promise-all-reject-late/*
+node_modules/promise-all-reject-late/.*
+
+!node_modules/promise-all-reject-late/**/bin
+!node_modules/promise-all-reject-late/**/lib
+!node_modules/promise-all-reject-late/**/docs
+!node_modules/promise-all-reject-late/**/package.json
+!node_modules/promise-all-reject-late/**/package-lock.json
+!node_modules/promise-all-reject-late/**/README.md
+!node_modules/promise-all-reject-late/**/CONTRIBUTING.md
+!node_modules/promise-all-reject-late/**/LICENSE
+!node_modules/promise-all-reject-late/**/CHANGELOG.md
+!node_modules/promise-all-reject-late/**/example
+!node_modules/promise-all-reject-late/**/scripts
+!node_modules/promise-all-reject-late/**/tap-snapshots
+!node_modules/promise-all-reject-late/**/test
+!node_modules/promise-all-reject-late/**/.github
+!node_modules/promise-all-reject-late/**/.travis.yml
+!node_modules/promise-all-reject-late/**/.gitignore
+!node_modules/promise-all-reject-late/**/.gitattributes
+!node_modules/promise-all-reject-late/**/coverage-map.js
+!node_modules/promise-all-reject-late/**/map.js
+!node_modules/promise-all-reject-late/**/index.js
+
+# flyctl launch added from node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/.gitignore
+# ignore most things, include some others
+node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/*
+node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/.*
+
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/bin
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/lib
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/docs
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/package.json
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/package-lock.json
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/README.md
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/CONTRIBUTING.md
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/LICENSE
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/CHANGELOG.md
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/example
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/scripts
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/tap-snapshots
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/test
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/.github
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/.travis.yml
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/.gitignore
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/.gitattributes
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/coverage-map.js
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/map.js
+!node_modules/read-package-json-fast/node_modules/npm-normalize-package-bin/**/index.js
+
+# flyctl launch added from packages/server/.gitignore
+# compiled output
+packages/server/dist
+packages/server/node_modules
+
+# Logs
+packages/server/**/logs
+packages/server/**/*.log
+packages/server/**/npm-debug.log*
+packages/server/**/pnpm-debug.log*
+packages/server/**/yarn-debug.log*
+packages/server/**/yarn-error.log*
+packages/server/**/lerna-debug.log*
+
+# OS
+packages/server/**/.DS_Store
+
+# Tests
+packages/server/coverage
+packages/server/.nyc_output
+
+# IDEs and editors
+packages/server/.idea
+packages/server/**/.project
+packages/server/**/.classpath
+packages/server/**/.c9
+packages/server/**/*.launch
+packages/server/**/.settings
+packages/server/**/*.sublime-workspace
+
+# IDE - VSCode
+packages/server/**/.vscode/*
+!packages/server/**/.vscode/settings.json
+!packages/server/**/.vscode/tasks.json
+!packages/server/**/.vscode/launch.json
+!packages/server/**/.vscode/extensions.json

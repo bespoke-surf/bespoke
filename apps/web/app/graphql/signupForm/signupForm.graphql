@@ -1,0 +1,29 @@
+fragment SignupForm on SignupForm {
+  formSubmitRate
+  views
+  submitted
+  id
+  name
+  formState
+  scriptModule
+  scriptJavascript
+  form {
+    js
+    body
+    css
+    fonts
+    design
+    html
+  }
+  success {
+    js
+    body
+    css
+    fonts
+    design
+    html
+  }
+  list {
+    ...List
+  }
+}

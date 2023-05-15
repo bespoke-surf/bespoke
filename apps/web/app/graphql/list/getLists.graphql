@@ -1,0 +1,5 @@
+query GetLists($subdomain: String!) {
+  getLists(subdomain: $subdomain) {
+    ...List
+  }
+}

@@ -1,0 +1,5 @@
+mutation UpdateStoreDetails($input: UpdateStoreDetailsInput!) {
+  updateStoreDetails(input: $input) {
+    ...Store
+  }
+}

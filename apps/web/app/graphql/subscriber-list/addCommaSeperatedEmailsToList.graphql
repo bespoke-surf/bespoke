@@ -1,0 +1,5 @@
+mutation AddCommaSeperatedEmailsToList(
+  $input: AddCommaSeperatedEmailsToListInput!
+) {
+  addCommaSeperatedEmailsToList(input: $input)
+}

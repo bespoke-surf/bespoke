@@ -1,0 +1,5 @@
+query GetStoreBilling($subdomain: String!) {
+  getStoreBilling(subdomain: $subdomain) {
+    ...Billing
+  }
+}

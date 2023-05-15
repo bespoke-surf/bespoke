@@ -1,0 +1,46 @@
+# build the server 
+FROM node:lts-alpine as builder 
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /usr/app
+
+COPY ./package.json .
+COPY ./turbo.json .
+COPY ./packages/server ./packages/server
+COPY ./packages/common ./packages/common
+
+RUN yarn install
+
+RUN yarn run build:server
+
+#################################################################
+
+FROM node:lts-alpine
+RUN apk add --no-cache libc6-compat
+
+COPY --from=builder /usr/app/packages/server/dist ./usr/app/packages/server/dist
+COPY --from=builder /usr/app/packages/common/dist ./usr/app/packages/common/dist
+
+WORKDIR /usr/app
+
+COPY ./package.json .
+COPY ./packages/common/package.json ./packages/common/
+COPY ./packages/server/package.json ./packages/server/
+
+RUN yarn install --production
+
+WORKDIR /usr/app/packages/server
+
+ENV NODE_ENV=production
+ENV PORT=8080
+ENV TZ=UTC
+
+ENV HOST=
+ENV FRONTEND_HOST=
+ENV FRONTEND_HOST_PROTOCOL=
+
+
+
+EXPOSE 8080 
+
+CMD ["node","dist/src/main.js"]

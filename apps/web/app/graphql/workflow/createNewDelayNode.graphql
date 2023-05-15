@@ -1,0 +1,5 @@
+mutation CreateNewDelayNode($input: CreateNewDelayNodeInput!) {
+  createNewDelayNode(input: $input) {
+    ...Workflow
+  }
+}

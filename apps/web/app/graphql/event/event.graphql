@@ -1,0 +1,10 @@
+fragment Event on Event {
+  id
+  message
+  eventState
+  eventType
+  notificationRead
+  notificationDismissed
+  createdAt
+  link
+}

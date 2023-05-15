@@ -1,0 +1,3 @@
+mutation UploadCsvFileEmailsToList($input: UploadCsvFileEmailsToListInput!) {
+  uploadCsvFileEmailsToList(input: $input)
+}

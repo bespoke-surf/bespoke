@@ -1,0 +1,29 @@
+{
+  "extends": [
+    // "react-app",
+    "@remix-run/eslint-config",
+    "@remix-run/eslint-config/node"
+    // "eslint:recommended"
+  ],
+  "plugins": [
+    "gestalt"
+    // "@typescript-eslint",
+    // "@typescript-eslint/recommended"
+    // "@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  // "parser": "@typescript-eslint/parser",
+  "rules": {
+    "gestalt/prefer-box-inline-style": "error",
+    "gestalt/prefer-box-no-disallowed": "error",
+    "gestalt/prefer-box-as-tag": "error",
+    "gestalt/prefer-link": "error",
+    "gestalt/prefer-heading": "error",
+    "gestalt/button-icon-restrictions": "error",
+    "gestalt/no-box-disallowed-props": "error",
+    "gestalt/no-box-dangerous-style-duplicates": "error",
+    "gestalt/no-box-useless-props": "error",
+    "gestalt/no-spread-props": "error",
+    "gestalt/prefer-flex": "error",
+    "gestalt/no-medium-formfields": "error"
+  }
+}

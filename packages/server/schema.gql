@@ -1,0 +1,1865 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type About {
+  about: String
+  aboutHTML: String
+  aboutLexical: String
+  id: ID!
+  industry: String
+}
+
+"""different type of industry verticals"""
+enum AboutIndustryEnum {
+  AGENCY_MARKETING_CONSULTING
+  BANKING_FINANCIAL_SERVICES_INSURANCE
+  ECOMMERCE_APPAREL_ACCESSORIES
+  ECOMMERCE_AUTOMOTIVE
+  ECOMMERCE_ELECTRONICS
+  ECOMMERCE_FOOD_BEVERAGE
+  ECOMMERCE_HARDWARE_HOME_IMPROVEMENTS
+  ECOMMERCE_HEALTH_BEAUTY
+  ECOMMERCE_HOUSEWARES_HOME_FURNISHINGS_GARDEN
+  ECOMMERCE_JEWELRY
+  ECOMMERCE_MASS_MERCHANT
+  ECOMMERCE_OFFICE_SUPPLIES
+  ECOMMERCE_OTHER
+  ECOMMERCE_SPECIALTY
+  ECOMMERCE_SPORTING_GOODS
+  ECOMMERCE_TOYS_HOBBIES
+  EDUCATION
+  EVENTS_ENTERTAINMENT
+  NON_PROFIT
+  OTHER
+  POLITCS_GOVERMENT
+  REAL_ESTATE_CONSTRUCTION
+  RESTAURANTS
+  SOFTWARE_SASS
+  TELECOMMUNICATION
+  TRAVEL
+}
+
+"""add comma speratedEmails to list input"""
+input AddCommaSeperatedEmailsToListInput {
+  emails: String!
+  listId: String!
+  storeId: String!
+}
+
+"""add more product images"""
+input AddMoreProductImagesInput {
+  image: ProductImageInput!
+  productId: String!
+}
+
+"""add signup form item"""
+input AddSignupFormItem {
+  itemId: String!
+  listId: String!
+  storeId: String!
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseConditionalFilter {
+  condition: BaseConditionalFilterConditionEnum
+  value: BaseConditionalFilterValueUnion
+}
+
+"""different workflwo flow filters"""
+enum BaseConditionalFilterConditionEnum {
+  HAS_DONE_OR_NOT_DONE
+  HAS_NOT_BEEN_IN_THIS_FLOW
+  IS_IN_LIST_OR_NOT
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseConditionalFilterHasDoneOrNotDoneValue {
+  inequality: BaseConditionalFilterHasDoneOrNotDoneValueInequality
+  time: BaseConditionalFilterHasDoneOrNotDoneValueTime
+  trigger: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseConditionalFilterHasDoneOrNotDoneValueInequality {
+  expression: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum
+  value: Float
+}
+
+"""Workflow state delay activity vlaue"""
+input BaseConditionalFilterHasDoneOrNotDoneValueInequalityInput {
+  expression: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum!
+  value: Float
+}
+
+"""Workflow state delay activity vlaue"""
+input BaseConditionalFilterHasDoneOrNotDoneValueInput {
+  inequality: BaseConditionalFilterHasDoneOrNotDoneValueInequalityInput!
+  time: BaseConditionalFilterHasDoneOrNotDoneValueTimeInput!
+  trigger: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum!
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseConditionalFilterHasDoneOrNotDoneValueTime {
+  date1: String
+  date2: String
+  delayType: DelayTypeEnum
+  expression: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum
+  value1: Float
+  value2: Float
+}
+
+"""different workflwo flow filters inequality expressions"""
+enum BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum {
+  AFTER
+  BEFORE
+  BETWEEN
+  BETWEEN_DATES
+  IN_THE_LAST
+  OVER_ALL_TIME
+  SINCE_STARTING_THIS_FLOW
+}
+
+"""Workflow state delay activity vlaue"""
+input BaseConditionalFilterHasDoneOrNotDoneValueTimeInput {
+  date1: String
+  date2: String
+  delayType: DelayTypeEnum
+  expression: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum!
+  value1: Float
+  value2: Float
+}
+
+"""different workflwo flow filters inequality expressions"""
+enum BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum {
+  EMAIL_BOUNCED
+  EMAIL_DROPPED
+  EMAIL_LINK_CLICKED
+  EMAIL_MARKED_AS_SPAM
+  EMAIL_OPENED
+  EMAIL_RECEIVED
+  EMAIL_SENT
+  EMAIL_UNSUBSCRIBED
+  SHOPIFY_CANCELLED_ORDER
+  SHOPIFY_CHECKOUT_STARTED
+  SHOPIFY_FULFILLED_ORDER
+  SHOPIFY_PLACED_ORDER
+  SHOPIFY_REFUNDED_ORDER
+}
+
+union BaseConditionalFilterValueUnion = BaseConditionalFilterHasDoneOrNotDoneValue
+
+"""different workflwo flow filters inequality expressions"""
+enum BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum {
+  AT_LEAST_ONCE
+  DOESNT_EQUAL
+  EQUALS
+  IS_AT_LEAST
+  IS_AT_MOST
+  IS_GREATER_THAN
+  IS_LESS_THAN
+  ZERO_TIMES
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseTriggerFilter {
+  dimension: BaseTriggerFilterDimensionEnum
+  type: BaseTriggerFilterTypeEnum
+  value: BaseTriggerFilterValueUnion
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseTriggerFilterBooleanValue {
+  booleanValue: Boolean
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseTriggerFilterDateValue {
+  dateDate1: String
+  dateDate2: String
+  dateDelayType: DelayTypeEnum
+  dateExpression: BaseTriggerFilterDateValueExpressionEnum
+  dateValue1: Float
+  dateValue2: Float
+}
+
+"""different workflwo flow filters inequality expressions"""
+enum BaseTriggerFilterDateValueExpressionEnum {
+  DAY_IS_IN_MONTH_OFF
+  DAY_IS_IN_THE_LAST
+  DAY_IS_IN_THE_NEXT
+  DAY_IS_IN_THIS_MONTH
+  DAY_IS_TODAY
+  IS_AFTER
+  IS_AT_LEAST
+  IS_BEFORE
+  IS_BETWEEN
+  IS_BETWEEN_DATES
+  IS_IN_THE_LAST
+  IS_IN_THE_NEXT
+}
+
+"""different workflow trigger filters"""
+enum BaseTriggerFilterDimensionEnum {
+  DISCOUNT_CODES
+  DOLLAR_VALUE
+  ITEMS
+  ITEM_COUNT
+  NAME
+  PRODUCT_ID
+  QUANTITY
+  SHIPPING_RATE
+  SKU
+  SOURCE_NAME
+  TOTAL_DISCOUNTS
+  VARIANT_NAME
+  VENDOR
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseTriggerFilterListValue {
+  listExpression: BaseTriggerFilterListValueExpressionEnum
+  listValue: String
+}
+
+"""different workflwo flow filters inequality expressions"""
+enum BaseTriggerFilterListValueExpressionEnum {
+  CONTAINS
+  DOSENT_CONTAIN
+  HAS_ATLEAST
+  HAS_ATLEAST_ONE_ITEM
+  HAS_ATMOST
+  HAS_FEWER_THAN
+  HAS_MORE_THAN
+  IS_EMPTY
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseTriggerFilterNumberValue {
+  numberExpression: BaseTriggerFilterNumberValueExpressionEnum
+  numberValue: Int
+}
+
+"""different number value expression"""
+enum BaseTriggerFilterNumberValueExpressionEnum {
+  DOSENT_EQUAL
+  EQUALS
+  IS_ATLEAST
+  IS_AT_MOST
+  IS_GREATER_THAN
+  IS_LESS_THAN
+}
+
+"""Workflow state delay activity vlaue"""
+type BaseTriggerFilterTextValue {
+  textExpression: BaseTriggerFilterTextValueExpressionEnum
+  textValue: String
+}
+
+"""different text value expressions"""
+enum BaseTriggerFilterTextValueExpressionEnum {
+  CONTAINS
+  DOSENT_CONTAIN
+  DOSENT_ENDS_WITH
+  DOSENT_EQUAL
+  DOSENT_START_WITH
+  ENDS_WITH
+  EQUALS
+  IS_IN
+  IS_NOT_IN
+  IS_NOT_SET
+  IS_SET
+  STARTS_WITH
+}
+
+"""different workflow trigger filters"""
+enum BaseTriggerFilterTypeEnum {
+  BOOLEAN
+  DATE
+  LIST
+  NUMBER
+  TEXT
+}
+
+union BaseTriggerFilterValueUnion = BaseTriggerFilterBooleanValue | BaseTriggerFilterDateValue | BaseTriggerFilterListValue | BaseTriggerFilterNumberValue | BaseTriggerFilterTextValue
+
+"""benchmark data"""
+type BenchmarkData {
+  clicked: String!
+  contact: String!
+  delivered: String!
+  id: String!
+  opened: String!
+}
+
+type Billing {
+  billingPlanStatus: BillingPlanStatus!
+  billingSubscriptionEntity: BillingSubscriptionEntity
+  cancelAtPeriodEnd: Boolean!
+  contactsQuantity: Float!
+  currentPeriodEnd: DateTime
+  emailSendQuantity: Float!
+  id: ID!
+  subscriptionId: String
+}
+
+"""different types of subscription"""
+enum BillingPlanStatus {
+  ACTIVE
+  CANCELLED
+  FREE
+  PAST_DUE
+  PENDING
+}
+
+"""different entities used for billing subscription"""
+enum BillingSubscriptionEntity {
+  SHOPIFY
+  STRIPE
+}
+
+"""CDN type of imags"""
+enum CDNType {
+  CLOUDINARY
+  SHOPIFY
+}
+
+"""Product in posts"""
+type Challenge {
+  challengeType: ChallengeTypeEnum!
+  completionCount: Float!
+  completionStages: Float!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  isHidden: Boolean!
+  measuredMetric: MetricType
+  measuredUnit: ChallengeMeasuredValueUnit
+  measuredValue: Float
+  name: String!
+  questId: String!
+}
+
+"""different types of challenges"""
+enum ChallengeMeasuredValueUnit {
+  PERCENTAGE
+  RATE
+}
+
+"""different types of challenges"""
+enum ChallengeTypeEnum {
+  CHALLENGE
+}
+
+"""update store details input"""
+input CompleteOnboardingInput {
+  about: String!
+  address1: String!
+  address2: String
+  city: String!
+  country: String!
+  name: String!
+  senderEmail: String!
+  senderName: String!
+  state: String
+  subdomain: String!
+  zipCode: String!
+}
+
+type Contact {
+  address1: String!
+  address2: String
+  city: String!
+  country: String!
+  senderEmail: String!
+  senderName: String!
+  state: String
+  zipCode: String!
+}
+
+"""contact limit status"""
+enum ContactLimitStatus {
+  ALLOWED
+  BRINK_OF_DISSALWOED
+  DISALLOWED
+}
+
+"""update store details input"""
+input CreateConditionalSplitNodeInput {
+  flowFilter: [[WorkflowFlowFilterInput!]!]!
+  otherWise: Boolean!
+  workflowId: String!
+  workflowStateId: String!
+}
+
+"""create new connection"""
+input CreateNewDelayNodeInput {
+  delayInMilliseconds: Float!
+  delayType: String!
+  otherWise: Boolean!
+  workflowId: String!
+  workflowStateId: String!
+}
+
+"""create post input"""
+input CreatePostInput {
+  bodyHTML: String
+  bodyLexical: String
+  image: ImageInput
+  storeId: String!
+  subTitle: String
+  title: String!
+}
+
+"""create post input"""
+input CreatePostViewedInput {
+  ipAddress: String
+  postHandle: String!
+  referer: String
+  utmData: MetricUtmDataInput
+}
+
+"""create category input"""
+input CreateProductInput {
+  externalLink: String!
+  image: [ProductImageInput!]!
+  name: String!
+  price: Int!
+  productSource: ProductSource!
+  storeId: String!
+  type: ProductType!
+}
+
+"""create send email"""
+input CreateSendEmailNodeInput {
+  design: String!
+  html: String!
+  otherWise: Boolean!
+  subject: String!
+  type: String!
+  workflowId: String!
+  workflowStateId: String!
+}
+
+"""update store details input"""
+input CreateShopifyAppSubscriptionInput {
+  contactQuantity: Int!
+  isPremium: Boolean!
+  subdomain: String!
+}
+
+"""add signup form input"""
+input CreateSignupFormInput {
+  listId: String!
+  name: String!
+  storeId: String!
+}
+
+"""update store details input"""
+input CreateTriggerSplitNodeInput {
+  otherWise: Boolean!
+  triggerFilter: [[WorkflowTriggerFilterInput!]!]!
+  workflowId: String!
+  workflowStateId: String!
+}
+
+"""create user with email input"""
+input CreateUserWithEmailInput {
+  email: String!
+  name: String!
+}
+
+input CsvFileEmail {
+  email: String!
+  firstName: String
+  lastName: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""different workflwo flow filters inequality expressions"""
+enum DelayTypeEnum {
+  DAYS
+  HOURS
+  MINUTES
+  WEEKS
+}
+
+type DisplayPicture {
+  height: Int!
+  src: String!
+  width: Int!
+}
+
+"""email concent"""
+type EmailConcent {
+  collectedFrom: EmailConcentCollectedFrom!
+  id: ID!
+  optInLevel: EmailConcentOptInLevel!
+  state: EmailConcentState!
+}
+
+"""email concent collected from"""
+enum EmailConcentCollectedFrom {
+  IMPORT
+  LANDING_PAGE
+  OTHER
+  SIGNUP_FORM
+}
+
+"""email concent opt in level"""
+enum EmailConcentOptInLevel {
+  CONFIRMED_OPT_IN
+  SINGLE_OPT_IN
+  SINGLE_OPT_IN_WITH_NOTIFICATION
+}
+
+"""email concent state"""
+enum EmailConcentState {
+  SUBSCRIBED
+  UNSUBSCRIBED
+}
+
+"""email delivery status"""
+enum EmailDeliveryStatus {
+  BOUNCED
+  SUBSCRIBED
+}
+
+"""email login input"""
+input EmailLoginInput {
+  email: String!
+}
+
+"""email sent limit status"""
+enum EmailSentLimitStatus {
+  ALLOWED
+  BRINK_OF_DISSALWOED
+  DISALLOWED
+}
+
+"""Event"""
+type Event {
+  createdAt: DateTime!
+  eventAccessRestriction: EventConfidentiality!
+  eventState: EventState!
+  eventType: EventType!
+  id: ID!
+  link: String
+  message: String!
+  notificationDismissed: Boolean!
+  notificationRead: Boolean!
+  showAsNotification: Boolean!
+  userId: String!
+}
+
+"""different types of confidential events for user"""
+enum EventConfidentiality {
+  HIGH
+  LOW
+  MEDIUM
+}
+
+"""different types of event"""
+enum EventState {
+  ACTIVE
+  COMPLETED
+  FAILED
+}
+
+"""different types of event"""
+enum EventType {
+  INTEGRATION
+  LIST
+  POST
+  PRODUCT
+  SHOPIFY
+  SHOPIFY_CUSTOMER_SYNC
+  SHOPIFY_CUSTOMER_SYNC_PROGRESS
+  SHOPIFY_PRODUCT_SYNC
+  SHOPIFY_PRODUCT_SYNC_PROGRESS
+  SIGNUP_FORM
+  STORE
+  STORE_CHALLENGE
+  SUBSCRIBER
+  SUBSCRIBER_LIST
+  USER
+  WORKFLOW
+}
+
+type GetStoreEmailMetric {
+  clicked: Int!
+  clickedTrend: Float!
+  contact: Int!
+  delivered: Int!
+  deliveredTrend: Float!
+  opened: Int!
+  openedTrend: Float!
+}
+
+input ImageInput {
+  height: Int!
+  src: String!
+  width: Int!
+}
+
+"""Integration"""
+type Integration {
+  id: ID!
+  shopify: Shopify
+}
+
+"""Item"""
+type Item {
+  createdAt: DateTime!
+  credits: Float
+  data: ItemDataUnion!
+  description: String
+  end_date: DateTime
+  id: ID!
+  imageData: [ItemImageData!]!
+  itemCategory: ItemCategory!
+  itemCategoryId: String!
+  name: String!
+  start_date: DateTime
+  type: ItemTypeEnum!
+}
+
+"""ItemCategory"""
+type ItemCategory {
+  id: ID!
+  items: [Item!]!
+  type: ItemCategoryTypeEnum!
+}
+
+"""item category type enum"""
+enum ItemCategoryTypeEnum {
+  SHOP
+}
+
+type ItemCreditsData {
+  credits: Float!
+}
+
+union ItemDataUnion = ItemCreditsData | ItemEmailTemplateData | ItemSignupFormData
+
+type ItemEmailTemplateData {
+  design: String!
+}
+
+type ItemImageData {
+  height: Float!
+  src: String!
+  width: Float!
+}
+
+type ItemSignupFormData {
+  formDesign: String!
+  successDesign: String!
+}
+
+"""different item types"""
+enum ItemTypeEnum {
+  CREDITS
+  EMAIL_TEMPLATE
+  SIGNUP_FORM
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+"""List"""
+type List {
+  addedThisWeek: String!
+  addedToday: String!
+  createdAt: DateTime!
+  id: ID!
+  isDefaultStoreList: Boolean!
+  members: Int!
+  name: String!
+  starred: Boolean!
+  store: Store
+}
+
+"""Subscriber Metric"""
+type Metric {
+  createdAt: DateTime!
+  data: MetricData
+  id: ID!
+  list: List
+  listId: String
+  message: String!
+  metricType: MetricType!
+  post: Post
+  postId: String
+  signupForm: SignupForm
+  signupFormId: String
+  storeId: String!
+  subscriber: Subscriber
+  subscriberId: String
+}
+
+union MetricData = MetricEmailLinkClicked | MetricPostViewed | MetricShopifyCancelledOrder | MetricShopifyCheckoutUpdate | MetricShopifyFulfilledOrder | MetricShopifyPlacedOrder
+
+type MetricEmailLinkClicked {
+  link: String!
+  type: MetricType!
+}
+
+type MetricPostViewed {
+  ipAddress: String
+  referer: String
+  type: MetricType!
+  utm: MetricUtmDataType
+}
+
+type MetricShopifyCancelledOrder {
+  discount_codes: [MetricShopifyDiscountCodes!]!
+  id: Int!
+  line_items: [MetricShopifyLineItems!]!
+  shipping_lines: [MetricShopifyShippingLines!]!
+  source_name: String!
+  subtotal_price: String!
+  total_discounts: String!
+  total_price: String!
+  type: MetricType!
+}
+
+type MetricShopifyCheckoutUpdate {
+  abandoned_checkout_url: String!
+  discount_codes: [MetricShopifyDiscountCodes!]!
+  id: Int!
+  line_items: [MetricShopifyLineItems!]!
+  shipping_lines: [MetricShopifyShippingLines!]!
+  source_name: String!
+  subtotal_price: String!
+  total_discounts: String!
+  total_price: String!
+  type: MetricType!
+}
+
+type MetricShopifyDiscountCodes {
+  amount: String!
+  code: String!
+  type: String!
+}
+
+type MetricShopifyFulfilledOrder {
+  discount_codes: [MetricShopifyDiscountCodes!]!
+  id: Int!
+  line_items: [MetricShopifyLineItems!]!
+  shipping_lines: [MetricShopifyShippingLines!]!
+  source_name: String!
+  subtotal_price: String!
+  total_discounts: String!
+  total_price: String!
+  type: MetricType!
+}
+
+type MetricShopifyLineItems {
+  compare_at_price: String
+  id: Float!
+  key: String!
+  name: String!
+  price: String!
+  product_id: Int!
+  title: String!
+}
+
+type MetricShopifyPlacedOrder {
+  discount_codes: [MetricShopifyDiscountCodes!]!
+  id: Int!
+  line_items: [MetricShopifyLineItems!]!
+  shipping_lines: [MetricShopifyShippingLines!]!
+  source_name: String!
+  subtotal_price: String!
+  total_discounts: String!
+  total_price: String!
+  type: MetricType!
+}
+
+type MetricShopifyRefundedOrderLineItem {
+  name: String!
+  total_discount: String!
+}
+
+type MetricShopifyRefundedOrderLineItems {
+  line_item: MetricShopifyRefundedOrderLineItem!
+}
+
+type MetricShopifyShippingLines {
+  code: String!
+}
+
+"""different types of metrics"""
+enum MetricType {
+  EMAIL_BOUNCED
+  EMAIL_DELIVERED
+  EMAIL_DROPPED
+  EMAIL_LINK_CLICKED
+  EMAIL_MARKED_AS_SPAM
+  EMAIL_OPENED
+  EMAIL_SENT
+  EMAIL_UNSUBSCRIBED
+  FORM_SUBMITTED
+  FORM_VIEWED
+  POST_DELETED
+  POST_PUBLISHED
+  POST_UNPUBLISHED
+  POST_VIEWED
+  PRODUCT_VIEWED
+  SHOPIFY_CANCELLED_ORDER
+  SHOPIFY_CANCELLED_ORDER_VALUE
+  SHOPIFY_CHECKOUT_STARTED
+  SHOPIFY_CHECKOUT_STARTED_VALUE
+  SHOPIFY_FULFILLED_ORDER
+  SHOPIFY_FULFILLED_ORDER_VALUE
+  SHOPIFY_ORDERED_PRODUCT
+  SHOPIFY_ORDERED_PRODUCT_VALUE
+  SHOPIFY_PLACED_ORDER
+  SHOPIFY_PLACED_ORDER_VALUE
+  SHOPIFY_REFUNDED_ORDER
+  SHOPIFY_REFUNDED_ORDER_VALUE
+}
+
+input MetricUtmDataInput {
+  campaign: String
+  content: String
+  medium: String
+  source: String
+  term: String
+}
+
+type MetricUtmDataType {
+  campaign: String
+  content: String
+  medium: String
+  source: String
+  term: String
+}
+
+type Mutation {
+  """update multiple product images"""
+  addCommaSeperatedEmailsToList(input: AddCommaSeperatedEmailsToListInput!): Boolean
+
+  """update product details"""
+  addMoreProductImages(input: AddMoreProductImagesInput!): Product
+
+  """add signup form item"""
+  addSignupFormItem(input: AddSignupFormItem!): SignupForm
+
+  """check post handle avaialb"""
+  checkPostHandleAvailable(handle: String!, postId: String!): Boolean!
+
+  """add shopify integration"""
+  collectEmailSubscribers(listId: String!, shopifyId: String!): Shopify
+
+  """create a new store"""
+  completeOnboarding(input: CompleteOnboardingInput!): Store
+
+  """Login user"""
+  confirmCodeAndLogin(loginCode: String!): Boolean
+
+  """convert workflow to public"""
+  convertWorkflowToPublic(workflowId: String!): Workflow
+
+  """create checkout session url"""
+  createCheckoutSessionUrl(contactQuantity: Int!, subdomain: String!): String
+
+  """update conditional split node"""
+  createConditionalSplitNode(input: CreateConditionalSplitNodeInput!): WorkflowState
+
+  """create a list trigger"""
+  createListTrigger(listId: String!, workflowId: String!): WorkflowState
+
+  """create a metric trigger"""
+  createMetricTrigger(metricType: MetricType!, workflowId: String!): WorkflowState
+
+  """create new delay node"""
+  createNewDelayNode(input: CreateNewDelayNodeInput!): Workflow
+
+  """update post"""
+  createNewList(name: String!, storeId: String!): List!
+
+  """create new workflow connection"""
+  createNodeConnection(otherWise: Boolean!, sourceId: String!, targetId: String!, workflowId: String!): Workflow
+
+  """create post"""
+  createPost(input: CreatePostInput!): Post
+
+  """create post viewed"""
+  createPostViewed(input: CreatePostViewedInput!): Post
+
+  """update multiple product images"""
+  createProduct(input: CreateProductInput!): Product
+  createProductPost(nodeKey: String!, postId: String!, productIds: [String!]!): ProductPost
+
+  """create send email node"""
+  createSendEmailNode(input: CreateSendEmailNodeInput!): WorkflowState
+
+  """create shopify app subscription"""
+  createShopifyAppSubscription(input: CreateShopifyAppSubscriptionInput!): String
+
+  """check signup form"""
+  createSignupForm(input: CreateSignupFormInput!): SignupForm
+
+  """update trigger split node"""
+  createTriggerSplitNode(input: CreateTriggerSplitNodeInput!): WorkflowState
+
+  """get workflows"""
+  createWorkflow(storeId: String!): Workflow
+
+  """delete list with id"""
+  deleteList(listId: String!): List!
+
+  """delete post"""
+  deletePost(postId: String!): Post
+
+  """delete a product"""
+  deleteProduct(productId: String!): [Product!]
+
+  """delete product image"""
+  deleteProductImage(deletingUrl: String!, productId: String!): Product
+  deleteProductPost(nodeKey: String!, postId: String!): ProductPost
+
+  """check user onboarded"""
+  deleteSignupForm(signupFormId: String!): SignupForm
+
+  """delete workflow name"""
+  deleteWorkflow(workflowId: String!): Workflow
+
+  """delete workflow node"""
+  deleteWorkflowNode(workflowStateId: String!): Workflow
+
+  """delete workflow transtion """
+  deleteWorkflowTransition(workflowId: String!, workflowTransitionId: String!): WorkflowState
+
+  """dismiss an event"""
+  dismissNotification(eventId: String!): Event
+
+  """Login user"""
+  emailLogin(input: EmailLoginInput!): User
+
+  """Logout"""
+  logout: Boolean
+
+  """toggle send email notification"""
+  newSubscriberNotificationToggle(subdomain: String!): Notification
+
+  """publish post here"""
+  publishPostHere(postHandle: String!, postId: String!): Boolean!
+
+  """publish post here"""
+  publishPostToList(listId: String!, postHandle: String!, postId: String!): Boolean!
+
+  """add shopify integration"""
+  removeCollectEmailSubscribers(shopifyId: String!): Shopify
+
+  """remove shopify integration"""
+  removeShopifyIntegration(shopifyId: String!): Shopify
+
+  """update multiple product images"""
+  removeSubscriberFromList(listId: String!, subscriberId: String!): SubscriberList
+
+  """replicate workflow """
+  replicateWorkflow(replicaWorkflowId: String!, storeId: String!): Workflow
+
+  """resubscribe to list"""
+  resubscribeToList(listId: String!, unsubscribeId: String!): Subscriber
+
+  """set all events as read"""
+  setAllEventAsRead: Event
+
+  """cancle the shopify app subscription"""
+  shopifyAppSubscriptionCancel(subdomain: String!): Boolean
+
+  """create user with email"""
+  signupWithEmail(input: CreateUserWithEmailInput!): User
+
+  """add shopify integration"""
+  stopShopifyCustomerSync(shopifyId: String!): Shopify
+
+  """add shopify integration"""
+  stopShopifyProductSync(shopifyId: String!): Shopify
+
+  """update default listid ot collect email"""
+  subscribeToStore(email: String!, storeId: String!): Boolean
+  syncScript: Boolean
+
+  """remove shopify integration"""
+  syncShopifyCustomers(shopifyId: String!): Shopify
+
+  """remove shopify integration"""
+  syncShopifyProducts(shopifyId: String!): Shopify
+
+  """toggle list trigger"""
+  toggleListStar(listId: String!): List
+
+  """toggle product hidden"""
+  toggleProductHidden(productId: String!): Boolean
+
+  """update workflow data"""
+  turnOffWorkflow(workflowId: String!): Workflow
+
+  """update workflow data"""
+  turnOnWorkflow(workflowId: String!): Workflow
+
+  """unpublish post"""
+  unpublishPost(postId: String!): Post
+
+  """unsubscribe from all list"""
+  unsubscribeFromAllList(unsubscribeId: String!): Subscriber
+
+  """unsubscribe from list"""
+  unsubscribeFromList(listId: String!, unsubscribeId: String!): SubscriberList
+
+  """update about"""
+  updateAbout(input: UpdateAboutInput!): About
+
+  """update a conditional split state"""
+  updateConditionalSplitState(input: UpdateConditionalSplitStateInput!): WorkflowState
+
+  """update default listid ot collect email"""
+  updateDefaultListIdToCollectEmail(listId: String!, storeId: String!): Store
+
+  """update a delay state"""
+  updateDelayState(input: UpdateDelayStateInput!): WorkflowState
+
+  """update display picture"""
+  updateDisplayPicture(input: UpdateDisplayPictureInput!): Store
+
+  """update a flow filter"""
+  updateFlowFilter(input: UpdateFlowFilterInput!): Workflow
+
+  """update industry"""
+  updateIndustry(aboutId: String!, industry: AboutIndustryEnum!): About
+
+  """update list trigger"""
+  updateListTrigger(listId: String!, workflowStateId: String!): WorkflowState
+
+  """update metric trigger"""
+  updateMetricTrigger(metricType: MetricType!, workflowStateId: String!): WorkflowState
+
+  """update post"""
+  updatePost(input: UpdatePostInput!): Boolean!
+
+  """update product details"""
+  updateProductDetails(input: UpdateProductDetailsInput!): Product
+
+  """update a conditional split state"""
+  updateSendEmailState(input: UpdateSendEmailStateInput!): WorkflowState
+
+  """update signup form"""
+  updateSignupForm(input: UpdateSignupformInput!): SignupForm
+
+  """update the store currency"""
+  updateStoreCurrency(currency: StoreCurrency!, storeId: String!): Store!
+
+  """update store details"""
+  updateStoreDetails(input: UpdateStoreDetailsInput!): Store
+
+  """update trigger filter"""
+  updateTriggerFilter(input: UpdateTriggerFilterInput!): Workflow
+
+  """update a trigger split state"""
+  updateTriggerSplitState(input: UpdateTriggerSplitStateInput!): WorkflowState
+
+  """add description to workflow"""
+  updateWorkflowDescription(descriptionHTML: String!, descriptionLexical: String!, workflowId: String!): Workflow
+
+  """update workflow name"""
+  updateWorkflowName(name: String!, workflowId: String!): Workflow
+
+  """uplaod csv file emails to list"""
+  uploadCsvFileEmailsToList(input: UploadCsvFileEmailsToListInput!): String
+}
+
+type Notification {
+  id: ID!
+  newSubscriber: Boolean!
+}
+
+"""
+A field whose value conforms to the standard E.164 format as specified in: https://en.wikipedia.org/wiki/E.164. Basically this is +17895551234.
+"""
+scalar PhoneNumber
+
+"""Post"""
+type Post {
+  bodyHTML: String
+  bodyLexical: String
+  id: ID!
+  image: PostImage
+  postHandle: String
+  postOpenCount: Int!
+  postRecipientCount: Int!
+  postState: PostState!
+  postType: PostType!
+  postViewCount: Int!
+  publishedDate: DateTime
+  store: Store
+  storeId: String!
+  subTitle: String
+  title: String
+}
+
+type PostImage {
+  height: Int!
+  src: String!
+  width: Int!
+}
+
+"""Different post states"""
+enum PostState {
+  DRAFT
+  PUBLISHED
+  UNPUBLISH
+}
+
+"""Different post states"""
+enum PostType {
+  AUTOMATION
+  POST
+}
+
+"""Products """
+type Product {
+  description: String
+  externalLink: String
+  hidden: Boolean!
+  id: ID!
+  image: [ProductImage!]
+  name: String
+  price: Int!
+  productData: ShopifyProductData
+  productSource: ProductSource!
+  productType: ProductType!
+  rank: String!
+  storeId: String!
+}
+
+input ProductFileInput {
+  fileName: String!
+  filePath: String!
+  originalFileName: String!
+  src: String!
+}
+
+type ProductImage {
+  cdnType: CDNType!
+  height: Int!
+  mimeType: String!
+  src: String!
+  width: Int!
+}
+
+"""product image"""
+input ProductImageInput {
+  cdnType: CDNType!
+  height: Int!
+  mimeType: String!
+  src: String!
+  width: Int!
+}
+
+"""Product in posts"""
+type ProductPost {
+  createdAt: DateTime!
+  id: ID!
+  nodeKey: String!
+  post: Post!
+  postId: String!
+  product: Product!
+  productId: String!
+}
+
+"""source of the products"""
+enum ProductSource {
+  SHOPIFY
+  WEB
+}
+
+"""Diffrent types of products """
+enum ProductType {
+  DIGITAL_PRODUCT
+  EXTERNAL_LINK
+  PHYSICIAL_PRODUCT
+  SERVICE
+}
+
+type Query {
+  """check able to send email to list"""
+  checkAbleToSendEmailToList(listId: String!, subdomain: String!): Boolean!
+
+  """check user onboarded"""
+  checkUserOnboarded: Boolean
+
+  """get about """
+  getAbout(subdomain: String!): About
+
+  """get lists of a unsubscirber"""
+  getAllListsOfASubscriber(unsubscriberId: String!): [SubscriberList!]
+
+  """get all posts for sitemap"""
+  getAllPublishedPostForSiteMap: [Post!]
+
+  """get all stores for sitemap"""
+  getAllStoresForSiteMap: [Store!]
+
+  """get benchmark data"""
+  getBenchmarkData(subdomain: String!): [BenchmarkData!]
+  getCurrentStoreChallengesByQuestType(questType: QuestType!, subdomain: String!): [StoreChallenge!]
+
+  """customer portal session"""
+  getCustomerPortalSession(subdomain: String!): String
+
+  """get draft posts"""
+  getDraftPosts(subdomain: String!): [Post!]
+
+  """get emails link clicked"""
+  getEmailLinkClickedCount(subscriberId: String!): Int
+
+  """get emails opened count"""
+  getEmailOpenedCount(subscriberId: String!): Int
+
+  """get emails received count"""
+  getEmailReceivedCount(subscriberId: String!): Int
+
+  """get email sent this month"""
+  getEmailSentThisMonthCount(subdomain: String!): Int
+
+  """get email sent today"""
+  getEmailSentTodayCount(subdomain: String!): Int
+  getEmailTemplates(subdomain: String!): [StoreItem!]!
+  getFolderItems(subdomain: String!): [StoreItem!]!
+
+  """get fulfilled order count"""
+  getFulfilledOrderCount(subscriberId: String!): Int
+
+  """get integration with subdomain"""
+  getIntegrationWithSubdomain(subdomain: String!): Integration
+
+  """get list count"""
+  getListCount(subdomain: String!): Int
+
+  """get lists"""
+  getLists(subdomain: String!): [List!]!
+
+  """get mandatory quest"""
+  getMandatoryQuest(questType: QuestType!): Quest
+
+  """get subscriber metrics by type"""
+  getMetricsByType(allMetric: Boolean, metricType: MetricType, skip: Int!, subdomain: String!, take: Int!): [Metric!]
+
+  """get more post"""
+  getMorePosts(postHandle: String!): [Post!]
+
+  """get notification"""
+  getNotification(subdomain: String!): Notification
+
+  """get notifications"""
+  getNotifications(skip: Int!, take: Int!): [Event!]!
+
+  """get placed order count"""
+  getPlacedOrderCount(subscriberId: String!): Int
+
+  """get post"""
+  getPost(postId: String!): Post
+
+  """get post"""
+  getPostByHandle(postHandle: String!): Post
+
+  """get post count"""
+  getPostCount(subdomain: String!): Int
+
+  """get post"""
+  getPosts(skip: Int!, subdomain: String!, take: Int!): [Post!]
+
+  """get product from with product id"""
+  getProduct(productId: String!): Product!
+
+  """get product count"""
+  getProductCount(subdomain: String!): Int!
+
+  """get product from category"""
+  getProducts(skip: Int!, subdomain: String!, take: Int!): [Product!]!
+
+  """get public workflows"""
+  getPublicWorkflows(skip: Int!, take: Int!): [Workflow!]
+
+  """check user onboarded"""
+  getSignupForm(signupFormId: String!): SignupForm
+
+  """check user onboarded"""
+  getSignupForms(subdomain: String!): [SignupForm!]
+
+  """get signupforms with storeid"""
+  getSignupFormsWithStoreId(storeId: String!): [SignupForm!]
+
+  """get starred lists"""
+  getStarredLists(subdomain: String!): [List!]
+  getStoreBilling(subdomain: String!): Billing
+  getStoreCredits(subdomain: String!): Int!
+
+  """get subscriber revenue"""
+  getStoreDailyRevenueTrend(subdomain: String!): Int
+
+  """get subscriber revenue"""
+  getStoreEmailMetric(subdomain: String!): GetStoreEmailMetric
+
+  """get subscriber revenue"""
+  getStoreRevenue(subdomain: String!): Int
+
+  """get store with store name"""
+  getStoreWithSubdomain(subdomain: String!): Store
+
+  """get subscriber"""
+  getSubscriber(subscriberId: String!): Subscriber
+
+  """get subscribers"""
+  getSubscriberCountAddedToday(subdomain: String!): Int
+
+  """check user onboarded"""
+  getSubscriberLists(listId: String!, skip: Int!, take: Int!): [SubscriberList!]
+
+  """get subscriber metrics"""
+  getSubscriberMetrics(allMetric: Boolean, metricType: MetricType, skip: Int!, subscriberId: String!, take: Int!): [Metric!]
+
+  """get subscriber revenue"""
+  getSubscriberRevenue(subscriberId: String!): Int
+
+  """get subscribers"""
+  getSubscribers(skip: Int!, subdomain: String!, take: Int!): [Subscriber!]
+
+  """get subscribers list count"""
+  getSubscribersCount(subdomain: String!): Int
+
+  """check user onboarded"""
+  getSubscribersInListCount(listId: String!): Int
+
+  """get total submitted form"""
+  getTotalFormSubmitRate(subdomain: String!): Int!
+
+  """get total submitted form"""
+  getTotalSubmittedForm(subdomain: String!): Int!
+
+  """check if user is onboarded"""
+  getUserExistByEmail(email: String!): Boolean!
+
+  """get user store"""
+  getUserStore: Store
+
+  """get workflow"""
+  getWorkflow(workflowId: String!): Workflow
+
+  """get workflow count"""
+  getWorkflowCount(subdomain: String!): Int
+
+  """get workflows"""
+  getWorkflows(subdomain: String!): [Workflow!]
+  hasProductPost(subdomain: String!): Boolean
+  me: User
+
+  """search subscribers by email for now"""
+  searchSubscribers(searchString: String!, subdomain: String!): [Subscriber!]
+
+  """Check subdomain available"""
+  subdomainAvailable(subdomain: String!): Boolean!
+
+  """has unread events"""
+  unReadNotificationCount: Int!
+}
+
+"""Product in posts"""
+type Quest {
+  challenges: [Challenge!]!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  name: String!
+  questType: QuestType!
+}
+
+"""quest type"""
+enum QuestType {
+  CUSTOME
+  DAILY
+  MILESTONE
+  WEEKLY
+}
+
+"""Shopify"""
+type Shopify {
+  authenticated: Boolean!
+  customerSyncJobId: String
+  id: ID!
+  listIdToCollectEmail: String
+  productSyncJobId: String
+  sessionExpired: Boolean!
+  storeUrl: String!
+}
+
+type ShopifyProductData {
+  handle: String!
+  id: String!
+  images: [ShopifyProductDataImage!]
+  options: [ShopifyProductDataOptions!]!
+  totalInventory: Int!
+  variants: ShopifyProductVariantEdges!
+}
+
+type ShopifyProductDataImage {
+  altText: String
+  height: Int
+  id: String
+  url: Int!
+  width: Int
+}
+
+type ShopifyProductDataOptions {
+  id: String!
+  name: String!
+  position: Int!
+  values: [String!]!
+}
+
+type ShopifyProductVariant {
+  compareAtPrice: Int
+  id: String!
+  image: ShopifyProductDataImage
+  position: Float!
+  price: Int!
+  selectedOptions: [ShopifyProductVariantSlectedOptions!]!
+  sku: String
+  title: String!
+}
+
+type ShopifyProductVariantEdges {
+  edges: [ShopifyProductVariantNode!]!
+}
+
+type ShopifyProductVariantNode {
+  node: ShopifyProductVariant!
+}
+
+type ShopifyProductVariantSlectedOptions {
+  name: String!
+  value: String!
+}
+
+"""Signup Form"""
+type SignupForm {
+  form: SignupFormData
+  formState: SignupFormState!
+  formSubmitRate: Float!
+  id: ID!
+  list: List
+  name: String!
+  scriptJavascript: String
+  scriptModule: String
+  store: Store
+  submitted: Int!
+  success: SignupFormData
+  views: Int!
+}
+
+type SignupFormData {
+  body: String!
+  css: String!
+  design: String!
+  fonts: String!
+  html: String!
+  js: String!
+}
+
+input SignupFormDataInput {
+  body: String!
+  css: String!
+  design: String!
+  fonts: String!
+  html: String!
+  js: String!
+}
+
+"""Signup form state"""
+enum SignupFormState {
+  DRAFT
+  LIVE
+}
+
+type Store {
+  about: About
+  contact: Contact
+  contactLimitStatus: ContactLimitStatus!
+  createdAt: DateTime!
+  currency: StoreCurrency!
+  defaultListIdToCollectEmail: String
+  displayPicture: DisplayPicture
+  emailSentLimitStatus: EmailSentLimitStatus!
+  id: ID!
+  name: String
+  shortId: String
+  subdomain: String
+  userId: String
+}
+
+"""Store challenge"""
+type StoreChallenge {
+  allCompleted: Boolean!
+  challenge: Challenge!
+  challengeId: String!
+  completedCount: Float!
+  completedStages: Float!
+  createdAt: DateTime!
+  id: ID!
+  storeId: String!
+}
+
+"""the currency of the store"""
+enum StoreCurrency {
+  AED
+  AUD
+  EUR
+  GBP
+  INR
+  JPY
+  USD
+}
+
+"""Store challenge"""
+type StoreItem {
+  createdAt: DateTime!
+  id: ID!
+  item: Item!
+  itemId: String!
+  storeId: String!
+}
+
+"""Subscriber"""
+type Subscriber {
+  createdAt: DateTime!
+  emailStatus: SubscriberEmailStatus!
+  firstName: String
+  id: ID!
+  lastName: String
+  phoneNumber: PhoneNumber
+  storeId: String!
+  subscriberAddress: SubscriberAddress
+  subscriberType: SubscriberType!
+  updatedAt: DateTime!
+  user: User!
+  userId: String!
+}
+
+"""Subscriber Address"""
+type SubscriberAddress {
+  address1: String
+  address2: String
+  city: String
+  country: String
+  id: ID!
+  state: String
+  zipCode: String
+}
+
+"""subscrber email status"""
+enum SubscriberEmailStatus {
+  MARKED_AS_SPAM
+  SUBSCRIBED
+  UNSUBSCRIBED
+}
+
+"""Subscriber List"""
+type SubscriberList {
+  createdAt: DateTime!
+  emailConcent: EmailConcent!
+  id: ID!
+  list: List!
+  listId: String!
+  subscriber: Subscriber!
+  subscriberId: String!
+}
+
+"""different types of subscribers"""
+enum SubscriberType {
+  AUTHOR
+  FREE
+}
+
+"""update about input"""
+input UpdateAboutInput {
+  about: String!
+  aboutHTML: String
+  aboutId: String!
+  aboutLexical: String
+}
+
+"""update store details input"""
+input UpdateConditionalSplitStateInput {
+  flowFilter: [[WorkflowFlowFilterInput!]!]!
+  workflowStateId: String!
+}
+
+"""update delay sate input"""
+input UpdateDelayStateInput {
+  delayInMilliseconds: Float!
+  delayType: DelayTypeEnum!
+  workflowStateId: String!
+}
+
+"""update store details input"""
+input UpdateDisplayPictureInput {
+  height: Int!
+  storeId: String!
+  url: String!
+  width: Int!
+}
+
+"""update flow filter input"""
+input UpdateFlowFilterInput {
+  flowFilter: [[WorkflowFlowFilterInput!]!]
+  workflowId: String!
+}
+
+"""update post input"""
+input UpdatePostInput {
+  bodyHTML: String
+  bodyLexical: String
+  image: ImageInput
+  postId: String!
+  subTitle: String
+  title: String
+}
+
+"""update product details"""
+input UpdateProductDetailsInput {
+  description: String!
+  files: [ProductFileInput!]
+  hours: Int
+  minutes: Int
+  name: String!
+  price: Int!
+  productId: String!
+  productType: ProductType!
+}
+
+"""update store details input"""
+input UpdateSendEmailStateInput {
+  design: String!
+  html: String!
+  subject: String!
+  type: String!
+  workflowStateId: String!
+}
+
+"""add signup form input"""
+input UpdateSignupformInput {
+  form: SignupFormDataInput!
+  formState: SignupFormState!
+  name: String!
+  scriptJavascript: String!
+  scriptModule: String!
+  signupFormId: String!
+  success: SignupFormDataInput!
+}
+
+"""update store details input"""
+input UpdateStoreDetailsInput {
+  address1: String!
+  address2: String
+  city: String!
+  country: String!
+  name: String!
+  senderEmail: String!
+  senderName: String!
+  state: String
+  storeAbout: String
+  storeId: String!
+  subdomain: String
+  zipCode: String!
+}
+
+"""update flow filter input"""
+input UpdateTriggerFilterInput {
+  triggerFilter: [[WorkflowTriggerFilterInput!]!]
+  workflowId: String!
+}
+
+"""update store details input"""
+input UpdateTriggerSplitStateInput {
+  triggerFilter: [[WorkflowTriggerFilterInput!]!]!
+  workflowStateId: String!
+}
+
+"""upload csv file input"""
+input UploadCsvFileEmailsToListInput {
+  csvFileEmails: [CsvFileEmail!]!
+  listId: String!
+  subdomain: String!
+}
+
+type User {
+  email: String!
+  id: ID!
+  name: String
+  store: Store
+  userEmailDeliveryStatus: UserEmailDeliveryStatus!
+}
+
+"""user email delivery status"""
+type UserEmailDeliveryStatus {
+  emailDeliveryStatus: EmailDeliveryStatus!
+  id: ID!
+  softBounceCount: Int!
+}
+
+"""Workflow"""
+type Workflow {
+  createdAt: DateTime!
+  descriptionHTML: String
+  descriptionLexical: String
+  edge: [WorkflowEdge!]
+  flowFilter: [[BaseConditionalFilter!]!]
+  id: ID!
+  name: String!
+  node: [WorkflowNode!]
+  public: Boolean!
+  replicationCount: Int!
+  store: Store!
+  storeId: String!
+  triggerFilter: [[BaseTriggerFilter!]!]
+  updatedAt: DateTime!
+  workflowStatus: WorkflowStatus!
+}
+
+"""different workflwo activity type"""
+enum WorkflowActivityType {
+  CONDITIONAL_SPLIT
+  DELAY
+  LIST_TRIGGER
+  METRIC_TRIGGER
+  SEND_EMAIL
+  TRIGGER_SPLIT
+}
+
+"""Workflow Edge Type"""
+type WorkflowEdge {
+  id: ID!
+  source: String!
+  sourceHandle: String!
+  target: String!
+}
+
+"""workflow state flow filter update input"""
+input WorkflowFlowFilterInput {
+  condition: BaseConditionalFilterConditionEnum!
+  value: BaseConditionalFilterHasDoneOrNotDoneValueInput!
+}
+
+"""Workflow Node Type"""
+type WorkflowNode {
+  data: WorkflowNodeData!
+  id: ID!
+  position: WorkflowNodeXYPostion!
+  type: WorkflowNodeType!
+}
+
+"""XYPosition"""
+type WorkflowNodeData {
+  id: String!
+  name: String!
+  value: WorkflowStateValueUnion!
+  workflowActivityType: String!
+  workflowStateType: String!
+}
+
+"""different workflwo node types"""
+enum WorkflowNodeType {
+  ConditionalSplitNode
+  DelayNode
+  SendEmailNode
+  TriggerNode
+  TriggerNodeDisabled
+  TriggerSplitNode
+}
+
+"""XYPosition"""
+type WorkflowNodeXYPostion {
+  x: Float!
+  y: Float!
+}
+
+"""WorkflowState"""
+type WorkflowState {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+  value: WorkflowStateValueUnion!
+  workflowActivityType: WorkflowActivityType!
+  workflowStateType: WorkflowStateType!
+}
+
+"""Workflow state delay activity vlaue"""
+type WorkflowStateConditionalSplitActivityValue {
+  flowFilter: [[BaseConditionalFilter!]!]!
+}
+
+"""Workflow state delay activity vlaue"""
+type WorkflowStateDelayActivityValue {
+  delayInMilliseconds: Float!
+  delayType: DelayTypeEnum!
+}
+
+"""Workflow staet list trigger value"""
+type WorkflowStateListTriggerActivityValue {
+  listId: ID!
+}
+
+"""Workflow staet metric trigger value"""
+type WorkflowStateMetricTriggerActivityValue {
+  metricType: MetricType!
+}
+
+"""Workflow state delay activity vlaue"""
+type WorkflowStateSendEmailActivityValue {
+  design: String!
+  html: String!
+  type: String!
+}
+
+"""Workflow state delay activity vlaue"""
+type WorkflowStateTriggerSplitActivityValue {
+  triggerFilter: [[BaseTriggerFilter!]!]!
+}
+
+"""different workflwo state types"""
+enum WorkflowStateType {
+  CANCELLED
+  COMPLETE
+  DENIED
+  NORMAL
+  START
+}
+
+union WorkflowStateValueUnion = WorkflowStateConditionalSplitActivityValue | WorkflowStateDelayActivityValue | WorkflowStateListTriggerActivityValue | WorkflowStateMetricTriggerActivityValue | WorkflowStateSendEmailActivityValue | WorkflowStateTriggerSplitActivityValue
+
+"""different workflwo status"""
+enum WorkflowStatus {
+  DRAFT
+  INACTIVE
+  LIVE
+}
+
+"""workflow state flow filter update input"""
+input WorkflowTriggerFilterInput {
+  dimension: BaseTriggerFilterDimensionEnum
+  type: BaseTriggerFilterTypeEnum
+  value: JSONObject!
+}

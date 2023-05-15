@@ -1,0 +1,3 @@
+query GetSubscriberRevenue($subscriberId: String!) {
+  getSubscriberRevenue(subscriberId: $subscriberId)
+}

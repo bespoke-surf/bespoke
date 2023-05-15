@@ -1,0 +1,5 @@
+mutation ToggleListStar($listId: String!) {
+  toggleListStar(listId: $listId) {
+    ...List
+  }
+}

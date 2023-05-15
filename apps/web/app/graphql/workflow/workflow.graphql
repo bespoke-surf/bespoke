@@ -1,0 +1,40 @@
+fragment Workflow on Workflow {
+  id
+  name
+  workflowStatus
+  public
+  descriptionLexical
+  descriptionHTML
+  replicationCount
+  node {
+    id
+    type
+    position {
+      x
+      y
+    }
+    data {
+      id
+      name
+      workflowStateType
+      workflowActivityType
+      value {
+        ...WorkflowStateValueUnion
+      }
+    }
+  }
+  edge {
+    id
+    source
+    target
+    sourceHandle
+  }
+  flowFilter {
+    ...BaseConditionalFilter
+  }
+  triggerFilter {
+    ...BaseTriggerFilter
+  }
+  createdAt
+  updatedAt
+}

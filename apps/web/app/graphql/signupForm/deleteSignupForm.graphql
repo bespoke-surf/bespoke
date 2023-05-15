@@ -1,0 +1,5 @@
+mutation DeleteSignupForm($signupFormId: String!) {
+  deleteSignupForm(signupFormId: $signupFormId) {
+    ...SignupForm
+  }
+}

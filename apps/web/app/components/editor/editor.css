@@ -1,0 +1,199 @@
+.editor-shell {
+  max-width: 100%;
+  color: #000;
+  position: relative;
+}
+
+.editor-shell .editor-container {
+  position: relative;
+  cursor: text;
+  display: block;
+}
+
+.editor-shell .editor-container.tree-view {
+  border-radius: 0;
+}
+
+.editor-shell span.editor-image {
+  cursor: default;
+  display: inline-block;
+  position: relative;
+  user-select: none;
+}
+
+.editor-shell .editor-image img {
+  display: block;
+  max-width: 100%;
+}
+
+.editor-shell .editor-image img.focused {
+  outline: 2px solid #e60023;
+  user-select: none;
+}
+
+.editor-shell .editor-image .image-caption-container .tree-view-output {
+  margin: 0;
+  border-radius: 0;
+}
+
+.editor-shell .editor-image .image-caption-container {
+  display: block;
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #fff;
+  background-color: rgba(255, 255, 255, 0.9);
+  min-width: 100px;
+  color: #000;
+  overflow: hidden;
+}
+
+.editor-shell .editor-image .image-caption-button {
+  display: block;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  width: 30%;
+  padding: 10px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  min-width: 100px;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+
+.editor-shell .editor-image .image-caption-button:hover {
+  background-color: rgba(60, 132, 244, 0.5);
+}
+
+.editor-shell .editor-image .image-resizer {
+  display: block;
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  /* background-color: rgb(60, 132, 244); */
+  /* border: 1px solid #fff; */
+}
+
+.editor-shell .editor-image .image-resizer.image-resizer-n {
+  top: -6px;
+  left: 48%;
+  cursor: n-resize;
+}
+
+.editor-shell .editor-image .image-resizer.image-resizer-ne {
+  top: -6px;
+  right: -6px;
+  cursor: ne-resize;
+}
+
+.editor-shell .editor-image .image-resizer.image-resizer-e {
+  bottom: 48%;
+  right: -6px;
+  cursor: e-resize;
+}
+
+.editor-shell .editor-image .image-resizer.image-resizer-se {
+  bottom: -5px;
+  right: -6px;
+  cursor: nwse-resize;
+}
+
+.editor-shell .editor-image .image-resizer.image-resizer-s {
+  bottom: -2px;
+  left: 48%;
+  cursor: s-resize;
+}
+
+.editor-shell .editor-image .image-resizer.image-resizer-sw {
+  bottom: 10px;
+  left: -12px;
+  cursor: sw-resize;
+}
+
+.editor-shell .editor-image .image-resizer.image-resizer-w {
+  bottom: 48%;
+  left: -6px;
+  cursor: w-resize;
+}
+
+.editor-shell .editor-image .image-resizer.image-resizer-nw {
+  top: -6px;
+  left: -6px;
+  cursor: nw-resize;
+}
+
+.editor-scroller {
+  /* min-height: 150px; */
+  border: 0;
+  resize: none;
+  cursor: text;
+  display: block;
+  position: relative;
+  outline: 0;
+  overflow: auto;
+  /* resize: vertical; */
+}
+
+.image-control-wrapper--resizing {
+  touch-action: none;
+}
+
+.Placeholder__root {
+  font-size: 15px;
+  color: #999;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 2px;
+  left: 8px;
+  user-select: none;
+  white-space: nowrap;
+  display: inline-block;
+  pointer-events: none;
+  z-index: 88888888;
+}
+
+.draggable-block-menu {
+  border-radius: 4px;
+  padding: 2px 1px;
+  cursor: grab;
+  opacity: 0;
+  position: absolute;
+  left: -3px;
+  top: 0;
+  will-change: transform;
+}
+
+.draggable-block-menu .icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.3;
+  background-image: url(/draggable-block-menu.svg);
+}
+
+.draggable-block-menu:active {
+  cursor: grabbing;
+}
+
+.draggable-block-menu:hover {
+  background-color: #efefef;
+}
+
+.draggable-block-target-line {
+  pointer-events: none;
+  background: #e60023;
+  height: 4px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  will-change: transform;
+}

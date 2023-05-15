@@ -1,0 +1,5 @@
+mutation UnpublishPost($postId: String!) {
+  unpublishPost(postId: $postId) {
+    ...Post
+  }
+}

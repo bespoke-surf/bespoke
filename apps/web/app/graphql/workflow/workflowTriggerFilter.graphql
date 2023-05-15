@@ -1,0 +1,34 @@
+fragment BaseTriggerFilter on BaseTriggerFilter {
+  dimension
+  type
+  value {
+    ... on BaseTriggerFilterTextValue {
+      __typename
+      textExpression
+      textValue
+    }
+    ... on BaseTriggerFilterNumberValue {
+      __typename
+      numberExpression
+      numberValue
+    }
+    ... on BaseTriggerFilterDateValue {
+      __typename
+      dateExpression
+      dateValue1
+      dateValue2
+      dateDate1
+      dateDate2
+      dateDelayType
+    }
+    ... on BaseTriggerFilterBooleanValue {
+      __typename
+      booleanValue
+    }
+    ... on BaseTriggerFilterListValue {
+      __typename
+      listExpression
+      listValue
+    }
+  }
+}

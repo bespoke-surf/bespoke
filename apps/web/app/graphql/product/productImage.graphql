@@ -1,0 +1,7 @@
+fragment ProductImage on ProductImage {
+  src
+  height
+  width
+  mimeType
+  cdnType
+}

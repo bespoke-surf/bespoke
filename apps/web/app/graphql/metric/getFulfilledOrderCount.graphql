@@ -1,0 +1,3 @@
+query GetFulfilledOrderCount($subscriberId: String!) {
+  getFulfilledOrderCount(subscriberId: $subscriberId)
+}

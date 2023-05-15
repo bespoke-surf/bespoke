@@ -1,0 +1,5 @@
+mutation ConvertWorkflowToPublic($workflowId: String!) {
+  convertWorkflowToPublic(workflowId: $workflowId) {
+    ...Workflow
+  }
+}

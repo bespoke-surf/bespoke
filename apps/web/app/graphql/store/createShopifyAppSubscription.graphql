@@ -1,0 +1,5 @@
+mutation CreateShopifyAppSubscription(
+  $input: CreateShopifyAppSubscriptionInput!
+) {
+  createShopifyAppSubscription(input: $input)
+}

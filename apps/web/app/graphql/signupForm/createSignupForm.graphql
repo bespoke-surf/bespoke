@@ -1,0 +1,5 @@
+mutation CreateSignupForm($input: CreateSignupFormInput!) {
+  createSignupForm(input: $input) {
+    ...SignupForm
+  }
+}

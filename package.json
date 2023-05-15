@@ -1,0 +1,48 @@
+{
+  "name": "bespoke",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "commit": "cz",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "dev": "turbo run dev --parallel",
+    "flush": "yarn cache clean &&  lerna clean --yes && rm -rf node_modules && yarn",
+    "postinstall": "patch-package",
+    "release": "lerna version --conventional-commits ",
+    "build": "turbo run build",
+    "build:web": "turbo run build --scope=@bespoke/web --include-dependencies --no-deps --force",
+    "build:server": "turbo run build --scope=@bespoke/server --include-dependencies --no-deps --force",
+    "deploy:server": "fly deploy --config ./fly.server.toml --dockerfile ./Dockerfile.production.server",
+    "deploy:web": "fly deploy --config ./fly.web.toml --dockerfile ./Dockerfile.production.web"
+  },
+  "devDependencies": {
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "3.3.0",
+    "lerna": "^6.6.2",
+    "prettier": "2.8.8",
+    "turbo": "1.9.3"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "patch-package": "^7.0.0",
+    "postinstall-postinstall": "^2.1.0"
+  },
+  "packageManager": "yarn@1.22.19",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "resolutions": {
+    "nanoid": "3.3.4",
+    "typescript": "4.9.5",
+    "immer": "9.0.19"
+  }
+}

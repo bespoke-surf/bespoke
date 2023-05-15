@@ -1,0 +1,5 @@
+query GetDraftPosts($subdomain: String!) {
+  getDraftPosts(subdomain: $subdomain) {
+    ...Post
+  }
+}

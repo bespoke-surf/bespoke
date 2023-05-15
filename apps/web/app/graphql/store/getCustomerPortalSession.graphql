@@ -1,0 +1,3 @@
+query GetCustomerPortalSession($subdomain: String!) {
+  getCustomerPortalSession(subdomain: $subdomain)
+}

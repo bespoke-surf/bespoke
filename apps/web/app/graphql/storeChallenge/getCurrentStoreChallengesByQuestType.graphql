@@ -1,0 +1,11 @@
+query GetCurrentStoreChallengeByQuestType(
+  $subdomain: String!
+  $questType: QuestType!
+) {
+  getCurrentStoreChallengesByQuestType(
+    subdomain: $subdomain
+    questType: $questType
+  ) {
+    ...StoreChallenge
+  }
+}

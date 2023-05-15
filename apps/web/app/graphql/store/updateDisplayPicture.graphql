@@ -1,0 +1,5 @@
+mutation UpdateDisplayPicture($input: UpdateDisplayPictureInput!) {
+  updateDisplayPicture(input: $input) {
+    ...Store
+  }
+}

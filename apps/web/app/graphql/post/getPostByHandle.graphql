@@ -1,0 +1,5 @@
+query GetPostByHandle($postHandle: String!) {
+  getPostByHandle(postHandle: $postHandle) {
+    ...Post
+  }
+}

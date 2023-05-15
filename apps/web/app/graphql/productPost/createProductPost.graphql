@@ -1,0 +1,13 @@
+mutation CreateProductPost(
+  $postId: String!
+  $productIds: [String!]!
+  $nodeKey: String!
+) {
+  createProductPost(
+    postId: $postId
+    productIds: $productIds
+    nodeKey: $nodeKey
+  ) {
+    ...ProductPost
+  }
+}

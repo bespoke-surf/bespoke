@@ -1,0 +1,5 @@
+query GetSignupForms($subdomain: String!) {
+  getSignupForms(subdomain: $subdomain) {
+    ...SignupForm
+  }
+}

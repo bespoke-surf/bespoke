@@ -1,0 +1,11 @@
+mutation UpdateMetricTrigger(
+  $metricType: MetricType!
+  $workflowStateId: String!
+) {
+  updateMetricTrigger(
+    metricType: $metricType
+    workflowStateId: $workflowStateId
+  ) {
+    ...WorkflowState
+  }
+}

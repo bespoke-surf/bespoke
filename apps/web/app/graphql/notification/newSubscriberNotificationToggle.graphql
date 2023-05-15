@@ -1,0 +1,5 @@
+mutation NewSubscriberNotificationToggle($subdomain: String!) {
+  newSubscriberNotificationToggle(subdomain: $subdomain) {
+    ...Notification
+  }
+}

@@ -1,0 +1,5 @@
+mutation UpdateWorkflowName($workflowId: String!, $name: String!) {
+  updateWorkflowName(workflowId: $workflowId, name: $name) {
+    ...Workflow
+  }
+}

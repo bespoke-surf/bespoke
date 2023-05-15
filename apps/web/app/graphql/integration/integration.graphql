@@ -1,0 +1,6 @@
+fragment Integration on Integration {
+  id
+  shopify {
+    ...Shopify
+  }
+}

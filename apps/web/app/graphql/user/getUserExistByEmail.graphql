@@ -1,0 +1,3 @@
+query getUserExistByEmail($email: String!) {
+  getUserExistByEmail(email: $email)
+}

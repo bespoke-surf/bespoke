@@ -1,0 +1,5 @@
+mutation UpdateStoreCurrency($currency: StoreCurrency!, $storeId: String!) {
+  updateStoreCurrency(currency: $currency, storeId: $storeId) {
+    ...Store
+  }
+}

@@ -1,0 +1,17 @@
+query GetSubscriberMetrics(
+  $subscriberId: String!
+  $take: Int!
+  $skip: Int!
+  $metricType: MetricType
+  $allMetric: Boolean
+) {
+  getSubscriberMetrics(
+    subscriberId: $subscriberId
+    take: $take
+    skip: $skip
+    metricType: $metricType
+    allMetric: $allMetric
+  ) {
+    ...Metric
+  }
+}

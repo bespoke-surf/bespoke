@@ -1,0 +1,31 @@
+fragment WorkflowStateValueUnion on WorkflowStateValueUnion {
+  __typename
+  ... on WorkflowStateDelayActivityValue {
+    delayType
+    delayInMilliseconds
+  }
+  ... on WorkflowStateListTriggerActivityValue {
+    listId
+  }
+
+  ... on WorkflowStateSendEmailActivityValue {
+    type
+    design
+    html
+  }
+  ... on WorkflowStateMetricTriggerActivityValue {
+    metricType
+  }
+
+  ... on WorkflowStateConditionalSplitActivityValue {
+    flowFilter {
+      ...BaseConditionalFilter
+    }
+  }
+
+  ... on WorkflowStateTriggerSplitActivityValue {
+    triggerFilter {
+      ...BaseTriggerFilter
+    }
+  }
+}

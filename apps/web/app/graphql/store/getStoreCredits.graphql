@@ -1,0 +1,3 @@
+query GetStoreCredits($subdomain: String!) {
+  getStoreCredits(subdomain: $subdomain)
+}

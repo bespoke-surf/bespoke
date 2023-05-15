@@ -1,0 +1,5 @@
+query GetPosts($subdomain: String!, $take: Int!, $skip: Int!) {
+  getPosts(subdomain: $subdomain, take: $take, skip: $skip) {
+    ...Post
+  }
+}

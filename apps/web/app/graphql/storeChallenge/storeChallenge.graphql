@@ -1,0 +1,10 @@
+fragment StoreChallenge on StoreChallenge {
+  id
+  completedCount
+  completedStages
+  challengeId
+  allCompleted
+  challenge {
+    ...Challenge
+  }
+}

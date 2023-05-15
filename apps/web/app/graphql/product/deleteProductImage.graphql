@@ -1,0 +1,5 @@
+mutation DeleteProductImage($deletingUrl: String!, $productId: String!) {
+  deleteProductImage(deletingUrl: $deletingUrl, productId: $productId) {
+    ...Product
+  }
+}

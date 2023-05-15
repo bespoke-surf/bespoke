@@ -1,0 +1,11 @@
+query GetAllListsOfASubscriber($unsubscriberId: String!) {
+  getAllListsOfASubscriber(unsubscriberId: $unsubscriberId) {
+    ...SubscriberList
+    list {
+      ...List
+    }
+    subscriber {
+      emailStatus
+    }
+  }
+}

@@ -1,0 +1,8 @@
+mutation EmailLogin($input: EmailLoginInput!) {
+  emailLogin(input: $input) {
+    ...User
+    store {
+      ...Store
+    }
+  }
+}

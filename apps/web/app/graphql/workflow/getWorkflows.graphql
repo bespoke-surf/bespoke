@@ -1,0 +1,5 @@
+query getWorkflows($subdomain: String!) {
+  getWorkflows(subdomain: $subdomain) {
+    ...Workflow
+  }
+}

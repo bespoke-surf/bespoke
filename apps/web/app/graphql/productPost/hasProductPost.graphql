@@ -1,0 +1,3 @@
+query HasProductPost($subdomain: String!) {
+  hasProductPost(subdomain: $subdomain)
+}

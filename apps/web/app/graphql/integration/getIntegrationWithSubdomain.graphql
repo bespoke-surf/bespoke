@@ -1,0 +1,5 @@
+query GetIntegrationWithSubdomain($subdomain: String!) {
+  getIntegrationWithSubdomain(subdomain: $subdomain) {
+    ...Integration
+  }
+}

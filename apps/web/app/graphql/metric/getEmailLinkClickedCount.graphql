@@ -1,0 +1,3 @@
+query GetEmailLinkClickedCount($subscriberId: String!) {
+  getEmailLinkClickedCount(subscriberId: $subscriberId)
+}

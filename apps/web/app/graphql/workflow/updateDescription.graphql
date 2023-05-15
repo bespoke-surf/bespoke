@@ -1,0 +1,13 @@
+mutation UpdateWorkflowDescription(
+  $workflowId: String!
+  $descriptionHTML: String!
+  $descriptionLexical: String!
+) {
+  updateWorkflowDescription(
+    workflowId: $workflowId
+    descriptionLexical: $descriptionLexical
+    descriptionHTML: $descriptionHTML
+  ) {
+    ...Workflow
+  }
+}

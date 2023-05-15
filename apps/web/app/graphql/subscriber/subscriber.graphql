@@ -1,0 +1,22 @@
+fragment Subscriber on Subscriber {
+  id
+  subscriberType
+  storeId
+  userId
+  createdAt
+  updatedAt
+  firstName
+  lastName
+  user {
+    ...User
+  }
+  phoneNumber
+  subscriberAddress {
+    address1
+    address2
+    city
+    country
+    state
+    zipCode
+  }
+}

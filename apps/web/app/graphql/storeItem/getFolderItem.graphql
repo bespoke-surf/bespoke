@@ -1,0 +1,8 @@
+query GetFolderItems($subdomain: String!) {
+  getFolderItems(subdomain: $subdomain) {
+    ...StoreItem
+    item {
+      ...Item
+    }
+  }
+}

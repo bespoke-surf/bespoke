@@ -1,0 +1,3 @@
+query GetSubscribersInListCount($listId: String!) {
+  getSubscribersInListCount(listId: $listId)
+}

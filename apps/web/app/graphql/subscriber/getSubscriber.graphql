@@ -1,0 +1,5 @@
+query GetSubscriber($subscriberId: String!) {
+  getSubscriber(subscriberId: $subscriberId) {
+    ...Subscriber
+  }
+}

@@ -1,0 +1,3 @@
+query GetEmailSentThisMonthCount($subdomain: String!) {
+  getEmailSentThisMonthCount(subdomain: $subdomain)
+}

@@ -1,0 +1,5 @@
+mutation CreateNewList($name: String!, $storeId: String!) {
+  createNewList(name: $name, storeId: $storeId) {
+    ...List
+  }
+}

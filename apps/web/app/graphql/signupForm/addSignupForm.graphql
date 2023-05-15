@@ -1,0 +1,5 @@
+mutation AddSignupFormItem($input: AddSignupFormItem!) {
+  addSignupFormItem(input: $input) {
+    ...SignupForm
+  }
+}

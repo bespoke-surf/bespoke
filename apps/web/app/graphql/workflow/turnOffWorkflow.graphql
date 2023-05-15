@@ -1,0 +1,5 @@
+mutation TurnOffWorkflow($workflowId: String!) {
+  turnOffWorkflow(workflowId: $workflowId) {
+    ...Workflow
+  }
+}

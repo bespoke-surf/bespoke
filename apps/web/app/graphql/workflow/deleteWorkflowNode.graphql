@@ -1,0 +1,5 @@
+mutation DeleteWorkflowNode($workflowStateId: String!) {
+  deleteWorkflowNode(workflowStateId: $workflowStateId) {
+    ...Workflow
+  }
+}

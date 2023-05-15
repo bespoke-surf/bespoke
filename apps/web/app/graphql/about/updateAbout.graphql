@@ -1,0 +1,5 @@
+mutation UpdateAbout($input: UpdateAboutInput!) {
+  updateAbout(input: $input) {
+    ...About
+  }
+}

@@ -1,0 +1,11 @@
+query GetStoreEmailMetric($subdomain: String!) {
+  getStoreEmailMetric(subdomain: $subdomain) {
+    contact
+    delivered
+    opened
+    clicked
+    openedTrend
+    clickedTrend
+    deliveredTrend
+  }
+}

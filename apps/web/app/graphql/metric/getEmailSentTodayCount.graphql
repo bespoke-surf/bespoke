@@ -1,0 +1,3 @@
+query GetEmailSentTodayCount($subdomain: String!) {
+  getEmailSentTodayCount(subdomain: $subdomain)
+}

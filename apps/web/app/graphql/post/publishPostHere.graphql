@@ -1,0 +1,3 @@
+mutation PublishPostHere($postId: String!, $postHandle: String!) {
+  publishPostHere(postId: $postId, postHandle: $postHandle)
+}

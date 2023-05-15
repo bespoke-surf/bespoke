@@ -1,0 +1,3 @@
+query GetProductCount($subdomain: String!) {
+  getProductCount(subdomain: $subdomain)
+}

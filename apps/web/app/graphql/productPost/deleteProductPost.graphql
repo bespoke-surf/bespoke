@@ -1,0 +1,5 @@
+mutation DeleteProductPost($postId: String!, $nodeKey: String!) {
+  deleteProductPost(postId: $postId, nodeKey: $nodeKey) {
+    ...ProductPost
+  }
+}

@@ -1,0 +1,9 @@
+query GetBenchmarkData($subdomain: String!) {
+  getBenchmarkData(subdomain: $subdomain) {
+    id
+    opened
+    clicked
+    delivered
+    contact
+  }
+}

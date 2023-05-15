@@ -1,0 +1,3 @@
+mutation ConfirmCodeAndLogin($loginCode: String!) {
+  confirmCodeAndLogin(loginCode: $loginCode)
+}

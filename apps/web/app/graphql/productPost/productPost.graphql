@@ -1,0 +1,5 @@
+fragment ProductPost on ProductPost {
+  id
+  postId
+  productId
+}

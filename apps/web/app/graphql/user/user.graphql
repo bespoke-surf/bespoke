@@ -1,0 +1,7 @@
+# dont give away secrity realted fields of user.
+# email is needed for querying unsubscribe events and subscriber data
+fragment User on User {
+  id
+  email
+  name
+}

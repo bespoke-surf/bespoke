@@ -1,0 +1,4 @@
+fragment Notification on Notification {
+  id
+  newSubscriber
+}

@@ -1,0 +1,8 @@
+query GetAllPublishedPostForSiteMap {
+  getAllPublishedPostForSiteMap {
+    ...Post
+    store {
+      subdomain
+    }
+  }
+}

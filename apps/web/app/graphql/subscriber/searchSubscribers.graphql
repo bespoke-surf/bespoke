@@ -1,0 +1,5 @@
+query SearchSubscribers($searchString: String!, $subdomain: String!) {
+  searchSubscribers(searchString: $searchString, subdomain: $subdomain) {
+    ...Subscriber
+  }
+}

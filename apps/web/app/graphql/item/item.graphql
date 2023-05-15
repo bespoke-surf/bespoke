@@ -1,0 +1,26 @@
+fragment Item on Item {
+  id
+  name
+  credits
+  imageData {
+    height
+    width
+    src
+  }
+  data {
+    ... on ItemEmailTemplateData {
+      design
+    }
+    ... on ItemSignupFormData {
+      formDesign
+      successDesign
+    }
+    ... on ItemCreditsData {
+      credits
+    }
+  }
+  type
+  start_date
+  end_date
+  description
+}

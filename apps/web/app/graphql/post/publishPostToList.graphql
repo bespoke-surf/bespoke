@@ -1,0 +1,7 @@
+mutation PublishPostToList(
+  $postId: String!
+  $listId: String!
+  $postHandle: String!
+) {
+  publishPostToList(postId: $postId, listId: $listId, postHandle: $postHandle)
+}

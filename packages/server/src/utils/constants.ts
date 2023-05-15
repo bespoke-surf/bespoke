@@ -1,0 +1,1 @@
+export const DAYJS_TIMESTAMPZ_FORMAT = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]';

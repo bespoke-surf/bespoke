@@ -1,0 +1,7 @@
+fragment About on About {
+  id
+  about
+  aboutLexical
+  aboutHTML
+  industry
+}

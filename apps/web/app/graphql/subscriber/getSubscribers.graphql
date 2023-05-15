@@ -1,0 +1,5 @@
+query GetSubscribers($subdomain: String!, $skip: Int!, $take: Int!) {
+  getSubscribers(subdomain: $subdomain, skip: $skip, take: $take) {
+    ...Subscriber
+  }
+}

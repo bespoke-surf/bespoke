@@ -1,0 +1,5 @@
+query GetMorePosts($postHandle: String!) {
+  getMorePosts(postHandle: $postHandle) {
+    ...Post
+  }
+}

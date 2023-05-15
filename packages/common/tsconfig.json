@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react",
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "removeComments": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "pretty": true
+  },
+  "exclude": ["node_modules", "dist", "build"],
+  "include": [
+    "./src/**/*.ts",
+    "src/index.ts",
+    "src/graphql/user/updateUserPhoneNumber.tsx"
+  ]
+}

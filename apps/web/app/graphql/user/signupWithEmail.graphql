@@ -1,0 +1,5 @@
+mutation SignupWithEmail($input: CreateUserWithEmailInput!) {
+  signupWithEmail(input: $input) {
+    ...User
+  }
+}

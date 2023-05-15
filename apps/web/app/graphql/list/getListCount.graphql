@@ -1,0 +1,3 @@
+query GetListCount($subdomain: String!) {
+  getListCount(subdomain: $subdomain)
+}

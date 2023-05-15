@@ -1,0 +1,5 @@
+mutation RemoveShopifyIntegration($shopifyId: String!) {
+  removeShopifyIntegration(shopifyId: $shopifyId) {
+    ...Shopify
+  }
+}

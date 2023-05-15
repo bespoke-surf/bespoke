@@ -1,0 +1,5 @@
+query GetStoreWithSubdomain($subdomain: String!) {
+  getStoreWithSubdomain(subdomain: $subdomain) {
+    ...Store
+  }
+}

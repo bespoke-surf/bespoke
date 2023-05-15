@@ -1,0 +1,427 @@
+/*! CSS Used from: https://s.pinimg.com/webapp/PricingShopifyBusiness/_client-06d344d93ca15eb2.css */
+.trackingDiv {
+  display: inherit;
+  height: inherit;
+  width: inherit;
+}
+.PricingShopifyBusinessButton {
+  background: transparent;
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  min-width: 70px;
+  padding: 0 14px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.1s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.PricingShopifyBusinessButton .PricingShopifyBusinessText {
+  transition: color 0.1s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.PricingShopifyBusinessButtonText {
+  align-self: center;
+  display: inline-block;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .PricingShopifyBusinessButton {
+    border-radius: 25px;
+    height: 50px;
+    min-width: 80px;
+    padding: 0 19px;
+  }
+}
+@media (min-width: 1024px) {
+  .PricingShopifyBusinessButton {
+    border-radius: 30px;
+    height: 60px;
+    min-width: 80px;
+    padding: 0 24px;
+  }
+}
+.PricingShopifyBusinessButton:focus {
+  outline: 0;
+}
+::-webkit-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+::-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+:-ms-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+:-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+.PricingShopifyBusinessGridParent {
+  grid-column-gap: 8px;
+  grid-row-gap: 10px;
+  -moz-column-gap: 8px;
+  column-gap: 8px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  margin: 0 16px;
+  row-gap: 10px;
+}
+@media (min-width: 768px) {
+  .PricingShopifyBusinessGridParent {
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    margin: 0 56px;
+    row-gap: 25px;
+  }
+}
+@media (min-width: 1024px) {
+  .PricingShopifyBusinessGridParent {
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    margin: 0 112px;
+    max-width: 1696px;
+    row-gap: 32px;
+  }
+}
+@media (min-width: 1920px) {
+  .PricingShopifyBusinessGridParent {
+    margin: 0 auto;
+  }
+}
+.PricingShopifyBusinessGridItem {
+  grid-column: auto/auto;
+  position: relative;
+}
+.PricingShopifyBusinessGridItem--span-8 {
+  grid-column-end: span 8;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .PricingShopifyBusinessGridItem--span-m-10 {
+    grid-column-end: span 10;
+  }
+  .PricingShopifyBusinessGridItem--start-m-2 {
+    grid-column-start: 2;
+  }
+}
+@media (min-width: 1024px) {
+  .PricingShopifyBusinessGridItem--span-l-14 {
+    grid-column-end: span 14;
+  }
+  .PricingShopifyBusinessGridItem--start-l-6 {
+    grid-column-start: 6;
+  }
+}
+.PricingShopifyBusinessImageWithCaption {
+  width: 100%;
+}
+.PricingShopifyBusinessImageWithCaption__image {
+  padding-bottom: 24px;
+  width: 100%;
+}
+.PricingShopifyBusinessText {
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  transition: color 0.45s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.PricingShopifyBusinessText sup {
+  font-size: 59%;
+  position: relative;
+  top: -0.4em;
+  vertical-align: baseline;
+}
+.PricingShopifyBusinessText--centered {
+  text-align: center;
+}
+.PricingShopifyBusinessText--bold {
+  font-weight: 700;
+}
+.PricingShopifyBusinessText--cta {
+  font-size: 16px;
+  line-height: 135%;
+}
+.BlogContentWrapperHeaderCtas {
+  margin: 28px 0 0;
+}
+@media (max-width: 767px) {
+  .BlogContentWrapperHeaderCtas {
+    margin: 2px 0 0;
+  }
+  .BlogContentWrapperHeaderCtas
+    .PricingShopifyBusinessButtonCollection__button-wrapper {
+    margin-top: 24px;
+  }
+}
+@media (min-width: 1024px) {
+  .BlogContentWrapperHeaderCtas {
+    margin: 18px 0 0;
+  }
+  .BlogContentWrapperHeaderCtas .PricingShopifyBusinessGridItem {
+    grid-column-end: span 24 !important;
+    grid-column-start: 1 !important;
+  }
+}
+.PricingShopifyBusinessButtonCollection {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 4px;
+}
+.PricingShopifyBusinessButtonCollection__button-wrapper {
+  margin-top: 14px;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .PricingShopifyBusinessButtonCollection {
+    flex-direction: row;
+    margin-bottom: 20px;
+    margin-top: 6px;
+  }
+  .PricingShopifyBusinessButtonCollection__button-wrapper {
+    margin-right: 14px;
+    margin-top: 14px;
+  }
+}
+@media (min-width: 1024px) {
+  .PricingShopifyBusinessButtonCollection {
+    flex-direction: row;
+    margin-bottom: 24px;
+  }
+  .PricingShopifyBusinessButtonCollection__button-wrapper {
+    margin-right: 16px;
+    margin-top: 16px;
+  }
+}
+.PricingShopifyBusinessFlexibleHeader {
+  transition: background-color 0.45s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured__firstItem
+  .PricingShopifyBusinessFlexibleHeader {
+  align-items: center;
+  display: flex;
+  min-height: 100%;
+}
+.PricingShopifyBusinessFlexibleHeader__h3
+  .PricingShopifyBusinessFlexibleHeader__container.PricingShopifyBusinessFlexibleHeaderGridAlignment__center {
+  margin: auto;
+}
+.BlogContentWrapperHeaderCtas.PricingShopifyBusinessFlexibleHeaderGridAlignment__center
+  .PricingShopifyBusinessButtonCollection {
+  justify-content: center;
+}
+.PricingShopifyBusinessFlexibleHeader__h3
+  .PricingShopifyBusinessFlexibleHeader__container {
+  margin: auto;
+  max-width: 906px;
+}
+.PricingShopifyBusinessFlexibleHeader__h3
+  .PricingShopifyBusinessFlexibleHeaderGrid {
+  grid-column-end: span 18;
+  padding: 72px 0;
+}
+.PricingShopifyBusinessFlexibleHeader__h3
+  .PricingShopifyBusinessFlexibleHeaderGrid__center {
+  grid-column-start: 4;
+}
+.PricingShopifyBusinessFlexibleHeader__title h3 {
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 115%;
+  margin: 0;
+  padding: 24px 0;
+}
+.PricingShopifyBusinessFlexibleHeader__title p {
+  margin: 0;
+}
+.PricingShopifyBusinessFlexibleHeader__h3
+  .PricingShopifyBusinessFlexibleHeader__content {
+  line-height: 130%;
+}
+.PricingShopifyBusinessFlexibleHeader__h3
+  .PricingShopifyBusinessFlexibleHeader__content {
+  font-size: 20px;
+}
+.PricingShopifyBusinessFlexibleHeader
+  .PricingShopifyBusinessFlexibleHeader__content {
+  padding: 12px 0;
+}
+.PricingShopifyBusinessFlexibleHeader .BlogContentWrapperHeaderCtas {
+  margin: 0;
+  padding: 8px 0 24px;
+}
+.PricingShopifyBusinessFlexibleHeader
+  .BlogContentWrapperHeaderCtas
+  .PricingShopifyBusinessButtonCollection {
+  padding: 0;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .PricingShopifyBusinessFlexibleHeader__h3
+    .PricingShopifyBusinessFlexibleHeaderGrid {
+    grid-column-end: span 12;
+    grid-column-start: 1;
+  }
+  .PricingShopifyBusinessFlexibleHeader__h3
+    .PricingShopifyBusinessFlexibleHeaderGrid {
+    padding: 56px 0;
+  }
+  .PricingShopifyBusinessFlexibleHeader__title h3 {
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 115%;
+  }
+  .PricingShopifyBusinessFlexibleHeader__h3
+    .PricingShopifyBusinessFlexibleHeader__content {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .PricingShopifyBusinessFlexibleHeader__h3
+    .PricingShopifyBusinessFlexibleHeaderGrid {
+    grid-column-end: span 8;
+    grid-column-start: 1;
+  }
+  .PricingShopifyBusinessFlexibleHeader__h3
+    .PricingShopifyBusinessFlexibleHeaderGrid {
+    padding: 48px 0;
+  }
+  .PricingShopifyBusinessFlexibleHeader__title h3 {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 115%;
+  }
+  .PricingShopifyBusinessFlexibleHeader__h3
+    .PricingShopifyBusinessFlexibleHeader__content {
+    font-size: 18px;
+  }
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  min-height: 720px;
+  padding: 0;
+  width: 100%;
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured
+  .PricingShopifyBusinessGridParent {
+  grid-template-columns: repeat(24, minmax(0, 1fr));
+  margin: 0;
+  max-width: 1696px;
+  row-gap: 32px;
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured__itemContainer {
+  align-items: center;
+  align-self: stretch;
+  transition: background-color 0.45s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+  width: 50%;
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured__itemSubContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  position: relative;
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured__itemContainer--imageWithCaption {
+  height: 100%;
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured__itemContainer--imageWithCaption
+  div {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured__itemContainer--imageWithCaption
+  img {
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+}
+.PricingShopifyBusinessEditorialTwoColumnFeatured__firstItem,
+.PricingShopifyBusinessEditorialTwoColumnFeatured__secondItem {
+  align-items: center;
+  align-self: stretch;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .PricingShopifyBusinessEditorialTwoColumnFeatured
+    .PricingShopifyBusinessGridParent {
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    margin: 0;
+    row-gap: 25px;
+  }
+  .PricingShopifyBusinessEditorialTwoColumnFeatured {
+    min-height: 348px;
+  }
+  .PricingShopifyBusinessEditorialTwoColumnFeatured__itemSubContainer
+    .PricingShopifyBusinessFlexibleHeader {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 767px) {
+  .PricingShopifyBusinessEditorialTwoColumnFeatured {
+    padding: 0;
+  }
+  .PricingShopifyBusinessEditorialTwoColumnFeatured
+    .PricingShopifyBusinessGridParent {
+    grid-column-gap: 8px;
+    grid-row-gap: 10px;
+    -moz-column-gap: 8px;
+    column-gap: 8px;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    padding: 0 16px;
+    row-gap: 10px;
+  }
+  .PricingShopifyBusinessEditorialTwoColumnFeatured {
+    flex-wrap: wrap;
+  }
+  .PricingShopifyBusinessEditorialTwoColumnFeatured__itemContainer {
+    width: 100%;
+  }
+  .PricingShopifyBusinessEditorialTwoColumnFeatured__itemSubContainer
+    .PricingShopifyBusinessFlexibleHeader {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+p {
+  margin-bottom: auto;
+  margin-top: auto;
+}

@@ -1,0 +1,3 @@
+mutation CheckPostHandleAvailable($postId: String!, $handle: String!) {
+  checkPostHandleAvailable(postId: $postId, handle: $handle)
+}

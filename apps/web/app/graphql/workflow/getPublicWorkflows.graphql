@@ -1,0 +1,9 @@
+query GetPublicWorkflows($take: Int!, $skip: Int!) {
+  getPublicWorkflows(take: $take, skip: $skip) {
+    ...Workflow
+    store {
+      name
+      id
+    }
+  }
+}

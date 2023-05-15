@@ -1,0 +1,5 @@
+mutation UpdateTriggerFilter($input: UpdateTriggerFilterInput!) {
+  updateTriggerFilter(input: $input) {
+    ...Workflow
+  }
+}

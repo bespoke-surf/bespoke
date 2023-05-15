@@ -1,0 +1,5 @@
+mutation UpdateFlowFilter($input: UpdateFlowFilterInput!) {
+  updateFlowFilter(input: $input) {
+    ...Workflow
+  }
+}

@@ -1,0 +1,5 @@
+query GetAbout($subdomain: String!) {
+  getAbout(subdomain: $subdomain) {
+    ...About
+  }
+}

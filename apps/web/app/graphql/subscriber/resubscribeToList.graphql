@@ -1,0 +1,5 @@
+mutation ResubscribeToList($listId: String!, $unsubscribeId: String!) {
+  resubscribeToList(listId: $listId, unsubscribeId: $unsubscribeId) {
+    ...Subscriber
+  }
+}

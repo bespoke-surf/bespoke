@@ -1,0 +1,5 @@
+mutation CreateMetricTrigger($metricType: MetricType!, $workflowId: String!) {
+  createMetricTrigger(metricType: $metricType, workflowId: $workflowId) {
+    ...WorkflowState
+  }
+}

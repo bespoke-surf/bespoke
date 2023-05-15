@@ -1,0 +1,7 @@
+fragment List on List {
+  id
+  name
+  members
+  createdAt
+  starred
+}

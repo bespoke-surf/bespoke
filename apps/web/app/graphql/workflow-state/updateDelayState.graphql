@@ -1,0 +1,5 @@
+mutation UpdateDelayState($input: UpdateDelayStateInput!) {
+  updateDelayState(input: $input) {
+    ...WorkflowState
+  }
+}

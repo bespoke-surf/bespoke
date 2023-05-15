@@ -1,0 +1,5 @@
+query GetUserStore {
+  getUserStore {
+    ...Store
+  }
+}

@@ -1,0 +1,5 @@
+mutation createConditionalSplitNode($input: CreateConditionalSplitNodeInput!) {
+  createConditionalSplitNode(input: $input) {
+    ...WorkflowState
+  }
+}

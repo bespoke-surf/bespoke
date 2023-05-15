@@ -1,0 +1,266 @@
+/*! CSS Used from: https://s.pinimg.com/webapp/65799-27a6e0509066ce86.css */
+.iyn:focus {
+  box-shadow: 0 0 0 4px rgba(0, 132, 255, 0.5);
+  outline: 0;
+}
+.Hsu {
+  box-sizing: border-box;
+}
+/*! CSS Used from: https://s.pinimg.com/webapp/InspirationTopTextBusiness/_client-06d344d93ca15eb2.css */
+::-webkit-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+::-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+:-ms-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+:-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+.InspirationTopTextBusinessGridParent {
+  grid-column-gap: 8px;
+  grid-row-gap: 10px;
+  -moz-column-gap: 8px;
+  column-gap: 8px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  margin: 0 16px;
+  row-gap: 10px;
+}
+@media (min-width: 768px) {
+  .InspirationTopTextBusinessGridParent {
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    margin: 0 56px;
+    row-gap: 25px;
+  }
+}
+@media (min-width: 1024px) {
+  .InspirationTopTextBusinessGridParent {
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    margin: 0 112px;
+    max-width: 1696px;
+    row-gap: 32px;
+  }
+}
+@media (min-width: 1920px) {
+  .InspirationTopTextBusinessGridParent {
+    margin: 0 auto;
+  }
+}
+.InspirationTopTextBusinessText {
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  transition: color 0.45s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.InspirationTopTextBusinessText--centered {
+  text-align: center;
+}
+.InspirationTopTextBusinessFlexibleHeader {
+  transition: background-color 0.45s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.InspirationTopTextBusinessFlexibleHeader__h2
+  .InspirationTopTextBusinessFlexibleHeader__container.InspirationTopTextBusinessFlexibleHeaderGridAlignment__center {
+  margin: auto;
+}
+.InspirationTopTextBusinessFlexibleHeader__h2
+  .InspirationTopTextBusinessFlexibleHeader__container {
+  margin: auto;
+  max-width: 1008px;
+}
+.InspirationTopTextBusinessFlexibleHeader__h2
+  .InspirationTopTextBusinessFlexibleHeaderGrid {
+  grid-column-end: span 24;
+  grid-column-start: 1;
+  padding: 84px 0;
+}
+.InspirationTopTextBusinessFlexibleHeader__title h2 {
+  font-size: 64px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 115%;
+  margin: 0;
+  padding: 32px 0;
+}
+.InspirationTopTextBusinessFlexibleHeader__h2
+  .InspirationTopTextBusinessFlexibleHeader__content {
+  line-height: 130%;
+}
+.InspirationTopTextBusinessFlexibleHeader__h2
+  .InspirationTopTextBusinessFlexibleHeader__content {
+  font-size: 24px;
+}
+.InspirationTopTextBusinessFlexibleHeader
+  .InspirationTopTextBusinessFlexibleHeader__content {
+  padding: 12px 0;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .InspirationTopTextBusinessFlexibleHeader__h2
+    .InspirationTopTextBusinessFlexibleHeaderGrid {
+    grid-column-end: span 12;
+    grid-column-start: 1;
+  }
+  .InspirationTopTextBusinessFlexibleHeader__h2
+    .InspirationTopTextBusinessFlexibleHeaderGrid {
+    padding: 64px 0;
+  }
+  .InspirationTopTextBusinessFlexibleHeader__title h2 {
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 115%;
+  }
+  .InspirationTopTextBusinessFlexibleHeader__h2
+    .InspirationTopTextBusinessFlexibleHeader__content {
+    font-size: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .InspirationTopTextBusinessFlexibleHeader__h2
+    .InspirationTopTextBusinessFlexibleHeaderGrid {
+    grid-column-end: span 8;
+    grid-column-start: 1;
+  }
+  .InspirationTopTextBusinessFlexibleHeader__h2
+    .InspirationTopTextBusinessFlexibleHeaderGrid {
+    padding: 56px 0;
+  }
+  .InspirationTopTextBusinessFlexibleHeader__title h2 {
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 115%;
+  }
+  .InspirationTopTextBusinessFlexibleHeader__h2
+    .InspirationTopTextBusinessFlexibleHeader__content {
+    font-size: 20px;
+  }
+}
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+p {
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+/*! CSS Used from: https://s.pinimg.com/webapp/business/_client-06d344d93ca15eb2.css */
+.InspirationImageBusinessEditorialSingleImageAndCaption {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.InspirationImageBusinessEditorialSingleImageAndCaption__FullColumn {
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 767px) {
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumn {
+    padding: 24px 13px;
+  }
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumnCaption {
+    box-sizing: border-box;
+    padding-bottom: 24px;
+    padding-top: 9px;
+    width: 167px;
+  }
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumnImage {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumn {
+    padding: 36px 50px;
+  }
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumnCaption {
+    box-sizing: border-box;
+    padding-top: 9px;
+    width: 205px;
+  }
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumnImage {
+    width: 100%;
+  }
+}
+@media (min-width: 1024px) {
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumn {
+    padding: 60px 101px;
+  }
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumnCaption {
+    box-sizing: border-box;
+    padding-top: 24px;
+    width: 176px;
+  }
+  .InspirationImageBusinessEditorialSingleImageAndCaption__FullColumnImage {
+    width: 100%;
+  }
+}
+::-webkit-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+::-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+:-ms-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+:-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+.InspirationImageBusinessText {
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  transition: color 0.45s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.InspirationImageBusinessText--t6 {
+  font-size: 13px;
+  line-height: 135%;
+}
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+p {
+  margin-bottom: auto;
+  margin-top: auto;
+}

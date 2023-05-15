@@ -1,0 +1,5 @@
+query GetProducts($subdomain: String!, $take: Int!, $skip: Int!) {
+  getProducts(subdomain: $subdomain, take: $take, skip: $skip) {
+    ...Product
+  }
+}

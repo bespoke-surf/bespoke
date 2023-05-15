@@ -1,0 +1,9 @@
+fragment Quest on Quest {
+  id
+  name
+  description
+  questType
+  challenges {
+    ...Challenge
+  }
+}

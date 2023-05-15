@@ -1,0 +1,14 @@
+fragment Product on Product {
+  id
+  name
+  description
+  storeId
+  price
+  hidden
+  productType
+  externalLink
+  productSource
+  image {
+    ...ProductImage
+  }
+}

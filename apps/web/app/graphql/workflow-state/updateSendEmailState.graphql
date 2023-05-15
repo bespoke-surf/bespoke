@@ -1,0 +1,5 @@
+mutation UpdateSendEmailState($input: UpdateSendEmailStateInput!) {
+  updateSendEmailState(input: $input) {
+    ...WorkflowState
+  }
+}

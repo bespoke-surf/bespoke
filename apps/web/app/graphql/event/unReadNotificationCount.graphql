@@ -1,0 +1,3 @@
+query unReadNotificationCount {
+  unReadNotificationCount
+}

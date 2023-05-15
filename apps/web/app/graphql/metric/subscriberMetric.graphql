@@ -1,0 +1,15 @@
+fragment Metric on Metric {
+  id
+  metricType
+  message
+  postId
+  listId
+  data {
+    ...MetricData
+  }
+  subscriberId
+  subscriber {
+    ...Subscriber
+  }
+  createdAt
+}

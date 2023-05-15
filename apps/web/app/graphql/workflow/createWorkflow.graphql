@@ -1,0 +1,5 @@
+mutation CreateWorkflow($storeId: String!) {
+  createWorkflow(storeId: $storeId) {
+    ...Workflow
+  }
+}

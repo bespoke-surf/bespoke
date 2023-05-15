@@ -1,0 +1,22 @@
+fragment Post on Post {
+  id
+  title
+  subTitle
+  bodyLexical
+  bodyHTML
+  postState
+  publishedDate
+  storeId
+  postHandle
+  postViewCount
+  postOpenCount
+  postRecipientCount
+  image {
+    src
+    width
+    height
+  }
+  store {
+    userId
+  }
+}

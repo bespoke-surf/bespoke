@@ -1,0 +1,5 @@
+mutation DismissNotification($eventId: String!) {
+  dismissNotification(eventId: $eventId) {
+    ...Event
+  }
+}

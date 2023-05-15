@@ -1,0 +1,12 @@
+.Handle::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -2px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: #f1f2f3;
+  clip-path: inset(0 0 0 50%);
+  z-index: 1;
+}

@@ -1,0 +1,41 @@
+fragment MetricData on MetricData {
+  __typename
+  ... on MetricShopifyPlacedOrder {
+    type
+    id
+    subtotal_price
+    total_price
+  }
+  ... on MetricShopifyCheckoutUpdate {
+    type
+    id
+  }
+
+  ... on MetricShopifyFulfilledOrder {
+    type
+    id
+  }
+
+  ... on MetricEmailLinkClicked {
+    type
+    link
+  }
+
+  ... on MetricShopifyCancelledOrder {
+    type
+    id
+  }
+
+  ... on MetricPostViewed {
+    type
+    referer
+    ipAddress
+    utm {
+      campaign
+      source
+      term
+      medium
+      content
+    }
+  }
+}

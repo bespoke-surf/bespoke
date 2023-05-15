@@ -1,0 +1,9 @@
+fragment Shopify on Shopify {
+  id
+  sessionExpired
+  storeUrl
+  authenticated
+  productSyncJobId
+  customerSyncJobId
+  listIdToCollectEmail
+}

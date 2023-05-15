@@ -1,0 +1,5 @@
+mutation CompleteOnboarding($input: CompleteOnboardingInput!) {
+  completeOnboarding(input: $input) {
+    ...Store
+  }
+}

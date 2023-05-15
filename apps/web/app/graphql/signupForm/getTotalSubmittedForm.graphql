@@ -1,0 +1,3 @@
+query GetTotalSubmittedForm($subdomain: String!) {
+  getTotalSubmittedForm(subdomain: $subdomain)
+}

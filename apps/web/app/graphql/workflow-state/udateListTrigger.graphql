@@ -1,0 +1,5 @@
+mutation UpdateListTrigger($listId: String!, $workflowStateId: String!) {
+  updateListTrigger(listId: $listId, workflowStateId: $workflowStateId) {
+    ...WorkflowState
+  }
+}

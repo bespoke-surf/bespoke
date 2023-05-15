@@ -1,0 +1,7 @@
+query GetStarredLists($subdomain: String!) {
+  getStarredLists(subdomain: $subdomain) {
+    ...List
+    addedToday
+    addedThisWeek
+  }
+}

@@ -1,0 +1,11 @@
+mutation DeleteWorkflowTransition(
+  $workflowId: String!
+  $workflowTransitionId: String!
+) {
+  deleteWorkflowTransition(
+    workflowId: $workflowId
+    workflowTransitionId: $workflowTransitionId
+  ) {
+    ...WorkflowState
+  }
+}

@@ -1,0 +1,5 @@
+mutation CreateSendEmailNode($input: CreateSendEmailNodeInput!) {
+  createSendEmailNode(input: $input) {
+    ...WorkflowState
+  }
+}

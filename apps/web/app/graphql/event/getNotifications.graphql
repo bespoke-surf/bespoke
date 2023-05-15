@@ -1,0 +1,5 @@
+query GetNotifications($take: Int!, $skip: Int!) {
+  getNotifications(take: $take, skip: $skip) {
+    ...Event
+  }
+}

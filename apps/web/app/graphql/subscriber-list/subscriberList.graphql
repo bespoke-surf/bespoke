@@ -1,0 +1,14 @@
+fragment SubscriberList on SubscriberList {
+  id
+  listId
+  subscriberId
+  subscriber {
+    ...Subscriber
+  }
+  emailConcent {
+    state
+    optInLevel
+    collectedFrom
+  }
+  createdAt
+}

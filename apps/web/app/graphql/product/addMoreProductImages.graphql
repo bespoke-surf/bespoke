@@ -1,0 +1,5 @@
+mutation AddMoreProductImages($input: AddMoreProductImagesInput!) {
+  addMoreProductImages(input: $input) {
+    ...Product
+  }
+}

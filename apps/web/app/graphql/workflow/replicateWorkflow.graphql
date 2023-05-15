@@ -1,0 +1,5 @@
+mutation ReplicateWorkflow($storeId: String!, $replicaWorkflowId: String!) {
+  replicateWorkflow(storeId: $storeId, replicaWorkflowId: $replicaWorkflowId) {
+    ...Workflow
+  }
+}

@@ -1,0 +1,142 @@
+/*! CSS Used from: https://s.pinimg.com/webapp/PricingHeaderPricingHeadeBusiness/_client-06d344d93ca15eb2.css */
+::-webkit-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+::-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+:-ms-input-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+:-moz-placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+.PricingHeadeBusinessGridParent {
+  grid-column-gap: 8px;
+  grid-row-gap: 10px;
+  -moz-column-gap: 8px;
+  column-gap: 8px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  margin: 0 16px;
+  row-gap: 10px;
+}
+@media (min-width: 768px) {
+  .PricingHeadeBusinessGridParent {
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    margin: 0 56px;
+    row-gap: 25px;
+  }
+}
+@media (min-width: 1024px) {
+  .PricingHeadeBusinessGridParent {
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    margin: 0 112px;
+    max-width: 1696px;
+    row-gap: 32px;
+  }
+}
+@media (min-width: 1920px) {
+  .PricingHeadeBusinessGridParent {
+    margin: 0 auto;
+  }
+}
+.PricingHeadeBusinessText {
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  transition: color 0.45s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.PricingHeadeBusinessText--centered {
+  text-align: center;
+}
+.PricingHeadeBusinessFlexibleHeader {
+  transition: background-color 0.45s cubic-bezier(0.21, 0.01, 0.21, 0.96);
+}
+.PricingHeadeBusinessFlexibleHeader__h1
+  .PricingHeadeBusinessFlexibleHeader__container.PricingHeadeBusinessFlexibleHeaderGridAlignment__center {
+  margin: auto;
+}
+.PricingHeadeBusinessFlexibleHeader__h1
+  .PricingHeadeBusinessFlexibleHeader__container {
+  margin: auto;
+  max-width: 1008px;
+}
+.PricingHeadeBusinessFlexibleHeader__h1
+  .PricingHeadeBusinessFlexibleHeaderGrid {
+  grid-column-end: span 24;
+  grid-column-start: 1;
+  padding: 96px 0;
+}
+.PricingHeadeBusinessFlexibleHeader__title h1 {
+  font-size: 78px;
+  font-weight: 400;
+  letter-spacing: -0.007em;
+  line-height: 110%;
+  margin: 0;
+  padding: 40px 0;
+}
+.PricingHeadeBusinessFlexibleHeader__title p {
+  margin: 0;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .PricingHeadeBusinessFlexibleHeader__h1
+    .PricingHeadeBusinessFlexibleHeaderGrid {
+    grid-column-end: span 12;
+    grid-column-start: 1;
+  }
+  .PricingHeadeBusinessFlexibleHeader__h1
+    .PricingHeadeBusinessFlexibleHeaderGrid {
+    padding: 72px 0;
+  }
+  .PricingHeadeBusinessFlexibleHeader__title h1 {
+    font-size: 60px;
+    letter-spacing: -0.005em;
+    line-height: 110%;
+  }
+}
+@media (max-width: 767px) {
+  .PricingHeadeBusinessFlexibleHeader__h1
+    .PricingHeadeBusinessFlexibleHeaderGrid {
+    grid-column-end: span 8;
+    grid-column-start: 1;
+  }
+  .PricingHeadeBusinessFlexibleHeader__h1
+    .PricingHeadeBusinessFlexibleHeaderGrid {
+    padding: 60px 0;
+  }
+  .PricingHeadeBusinessFlexibleHeader__title h1 {
+    font-size: 46px;
+    letter-spacing: 0;
+    line-height: 115%;
+  }
+}
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    Helvetica, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ",
+    Meiryo, "ＭＳ Ｐゴシック", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+p {
+  margin-bottom: auto;
+  margin-top: auto;
+}

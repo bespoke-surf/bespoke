@@ -1,0 +1,5 @@
+query GetSignupForm($signupFormId: String!) {
+  getSignupForm(signupFormId: $signupFormId) {
+    ...SignupForm
+  }
+}

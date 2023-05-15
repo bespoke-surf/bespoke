@@ -1,0 +1,3 @@
+query GetStoreRevenue($subdomain: String!) {
+  getStoreRevenue(subdomain: $subdomain)
+}

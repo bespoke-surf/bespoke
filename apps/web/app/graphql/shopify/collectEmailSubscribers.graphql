@@ -1,0 +1,5 @@
+mutation CollectEmailSubscribers($shopifyId: String!, $listId: String!) {
+  collectEmailSubscribers(shopifyId: $shopifyId, listId: $listId) {
+    ...Shopify
+  }
+}

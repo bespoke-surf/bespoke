@@ -1,0 +1,5 @@
+mutation StopShopifyCustomerSync($shopifyId: String!) {
+  stopShopifyCustomerSync(shopifyId: $shopifyId) {
+    ...Shopify
+  }
+}

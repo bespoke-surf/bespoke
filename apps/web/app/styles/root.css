@@ -1,0 +1,20 @@
+html,
+body {
+  margin: 0px;
+  white-space: pre-line;
+  scroll-behavior: auto;
+}
+
+/* hr {
+  background: #dadde1;
+  color: #dadde1;
+  border-top: solid !important;
+} */
+
+.pOA {
+  overflow: auto;
+}
+
+a {
+  text-decoration: none;
+}

@@ -1,0 +1,8 @@
+mutation UpdateDefaultListIdToCollectEmail(
+  $storeId: String!
+  $listId: String!
+) {
+  updateDefaultListIdToCollectEmail(storeId: $storeId, listId: $listId) {
+    ...Store
+  }
+}
