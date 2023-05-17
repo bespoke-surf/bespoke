@@ -26,7 +26,7 @@
     "@apollo/server": "^4.7.1",
     "@aws-sdk/client-ses": "^3.329.0",
     "@aws-sdk/credential-provider-node": "^3.329.0",
-    "@bespoke/common": "^1.27.22",
+    "@bespoke/common": "^0.0.1",
     "@bull-board/api": "^5.1.2",
     "@bull-board/express": "^5.1.2",
     "@liaoliaots/nestjs-redis": "^9.0.5",

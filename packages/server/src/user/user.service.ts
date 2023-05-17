@@ -28,7 +28,6 @@ import { List } from '../list/list.entity';
 import { ListService } from '../list/list.service';
 import { NotificationService } from '../notification/notification.service';
 import { PosthogService } from '../posthog/posthog.service';
-import { SendgridService } from '../sendgrid/sendgrid.service';
 import { SesService } from '../ses/ses.service';
 import { ShopifySessionStorage } from '../session/shopifySessionStorage';
 import { Shopify } from '../shopify/shopify.entity';
@@ -89,7 +88,6 @@ export class UserService {
     private stripeService: StripeService,
     private postHogService: PosthogService,
     @InjectRedis() private redis: Redis,
-    private sendgridService: SendgridService,
     @InjectShopify() private readonly shopifyApi: ShopifyApi,
     @InjectSentry() private readonly sentryService: SentryService,
     private eventService: EventService,
@@ -181,40 +179,6 @@ export class UserService {
           email: input.email,
         },
       });
-
-      this.sendgridService.welcomeEmail(input.email);
-
-      const NODE_ENV = this.configService.get('NODE_ENV');
-      const SENDGRID_USERS_LIST_ID = this.configService.get(
-        'SENDGRID_USERS_LIST_ID',
-      );
-
-      invariant(
-        typeof SENDGRID_USERS_LIST_ID === 'string',
-        'SENDGRID_USERS_LIST_ID is missing',
-      );
-
-      const data = {
-        list_ids: [process.env.SENDGRID_USERS_LIST_ID],
-        contacts: [
-          {
-            email: input.email,
-            first_name: input.name,
-          },
-        ],
-      };
-
-      if (NODE_ENV === 'production') {
-        this.sendgridService.sendGridClient
-          .request({
-            url: `/v3/marketing/contacts`,
-            method: 'PUT',
-            body: data,
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
 
       return user ?? null;
     } catch (err) {

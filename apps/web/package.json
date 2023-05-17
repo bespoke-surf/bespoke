@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.329.0",
-    "@bespoke/common": "^1.27.22",
+    "@bespoke/common": "^0.0.1",
     "@lexical/code": "^0.10.0",
     "@lexical/hashtag": "^0.10.0",
     "@lexical/html": "^0.10.0",

@@ -23,8 +23,6 @@ export interface EnvironmentVariables {
   FRONTEND_HOST_PROTOCOL: string;
   SESSION_SECRET: string;
   DATABASE_URL: string;
-  SENDGRID_API_KEY: string;
-  SENDGRID_WEBHOOK_KEY: string;
   STRIPE_SECRET_KEY: string;
   STRIPE_PRICE_ID_BESPOKE_EMAIL_MONTHLY: string;
   STRIPE_WEBHOOK_SECRET: string;
@@ -33,8 +31,6 @@ export interface EnvironmentVariables {
   POSTHOG_KEY: string;
   AWS_ACCESS_KEY_ID: string;
   AWS_SECRET_ACCESS_KEY: string;
-  SENDGRID_USER_CUSTOMERS_LIST_ID: string;
-  SENDGRID_USERS_LIST_ID: string;
   PRIMARY_REGION: string;
   FLY_REGION: string;
 }

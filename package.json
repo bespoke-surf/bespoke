@@ -17,7 +17,7 @@
     "build:web": "turbo run build --scope=@bespoke/web --include-dependencies --no-deps --force",
     "build:server": "turbo run build --scope=@bespoke/server --include-dependencies --no-deps --force",
     "deploy:server": "fly deploy --config ./fly.server.toml --dockerfile ./Dockerfile.production.server",
-    "deploy:web": "fly deploy --config ./fly.web.toml --dockerfile ./Dockerfile.production.web"
+    "deploy:web": "fly deploy  --config ./fly.web.toml --dockerfile ./Dockerfile.production.web"
   },
   "devDependencies": {
     "commitizen": "^4.3.0",

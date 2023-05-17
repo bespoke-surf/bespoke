@@ -13,7 +13,6 @@ import { NotificationModule } from '../notification/notification.module';
 import { PostModule } from '../post/post.module';
 import { PosthogModule } from '../posthog/posthog.module';
 import { ProductModule } from '../product/product.module';
-import { SendgridModule } from '../sendgrid/sendgrid.module';
 import { SesModule } from '../ses/ses.module';
 import { ShopifyModule } from '../shopify/shopify.module';
 import { SignupFormModule } from '../signup-form/signup-form.module';
@@ -61,7 +60,6 @@ import { UserService } from './user.service';
     SesModule,
     MetricModule,
     PostModule,
-    SendgridModule,
   ],
   providers: [
     UserResolver,
