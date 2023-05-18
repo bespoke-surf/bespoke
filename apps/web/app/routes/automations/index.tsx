@@ -22,8 +22,8 @@ import {
   Text,
 } from "gestalt";
 import {
-  lazy,
   Suspense,
+  lazy,
   useCallback,
   useEffect,
   useMemo,
@@ -31,12 +31,12 @@ import {
   useState,
 } from "react";
 import type { RootData } from "~/root";
-import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { WorkflowFragment } from "../../graphql/__generated__/graphql";
 import {
   EmailSentLimitStatus,
   WorkflowStatus,
 } from "../../graphql/__generated__/graphql";
+import { sdk } from "../../graphql/graphqlWrapper.server";
 import { getSubdomain, isPrivateRoute } from "../../utils/utils.server";
 import type { AutomationData } from "./types";
 import { AutomationActionEnum, DescriptionSchema } from "./types";
@@ -281,15 +281,15 @@ export default function Automation() {
                 loaderData.workflows === undefined ? (
                   <Callout
                     iconAccessibilityLabel="warning"
-                    title="Find Automation Inspiration in the Community Section"
-                    key="add subs"
-                    type="recommendation"
-                    message="Unsure of what type of automation to implement to address your challenges? Visit the community section for guidance and inspiration."
-                    primaryAction={{
-                      label: "Community",
-                      accessibilityLabel: "Community",
-                      href: "/community",
-                    }}
+                    title="Automation table is empty!"
+                    key="automation"
+                    type="info"
+                    message="Create a new automation and start sending messages to your customers on autopilot"
+                    // primaryAction={{
+                    //   label: "Community",
+                    //   accessibilityLabel: "Community",
+                    //   href: "/community",
+                    // }}
                   />
                 ) : (
                   <WorkflowTable />
@@ -338,7 +338,6 @@ const WorkflowTable = () => {
                 <Table.HeaderCell>
                   <Text weight="bold">Status</Text>
                 </Table.HeaderCell>
-                <Table.HeaderCell />
               </Table.Row>
             </Table.Header>
             <Table.Body>{workflows}</Table.Body>
@@ -499,7 +498,7 @@ const WorkflowRow = ({ workflow }: { workflow: WorkflowFragment }) => {
                   label: "Delete",
                 }}
               />
-              {workflow.public ? (
+              {/* {workflow.public ? (
                 <></>
               ) : (
                 <Dropdown.Item
@@ -512,7 +511,7 @@ const WorkflowRow = ({ workflow }: { workflow: WorkflowFragment }) => {
                     label: "Share To Community",
                   }}
                 />
-              )}
+              )} */}
             </Dropdown>
           )}
         </Table.Cell>

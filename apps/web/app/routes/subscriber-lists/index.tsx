@@ -15,6 +15,7 @@ import {
   Datapoint,
   Dropdown,
   Flex,
+  Icon,
   IconButton,
   PageHeader,
   Table,
@@ -33,6 +34,7 @@ import { ListActionEnum } from "./types";
 import type { ActionArgs } from "@remix-run/node";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import { TapArea } from "gestalt";
 import BigContainer from "../../components/BigContainer";
 import Naviagation from "../../components/Navigation";
 import type { RootData } from "../../root";
@@ -238,30 +240,33 @@ const ListRow = ({ list }: { list: ListFragment }) => {
   const navigate = useNavigate();
   const anchorRef = useRef(null);
 
+  const [starred, setStar] = useState(list.starred);
+
   const fetcher = useFetcher();
 
   const loading = fetcher.state === "loading" || fetcher.state === "submitting";
 
-  // const deleteList = useCallback(() => {
-  //   if (loading) return;
-  //   const formData = new FormData();
+  const deleteList = useCallback(() => {
+    if (loading) return;
+    const formData = new FormData();
 
-  //   formData.append("_action", ListActionEnum.deleteList);
-  //   formData.append("listId", list.id);
-  //   fetcher.submit(formData, {
-  //     method: "delete",
-  //   });
-  // }, [fetcher, list.id, loading]);
+    formData.append("_action", ListActionEnum.deleteList);
+    formData.append("listId", list.id);
+    fetcher.submit(formData, {
+      method: "delete",
+    });
+  }, [fetcher, list.id, loading]);
 
   const toggleStarList = useCallback(() => {
     if (loading) return;
+    setStar(!starred);
     const formData = new FormData();
     formData.append("_action", ListActionEnum.toggleStarList);
     formData.append("listId", list.id);
     fetcher.submit(formData, {
       method: "post",
     });
-  }, [fetcher, list.id, loading]);
+  }, [fetcher, list.id, loading, starred]);
 
   const handleAddOrShow = useCallback(
     ({ item }: { item: DropdownOption }) => {
@@ -283,13 +288,13 @@ const ListRow = ({ list }: { list: ListFragment }) => {
             <Link to={`${list.name}/${list.id}`} prefetch="intent">
               <Text underline>{list.name}</Text>
             </Link>
-            {/* <TapArea onTap={toggleStarList}>
+            <TapArea onTap={toggleStarList}>
               <Icon
                 accessibilityLabel="star"
                 icon="star"
-                color={list.starred ? "warning" : "subtle"}
+                color={starred ? "warning" : "subtle"}
               />
-            </TapArea> */}
+            </TapArea>
           </Flex>
         </Table.Cell>
         <Table.Cell>
@@ -330,13 +335,13 @@ const ListRow = ({ list }: { list: ListFragment }) => {
                 label: "Add subscribers",
               }}
             />
-            {/* <Dropdown.Item
+            <Dropdown.Item
               onSelect={deleteList}
               option={{
                 value: "delete",
                 label: "Delete",
               }}
-            /> */}
+            />
           </Dropdown.Section>
         </Dropdown>
       )}

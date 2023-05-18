@@ -1,5 +1,5 @@
 import type { LinksFunction } from "@remix-run/node";
-import { Box, Image, Link, Text } from "gestalt";
+import { Box, Image } from "gestalt";
 import { Suspense, useReducer } from "react";
 import BigContainer from "../../components/BigContainer";
 import Footer from "../../components/Footer";
@@ -37,30 +37,7 @@ export default function LandingPage() {
   const [waitList, setWaitlist] = useReducer((s) => !s, false);
   return (
     <>
-      <Box color="infoBase" padding={5}>
-        <Text color="light" align="center">
-          Would you please{" "}
-          <Link
-            onClick={setWaitlist}
-            href=""
-            display="inline"
-            underline="always"
-          >
-            join the waitlist
-          </Link>{" "}
-          and also{" "}
-          <Link
-            href="https://buy.stripe.com/dR68Ap6eJ1tldcQ4gg"
-            underline="always"
-            display="inline"
-          >
-            pre-subscribe
-          </Link>
-          ? We are aiming to launch on June 16th on Shopify.
-        </Text>
-      </Box>
       <PublicNav />
-
       <PublicMobileNav />
       <BigContainer>
         <Box marginTop={12} paddingX={4}>

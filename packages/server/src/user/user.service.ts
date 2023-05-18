@@ -135,6 +135,7 @@ export class UserService {
     supressLoginCode = true,
   ): Promise<User | null> {
     try {
+      console.log({ input, supressLoginCode });
       const checkEmail = await this.userRepository.findOne({
         where: { email: input.email },
       });

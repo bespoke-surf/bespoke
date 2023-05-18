@@ -42,10 +42,6 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export async function loader() {
-  return redirect("/");
-}
-
 export let action: ActionFunction = async ({ request }) => {
   try {
     const formData = await request.clone().formData();

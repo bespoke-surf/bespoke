@@ -8,7 +8,6 @@ import { InjectQueue } from '@nestjs/bull';
 import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { Session, Shopify as ShopifyApi } from '@shopify/shopify-api';
@@ -42,11 +41,8 @@ import { BillingService } from '../billing/billing.service';
 import { BillingPlanStatus } from '../billing/enum/billingPlanStatus.enum';
 import {
   APP_SUBSCRIPTON_QUANTITY_PREFIX,
-  STORE_DIALY_CRON_QUEUE,
   STORE_PRODUCT_UPLOAD_QUEUE,
-  STORE_QUARTERLY_CRON_QUEUE,
   STORE_SEND_EMAIL_TO_SUBSCRIBER_LIST_QUEUE,
-  STORE_WEEKLY_CRON_QUEUE,
 } from '../constants';
 import { CreditService } from '../credit/credit.service';
 import { IntegrationService } from '../integration/integration.service';
@@ -117,12 +113,12 @@ export class StoreService implements OnModuleInit {
     private readonly storeSendEmailQueue: Queue<StoreSendEmailData>,
     @InjectQueue(STORE_PRODUCT_UPLOAD_QUEUE)
     private readonly storeProductUploadQueue: Queue,
-    @InjectQueue(STORE_DIALY_CRON_QUEUE)
-    private readonly storeDailyCronQueue: Queue,
-    @InjectQueue(STORE_WEEKLY_CRON_QUEUE)
-    private readonly storeWeeklyCronQueue: Queue,
-    @InjectQueue(STORE_QUARTERLY_CRON_QUEUE)
-    private readonly storeQuarterlyQueue: Queue,
+    // @InjectQueue(STORE_DIALY_CRON_QUEUE)
+    // private readonly storeDailyCronQueue: Queue,
+    // @InjectQueue(STORE_WEEKLY_CRON_QUEUE)
+    // private readonly storeWeeklyCronQueue: Queue,
+    // @InjectQueue(STORE_QUARTERLY_CRON_QUEUE)
+    // private readonly storeQuarterlyQueue: Queue,
     private metricService: MetricService,
     private workflowService: WorkflowService,
     private subscriberListService: SubscriberListService,
@@ -146,36 +142,36 @@ export class StoreService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    this.storeDailyCronQueue.add(
-      {},
-      {
-        repeat: {
-          cron: CronExpression.EVERY_DAY_AT_MIDNIGHT,
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    );
-    this.storeWeeklyCronQueue.add(
-      {},
-      {
-        repeat: {
-          cron: CronExpression.EVERY_WEEK,
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    );
-    this.storeQuarterlyQueue.add(
-      {},
-      {
-        repeat: {
-          cron: CronExpression.EVERY_QUARTER,
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    );
+    // this.storeDailyCronQueue.add(
+    //   {},
+    //   {
+    //     repeat: {
+    //       cron: CronExpression.EVERY_DAY_AT_MIDNIGHT,
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // );
+    // this.storeWeeklyCronQueue.add(
+    //   {},
+    //   {
+    //     repeat: {
+    //       cron: CronExpression.EVERY_WEEK,
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // );
+    // this.storeQuarterlyQueue.add(
+    //   {},
+    //   {
+    //     repeat: {
+    //       cron: CronExpression.EVERY_QUARTER,
+    //     },
+    //     removeOnComplete: true,
+    //     removeOnFail: true,
+    //   },
+    // );
   }
 
   async emitEvent(eventName: string, storeId: string) {

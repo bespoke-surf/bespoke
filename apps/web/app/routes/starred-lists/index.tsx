@@ -1,4 +1,4 @@
-import { Callout, Flex, Icon, PageHeader, Text } from "gestalt";
+import { Callout, Container, Flex, PageHeader, Text } from "gestalt";
 
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
@@ -13,6 +13,8 @@ import type { GetStarredListsQuery } from "~/graphql/__generated__/graphql";
 
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import BigContainer from "../../components/BigContainer";
+import Naviagation from "../../components/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -62,59 +64,51 @@ export default function Subscribers() {
   const loaderData = useLoaderData<DashboardLists>();
   return (
     <>
-      <Box paddingX={2}>
-        <Flex justifyContent="start" alignItems="center" gap={2}>
-          <Link to="..">
-            <Text underline size="100">
-              Home
-            </Text>
-          </Link>
-
-          <Icon
-            accessibilityLabel="arrow-right"
-            size={10}
-            icon="arrow-forward"
-            color="dark"
-          />
-          <Box color="lightWash" rounding="pill" padding={1} paddingX={2}>
-            <Text size="100">Starred Lists</Text>
-          </Box>
-        </Flex>
-      </Box>
-      <PageHeader
-        borderStyle="none"
-        title="Starred Lists"
-        subtext="Below are your starred lists. To view all your lists or change
+      <BigContainer>
+        <Flex alignItems="start">
+          <Naviagation />
+          <Flex.Item flex="grow">
+            <Container>
+              <PageHeader
+                borderStyle="none"
+                title="Starred Lists"
+                subtext="Below are your starred lists. To view all your lists or change
         the starred ones, go to "
-        helperLink={{
-          text: "Lists",
-          href: "/subscriber-lists",
-          accessibilityLabel: "lists",
-        }}
-      />
+                helperLink={{
+                  text: "Lists",
+                  href: "/subscriber-lists",
+                  accessibilityLabel: "lists",
+                }}
+              />
 
-      <Flex justifyContent="center">
-        <Box width="92.5%" paddingY={6}>
-          {!loaderData.lists?.length || loaderData.lists.length === 0 ? (
-            <Callout
-              iconAccessibilityLabel=""
-              message="This tab will show your most important lists. To add a list to the dashboard,
+              <Flex justifyContent="center">
+                <Box width="92.5%" paddingY={6}>
+                  {!loaderData.lists?.length ||
+                  loaderData.lists.length === 0 ? (
+                    <Callout
+                      iconAccessibilityLabel=""
+                      message="This tab will show your most important lists. To add a list to the dashboard,
           go to the lists page and click on the star next to its name."
-              type="warning"
-              title="You haven't added any lists to the dashboard."
-              primaryAction={{
-                accessibilityLabel: "Lists",
-                label: "Lists",
-                href: "/subscriber-lists",
-                target: "self",
-              }}
-            />
-          ) : null}
-          <Flex direction="column" gap={8}>
-            <ListTable />
-          </Flex>
-        </Box>
-      </Flex>
+                      type="warning"
+                      title="You haven't added any lists to the dashboard."
+                      primaryAction={{
+                        accessibilityLabel: "Lists",
+                        label: "Lists",
+                        href: "/subscriber-lists",
+                        target: "self",
+                      }}
+                    />
+                  ) : (
+                    <Flex direction="column" gap={8}>
+                      <ListTable />
+                    </Flex>
+                  )}
+                </Box>
+              </Flex>
+            </Container>
+          </Flex.Item>
+        </Flex>
+      </BigContainer>
     </>
   );
 }

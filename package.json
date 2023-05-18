@@ -12,7 +12,7 @@
     "dev": "turbo run dev --parallel",
     "flush": "yarn cache clean &&  lerna clean --yes && rm -rf node_modules && yarn",
     "postinstall": "patch-package",
-    "release": "lerna version --conventional-commits ",
+    "release": "lerna version --conventional-commits",
     "build": "turbo run build",
     "build:web": "turbo run build --scope=@bespoke/web --include-dependencies --no-deps --force",
     "build:server": "turbo run build --scope=@bespoke/server --include-dependencies --no-deps --force",
@@ -24,7 +24,7 @@
     "cz-conventional-changelog": "3.3.0",
     "lerna": "^6.6.2",
     "prettier": "2.8.8",
-    "turbo": "1.9.3"
+    "turbo": "1.9.8"
   },
   "engines": {
     "npm": ">=7.0.0",

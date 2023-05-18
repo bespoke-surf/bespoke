@@ -1,14 +1,13 @@
 import { useRouteLoaderData } from "@remix-run/react";
-import { Avatar, Flex, IconButton, Link, Text } from "gestalt";
-import { useMemo, useReducer, useRef } from "react";
+import { Avatar, Flex, Link, Text } from "gestalt";
+import { useMemo } from "react";
 import type { RootData } from "../../../root";
 import { getCloudinaryAvatar } from "../../../utils/getCloudinaryFavicon";
-import UserMenu from "./UserMenu";
 
 export default function Header() {
   const rootLoaderData = useRouteLoaderData("root") as RootData;
-  const [openMoreSettings, toggleMoreSettings] = useReducer((s) => !s, false);
-  const anchorRef = useRef(null);
+  // const [openMoreSettings, toggleMoreSettings] = useReducer((s) => !s, false);
+  // const anchorRef = useRef(null);
 
   const avatar = useMemo(
     () => getCloudinaryAvatar(rootLoaderData?.store?.displayPicture?.src),
@@ -30,7 +29,7 @@ export default function Header() {
             </Text>
           </Flex>
         </Link>
-        {rootLoaderData.isUserSubdomain && (
+        {/* {rootLoaderData.isUserSubdomain && (
           <IconButton
             size="sm"
             accessibilityLabel="notification"
@@ -40,11 +39,11 @@ export default function Header() {
             selected={openMoreSettings}
             onClick={toggleMoreSettings}
           />
-        )}
+        )} */}
       </Flex>
-      {openMoreSettings && rootLoaderData.isUserSubdomain && (
+      {/* {openMoreSettings && rootLoaderData.isUserSubdomain && (
         <UserMenu anchorRef={anchorRef} close={toggleMoreSettings} />
-      )}
+      )} */}
     </>
   );
 }

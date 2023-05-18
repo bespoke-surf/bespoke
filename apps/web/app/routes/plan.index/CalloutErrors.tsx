@@ -7,13 +7,11 @@ import {
 } from "../../graphql/__generated__/graphql";
 import type { RootData } from "../../root";
 import { calculateLocalTime } from "../../utils/calculateLocalTime";
-import type { GrowthPathData } from "../growth-path/types";
+import type { GrowthPathData } from "../plan/types";
 
 export default function CalloutErrors() {
   const rootData = useRouteLoaderData("root") as RootData;
-  const parentData = useRouteLoaderData(
-    "routes/growth-path/index"
-  ) as GrowthPathData;
+  const parentData = useRouteLoaderData("routes/plan/index") as GrowthPathData;
 
   const handleMangeBilling = useCallback(() => {
     // if (

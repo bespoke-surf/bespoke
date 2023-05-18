@@ -17,7 +17,7 @@ import {
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { BillingPlanStatus } from "../../graphql/__generated__/graphql";
 import { useTimeoutTrigger } from "../../hooks/useTimeoutTrigger";
-import type { GrowthPathData } from "../growth-path/types";
+import type { GrowthPathData } from "../plan/types";
 import { numberWithCommas } from "../pricing/pricingUtil";
 import { PlanChooseActionEnum } from "./types";
 
@@ -61,9 +61,7 @@ export default function AdjustPlan() {
   );
 }
 const GrowthPathBenefits = () => {
-  const parentData = useRouteLoaderData(
-    "routes/growth-path/index"
-  ) as GrowthPathData;
+  const parentData = useRouteLoaderData("routes/plan/index") as GrowthPathData;
 
   const active =
     parentData.billing?.billingPlanStatus === BillingPlanStatus.Active;
@@ -155,16 +153,17 @@ const GrowthPathBenefits = () => {
         </Layer>
       )}
       <Box marginBottom={12}>
-        <Heading size="400">Current Growth Plan</Heading>
+        <Heading size="400">Current Plan</Heading>
         <Box marginTop={4} />
         <Flex gap={3} direction="column">
           <Text size="300" color="dark">
             {numberWithCommas(parentData.billing?.contactsQuantity ?? 0)}{" "}
-            Contacts, Newsletter, Signup Forms
-            {free ? null : ", Automations & Reports"},
+            Contacts, Newsletter, Email Marketing
           </Text>
           {free ? (
-            "Free"
+            <Text size="400" weight="bold">
+              Free
+            </Text>
           ) : active ? (
             <Text inline size="400" weight="bold" color="dark">
               $
@@ -181,14 +180,16 @@ const GrowthPathBenefits = () => {
           ) : null}
         </Flex>
         <Box marginTop={5} />
-        <Text weight="bold">{free ? "NO" : null} Monthly payment</Text>
+        <Text weight="bold" size="300">
+          {free ? "No" : null} monthly payment
+        </Text>
       </Box>
 
-      <Module id="Upgrade" title="UPGRADE YOUR GROWTH PLAN" type="info">
+      <Module id="Upgrade" title="UPGRADE YOUR PLAN" type="info">
         <Flex direction="column" gap={8}>
           <Flex direction="column" gap={{ column: 2, row: 0 }} alignItems="end">
             <Label htmlFor="base">
-              <Text size="100">Priced Per Customer</Text>
+              <Text size="100">Enterprise Plan</Text>
             </Label>
             <Switch
               onChange={() => {
@@ -251,7 +252,7 @@ const GrowthPathBenefits = () => {
                   {numberWithCommas(
                     perContact ? contacts : (closest[0]?.value ?? 0) / 10
                   )}{" "}
-                  Contacts , Newsletter, Signup Forms, Automations & Reports
+                  Contacts, Newsletter, Email Marketing
                 </Text>
                 {/* <Text size="200" color="dark">
                   {numberWithCommas(

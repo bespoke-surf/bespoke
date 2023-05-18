@@ -15,10 +15,10 @@ import {
   Dropdown,
   FixedZIndex,
   Flex,
+  Link as GLink,
   Icon,
   Image,
   Layer,
-  Link as GLink,
   Modal,
   PageHeader,
   SlimBanner,
@@ -37,6 +37,7 @@ import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import CustomerSync from "./CustomerSync";
 import ProductSync from "./ProductScync";
+import Subscriptions from "./Subscriptions";
 import type { IntegrationShopifyData } from "./types";
 import { IntegrationShopifyActionEnum } from "./types";
 export {
@@ -325,17 +326,18 @@ export default function ShopifyIntegration() {
                     All added signup forms will be synched with your Shopify
                     store.
                   </Text>
+                  <Text>
+                    Customer details auto syncs as updates are made from your
+                    store.
+                  </Text>
                   <SlimBanner
                     message="Synched during connect"
                     type="infoBare"
                     iconAccessibilityLabel="info"
                   />
                 </Flex>
-                <Text>
-                  Customer details auto syncs as updates are made from your
-                  store.
-                </Text>
               </Flex>
+              <Subscriptions />
 
               <ProductSync />
 

@@ -1,11 +1,7 @@
-import type {
-  BillingFragment,
-  GetStoreDailyRevenueTrendQuery,
-  GetStoreRevenueQuery,
-} from "../../graphql/__generated__/graphql";
+import type { BillingFragment } from "../../graphql/__generated__/graphql";
 
 export type DashboardData = {
   billing: BillingFragment | null | undefined;
-  storeRevenuePromise: Promise<GetStoreRevenueQuery>;
-  storeDailyRevenuePromise: Promise<GetStoreDailyRevenueTrendQuery>;
+  // storeRevenuePromise: Promise<GetStoreRevenueQuery>;
+  // storeDailyRevenuePromise: Promise<GetStoreDailyRevenueTrendQuery>;
 };

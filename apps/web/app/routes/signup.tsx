@@ -44,10 +44,6 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export async function loader() {
-  return redirect("/");
-}
-
 const enum ActionEnum {
   signup = "singup",
   confirmCode = "confirmCode",

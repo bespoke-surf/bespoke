@@ -1,7 +1,7 @@
 import { useLoaderData } from "@remix-run/react";
 import { Box, Flex, Heading, SlimBanner, Text } from "gestalt";
 import { useMemo } from "react";
-import { CommunityAutomations } from "../dashboard.index";
+import { CommunityAutomations } from "../dashboard.index/SharedAutomation";
 import type { OnboardingData } from "./types";
 
 export default function Community() {

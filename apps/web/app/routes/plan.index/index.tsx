@@ -9,6 +9,7 @@ import { getSubdomain, isPrivateRoute } from "../../utils/utils.server";
 import AdjustPlan from "./AdjustPlan";
 import CalloutErrors from "./CalloutErrors";
 import ContactUsage from "./ContactUsage";
+import EmailUsage from "./EmailUsage";
 import type { GrowthPathChooseData } from "./types";
 import { PlanChooseActionEnum } from "./types";
 export {
@@ -20,8 +21,7 @@ export const meta: MetaFunction = ({ parentsData }) => {
   const rootData = parentsData.root as RootData;
 
   return {
-    title: `Unlock Growth Path -| ${rootData.store?.name}`,
-    description: "Unlock growth path to start earning rewards",
+    title: `Plan | ${rootData.store?.name}`,
   };
 };
 
@@ -120,7 +120,7 @@ export default function ChoosePlan() {
     <>
       <PageHeader
         borderStyle="none"
-        title="GROWTH PLAN"
+        title="PLAN"
         subtext="Subscription plan to supercharge your business for growth"
       />
       <Flex justifyContent="center">
@@ -128,12 +128,11 @@ export default function ChoosePlan() {
           <CalloutErrors />
 
           <ContactUsage />
+          <EmailUsage />
 
           <Box marginTop={6} />
 
           <AdjustPlan />
-          <Box marginTop={6} />
-          <FreeBenefits />
         </Box>
       </Flex>
     </>
@@ -151,7 +150,7 @@ const FreeBenefits = () => {
 
           <Flex direction="column" gap={2}>
             <Text size="300" color="dark">
-              Upto 250 Customers, Newsletter, Signup Forms
+              Upto 2,000 Contacts, 6,000 emails/mo , Newsletter, Email Marketing
             </Text>
             {/* <Text size="200" color="dark">
                   {numberWithCommas(

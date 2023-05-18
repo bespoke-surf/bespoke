@@ -10,13 +10,14 @@ export default function Hello() {
       </Box>
       <Box marginTop={4}>
         <Text>
-          Let's begin our journey to assist others while also seeking support to
-          empower humanity to become financially independent.
+          Welcome! You're on the path to creating captivating newsletters and
+          marketing your way to profitability.
         </Text>
       </Box>
       <Box marginTop={8}>
-        <Text color="subtle" inline>
-          Quote of the day - "A rising tide lifts all boats"
+        <Text inline>
+          We're here to be your enthusiastic companions throughout every step of
+          your exhilarating journey!
         </Text>
       </Box>
     </Flex>

@@ -12,7 +12,9 @@ import {
   Box,
   Callout,
   ComboBox,
+  Container,
   Flex,
+  PageHeader,
   Spinner,
   Table,
   Text,
@@ -20,11 +22,13 @@ import {
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { InView } from "react-intersection-observer";
 import { ClientOnly } from "remix-utils";
-import { sdk } from "../../graphql/graphqlWrapper.server";
+import BigContainer from "../../components/BigContainer";
+import Naviagation from "../../components/Navigation";
 import type {
   MetricFragment,
   MetricType,
 } from "../../graphql/__generated__/graphql";
+import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -46,7 +50,7 @@ export const meta: MetaFunction = ({ parentsData }) => {
   const rootData = parentsData.root as RootData;
 
   return {
-    title: `Activity Feed - Dashboard | ${rootData.store?.name}`,
+    title: `Activity Feed | ${rootData.store?.name}`,
     description: "Your metrics activity feed",
   };
 };
@@ -101,7 +105,7 @@ export async function loader({ request }: LoaderArgs) {
   }
 }
 
-export default function ActivityFeed() {
+function ActivityFeed() {
   const loaderData = useLoaderData<DashboardActivityFeedData>();
   const [items, setItems] = useState<(typeof loaderData)["metrics"]>(
     loaderData.metrics ?? []
@@ -161,7 +165,7 @@ export default function ActivityFeed() {
   const handleOnSelect = useCallback(
     ({ item }: { item: ComboBoxItemType }) => {
       setSelectedOption(item);
-      fetcher.load(`/dashboard/activity-feed?type=${item.value}`);
+      fetcher.load(`/activity-feed?type=${item.value}`);
     },
     [fetcher]
   );
@@ -170,11 +174,9 @@ export default function ActivityFeed() {
     (inView: boolean) => {
       if (!inView) return;
       if (type) {
-        fetcher2.load(
-          `/dashboard/activity-feed?type=${type}&skip=${items?.length}`
-        );
+        fetcher2.load(`/activity-feed?type=${type}&skip=${items?.length}`);
       } else {
-        fetcher2.load(`/dashboard/activity-feed?skip=${items?.length}`);
+        fetcher2.load(`/activity-feed?skip=${items?.length}`);
       }
     },
     [fetcher2, items?.length, type]
@@ -269,3 +271,23 @@ const MetricsRow = ({ metrics }: { metrics: MetricFragment }) => {
     </>
   );
 };
+
+export default function Feed() {
+  return (
+    <BigContainer>
+      <Flex alignItems="start">
+        <Naviagation />
+        <Flex.Item flex="grow">
+          <Container>
+            <PageHeader title="Activity Feed" />
+            <Flex justifyContent="center">
+              <Box width="93.5%" paddingY={6}>
+                <ActivityFeed />
+              </Box>
+            </Flex>
+          </Container>
+        </Flex.Item>
+      </Flex>
+    </BigContainer>
+  );
+}

@@ -95,22 +95,22 @@ export default function PublicNav({
                   </Link>
                 ) : (
                   <Flex gap={4}>
-                    {/* <Link to="/login" prefetch="intent">
-              <Button
-                text="Login"
-                size="lg"
-                color="white"
-                selected={location.pathname === "/login"}
-              />
-            </Link>
-            <Link to="/signup" prefetch="intent">
-              <Button
-                text="Signup"
-                size="lg"
-                color="red"
-                selected={location.pathname === "/signup"}
-              />
-            </Link> */}
+                    <Link to="/login" prefetch="intent">
+                      <Button
+                        text="Login"
+                        size="lg"
+                        color="white"
+                        selected={location.pathname === "/login"}
+                      />
+                    </Link>
+                    <Link to="/signup" prefetch="intent">
+                      <Button
+                        text="Signup"
+                        size="lg"
+                        color="red"
+                        selected={location.pathname === "/signup"}
+                      />
+                    </Link>
                     <Box />
                   </Flex>
                 )}
@@ -148,11 +148,6 @@ export default function PublicNav({
                   <Dropdown.Link
                     href="mailto:support@bespoke.surf"
                     option={{ value: "contact", label: "Email Us" }}
-                  />
-                  <Dropdown.Link
-                    href="https://docs.google.com/presentation/d/1NhnWjP8q1X9HqDwdcE-Lo6kAm39FuT3VZzGje3MMkLk/edit?usp=sharing"
-                    option={{ value: "email", label: "For Investors" }}
-                    isExternal
                   />
                 </Dropdown>
               )}

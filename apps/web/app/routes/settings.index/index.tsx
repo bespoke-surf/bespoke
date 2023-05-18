@@ -37,7 +37,7 @@ export default function SettingIndex() {
                 />
               </Flex>
             </Link>
-            {/* <Link to="p-s" prefetch="intent">
+            <Link to="p-s" prefetch="intent">
               <Flex justifyContent="between" alignItems="center">
                 <Heading size="400">Posts & Subscribers</Heading>
                 <Icon
@@ -47,7 +47,7 @@ export default function SettingIndex() {
                   color="dark"
                 />
               </Flex>
-            </Link> */}
+            </Link>
 
             <Link to="product" prefetch="intent">
               <Flex justifyContent="between" alignItems="center">

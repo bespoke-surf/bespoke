@@ -1,6 +1,6 @@
 import { useFetcher, useLoaderData, useNavigate } from "@remix-run/react";
 import type { ComboBoxItemType } from "gestalt";
-import { ComboBox, Flex, Text } from "gestalt";
+import { ComboBox, Flex, Switch, Text } from "gestalt";
 import { useCallback, useEffect, useState } from "react";
 import type { IntegrationShopifyData } from "./types";
 import { IntegrationShopifyActionEnum } from "./types";
@@ -44,11 +44,11 @@ export default function Subscriptions() {
         label: list.name,
         value: list.id,
       }));
-      // op.push({
-      //   label: "Create a new list",
-      //   value: "create-list",
-      //   subtext: "navigates to Lists",
-      // });
+      op.push({
+        label: "Create a new list",
+        value: "create-list",
+        subtext: "navigates to Lists",
+      });
 
       setOption(op);
     }
@@ -71,21 +71,21 @@ export default function Subscriptions() {
     [fetcher, loaderData.integration?.shopify?.id, navigate]
   );
 
-  // const handleSwitchChange = useCallback(() => {
-  //   if (!switched) {
-  //     setSwitched(true);
-  //   } else {
-  //     if (!loaderData.integration?.shopify?.id) return;
-  //     const formData = new FormData();
-  //     formData.append("shopifyId", loaderData.integration?.shopify?.id);
-  //     formData.append(
-  //       "_action",
-  //       IntegrationShopifyActionEnum.removeCollectEmailSubscribers
-  //     );
-  //     fetcher.submit(formData, { method: "post" });
-  //     setSwitched(false);
-  //   }
-  // }, [fetcher, loaderData.integration?.shopify?.id, switched]);
+  const handleSwitchChange = useCallback(() => {
+    if (!switched) {
+      setSwitched(true);
+    } else {
+      if (!loaderData.integration?.shopify?.id) return;
+      const formData = new FormData();
+      formData.append("shopifyId", loaderData.integration?.shopify?.id);
+      formData.append(
+        "_action",
+        IntegrationShopifyActionEnum.removeCollectEmailSubscribers
+      );
+      fetcher.submit(formData, { method: "post" });
+      setSwitched(false);
+    }
+  }, [fetcher, loaderData.integration?.shopify?.id, switched]);
 
   return (
     <Flex direction="column" gap={6}>
@@ -100,7 +100,6 @@ export default function Subscriptions() {
       </Flex>
 
       <Flex justifyContent="between" alignItems="center">
-        {/* <Text weight="bold">Collect Customers</Text> */}
         <ComboBox
           size="lg"
           accessibilityClearButtonLabel="Clear the current value"
@@ -111,16 +110,16 @@ export default function Subscriptions() {
           inputValue={selected?.label}
           selectedOption={selected}
           helperText="You cannot change the list."
-          // onSelect={handleListToCollect}
+          onSelect={handleListToCollect}
           placeholder="Select a list"
           disabled={!switched || !syncAvailabe}
         />
-        {/* <Switch
+        <Switch
           switched={switched}
           onChange={handleSwitchChange}
           id="collect email"
           disabled={!syncAvailabe}
-        /> */}
+        />
       </Flex>
     </Flex>
   );

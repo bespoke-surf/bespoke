@@ -75,20 +75,21 @@ export async function action({ request }: ActionArgs) {
   return null;
 }
 
-// const base = [
-//   {
-//     label: "Create a new list",
-//     value: "create-list",
-//     subtext: "navigates to Lists",
-//   },
-// ];
+const base = [
+  {
+    label: "Create a new list",
+    value: "create-list",
+    subtext: "navigates to Lists",
+  },
+];
 
 export default function Subscriptions() {
   const loaderData = useLoaderData<typeof loader>();
   const [options] = useState(
     () =>
-      loaderData.lists?.map((list) => ({ label: list.name, value: list.id }))
-    // .concat(base) ??[ ]
+      loaderData.lists
+        ?.map((list) => ({ label: list.name, value: list.id }))
+        .concat(base) ?? []
   );
   const rootData = useRouteLoaderData("root") as RootData;
   const [selected, setSelected] = useState<ComboBoxItemType>();

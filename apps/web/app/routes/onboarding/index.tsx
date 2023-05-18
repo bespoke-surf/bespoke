@@ -22,10 +22,7 @@ import { QuestType } from "../../graphql/__generated__/graphql";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
-import Challenges from "./Challenges";
-import Community from "./Community";
 import Finish from "./Finish";
-import GoodJob from "./GoodJob";
 import Hello from "./Hello";
 import Page1 from "./Page1";
 import Page2 from "./Page2";
@@ -219,15 +216,16 @@ const OnboardingWelcome = () => {
       <FormikStep validationSchema={HelloSchema}>
         <Hello />
       </FormikStep>
-      <FormikStep validationSchema={HelloSchema}>
+      {/* <FormikStep validationSchema={HelloSchema}>
         <Challenges />
       </FormikStep>
       <FormikStep validationSchema={HelloSchema}>
         <Community />
-      </FormikStep>
+      </FormikStep> 
       <FormikStep validationSchema={HelloSchema}>
         <GoodJob />
       </FormikStep>
+      */}
       <FormikStep validationSchema={Page1Schema}>
         <Page1 />
       </FormikStep>

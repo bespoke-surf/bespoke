@@ -6,15 +6,13 @@ import {
   ContactLimitStatus,
 } from "../../graphql/__generated__/graphql";
 import type { RootData } from "../../root";
-import type { GrowthPathData } from "../growth-path/types";
+import type { GrowthPathData } from "../plan/types";
 import { numberWithCommas } from "../pricing/pricingUtil";
 import type { GrowthPathChooseData } from "./types";
 
 export default function ContactUsage() {
   const loaderData = useLoaderData<GrowthPathChooseData>();
-  const parentData = useRouteLoaderData(
-    "routes/growth-path/index"
-  ) as GrowthPathData;
+  const parentData = useRouteLoaderData("routes/plan/index") as GrowthPathData;
 
   const rootData = useRouteLoaderData("root") as RootData;
   const active =
