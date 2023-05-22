@@ -4,6 +4,5 @@ fragment Billing on Billing {
   billingPlanStatus
   billingSubscriptionEntity
   currentPeriodEnd
-  contactsQuantity
-  emailSendQuantity
+  bespokePlanId
 }

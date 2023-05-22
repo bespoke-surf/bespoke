@@ -28,8 +28,10 @@ export const LOGIN_CONFIRMATION_PREFIX = 'confirmCode:';
 
 export const UNSUBSCRIBE_ID_PREFIX = 'unsubscriberId:';
 
-export const APP_SUBSCRIPTON_QUANTITY_PREFIX = 'appSubscriptionQuantity:';
-export const DEFAULT_CONTACT_QUANTITY = 250;
+export const SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX =
+  'shopifyAppSubscriptionBespokePricingIdPrefix:';
+export const DEFAULT_CONTACT_QUANTITY = 2000;
+export const DEFAULT_EMAIL_SENDS = 6000;
 
 export const EMAIL_HEADER_POST_ID_KEY = 'X-Bmail-Post';
 export const EMAIL_HEADER_UNSUBSCRIBE_ID_KEY = 'X-Bmail-Unsubscribe';

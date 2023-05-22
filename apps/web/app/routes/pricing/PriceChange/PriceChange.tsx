@@ -1,18 +1,17 @@
 /* eslint-disable gestalt/prefer-box-inline-style */
 
-import { pricingPlan } from "@bespoke/common/dist/pricingPlan";
+// import { pricingPlan } from "@bespoke/common/dist/pricingPlan";
 import { useState } from "react";
-import { numberWithCommas } from "../pricingUtil";
 
 export default function PriceChange() {
   return <New />;
 }
 
-const selectOptions = pricingPlan.map(({ label, value }) => (
-  <option key={value} value={value}>
-    {label}
-  </option>
-));
+// const selectOptions = pricingPlan.map(({ label, value }) => (
+//   <option key={value} value={value}>
+//     {label}
+//   </option>
+// ));
 
 const New = () => {
   const [contacts, setContacts] = useState("10000");
@@ -55,7 +54,7 @@ const New = () => {
                 }}
                 className="PriceChangeSelectList OurServiceBusinessText OurServiceBusinessText--cta OurServiceBusinessButtonText OurServiceBusinessText--bold "
               >
-                {selectOptions}
+                {/* {selectOptions} */}
               </select>
             </div>
           </div>
@@ -67,13 +66,13 @@ const New = () => {
                   style={{ color: "inherit" }}
                 >
                   $
-                  {numberWithCommas(
+                  {/* {numberWithCommas(
                     Number(
                       pricingPlan.find(
                         ({ value }) => contacts === String(value)
                       )?.price ?? 0
                     )
-                  )}
+                  )} */}
                   {enteredContacts ? "" : "/m"}
                 </h2>
               </div>

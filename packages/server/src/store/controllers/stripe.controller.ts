@@ -11,7 +11,7 @@ import { Request, Response } from 'express';
 import Stripe from 'stripe';
 import { BillingService } from '../../billing/billing.service';
 import { BillingSubscriptionEntity } from '../../billing/enum/billingSubscriptionEntity.enum';
-import { StripeService } from '../../stripe/stripe.service';
+import { IStripeMetadata, StripeService } from '../../stripe/stripe.service';
 
 @Controller('store')
 export class StoreStripeController {
@@ -30,40 +30,27 @@ export class StoreStripeController {
       const signature = req.headers['stripe-signature'] as string;
       if (!req.rawBody) throw new Error('raw body missing for strip webhook');
       const event = this.stripeService.constructWebhook(req.rawBody, signature);
-      let subscription: Stripe.Subscription;
+      const subscription = event.data.object as Stripe.Subscription;
+      const metadata = subscription.metadata as unknown as IStripeMetadata;
+      const { bespokePlanId, billingId } = metadata;
+      const updateSubscription = async () =>
+        await this.billingService.subscriptionUpdate({
+          billingId,
+          bespokePlanId,
+          status: subscription.status,
+          currentPeriodEnd: subscription.current_period_end,
+          cancelAtPeriodEnd: subscription.cancel_at_period_end,
+          billingSubscriptionEntity: BillingSubscriptionEntity.STRIPE,
+        });
       switch (event.type) {
         case 'customer.subscription.deleted':
-          subscription = event.data.object as Stripe.Subscription;
-          await this.billingService.subscriptionUpdate({
-            billingId: subscription.metadata.billingId as string,
-            status: subscription.status,
-            currentPeriodEnd: subscription.current_period_end,
-            quantity: subscription.items.data[0]?.quantity as number,
-            cancelAtPeriodEnd: subscription.cancel_at_period_end,
-            billingSubscriptionEntity: BillingSubscriptionEntity.STRIPE,
-          });
+          await updateSubscription();
           break;
         case 'customer.subscription.updated':
-          subscription = event.data.object as Stripe.Subscription;
-          await this.billingService.subscriptionUpdate({
-            billingId: subscription.metadata.billingId as string,
-            status: subscription.status,
-            currentPeriodEnd: subscription.current_period_end,
-            quantity: subscription.items.data[0]?.quantity as number,
-            cancelAtPeriodEnd: subscription.cancel_at_period_end,
-            billingSubscriptionEntity: BillingSubscriptionEntity.STRIPE,
-          });
+          await updateSubscription();
           break;
         case 'customer.subscription.created':
-          subscription = event.data.object as Stripe.Subscription;
-          await this.billingService.subscriptionUpdate({
-            billingId: subscription.metadata.billingId as string,
-            status: subscription.status,
-            currentPeriodEnd: subscription.current_period_end,
-            quantity: subscription.items.data[0]?.quantity as number,
-            cancelAtPeriodEnd: subscription.cancel_at_period_end,
-            billingSubscriptionEntity: BillingSubscriptionEntity.STRIPE,
-          });
+          await updateSubscription();
           await this.billingService.updateSubscriptionId(
             subscription.id,
             subscription.metadata.billingId as string,

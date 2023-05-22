@@ -23,8 +23,8 @@ export const meta: MetaFunction = ({ parentsData }) => {
   const rootData = parentsData.root as RootData;
 
   return {
-    title: `Activated!- Growth Path | ${rootData.store?.name}`,
-    description: "You have activated Growth Path",
+    title: `Activated!- Plan | ${rootData.store?.name}`,
+    description: "You plan has been activated",
   };
 };
 
@@ -61,7 +61,7 @@ export default function PlansSuccess() {
           <IconButton
             accessibilityLabel="close"
             icon="cancel"
-            href="/growth-path"
+            href="/plan"
             role="link"
             target="self"
           />

@@ -1,3 +1,7 @@
+import {
+  PricingIdType,
+  bespokePricingPlan,
+} from '@bespoke/common/dist/pricingPlan';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
@@ -7,6 +11,11 @@ import invariant from 'tiny-invariant';
 import { EnvironmentVariables } from '../types';
 import { CreateCheckoutSessionInput } from './dto/createCheckoutSessionInput';
 
+export interface IStripeMetadata {
+  storeId: string;
+  billingId: string;
+  bespokePlanId: PricingIdType;
+}
 @Injectable()
 export class StripeService {
   private stripe: Stripe;
@@ -64,16 +73,13 @@ export class StripeService {
     input: CreateCheckoutSessionInput,
   ): Promise<string | null> {
     try {
-      const { storeId, billingId } = input;
+      const { storeId, billingId, stripePriceId, stripeCustomerId, subdomain } =
+        input;
+      const bespokePlanId = bespokePricingPlan?.find(
+        ({ stripePriceId: id }) => id === stripePriceId,
+      )?.id;
 
-      const priceIdMonthly = this.configService.get(
-        'STRIPE_PRICE_ID_BESPOKE_EMAIL_MONTHLY',
-      );
-
-      invariant(
-        typeof priceIdMonthly === 'string',
-        'STRIPE_PRICE_ID_BESPOKE_EMAIL_MONTHLY missing',
-      );
+      if (!bespokePlanId) throw new Error();
 
       const FRONTEND_HOST = this.configService.get('FRONTEND_HOST');
       const FRONTEND_HOST_PROTOCOL = this.configService.get(
@@ -90,23 +96,24 @@ export class StripeService {
         metadata: {
           storeId,
           billingId,
-        },
+          bespokePlanId,
+        } satisfies IStripeMetadata,
         line_items: [
           {
-            price: priceIdMonthly,
-            quantity: input.contactQuantity,
+            price: stripePriceId,
           },
         ],
         mode: 'subscription',
-        customer: input.stripeCustomerId,
-        success_url: `${FRONTEND_HOST_PROTOCOL}//${input.subdomain}.${FRONTEND_HOST}/plans/success`,
-        cancel_url: `${FRONTEND_HOST_PROTOCOL}//${input.subdomain}.${FRONTEND_HOST}/plans/choose`,
+        customer: stripeCustomerId,
+        success_url: `${FRONTEND_HOST_PROTOCOL}//${subdomain}.${FRONTEND_HOST}/plan/success`,
+        cancel_url: `${FRONTEND_HOST_PROTOCOL}//${subdomain}.${FRONTEND_HOST}/plan/choose`,
         allow_promotion_codes: true,
         subscription_data: {
           metadata: {
             storeId,
             billingId,
-          },
+            bespokePlanId,
+          } satisfies IStripeMetadata,
         },
       });
       return session.url;
@@ -175,28 +182,28 @@ export class StripeService {
   > {
     const testClock = await this.stripe.testHelpers.testClocks.create({
       frozen_time: dayjs().unix(),
-      name: 'Bespoke Email - Test Clock',
+      name: 'Bespoke - Test Clock',
     });
     return testClock;
   }
 
   customerPortalConfiguration(): Stripe.BillingPortal.ConfigurationCreateParams {
-    const stripe_bespoke_email_price_id = this.configService.get(
-      'STRIPE_PRICE_ID_BESPOKE_EMAIL_MONTHLY',
+    const STRIPE_BASIC_PRODUCT_ID = this.configService.get(
+      'STRIPE_BASIC_PRODUCT_ID',
     );
 
     invariant(
-      typeof stripe_bespoke_email_price_id === 'string',
-      'STRIPE_PRICE_ID_BESPOKE_EMAIL_MONTHLY, is missing',
+      typeof STRIPE_BASIC_PRODUCT_ID === 'string',
+      'STRIPE_BASIC_PRODUCT_ID, is missing',
     );
 
-    const STRIPE_PRODUCT_BESPOKE_EMAIL_ID = this.configService.get(
-      'STRIPE_PRODUCT_BESPOKE_EMAIL_ID',
+    const STRIPE_ADVANCED_PRODUCT_ID = this.configService.get(
+      'STRIPE_ADVANCED_PRODUCT_ID',
     );
 
     invariant(
-      typeof STRIPE_PRODUCT_BESPOKE_EMAIL_ID === 'string',
-      'STRIPE_PRODUCT_BESPOKE_EMAIL_ID, is missing',
+      typeof STRIPE_ADVANCED_PRODUCT_ID === 'string',
+      'STRIPE_ADVANCED_PRODUCT_ID, is missing',
     );
 
     const FRONTEND_HOST = this.configService.get('FRONTEND_HOST');
@@ -214,17 +221,20 @@ export class StripeService {
         subscription_pause: {
           enabled: false,
         },
-        subscription_update: {
-          enabled: true,
-          default_allowed_updates: ['quantity', 'price', 'promotion_code'],
-          proration_behavior: 'always_invoice',
-          products: [
-            {
-              prices: [stripe_bespoke_email_price_id],
-              product: STRIPE_PRODUCT_BESPOKE_EMAIL_ID,
-            },
-          ],
-        },
+        // subscription_update: {
+        //   enabled: false,
+        //   default_allowed_updates: ['quantity', 'price', 'promotion_code'],
+        //   proration_behavior: 'create_prorations',
+        //   products: [
+        //     {
+        //       prices: [
+        //         'price_1NA9YZGuTUZZ6Si6J6vc9tHa',
+        //         'price_1NA9YZGuTUZZ6Si66Ks2QAuj',
+        //       ],
+        //       product: 'prod_Nw1bDRqLZaren6',
+        //     },
+        //   ],
+        // },
         subscription_cancel: {
           mode: 'at_period_end',
           proration_behavior: 'none',
@@ -249,6 +259,45 @@ export class StripeService {
         privacy_policy_url: `https://${FRONTEND_HOST}/privacy-policy`,
         terms_of_service_url: `https://${FRONTEND_HOST}/terms-of-service`,
       },
-    };
+    } satisfies Stripe.BillingPortal.ConfigurationCreateParams;
+  }
+
+  async prorateSubscirption({
+    subscriptionId,
+    newStripePriceId,
+    bespokePlanId,
+    billingId,
+    storeId,
+  }: {
+    subscriptionId: string;
+    newStripePriceId: string;
+    bespokePlanId: PricingIdType;
+    billingId: string;
+    storeId: string;
+  }): Promise<string | null> {
+    try {
+      const subscription = await this.stripe.subscriptions.retrieve(
+        subscriptionId,
+      );
+      const updated = await this.stripe.subscriptions.update(subscription.id, {
+        proration_behavior: 'create_prorations',
+        items: [
+          {
+            id: subscription.items.data[0]?.id,
+            price: newStripePriceId,
+          },
+        ],
+        metadata: {
+          bespokePlanId,
+          billingId,
+          storeId,
+        } satisfies IStripeMetadata,
+      });
+      console.log({ updated });
+      return null;
+    } catch (err) {
+      console.log(err);
+      throw new Error('stripe proration failed');
+    }
   }
 }

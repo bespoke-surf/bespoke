@@ -321,12 +321,11 @@ export type BenchmarkData = {
 
 export type Billing = {
   __typename?: 'Billing';
+  bespokePlanId: Scalars['String'];
   billingPlanStatus: BillingPlanStatus;
   billingSubscriptionEntity?: Maybe<BillingSubscriptionEntity>;
   cancelAtPeriodEnd: Scalars['Boolean'];
-  contactsQuantity: Scalars['Float'];
   currentPeriodEnd?: Maybe<Scalars['DateTime']>;
-  emailSendQuantity: Scalars['Float'];
   id: Scalars['ID'];
   subscriptionId?: Maybe<Scalars['String']>;
 };
@@ -600,7 +599,6 @@ export enum EventState {
 
 /** different types of event */
 export enum EventType {
-  GrowthStar = 'GROWTH_STAR',
   Integration = 'INTEGRATION',
   List = 'LIST',
   Post = 'POST',
@@ -670,7 +668,6 @@ export type ItemCategory = {
 
 /** item category type enum */
 export enum ItemCategoryTypeEnum {
-  Scubscription = 'SCUBSCRIPTION',
   Shop = 'SHOP'
 }
 
@@ -964,6 +961,8 @@ export type Mutation = {
   logout?: Maybe<Scalars['Boolean']>;
   /** toggle send email notification */
   newSubscriberNotificationToggle?: Maybe<Notification>;
+  /** prorate stripe subscription */
+  prorateStripeSubscription?: Maybe<Scalars['Boolean']>;
   /** publish post here */
   publishPostHere: Scalars['Boolean'];
   /** publish post here */
@@ -1011,6 +1010,8 @@ export type Mutation = {
   unsubscribeFromList?: Maybe<SubscriberList>;
   /** update about */
   updateAbout?: Maybe<About>;
+  /** update billing plan to free */
+  updateBillingPlanToFree?: Maybe<Scalars['Boolean']>;
   /** update a conditional split state */
   updateConditionalSplitState?: Maybe<WorkflowState>;
   /** update default listid ot collect email */
@@ -1095,7 +1096,7 @@ export type MutationConvertWorkflowToPublicArgs = {
 
 
 export type MutationCreateCheckoutSessionUrlArgs = {
-  contactQuantity: Scalars['Int'];
+  stripePriceId: Scalars['String'];
   subdomain: Scalars['String'];
 };
 
@@ -1246,6 +1247,12 @@ export type MutationNewSubscriberNotificationToggleArgs = {
 };
 
 
+export type MutationProrateStripeSubscriptionArgs = {
+  newStripePriceId: Scalars['String'];
+  subdomain: Scalars['String'];
+};
+
+
 export type MutationPublishPostHereArgs = {
   postHandle: Scalars['String'];
   postId: Scalars['String'];
@@ -1361,6 +1368,11 @@ export type MutationUnsubscribeFromListArgs = {
 
 export type MutationUpdateAboutArgs = {
   input: UpdateAboutInput;
+};
+
+
+export type MutationUpdateBillingPlanToFreeArgs = {
+  subdomain: Scalars['String'];
 };
 
 
@@ -1631,7 +1643,6 @@ export type Query = {
   getNotification?: Maybe<Notification>;
   /** get notifications */
   getNotifications: Array<Event>;
-  getPathCrateItems: Array<Item>;
   /** get placed order count */
   getPlacedOrderCount?: Maybe<Scalars['Int']>;
   /** get post */
@@ -2568,14 +2579,14 @@ export type UpdateIndustryMutationVariables = Exact<{
 
 export type UpdateIndustryMutation = { __typename?: 'Mutation', updateIndustry?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null };
 
-export type BillingFragment = { __typename?: 'Billing', id: string, cancelAtPeriodEnd: boolean, billingPlanStatus: BillingPlanStatus, billingSubscriptionEntity?: BillingSubscriptionEntity | null, currentPeriodEnd?: any | null, contactsQuantity: number, emailSendQuantity: number };
+export type BillingFragment = { __typename?: 'Billing', id: string, cancelAtPeriodEnd: boolean, billingPlanStatus: BillingPlanStatus, billingSubscriptionEntity?: BillingSubscriptionEntity | null, currentPeriodEnd?: any | null, bespokePlanId: string };
 
 export type GetStoreBillingQueryVariables = Exact<{
   subdomain: Scalars['String'];
 }>;
 
 
-export type GetStoreBillingQuery = { __typename?: 'Query', getStoreBilling?: { __typename?: 'Billing', id: string, cancelAtPeriodEnd: boolean, billingPlanStatus: BillingPlanStatus, billingSubscriptionEntity?: BillingSubscriptionEntity | null, currentPeriodEnd?: any | null, contactsQuantity: number, emailSendQuantity: number } | null };
+export type GetStoreBillingQuery = { __typename?: 'Query', getStoreBilling?: { __typename?: 'Billing', id: string, cancelAtPeriodEnd: boolean, billingPlanStatus: BillingPlanStatus, billingSubscriptionEntity?: BillingSubscriptionEntity | null, currentPeriodEnd?: any | null, bespokePlanId: string } | null };
 
 export type DismissNotificationMutationVariables = Exact<{
   eventId: Scalars['String'];
@@ -2612,11 +2623,6 @@ export type GetIntegrationWithSubdomainQueryVariables = Exact<{
 export type GetIntegrationWithSubdomainQuery = { __typename?: 'Query', getIntegrationWithSubdomain?: { __typename?: 'Integration', id: string, shopify?: { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null } | null } | null };
 
 export type IntegrationFragment = { __typename?: 'Integration', id: string, shopify?: { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null } | null };
-
-export type GetPathCrateItemsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetPathCrateItemsQuery = { __typename?: 'Query', getPathCrateItems: Array<{ __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } }> };
 
 export type ItemFragment = { __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } };
 
@@ -3120,7 +3126,7 @@ export type CheckUserOrboardedQuery = { __typename?: 'Query', checkUserOnboarded
 
 export type CreateCheckoutSessionUrlMutationVariables = Exact<{
   subdomain: Scalars['String'];
-  contactQuantity: Scalars['Int'];
+  stripePriceId: Scalars['String'];
 }>;
 
 
@@ -3192,6 +3198,14 @@ export type GetStoreWithSubdomainQueryVariables = Exact<{
 
 export type GetStoreWithSubdomainQuery = { __typename?: 'Query', getStoreWithSubdomain?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
+export type ProrateStripeSubscriptionMutationVariables = Exact<{
+  subdomain: Scalars['String'];
+  newStripePriceId: Scalars['String'];
+}>;
+
+
+export type ProrateStripeSubscriptionMutation = { __typename?: 'Mutation', prorateStripeSubscription?: boolean | null };
+
 export type ShopifyAppSubscriptionCancleMutationVariables = Exact<{
   subdomain: Scalars['String'];
 }>;
@@ -3215,6 +3229,13 @@ export type SubscribeToStoreMutationVariables = Exact<{
 
 
 export type SubscribeToStoreMutation = { __typename?: 'Mutation', subscribeToStore?: boolean | null };
+
+export type UpdateBillingPlanToFreeMutationVariables = Exact<{
+  subdomain: Scalars['String'];
+}>;
+
+
+export type UpdateBillingPlanToFreeMutation = { __typename?: 'Mutation', updateBillingPlanToFree?: boolean | null };
 
 export type UpdateDefaultListIdToCollectEmailMutationVariables = Exact<{
   storeId: Scalars['String'];
@@ -3674,8 +3695,7 @@ export const BillingFragmentDoc = gql`
   billingPlanStatus
   billingSubscriptionEntity
   currentPeriodEnd
-  contactsQuantity
-  emailSendQuantity
+  bespokePlanId
 }
     `;
 export const EventFragmentDoc = gql`
@@ -4236,13 +4256,6 @@ export const GetIntegrationWithSubdomainDocument = gql`
   }
 }
     ${IntegrationFragmentDoc}`;
-export const GetPathCrateItemsDocument = gql`
-    query GetPathCrateItems {
-  getPathCrateItems {
-    ...Item
-  }
-}
-    ${ItemFragmentDoc}`;
 export const CreateNewListDocument = gql`
     mutation CreateNewList($name: String!, $storeId: String!) {
   createNewList(name: $name, storeId: $storeId) {
@@ -4660,11 +4673,8 @@ export const CheckUserOrboardedDocument = gql`
 }
     `;
 export const CreateCheckoutSessionUrlDocument = gql`
-    mutation CreateCheckoutSessionUrl($subdomain: String!, $contactQuantity: Int!) {
-  createCheckoutSessionUrl(
-    subdomain: $subdomain
-    contactQuantity: $contactQuantity
-  )
+    mutation CreateCheckoutSessionUrl($subdomain: String!, $stripePriceId: String!) {
+  createCheckoutSessionUrl(subdomain: $subdomain, stripePriceId: $stripePriceId)
 }
     `;
 export const CreateShopifyAppSubscriptionDocument = gql`
@@ -4737,6 +4747,14 @@ export const GetStoreWithSubdomainDocument = gql`
   }
 }
     ${StoreFragmentDoc}`;
+export const ProrateStripeSubscriptionDocument = gql`
+    mutation ProrateStripeSubscription($subdomain: String!, $newStripePriceId: String!) {
+  prorateStripeSubscription(
+    subdomain: $subdomain
+    newStripePriceId: $newStripePriceId
+  )
+}
+    `;
 export const ShopifyAppSubscriptionCancleDocument = gql`
     mutation ShopifyAppSubscriptionCancle($subdomain: String!) {
   shopifyAppSubscriptionCancel(subdomain: $subdomain)
@@ -4750,6 +4768,11 @@ export const SubdomainAvailableDocument = gql`
 export const SubscribeToStoreDocument = gql`
     mutation SubscribeToStore($storeId: String!, $email: String!) {
   subscribeToStore(storeId: $storeId, email: $email)
+}
+    `;
+export const UpdateBillingPlanToFreeDocument = gql`
+    mutation UpdateBillingPlanToFree($subdomain: String!) {
+  updateBillingPlanToFree(subdomain: $subdomain)
 }
     `;
 export const UpdateDefaultListIdToCollectEmailDocument = gql`
@@ -5201,9 +5224,6 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     GetIntegrationWithSubdomain(variables: GetIntegrationWithSubdomainQueryVariables, options?: C): Promise<GetIntegrationWithSubdomainQuery> {
       return requester<GetIntegrationWithSubdomainQuery, GetIntegrationWithSubdomainQueryVariables>(GetIntegrationWithSubdomainDocument, variables, options) as Promise<GetIntegrationWithSubdomainQuery>;
     },
-    GetPathCrateItems(variables?: GetPathCrateItemsQueryVariables, options?: C): Promise<GetPathCrateItemsQuery> {
-      return requester<GetPathCrateItemsQuery, GetPathCrateItemsQueryVariables>(GetPathCrateItemsDocument, variables, options) as Promise<GetPathCrateItemsQuery>;
-    },
     CreateNewList(variables: CreateNewListMutationVariables, options?: C): Promise<CreateNewListMutation> {
       return requester<CreateNewListMutation, CreateNewListMutationVariables>(CreateNewListDocument, variables, options) as Promise<CreateNewListMutation>;
     },
@@ -5426,6 +5446,9 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     GetStoreWithSubdomain(variables: GetStoreWithSubdomainQueryVariables, options?: C): Promise<GetStoreWithSubdomainQuery> {
       return requester<GetStoreWithSubdomainQuery, GetStoreWithSubdomainQueryVariables>(GetStoreWithSubdomainDocument, variables, options) as Promise<GetStoreWithSubdomainQuery>;
     },
+    ProrateStripeSubscription(variables: ProrateStripeSubscriptionMutationVariables, options?: C): Promise<ProrateStripeSubscriptionMutation> {
+      return requester<ProrateStripeSubscriptionMutation, ProrateStripeSubscriptionMutationVariables>(ProrateStripeSubscriptionDocument, variables, options) as Promise<ProrateStripeSubscriptionMutation>;
+    },
     ShopifyAppSubscriptionCancle(variables: ShopifyAppSubscriptionCancleMutationVariables, options?: C): Promise<ShopifyAppSubscriptionCancleMutation> {
       return requester<ShopifyAppSubscriptionCancleMutation, ShopifyAppSubscriptionCancleMutationVariables>(ShopifyAppSubscriptionCancleDocument, variables, options) as Promise<ShopifyAppSubscriptionCancleMutation>;
     },
@@ -5434,6 +5457,9 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     SubscribeToStore(variables: SubscribeToStoreMutationVariables, options?: C): Promise<SubscribeToStoreMutation> {
       return requester<SubscribeToStoreMutation, SubscribeToStoreMutationVariables>(SubscribeToStoreDocument, variables, options) as Promise<SubscribeToStoreMutation>;
+    },
+    UpdateBillingPlanToFree(variables: UpdateBillingPlanToFreeMutationVariables, options?: C): Promise<UpdateBillingPlanToFreeMutation> {
+      return requester<UpdateBillingPlanToFreeMutation, UpdateBillingPlanToFreeMutationVariables>(UpdateBillingPlanToFreeDocument, variables, options) as Promise<UpdateBillingPlanToFreeMutation>;
     },
     UpdateDefaultListIdToCollectEmail(variables: UpdateDefaultListIdToCollectEmailMutationVariables, options?: C): Promise<UpdateDefaultListIdToCollectEmailMutation> {
       return requester<UpdateDefaultListIdToCollectEmailMutation, UpdateDefaultListIdToCollectEmailMutationVariables>(UpdateDefaultListIdToCollectEmailDocument, variables, options) as Promise<UpdateDefaultListIdToCollectEmailMutation>;

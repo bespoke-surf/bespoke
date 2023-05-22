@@ -1,3 +1,4 @@
+import { FREE_PLAN_ID, PricingIdType } from '@bespoke/common/dist/pricingPlan';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   Column,
@@ -6,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   Relation,
 } from 'typeorm';
-import { DEFAULT_CONTACT_QUANTITY } from '../constants';
 import { Store } from '../store/store.entity';
 import { BillingPlanStatus } from './enum/billingPlanStatus.enum';
 import { BillingSubscriptionEntity } from './enum/billingSubscriptionEntity.enum';
@@ -49,12 +49,8 @@ export class Billing {
   subscriptionId?: string;
 
   @Field()
-  @Column({ default: DEFAULT_CONTACT_QUANTITY })
-  contactsQuantity: number;
-
-  @Field()
-  @Column({ default: 0 })
-  emailSendQuantity: number;
+  @Column({ default: FREE_PLAN_ID })
+  bespokePlanId: PricingIdType;
 
   @OneToOne(() => Store, (store) => store.billing, {
     onDelete: 'CASCADE',

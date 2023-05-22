@@ -1,4 +1,7 @@
-import { pricingPlan } from '@bespoke/common/dist/pricingPlan';
+import {
+  FREE_PLAN_ID,
+  bespokePricingPlan,
+} from '@bespoke/common/dist/pricingPlan';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import {
   InjectShopify,
@@ -40,7 +43,7 @@ import { AboutService } from '../about/about.service';
 import { BillingService } from '../billing/billing.service';
 import { BillingPlanStatus } from '../billing/enum/billingPlanStatus.enum';
 import {
-  APP_SUBSCRIPTON_QUANTITY_PREFIX,
+  SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX,
   STORE_PRODUCT_UPLOAD_QUEUE,
   STORE_SEND_EMAIL_TO_SUBSCRIBER_LIST_QUEUE,
 } from '../constants';
@@ -337,7 +340,7 @@ export class StoreService implements OnModuleInit {
 
   async createCheckoutSessionUrl(
     subdomain: string,
-    contactQuantity: number,
+    bespokePricingPlanId: string,
   ): Promise<string | null> {
     try {
       const store = await this.storeRepo.findOne({
@@ -355,7 +358,7 @@ export class StoreService implements OnModuleInit {
 
       return await this.stripeService.createCheckoutSession({
         billingId: store.billing.id,
-        contactQuantity,
+        stripePriceId: bespokePricingPlanId,
         storeId: store.id,
         stripeCustomerId: store.user.stripeCustomerId,
         subdomain: store.subdomain,
@@ -713,10 +716,7 @@ export class StoreService implements OnModuleInit {
         billing,
       );
 
-      if (
-        billingPlanStatus === BillingPlanStatus.CANCELLED ||
-        billingPlanStatus === BillingPlanStatus.PENDING
-      ) {
+      if (billingPlanStatus === BillingPlanStatus.CANCELLED) {
         throw new Error();
       }
 
@@ -725,7 +725,10 @@ export class StoreService implements OnModuleInit {
       );
 
       const percent =
-        (subscriberCount / (billing?.contactsQuantity ?? 1)) * 100;
+        (subscriberCount /
+          (bespokePricingPlan.find(({ id }) => id === billing.bespokePlanId)
+            ?.contacts ?? 1)) *
+        100;
 
       // we need to do this check because if contactquantity can have a value event if the billing status is cancelled
 
@@ -754,24 +757,22 @@ export class StoreService implements OnModuleInit {
         billing,
       );
 
-      if (
-        billingPlanStatus === BillingPlanStatus.CANCELLED ||
-        billingPlanStatus === BillingPlanStatus.FREE ||
-        billingPlanStatus === BillingPlanStatus.PENDING
-      ) {
+      if (billingPlanStatus === BillingPlanStatus.CANCELLED) {
         throw new Error();
       }
 
       const emailSentThisMonth =
         await this.metricService.getEmailSentThisMonthCount(store.subdomain);
 
-      const sentQuantity = billing.emailSendQuantity;
+      const sentQuantity = bespokePricingPlan.find(
+        ({ id }) => id === billing.bespokePlanId,
+      )?.emails;
 
       if (!sentQuantity) return EmailSentLimitStatus.DISALLOWED;
 
       const percent = (emailSentThisMonth / sentQuantity) * 100;
 
-      if (percent >= 95 && percent < 100) {
+      if (percent >= 95) {
         return EmailSentLimitStatus.BRINK_OF_DISSALWOED;
       }
 
@@ -797,10 +798,13 @@ export class StoreService implements OnModuleInit {
 
     const sendingQuantity =
       await this.subscriberListService.getSubscribersInListCount(listId);
+    const emailSendQuantity =
+      bespokePricingPlan.find(({ id }) => id === billing.bespokePlanId)
+        ?.emails ?? 0;
 
-    const sendingLimt = billing.emailSendQuantity - emailSentThisMonth;
+    const sendingLimt = emailSendQuantity - emailSentThisMonth;
 
-    if (sendingLimt === 0 || billing.emailSendQuantity === 0) return false;
+    if (sendingLimt === 0 || emailSendQuantity === 0) return false;
 
     if (sendingQuantity <= sendingLimt) {
       return true;
@@ -815,7 +819,8 @@ export class StoreService implements OnModuleInit {
     subdomain,
   }: CreateShopifyAppSubscriptionInput): Promise<string | null> {
     try {
-      let pricing: number | undefined = 0;
+      // let pricing: number | undefined = 0;
+      const pricing: number | undefined = 0;
 
       const label = `${
         isPremium ? 'Recommended' : 'Pro'
@@ -824,12 +829,12 @@ export class StoreService implements OnModuleInit {
       } email sends.`;
 
       if (contactQuantity * 10 >= 1500010) {
-        pricing = Math.ceil(contactQuantity * (pricingPlan.at(-1)?.price ?? 0));
+        // pricing = Math.ceil(contactQuantity * (pricingPlan.at(-1)?.price ?? 0));
       } else {
-        const currentPlan = pricingPlan.find(
-          ({ value }) => value === contactQuantity * 10,
-        );
-        pricing = currentPlan?.price;
+        // const currentPlan = pricingPlan.find(
+        //   ({ contacts }) => contacts === contactQuantity,
+        // );
+        // pricing = currentPlan?.price;
       }
 
       if (pricing === undefined || pricing === 0 || !pricing) {
@@ -905,7 +910,7 @@ export class StoreService implements OnModuleInit {
 
       if (appSubscriptions.data.appSubscriptionCreate?.appSubscription?.id) {
         this.redis.set(
-          `${APP_SUBSCRIPTON_QUANTITY_PREFIX}${appSubscriptions.data.appSubscriptionCreate.appSubscription.id}`,
+          `${SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX}${appSubscriptions.data.appSubscriptionCreate.appSubscription.id}`,
           contactQuantity,
         );
       }
@@ -1483,5 +1488,51 @@ export class StoreService implements OnModuleInit {
       .getRawMany();
 
     return data;
+  }
+
+  async prorateStripeSubscription(
+    subdomain: string,
+    newStripePriceId: string,
+  ): Promise<boolean> {
+    try {
+      const store = await this.getStoreWithSubdomain(subdomain);
+      if (!store) throw new Error('missing store');
+
+      const billing = await this.billingService.getStoreBilling(subdomain);
+      if (!billing || !billing.subscriptionId)
+        throw new Error('missing billing data');
+
+      const bespokePlanId = bespokePricingPlan.find(
+        ({ stripePriceId }) => stripePriceId === newStripePriceId,
+      )?.id;
+
+      if (!bespokePlanId) throw Error('missing plan id');
+
+      await this.billingService.updateBespokePlanId(billing.id, bespokePlanId);
+
+      await this.stripeService.prorateSubscirption({
+        subscriptionId: billing.subscriptionId,
+        newStripePriceId: newStripePriceId,
+        bespokePlanId,
+        billingId: billing.id,
+        storeId: store.id,
+      });
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+
+  async updateBillingPlanToFree(subdomain: string): Promise<boolean> {
+    try {
+      const billing = await this.billingService.getStoreBilling(subdomain);
+      if (!billing) throw new Error('missing blling ');
+      await this.billingService.updateBespokePlanId(billing.id, FREE_PLAN_ID);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
   }
 }

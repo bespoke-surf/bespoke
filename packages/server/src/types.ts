@@ -24,9 +24,9 @@ export interface EnvironmentVariables {
   SESSION_SECRET: string;
   DATABASE_URL: string;
   STRIPE_SECRET_KEY: string;
-  STRIPE_PRICE_ID_BESPOKE_EMAIL_MONTHLY: string;
   STRIPE_WEBHOOK_SECRET: string;
-  STRIPE_PRODUCT_BESPOKE_EMAIL_ID: string;
+  STRIPE_BASIC_PRODUCT_ID: string;
+  STRIPE_ADVANCED_PRODUCT_ID: string;
   SENTRY_DSN: string;
   POSTHOG_KEY: string;
   AWS_ACCESS_KEY_ID: string;

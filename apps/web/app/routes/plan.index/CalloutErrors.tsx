@@ -1,35 +1,42 @@
-import { useRouteLoaderData } from "@remix-run/react";
+import { useFetcher, useNavigate, useRouteLoaderData } from "@remix-run/react";
 import { Box, Callout, Flex } from "gestalt";
 import { useCallback } from "react";
 import {
   BillingPlanStatus,
+  BillingSubscriptionEntity,
   ContactLimitStatus,
+  EmailSentLimitStatus,
 } from "../../graphql/__generated__/graphql";
 import type { RootData } from "../../root";
 import { calculateLocalTime } from "../../utils/calculateLocalTime";
 import type { GrowthPathData } from "../plan/types";
+import { PlanIndexActionEnum } from "./types";
 
 export default function CalloutErrors() {
   const rootData = useRouteLoaderData("root") as RootData;
   const parentData = useRouteLoaderData("routes/plan/index") as GrowthPathData;
+  const navigate = useNavigate();
+  const fetcher = useFetcher();
 
   const handleMangeBilling = useCallback(() => {
-    // if (
-    //   parentData?.billing?.billingSubscriptionEntity ===
-    //   BillingSubscriptionEntity.Shopify
-    // ) {
-    //   navigate(
-    //     `https://${parentData.integration?.shopify?.storeUrl}/admin/settings/billing/subscriptions`
-    //   );
-    // } else {
-    //   const formData = new FormData();
-    //   formData.append(
-    //     "_action",
-    //     GrowthPathIndexActionEnum.getCustomerPortalSession
-    //   );
-    //   fetcher.submit(formData, { method: "post" });
-    // }
-  }, []);
+    if (
+      parentData?.billing?.billingSubscriptionEntity ===
+      BillingSubscriptionEntity.Shopify
+    ) {
+      navigate(
+        `https://${parentData.integration?.shopify?.storeUrl}/admin/settings/billing/subscriptions`
+      );
+    } else {
+      const formData = new FormData();
+      formData.append("_action", PlanIndexActionEnum.getCustomerPortalSession);
+      fetcher.submit(formData, { method: "post" });
+    }
+  }, [
+    fetcher,
+    navigate,
+    parentData?.billing?.billingSubscriptionEntity,
+    parentData.integration?.shopify?.storeUrl,
+  ]);
 
   const pending =
     parentData?.billing?.billingPlanStatus === BillingPlanStatus.Pending;
@@ -46,6 +53,12 @@ export default function CalloutErrors() {
     parentData?.billing?.billingPlanStatus !== BillingPlanStatus.Pending &&
     rootData?.store?.contactLimitStatus === ContactLimitStatus.Disallowed;
 
+  const freenExceeded =
+    (parentData.billing?.billingPlanStatus === BillingPlanStatus.Free &&
+      rootData?.store?.contactLimitStatus === ContactLimitStatus.Disallowed) ||
+    (parentData.billing?.billingPlanStatus === BillingPlanStatus.Free &&
+      rootData?.store?.emailSentLimitStatus ===
+        EmailSentLimitStatus.Disallowed);
   return (
     <Flex gap={2} direction="column">
       {parentData?.billing?.billingPlanStatus === BillingPlanStatus.Pending && (
@@ -71,15 +84,20 @@ export default function CalloutErrors() {
         BillingPlanStatus.Cancelled && (
         <Callout
           type="error"
-          message="Your Growth Path benefits is cancelled. Unlock Growth Path to start gaining benefits."
-          title="Benefits Stopped!"
+          message="Your plan has been cancelled. Upgrade your plan today to start growing."
+          title="Plan Stopped!"
           iconAccessibilityLabel="error"
+          primaryAction={{
+            accessibilityLabel: "plan choose",
+            label: "Choose Plan",
+            href: "/plan/choose",
+          }}
         />
       )}
       {parentData?.billing?.billingPlanStatus === BillingPlanStatus.PastDue && (
         <Callout
           type="error"
-          message="Hey here is to notify you that you have a payment past due."
+          message="Your current payment is past due."
           title="Payment past due!"
           primaryAction={{
             accessibilityLabel: "plans",
@@ -101,41 +119,56 @@ export default function CalloutErrors() {
             primaryAction={{
               accessibilityLabel: "plans",
               label: "Renew",
-              // onClick: handleMangeBilling,
+              onClick: handleMangeBilling,
             }}
             iconAccessibilityLabel="error"
           />
         )}
-      {rootData?.store?.contactLimitStatus ===
-        ContactLimitStatus.BrinkOfDissalwoed && (
+      {freenExceeded && (
+        <Callout
+          type="error"
+          message="It's time to upgrade your free plan. You have reached the limit of your free plan. Choose a plan to upgrade."
+          title="Free plan limit reached!"
+          primaryAction={{
+            accessibilityLabel: "choose",
+            label: "Choose Plan",
+            href: "/plan/choose",
+          }}
+          iconAccessibilityLabel="error"
+        />
+      )}
+
+      {/* {rootData?.store?.contactLimitStatus ===
+        ContactLimitStatus.BrinkOfDissalwoed ||
+      rootData.store?.emailSentLimitStatus ===
+        EmailSentLimitStatus.BrinkOfDissalwoed ? (
         <Callout
           iconAccessibilityLabel="error"
-          message="Update your plan quantity through the manage billing portal."
-          type="warning"
+          message="Update your plan to the next tier through the manage billing portal."
+          type="recommendation"
           primaryAction={{
             label: "Manage billing",
             accessibilityLabel: "plans",
-            // onClick: handleMangeBilling,
+            onClick: handleMangeBilling,
           }}
-          title="Contact Usage Status!"
+          title="Overage pricing is starting soon!"
         />
-      )}
-      {parentData?.billing?.billingPlanStatus !== BillingPlanStatus.Cancelled &&
-        parentData?.billing?.billingPlanStatus !== BillingPlanStatus.Pending &&
-        rootData?.store?.contactLimitStatus ===
-          ContactLimitStatus.Disallowed && (
-          <Callout
-            iconAccessibilityLabel="error"
-            message="Benefits fo current Growth Path has exceeded. Unlock new Growth Path to enjoy your benefits."
-            type="error"
-            // primaryAction={{
-            // label: "Manage Billing",
-            // accessibilityLabel: "manage billing",
-            // onClick: handleMangeBilling,
-            // }}
-            title="Benefits Exceeded!"
-          />
-        )}
+      ) : null}
+      {rootData?.store?.contactLimitStatus === ContactLimitStatus.Disallowed ||
+      rootData.store?.emailSentLimitStatus ===
+        EmailSentLimitStatus.Disallowed ? (
+        <Callout
+          iconAccessibilityLabel="error"
+          message="Benefits fo current Growth Path has exceeded. Unlock new Growth Path to enjoy your benefits."
+          type="error"
+          primaryAction={{
+            label: "Manage Billing",
+            accessibilityLabel: "manage billing",
+            onClick: handleMangeBilling,
+          }}
+          title="Benefits Exceeded!"
+        />
+      ) : null} */}
       {pending || cancelled || pastDue || rewNew || exceedeBenefits ? (
         <Box marginBottom={8} />
       ) : (

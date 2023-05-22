@@ -15,8 +15,8 @@ export const meta: MetaFunction = ({ parentsData }) => {
   const rootData = parentsData.root as RootData;
 
   return {
-    title: `Cancelled - Growth Path | ${rootData.store?.name}`,
-    description: "Your growth path has been cancelled",
+    title: `Cancelled - Plan | ${rootData.store?.name}`,
+    description: "Your plan has been cancelled",
   };
 };
 
@@ -53,7 +53,7 @@ export default function PlansCancelled() {
           <IconButton
             accessibilityLabel="close"
             icon="cancel"
-            href="/growth-path"
+            href="/plan"
             role="link"
             target="self"
           />

@@ -26,12 +26,12 @@ export const StoreNav = ({
   const dashboardCounter: SideNavigationTopItemProps["counter"] =
     useMemo(() => {
       let count = 0;
-      if (
-        rootLoaderData?.store?.contactLimitStatus ===
-        ContactLimitStatus.BrinkOfDissalwoed
-      ) {
-        count += 1;
-      }
+      // if (
+      //   rootLoaderData?.store?.contactLimitStatus ===
+      //   ContactLimitStatus.BrinkOfDissalwoed
+      // ) {
+      //   count += 1;
+      // }
       if (
         rootLoaderData?.store?.contactLimitStatus ===
         ContactLimitStatus.Disallowed

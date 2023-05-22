@@ -1,6 +1,6 @@
-mutation CreateCheckoutSessionUrl($subdomain: String!, $contactQuantity: Int!) {
-  createCheckoutSessionUrl(
-    subdomain: $subdomain
-    contactQuantity: $contactQuantity
-  )
+mutation CreateCheckoutSessionUrl(
+  $subdomain: String!
+  $stripePriceId: String!
+) {
+  createCheckoutSessionUrl(subdomain: $subdomain, stripePriceId: $stripePriceId)
 }

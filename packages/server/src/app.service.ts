@@ -1,3 +1,4 @@
+import type { PricingIdType } from '@bespoke/common/dist/pricingPlan';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import {
   InjectShopify,
@@ -16,7 +17,7 @@ import {
 import { ACTIVE_SUBSCRIPTIONS_QUERY } from '../graphql/activeSubscriptions.graphql';
 import { BillingService } from './billing/billing.service';
 import { BillingSubscriptionEntity } from './billing/enum/billingSubscriptionEntity.enum';
-import { APP_SUBSCRIPTON_QUANTITY_PREFIX } from './constants';
+import { SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX } from './constants';
 import { MetricService } from './metric/metirc.service';
 import { Metric } from './metric/metric.entity';
 import { SesService } from './ses/ses.service';
@@ -231,11 +232,11 @@ export class AppService {
 
       if (status === 'PENDING' || subStatus === undefined) throw new Error();
 
-      const quantity = await this.redis.get(
-        `${APP_SUBSCRIPTON_QUANTITY_PREFIX}${id}`,
-      );
+      const bespokePlanId = (await this.redis.get(
+        `${SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX}${id}`,
+      )) as PricingIdType | null;
 
-      if (!quantity) {
+      if (!bespokePlanId) {
         throw new Error('qunatity missing');
       }
 
@@ -247,23 +248,18 @@ export class AppService {
             : false,
         currentPeriodEnd: dayjs(currentPeriodEnd).unix(),
         status: subStatus,
-        quantity: Number(quantity),
+        bespokePlanId,
         billingSubscriptionEntity: BillingSubscriptionEntity.SHOPIFY,
       });
 
       // doesnt matter if we need to check if exist or not, always update doenst break anything!
       await this.billingService.updateSubscriptionId(id, billing.id);
 
-      // add 1000 credits
-      // get pathcrate items and add to store.
-
-      // await this.storeItemService.addPathCrateItem(
-      //   shopify.integration.store.id,
-      // );
-
       // delete key if the sub is cancelled. New sub gets created where key is set with quanitty.
       if (subStatus === 'canceled' || subStatus === 'incomplete_expired') {
-        this.redis.del(`${APP_SUBSCRIPTON_QUANTITY_PREFIX}${id}`);
+        this.redis.del(
+          `${SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX}${id}`,
+        );
       }
       return null;
     } catch (err) {

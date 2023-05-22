@@ -1,0 +1,9 @@
+mutation ProrateStripeSubscription(
+  $subdomain: String!
+  $newStripePriceId: String!
+) {
+  prorateStripeSubscription(
+    subdomain: $subdomain
+    newStripePriceId: $newStripePriceId
+  )
+}

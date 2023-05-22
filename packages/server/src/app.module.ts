@@ -24,7 +24,8 @@ import { restResources } from '@shopify/shopify-api/rest/admin/2023-01';
 import cors from 'cors';
 import { GraphQLJSONObject, PhoneNumberResolver } from 'graphql-scalars';
 import { join } from 'node:path';
-import { Migrations1683547508580 } from '../migrations/1683547508580-migrations';
+import { Migrations1684427301725 } from '../migrations/1684427301725-migrations';
+import { Migrations1684584388289 } from '../migrations/1684584388289-migrations';
 import { AboutModule } from './about/about.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -96,7 +97,7 @@ import { WorkflowModule } from './workflow/workflow.module';
         autoLoadEntities: true,
         migrationsRun: true,
         useUTC: true,
-        migrations: [Migrations1683547508580],
+        migrations: [Migrations1684427301725, Migrations1684584388289],
         url: configService.get('DATABASE_URL') as string,
         // replication: {
         //   master: {

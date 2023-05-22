@@ -203,13 +203,10 @@ export class StoreResolver {
   createCheckoutSessionUrl(
     @Args('subdomain')
     subdomain: string,
-    @Args('contactQuantity', { type: () => Int })
-    contactQuantity: number,
+    @Args('stripePriceId')
+    stripePriceId: string,
   ): Promise<string | null> {
-    return this.storeService.createCheckoutSessionUrl(
-      subdomain,
-      contactQuantity,
-    );
+    return this.storeService.createCheckoutSessionUrl(subdomain, stripePriceId);
   }
 
   @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
@@ -332,5 +329,28 @@ export class StoreResolver {
     @Args('subdomain') subdomain: string,
   ): Promise<BenchmarkData[] | null> {
     return this.storeService.getBenchmarkData(subdomain);
+  }
+
+  @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
+  @Mutation(() => Boolean, {
+    nullable: true,
+    description: 'prorate stripe subscription',
+  })
+  prorateStripeSubscription(
+    @Args('subdomain') subdomain: string,
+    @Args('newStripePriceId') id: string,
+  ): Promise<boolean> {
+    return this.storeService.prorateStripeSubscription(subdomain, id);
+  }
+
+  @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
+  @Mutation(() => Boolean, {
+    nullable: true,
+    description: 'update billing plan to free',
+  })
+  updateBillingPlanToFree(
+    @Args('subdomain') subdomain: string,
+  ): Promise<boolean> {
+    return this.storeService.updateBillingPlanToFree(subdomain);
   }
 }

@@ -10,13 +10,13 @@ export enum BillingSubscriptionStatus {
 
   // pending
   INCOMPLETE = 'incomplete',
+  UNPAID = 'unpaid',
 
   //cancelled
   CANCELED = 'canceled',
   INCOMPLETE_EXPIRED = 'incomplete_expired',
 
   // will never reach here, set to can after past due
-  UNPAID = 'unpaid',
   TRIALING = 'trialing',
 }
 

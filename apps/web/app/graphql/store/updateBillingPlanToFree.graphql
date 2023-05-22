@@ -1,0 +1,3 @@
+mutation UpdateBillingPlanToFree($subdomain: String!) {
+  updateBillingPlanToFree(subdomain: $subdomain)
+}

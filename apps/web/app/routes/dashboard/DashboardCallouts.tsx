@@ -1,15 +1,16 @@
 import { useRouteLoaderData } from "@remix-run/react";
 import { Box, Callout, Flex } from "gestalt";
-import { ContactLimitStatus } from "../../graphql/__generated__/graphql";
+import {
+  ContactLimitStatus,
+  EmailSentLimitStatus,
+} from "../../graphql/__generated__/graphql";
 import type { RootData } from "../../root";
 
 export default function DashboardCallouts() {
   const rootData = useRouteLoaderData("root") as RootData;
 
   const idToCollect = !rootData?.store?.defaultListIdToCollectEmail;
-  const brink =
-    rootData?.store?.contactLimitStatus ===
-    ContactLimitStatus.BrinkOfDissalwoed;
+
   const disallowed =
     rootData?.store?.contactLimitStatus === ContactLimitStatus.Disallowed;
 
@@ -28,11 +29,13 @@ export default function DashboardCallouts() {
           title="Select a list"
         />
       )}
-      {rootData?.store?.contactLimitStatus ===
-        ContactLimitStatus.BrinkOfDissalwoed && (
+      {/* {rootData?.store?.contactLimitStatus ===
+        ContactLimitStatus.BrinkOfDissalwoed ||
+      rootData.store?.emailSentLimitStatus ===
+        EmailSentLimitStatus.BrinkOfDissalwoed ? (
         <Callout
           iconAccessibilityLabel="recommended"
-          message="Your growing! Update your subscription for uninterupted growth."
+          message="Your growing! Update your plan for uninterrupted growth."
           type="recommendation"
           primaryAction={{
             label: "Plan",
@@ -41,22 +44,24 @@ export default function DashboardCallouts() {
           }}
           title="Your Growing!"
         />
-      )}
-      {rootData?.store?.contactLimitStatus ===
-        ContactLimitStatus.Disallowed && (
+      ) : null} */}
+      {rootData?.store?.contactLimitStatus === ContactLimitStatus.Disallowed ||
+      rootData.store?.emailSentLimitStatus ===
+        EmailSentLimitStatus.Disallowed ? (
         <Callout
           iconAccessibilityLabel="error"
-          message="Head over to subscription plan and see why it's paused."
+          message="Head over to Plan tab and see why the issue is."
           type="error"
           primaryAction={{
             label: "Plan",
             accessibilityLabel: "plan",
             href: "/plan",
           }}
-          title="Subscription Paused!"
+          title="Problem found at Plan!"
         />
-      )}
-      {brink || disallowed || idToCollect ? <Box marginBottom={8} /> : <Box />}
+      ) : null}
+
+      {disallowed || idToCollect ? <Box marginBottom={8} /> : <Box />}
     </Flex>
   );
 }

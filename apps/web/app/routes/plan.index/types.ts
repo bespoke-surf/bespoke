@@ -1,6 +1,6 @@
-export enum PlanChooseActionEnum {
-  createCheckoutSessionUrl = "createCheckoutSessionUrl",
+export enum PlanIndexActionEnum {
   createShopifyAppSubscription = "createShopifyAppSubscription",
+  getCustomerPortalSession = "getCustomerPortalSession",
 }
 
 export type GrowthPathChooseData = {

@@ -1,10 +1,7 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 
 @InputType({ description: 'update shipping zone input' })
 export class CreateCheckoutSessionInput {
-  @Field(() => Int)
-  contactQuantity: number;
-
   @Field()
   storeId: string;
 
@@ -13,6 +10,9 @@ export class CreateCheckoutSessionInput {
 
   @Field()
   stripeCustomerId: string;
+
+  @Field()
+  stripePriceId: string;
 
   @Field()
   subdomain: string;

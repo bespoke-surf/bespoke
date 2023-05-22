@@ -5,7 +5,6 @@ import Footer from "../../components/Footer";
 import PublicNav from "../../components/PublicNav";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
-import { EmailMarketing } from "./EmailMarketing/EmailMarketing";
 import emailMarketingCss from "./EmailMarketing/emailMarketing.css";
 import headerCss from "./Header/header.css";
 import oneCss from "./One/one.css";
@@ -56,7 +55,7 @@ export default function Pricing() {
         }}
       >
         <PriceChange />
-        <EmailMarketing />
+        {/* <EmailMarketing /> */}
       </Box>
       <Shopify />
       <Footer />

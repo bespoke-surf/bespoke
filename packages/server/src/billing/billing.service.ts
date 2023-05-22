@@ -1,3 +1,4 @@
+import { FREE_PLAN_ID, PricingIdType } from '@bespoke/common/dist/pricingPlan';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import dayjs from 'dayjs';
@@ -46,6 +47,8 @@ export class BillingService {
   }
 
   async billingPlanStatus(billing: Billing): Promise<BillingPlanStatus> {
+    // active, incomplete and past due is things are still working
+    // incomplete_expired, unpaid and cancelled is when we revoke things
     if (
       billing.billingSubscriptionStatus === BillingSubscriptionStatus.ACTIVE
     ) {
@@ -92,7 +95,7 @@ export class BillingService {
   async subscriptionUpdate({
     status,
     currentPeriodEnd,
-    quantity,
+    bespokePlanId,
     billingId,
     cancelAtPeriodEnd,
     billingSubscriptionEntity,
@@ -101,7 +104,7 @@ export class BillingService {
     cancelAtPeriodEnd: boolean;
     status: Stripe.Subscription.Status;
     currentPeriodEnd: number;
-    quantity: number;
+    bespokePlanId: PricingIdType;
     billingId: string;
   }): Promise<void> {
     let billingSubscriptionStatus = undefined;
@@ -132,82 +135,15 @@ export class BillingService {
     }
 
     if (billingSubscriptionStatus) {
-      await this.updateBillingSubscription({
-        currentPeriodEnd,
-        quantity,
+      const date = dayjs.unix(currentPeriodEnd).utc().format();
+      await this.billingRepo.update(billingId, {
+        currentPeriodEnd: date,
         billingSubscriptionStatus,
-        billingId,
+        bespokePlanId,
         billingSubscriptionEntity,
       });
     }
     await this.updateCancelAtPeriodEnd(cancelAtPeriodEnd, billingId);
-  }
-
-  async updateBillingSubscription({
-    billingId,
-    quantity,
-    currentPeriodEnd,
-    billingSubscriptionStatus,
-    billingSubscriptionEntity,
-  }: {
-    billingId: string;
-    quantity: number;
-    currentPeriodEnd: number;
-    billingSubscriptionStatus: BillingSubscriptionStatus;
-    billingSubscriptionEntity: BillingSubscriptionEntity;
-  }): Promise<null> {
-    const date = dayjs.unix(currentPeriodEnd).utc().format();
-    let contactsQuantity = 250;
-
-    const till_500_start = 500;
-    const till_500_end = 13500;
-
-    const till_5000_start = 15000;
-    const till_5000_end = 150000;
-
-    if (quantity <= 250) {
-      contactsQuantity = 250;
-    } else if (quantity > 250 && quantity <= 500) {
-      contactsQuantity = 500;
-    } else if (quantity > 3500 && quantity <= 5000) {
-      contactsQuantity = 5000;
-    } else if (quantity > 13500 && quantity <= 15000) {
-      contactsQuantity = 15000;
-    } else if (quantity > 25000 && quantity <= 26000) {
-      contactsQuantity = 26000;
-    } else if (quantity > 26000 && quantity <= 27000) {
-      contactsQuantity = 27000;
-    } else if (quantity > 27000 && quantity <= 28000) {
-      contactsQuantity = 28000;
-    } else if (quantity > 28000 && quantity <= 30000) {
-      contactsQuantity = 30000;
-    } else if (quantity > till_500_start && quantity <= till_500_end) {
-      for (let i = till_500_start; i <= till_500_end; i += 500) {
-        if (quantity > i && quantity <= i + 500) {
-          contactsQuantity = i + 500;
-        }
-      }
-    } else if (quantity > till_5000_start && quantity <= till_5000_end) {
-      for (let i = till_5000_start; i <= till_5000_end; i += 5000) {
-        if (quantity > i && quantity <= i + 5000) {
-          contactsQuantity = i + 5000;
-        }
-        if (quantity === i) {
-          contactsQuantity = i;
-        }
-      }
-    } else if (quantity > till_5000_end) {
-      contactsQuantity = quantity;
-    }
-
-    await this.billingRepo.update(billingId, {
-      currentPeriodEnd: date,
-      billingSubscriptionStatus,
-      contactsQuantity,
-      emailSendQuantity: contactsQuantity * 10,
-      billingSubscriptionEntity,
-    });
-    return null;
   }
 
   async cancelCurrentBilling(billingId: string): Promise<boolean> {
@@ -233,6 +169,35 @@ export class BillingService {
       throw new Error();
     } catch (err) {
       return false;
+    }
+  }
+
+  async updateBespokePlanId(
+    billingId: string,
+    newBespokePlanId: PricingIdType,
+  ) {
+    // not sure if we have to check if its an active plan and only allow updating active plans
+
+    const billing = await this.billingRepo.findOne({
+      where: {
+        id: billingId,
+      },
+    });
+    if (!billing) throw new Error('missig billing');
+    if (
+      newBespokePlanId === FREE_PLAN_ID &&
+      billing.billingSubscriptionStatus !== BillingSubscriptionStatus.CANCELED
+    )
+      throw Error('need to be in canceled state');
+
+    await this.billingRepo.update(billingId, {
+      bespokePlanId: newBespokePlanId,
+    });
+
+    if (newBespokePlanId === FREE_PLAN_ID) {
+      await this.billingRepo.update(billingId, {
+        billingSubscriptionStatus: BillingSubscriptionStatus.UNSUBSCRIBED,
+      });
     }
   }
 }

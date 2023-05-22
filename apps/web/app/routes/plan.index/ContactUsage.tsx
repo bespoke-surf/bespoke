@@ -1,9 +1,12 @@
+import { bespokePricingPlan } from "@bespoke/common/dist/pricingPlan";
 import { useLoaderData, useRouteLoaderData } from "@remix-run/react";
-import { Box, Flex, Text } from "gestalt";
+import { Box, Flex, SlimBanner, Text } from "gestalt";
+import { useMemo } from "react";
 import ProgressBar from "../../components/ProgressBar";
 import {
   BillingPlanStatus,
   ContactLimitStatus,
+  EmailSentLimitStatus,
 } from "../../graphql/__generated__/graphql";
 import type { RootData } from "../../root";
 import type { GrowthPathData } from "../plan/types";
@@ -15,12 +18,26 @@ export default function ContactUsage() {
   const parentData = useRouteLoaderData("routes/plan/index") as GrowthPathData;
 
   const rootData = useRouteLoaderData("root") as RootData;
-  const active =
-    parentData?.billing?.billingPlanStatus === BillingPlanStatus.Active;
+  const statusFree =
+    parentData?.billing?.billingPlanStatus === BillingPlanStatus.Free;
+
+  const planData = useMemo(
+    () =>
+      bespokePricingPlan.find(
+        ({ id }) => id === parentData.billing?.bespokePlanId
+      ),
+    [parentData.billing?.bespokePlanId]
+  );
+
+  const freenExceeded =
+    (statusFree &&
+      rootData?.store?.contactLimitStatus === ContactLimitStatus.Disallowed) ||
+    (statusFree &&
+      rootData?.store?.emailSentLimitStatus ===
+        EmailSentLimitStatus.Disallowed);
 
   return (
     <Flex gap={4} direction="column">
-      {/* <Heading size="400">Growing Contacts</Heading> */}
       <Flex gap={2} direction="column">
         <Flex justifyContent="between">
           <Box>
@@ -32,13 +49,13 @@ export default function ContactUsage() {
               CONTACTS
             </Text>
           </Box>
-          <Box display={active ? "block" : "none"}>
+          <Box display={statusFree ? "block" : "none"}>
             <Box>
               <Text size="200" inline color="subtle" weight="bold">
                 OF{" "}
               </Text>
               <Text size="200" weight="bold" inline>
-                {numberWithCommas(parentData.billing?.contactsQuantity ?? 0)}
+                {numberWithCommas(planData?.contacts ?? 0)}
               </Text>
             </Box>
           </Box>
@@ -48,16 +65,14 @@ export default function ContactUsage() {
             rootData?.store?.contactLimitStatus === ContactLimitStatus.Allowed
               ? "#008753"
               : rootData?.store?.contactLimitStatus ===
-                ContactLimitStatus.BrinkOfDissalwoed
+                  ContactLimitStatus.BrinkOfDissalwoed && statusFree
               ? "#bd5b00"
               : "#CC0000"
           }
           baseBgColor="#F9F9F9"
           height="30px"
           completed={Math.ceil(
-            ((parentData?.subscriberCount ?? 0) /
-              (parentData?.billing?.contactsQuantity ?? 0)) *
-              100
+            ((parentData?.subscriberCount ?? 0) / (planData?.emails ?? 0)) * 100
           )}
           isLabelVisible={false}
         />
@@ -65,14 +80,13 @@ export default function ContactUsage() {
           {loaderData.subscriberAddedTodayCount} customers added today
         </Text>
 
-        {/* {rootData?.store?.contactLimitStatus ===
-          ContactLimitStatus.Disallowed && (
+        {freenExceeded && (
           <SlimBanner
-            type="warning"
-            message="Unavailable on your current plan. Upgrade to start adding contacts."
-            iconAccessibilityLabel="warning"
+            type="error"
+            message="Contact limit exceeded. Please upgrade."
+            iconAccessibilityLabel="error"
           />
-        )} */}
+        )}
       </Flex>
     </Flex>
   );
