@@ -57,15 +57,6 @@ export class WorkflowResolver {
     return this.workflowService.getWorkflow(workflowId);
   }
 
-  @UseGuards(AuthGuard, HasStoreAccess)
-  @Mutation(() => Workflow, {
-    nullable: true,
-    description: 'get workflows',
-  })
-  createWorkflow(@Args('storeId') storeId: string): Promise<Workflow | null> {
-    return this.workflowService.createWorkflow(storeId);
-  }
-
   @UseGuards(AuthGuard, HasStoreAccessWithWorkflow)
   @Mutation(() => Workflow, {
     nullable: true,

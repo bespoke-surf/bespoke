@@ -910,8 +910,8 @@ type Mutation {
   """update trigger split node"""
   createTriggerSplitNode(input: CreateTriggerSplitNodeInput!): WorkflowState
 
-  """get workflows"""
-  createWorkflow(storeId: String!): Workflow
+  """create workflows"""
+  createWorkflow(subdomain: String!): Workflow
 
   """delete list with id"""
   deleteList(listId: String!): List!

@@ -55,7 +55,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 15000,
     overages: 0.004,
     price: 15,
-    stripePriceId: "price_1N9V8iGuTUZZ6Si67Z8L5v6Y",
+    stripePriceId: "price_1NAudcGuTUZZ6Si6K8xrJz8e",
   },
 
   {
@@ -66,7 +66,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 30000,
     overages: 0.003,
     price: 25,
-    stripePriceId: "price_1N9VAaGuTUZZ6Si6LRHzh1NA",
+    stripePriceId: "price_1NAveDGuTUZZ6Si6SfPK5Rh2",
   },
   {
     id: BASIC_PLAN_20K_ID,
@@ -76,7 +76,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 60000,
     overages: 0.003,
     price: 50,
-    stripePriceId: "price_1N9VBSGuTUZZ6Si6vQbaBMcD",
+    stripePriceId: "price_1NAveyGuTUZZ6Si68do2QEPf",
   },
   {
     id: BASIC_PLAN_50K_ID,
@@ -86,7 +86,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 150000,
     overages: 0.0028,
     price: 120,
-    stripePriceId: "price_1N9VQmGuTUZZ6Si65BJD5PVr",
+    stripePriceId: "price_1NAvfUGuTUZZ6Si66wBsq8aU",
   },
   {
     id: BASIC_PLAN_100K_ID,
@@ -96,7 +96,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 300000,
     overages: 0.0023,
     price: 200,
-    stripePriceId: "price_1N9VQlGuTUZZ6Si68c7P03r8",
+    stripePriceId: "price_1NAvg4GuTUZZ6Si6Hp7KgHKJ",
   },
   {
     id: ADVANCED_PLAN_10K_ID,
@@ -106,7 +106,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 50000,
     overages: 0.0075,
     price: 60,
-    stripePriceId: "price_1N9VWVGuTUZZ6Si6EASkNtSW",
+    stripePriceId: "price_1NAvjFGuTUZZ6Si6J4TsGpf7",
   },
   {
     id: ADVANCED_PLAN_20K_ID,
@@ -116,7 +116,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 100000,
     overages: 0.006,
     price: 100,
-    stripePriceId: "price_1N9VWVGuTUZZ6Si6JlC3s3ne",
+    stripePriceId: "price_1NAvjFGuTUZZ6Si6G3ZDXqJc",
   },
   {
     id: ADVANCED_PLAN_50K_ID,
@@ -126,7 +126,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 250000,
     overages: 0.006,
     price: 250,
-    stripePriceId: "price_1N9VWVGuTUZZ6Si6kWSiLcrO",
+    stripePriceId: "price_1NAvjFGuTUZZ6Si6wT0Mc8p7",
   },
   {
     id: ADVANCED_PLAN_100K_ID,
@@ -136,7 +136,7 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 500000,
     overages: 0.005,
     price: 450,
-    stripePriceId: "price_1N9VWVGuTUZZ6Si6XibHzCsy",
+    stripePriceId: "price_1NAvjFGuTUZZ6Si6ZYTD9dkc",
   },
   {
     id: ADVANCED_PLAN_200K_ID,
@@ -146,6 +146,6 @@ export const bespokePricingPlan: IPricing[] = [
     emails: 1000000,
     overages: 0.005,
     price: 900,
-    stripePriceId: "price_1N9VWVGuTUZZ6Si62sDlFUXf",
+    stripePriceId: "price_1NAvjFGuTUZZ6Si6qzgbSdRUf",
   },
 ];

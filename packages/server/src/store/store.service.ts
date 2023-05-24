@@ -82,13 +82,16 @@ import { isReservedSubdomain } from '../utils/reservedSubdomain';
 import { WorkflowStateConditionalSplitActivityValue } from '../workflow-state/type/stateConditionalSplitValue';
 import { WorkflowStateTriggerSplitActivityValue } from '../workflow-state/type/triggerSplitValues';
 import { WorkflowStateService } from '../workflow-state/workflow-state.service';
+import { WorkflowStatus } from '../workflow/enum/workflowStatus.enum';
 import { BaseConditionalFilter } from '../workflow/type/baseCoindtionalFilter/baseConditionalFilter';
 import { BaseConditionalFilterConditionEnum } from '../workflow/type/baseCoindtionalFilter/enum/condition.enum';
 import { BaseTriggerFilter } from '../workflow/type/baseTriggerFilter/baseTriggerFilter';
+import { Workflow } from '../workflow/workflow.entity';
 import { WorkflowService } from '../workflow/workflow.service';
 import { UpdateDisplayPictureInput } from './dto/add-display-picture-input';
 import { BenchmarkData } from './dto/benchmarkData';
 import { CreateShopifyAppSubscriptionInput } from './dto/createShopifyAppSubscription';
+import { CreateSignupFormInput } from './dto/createSignupForm';
 import { GetStoreEmailMetric } from './dto/getStoreEmailMetric';
 import { PublishPostToListInput } from './dto/publishPostToListInput';
 import { StoreSendEmailData } from './dto/sendgridSendEmailData';
@@ -720,6 +723,10 @@ export class StoreService implements OnModuleInit {
         throw new Error();
       }
 
+      if (billing.bespokePlanId !== FREE_PLAN_ID) {
+        return ContactLimitStatus.ALLOWED;
+      }
+
       const subscriberCount = await this.subscriberService.getSubscribersCount(
         store.subdomain,
       );
@@ -761,6 +768,10 @@ export class StoreService implements OnModuleInit {
         throw new Error();
       }
 
+      if (billing.bespokePlanId !== FREE_PLAN_ID) {
+        return EmailSentLimitStatus.ALLOWED;
+      }
+
       const emailSentThisMonth =
         await this.metricService.getEmailSentThisMonthCount(store.subdomain);
 
@@ -772,7 +783,7 @@ export class StoreService implements OnModuleInit {
 
       const percent = (emailSentThisMonth / sentQuantity) * 100;
 
-      if (percent >= 95) {
+      if (percent >= 95 && percent < 100) {
         return EmailSentLimitStatus.BRINK_OF_DISSALWOED;
       }
 
@@ -789,9 +800,26 @@ export class StoreService implements OnModuleInit {
     listId: string,
     subdomain: string,
   ): Promise<boolean> {
+    const store = await this.getStoreWithSubdomain(subdomain);
+    if (!store) return false;
+
     const billing = await this.billingService.getStoreBilling(subdomain);
 
     if (!billing) return false;
+
+    if (billing.bespokePlanId !== FREE_PLAN_ID) {
+      return true;
+    }
+
+    const contactLimitStatus = await this.getContactLimitStatus(store);
+    const emailLimitStatus = await this.getEmailSentLimitStatus(store);
+
+    if (
+      contactLimitStatus === ContactLimitStatus.DISALLOWED ||
+      emailLimitStatus === EmailSentLimitStatus.DISALLOWED
+    ) {
+      return false;
+    }
 
     const emailSentThisMonth =
       await this.metricService.getEmailSentThisMonthCount(subdomain);
@@ -1534,5 +1562,85 @@ export class StoreService implements OnModuleInit {
       console.log(err);
       return false;
     }
+  }
+
+  async createSignupForm(
+    input: CreateSignupFormInput,
+  ): Promise<SignupForm | null> {
+    try {
+      const store = await this.getStore(input.storeId);
+
+      if (!store || !store.subdomain)
+        throw new Error('missing store or subdomain');
+
+      const billing = await this.billingService.getStoreBilling(
+        store.subdomain,
+      );
+
+      if (!billing) throw new Error('missing billing');
+
+      const count = await this.signupFormService.getSignupFormCount(
+        input.storeId,
+      );
+
+      if (billing.bespokePlanId === FREE_PLAN_ID && count >= 1) {
+        throw new Error('reached free limit');
+      }
+      const billingPlan = bespokePricingPlan.find(
+        ({ id }) => id === billing.bespokePlanId,
+      );
+      if (billingPlan?.type === 'basic' && count >= 5) {
+        throw new Error('reached basic limit');
+      }
+      if (billingPlan?.type === 'advanced' && count >= 15) {
+        throw new Error('reached advanced limit');
+      }
+      return await this.signupFormService.createSignupForm(input);
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+  async createWorkflow(subdomain: string): Promise<Workflow | null> {
+    try {
+      const store = await this.getStoreWithSubdomain(subdomain);
+      if (!store) throw new Error('store missing');
+      const billing = await this.billingService.getStoreBilling(subdomain);
+      if (!store.billing) throw new Error('missing billing');
+
+      const billingPlan = bespokePricingPlan.find(
+        ({ id }) => id === billing?.bespokePlanId,
+      );
+
+      if (billingPlan?.type === 'basic') {
+        throw new Error('not authorized to create workflow on basic plan');
+      }
+      return await this.workflowService.createWorkflow(store.id);
+    } catch (err) {
+      return null;
+    }
+  }
+  async checkWorkflowAuthorized(workflow: Workflow | null) {
+    if (workflow?.workflowStatus !== WorkflowStatus.LIVE)
+      throw new Error('workflow cancelled');
+
+    const store = await this.getStore(workflow?.storeId);
+    if (!store || !store.subdomain) throw new Error('store is missing');
+    const billing = await this.billingService.getStoreBilling(store.subdomain);
+    if (!billing) throw new Error('missing store billing');
+    const billingPlan = bespokePricingPlan.find(
+      ({ id }) => id === billing.bespokePlanId,
+    );
+    if (billingPlan?.type === 'basic') throw new Error('basic billing plan');
+
+    const contactLimitStatus = await this.getContactLimitStatus(store);
+
+    if (contactLimitStatus === ContactLimitStatus.DISALLOWED)
+      throw new Error('contact limit reached');
+    const emailLimitStatus = await this.getEmailSentLimitStatus(store);
+
+    if (emailLimitStatus === EmailSentLimitStatus.DISALLOWED)
+      throw new Error('email sent limit reached');
   }
 }

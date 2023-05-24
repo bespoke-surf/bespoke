@@ -934,7 +934,7 @@ export type Mutation = {
   createSignupForm?: Maybe<SignupForm>;
   /** update trigger split node */
   createTriggerSplitNode?: Maybe<WorkflowState>;
-  /** get workflows */
+  /** create workflows */
   createWorkflow?: Maybe<Workflow>;
   /** delete list with id */
   deleteList: List;
@@ -1180,7 +1180,7 @@ export type MutationCreateTriggerSplitNodeArgs = {
 
 
 export type MutationCreateWorkflowArgs = {
-  storeId: Scalars['String'];
+  subdomain: Scalars['String'];
 };
 
 
@@ -3139,6 +3139,13 @@ export type CreateShopifyAppSubscriptionMutationVariables = Exact<{
 
 export type CreateShopifyAppSubscriptionMutation = { __typename?: 'Mutation', createShopifyAppSubscription?: string | null };
 
+export type CreateWorkflowMutationVariables = Exact<{
+  subdomain: Scalars['String'];
+}>;
+
+
+export type CreateWorkflowMutation = { __typename?: 'Mutation', createWorkflow?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
+
 export type GetAllStoresForSiteMapQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3578,13 +3585,6 @@ export type CreateNodeConnectionMutationVariables = Exact<{
 
 
 export type CreateNodeConnectionMutation = { __typename?: 'Mutation', createNodeConnection?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
-
-export type CreateWorkflowMutationVariables = Exact<{
-  storeId: Scalars['String'];
-}>;
-
-
-export type CreateWorkflowMutation = { __typename?: 'Mutation', createWorkflow?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type DeleteWorkflowMutationVariables = Exact<{
   workflowId: Scalars['String'];
@@ -4682,6 +4682,13 @@ export const CreateShopifyAppSubscriptionDocument = gql`
   createShopifyAppSubscription(input: $input)
 }
     `;
+export const CreateWorkflowDocument = gql`
+    mutation CreateWorkflow($subdomain: String!) {
+  createWorkflow(subdomain: $subdomain) {
+    ...Workflow
+  }
+}
+    ${WorkflowFragmentDoc}`;
 export const GetAllStoresForSiteMapDocument = gql`
     query GetAllStoresForSiteMap {
   getAllStoresForSiteMap {
@@ -5090,13 +5097,6 @@ export const CreateNodeConnectionDocument = gql`
   }
 }
     ${WorkflowFragmentDoc}`;
-export const CreateWorkflowDocument = gql`
-    mutation CreateWorkflow($storeId: String!) {
-  createWorkflow(storeId: $storeId) {
-    ...Workflow
-  }
-}
-    ${WorkflowFragmentDoc}`;
 export const DeleteWorkflowDocument = gql`
     mutation DeleteWorkflow($workflowId: String!) {
   deleteWorkflow(workflowId: $workflowId) {
@@ -5419,6 +5419,9 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     CreateShopifyAppSubscription(variables: CreateShopifyAppSubscriptionMutationVariables, options?: C): Promise<CreateShopifyAppSubscriptionMutation> {
       return requester<CreateShopifyAppSubscriptionMutation, CreateShopifyAppSubscriptionMutationVariables>(CreateShopifyAppSubscriptionDocument, variables, options) as Promise<CreateShopifyAppSubscriptionMutation>;
     },
+    CreateWorkflow(variables: CreateWorkflowMutationVariables, options?: C): Promise<CreateWorkflowMutation> {
+      return requester<CreateWorkflowMutation, CreateWorkflowMutationVariables>(CreateWorkflowDocument, variables, options) as Promise<CreateWorkflowMutation>;
+    },
     GetAllStoresForSiteMap(variables?: GetAllStoresForSiteMapQueryVariables, options?: C): Promise<GetAllStoresForSiteMapQuery> {
       return requester<GetAllStoresForSiteMapQuery, GetAllStoresForSiteMapQueryVariables>(GetAllStoresForSiteMapDocument, variables, options) as Promise<GetAllStoresForSiteMapQuery>;
     },
@@ -5589,9 +5592,6 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     CreateNodeConnection(variables: CreateNodeConnectionMutationVariables, options?: C): Promise<CreateNodeConnectionMutation> {
       return requester<CreateNodeConnectionMutation, CreateNodeConnectionMutationVariables>(CreateNodeConnectionDocument, variables, options) as Promise<CreateNodeConnectionMutation>;
-    },
-    CreateWorkflow(variables: CreateWorkflowMutationVariables, options?: C): Promise<CreateWorkflowMutation> {
-      return requester<CreateWorkflowMutation, CreateWorkflowMutationVariables>(CreateWorkflowDocument, variables, options) as Promise<CreateWorkflowMutation>;
     },
     DeleteWorkflow(variables: DeleteWorkflowMutationVariables, options?: C): Promise<DeleteWorkflowMutation> {
       return requester<DeleteWorkflowMutation, DeleteWorkflowMutationVariables>(DeleteWorkflowDocument, variables, options) as Promise<DeleteWorkflowMutation>;

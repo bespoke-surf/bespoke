@@ -216,14 +216,14 @@ export const StoreNav = ({
                 location.pathname.includes("/integrations") ? "page" : undefined
               }
             />
-            <SideNavigation.NestedItem
+            {/* <SideNavigation.NestedItem
               href="/challenges"
               label="Periodic Reports"
               onClick={handleClosIsMobile}
               active={
                 location.pathname.includes("/challenges") ? "page" : undefined
               }
-            />
+            /> */}
 
             <SideNavigation.NestedItem
               href="/settings"

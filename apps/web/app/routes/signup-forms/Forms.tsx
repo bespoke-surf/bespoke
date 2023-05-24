@@ -47,7 +47,6 @@ export default function Forms() {
             <Table.HeaderCell>
               <Text weight="bold">List</Text>
             </Table.HeaderCell>
-            <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
 

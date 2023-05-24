@@ -28,8 +28,8 @@ export default function PostURL({
     formData.append("_action", PostCheckHandlerActionEnum.checkHandleAvailable);
     formData.append("handle", values.handle);
     fetcher.submit(formData, {
-      method: "post",
-      action: `post/${params.postId}/check-handler?index`,
+      method: "POST",
+      action: `/post/${params.postId}/check-handler?index`,
     });
   }, [fetcher, params.postId, setFieldValue, values.handle]);
 

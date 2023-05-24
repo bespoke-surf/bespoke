@@ -20,6 +20,7 @@ import { getSubdomain, isPrivateRoute } from "../../utils/utils.server";
 import Forms from "./Forms";
 import type { SignupFormsData } from "./types";
 import { SignupFormActionEnum } from "./types";
+import useSignupFormLimitReached from "./useSignupFormCount";
 export {
   GenericCatchBoundary as CatchBoundary,
   GenericErrorBoundary as ErrorBoundary,
@@ -51,12 +52,22 @@ export async function loader({ request }: LoaderArgs) {
       },
       { request, forbiddenRedirect: "/" }
     ),
+    sdk.GetStoreBilling(
+      {
+        subdomain,
+      },
+      {
+        request,
+      }
+    ),
   ]);
 
   const forms = response[0];
+  const billing = response[1];
 
   return json<SignupFormsData>({
     forms: forms.getSignupForms,
+    billing: billing.getStoreBilling,
   });
 }
 
@@ -81,6 +92,8 @@ export async function action({ request }: ActionArgs) {
 export default function SignupForms() {
   const loaderData = useLoaderData<SignupFormsData>();
 
+  const { limitReached } = useSignupFormLimitReached();
+
   return (
     <>
       <BigContainer>
@@ -100,6 +113,7 @@ export default function SignupForms() {
                       size="lg"
                       href="/signup-forms/add-form"
                       role="link"
+                      disabled={limitReached}
                     />
                   ),
                   dropdownItems: [
@@ -119,19 +133,22 @@ export default function SignupForms() {
                     <Box marginBottom={8}>
                       <Callout
                         iconAccessibilityLabel="warning"
-                        title="Easily add forms from the 'Folder' tab"
+                        title="Add new forms that we created"
                         key="add subs"
                         type="recommendation"
-                        message="Quickly add new forms from your folder tab. Take advantage of exciting Growth Path rewards and Subscription Rewards."
+                        message="Quickly add new forms from your Templates and Forms tab. We upload exciting new Forms and Templates."
                         primaryAction={{
-                          accessibilityLabel: "forlder",
-                          label: "Folder",
+                          accessibilityLabel: "templates and forms",
+                          label: "Templates & Forms",
                           href: "/folder",
                         }}
                       />
                     </Box>
                   ) : (
-                    <Forms />
+                    <>
+                      <ExceededCallouts />
+                      <Forms />
+                    </>
                   )}
                 </Box>
               </Flex>
@@ -143,3 +160,32 @@ export default function SignupForms() {
     </>
   );
 }
+
+const ExceededCallouts = () => {
+  const { limitReached, planType } = useSignupFormLimitReached();
+
+  if (!limitReached) return null;
+
+  return (
+    <Box marginBottom={8}>
+      <Callout
+        iconAccessibilityLabel="warning"
+        title="Creating Forms are now disabled!"
+        key="add subs"
+        type="error"
+        message={`You have currently reached the limit of creating sign-up forms. ${
+          planType === "advanced" ? "" : "Head over to the Plan tab to upgrade."
+        }`}
+        primaryAction={
+          planType === "advanced"
+            ? undefined
+            : {
+                accessibilityLabel: "plan",
+                label: "Plan",
+                href: "/plan",
+              }
+        }
+      />
+    </Box>
+  );
+};

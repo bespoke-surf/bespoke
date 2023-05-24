@@ -9,7 +9,6 @@ import {
 import {
   Box,
   Button,
-  Callout,
   Container,
   Datapoint,
   Dropdown,
@@ -32,10 +31,7 @@ import {
 } from "react";
 import type { RootData } from "~/root";
 import type { WorkflowFragment } from "../../graphql/__generated__/graphql";
-import {
-  EmailSentLimitStatus,
-  WorkflowStatus,
-} from "../../graphql/__generated__/graphql";
+import { WorkflowStatus } from "../../graphql/__generated__/graphql";
 import { sdk } from "../../graphql/graphqlWrapper.server";
 import { getSubdomain, isPrivateRoute } from "../../utils/utils.server";
 import type { AutomationData } from "./types";
@@ -59,6 +55,7 @@ import { ClientOnly } from "remix-utils";
 import BigContainer from "../../components/BigContainer";
 import type { CommentEditorFormikValues } from "../../components/CommentEditor";
 import Naviagation from "../../components/Navigation";
+import CalloutErrors from "./CalloutErrors";
 import Descirpition from "./Description";
 export {
   GenericCatchBoundary as CatchBoundary,
@@ -111,26 +108,37 @@ export async function loader({ request }: LoaderArgs) {
       },
       { request }
     ),
+    sdk.GetStoreBilling(
+      {
+        subdomain,
+      },
+      {
+        request,
+      }
+    ),
   ]);
 
   const workflows = response[0];
+  const billing = response[1];
 
   return json<AutomationData>({
     workflows: workflows.getWorkflows,
+    billing: billing.getStoreBilling,
   });
 }
 
 export async function action({ request }: ActionArgs) {
   try {
     const formData = await request.formData();
+    const subdomain = getSubdomain(request);
+    if (!subdomain) return redirect("/");
 
     const action = formData.get("_action") as string;
 
     if (action === AutomationActionEnum.createWorkflow) {
-      const storeId = formData.get("storeId") as string;
       const workflow = await sdk.CreateWorkflow(
         {
-          storeId,
+          subdomain,
         },
         {
           request,
@@ -209,7 +217,6 @@ export default function Automation() {
     if (loading) return;
     if (!rootData?.store?.id) return;
     const formData = new FormData();
-    formData.append("storeId", rootData?.store.id);
     formData.append("_action", AutomationActionEnum.createWorkflow);
     fetcher.submit(formData, { method: "post" });
   }, [fetcher, loading, rootData?.store?.id]);
@@ -259,39 +266,10 @@ export default function Automation() {
             />
             <Flex justifyContent="center">
               <Box width="92%" paddingY={6}>
-                {rootData?.store?.emailSentLimitStatus ===
-                  EmailSentLimitStatus.Disallowed && (
-                  <Box marginBottom={8}>
-                    <Callout
-                      iconAccessibilityLabel="warning"
-                      title="Insufficient email sends."
-                      key="add subs"
-                      type="error"
-                      message="You have reached the limit of email sends available for sending 'Emails' using the 'Email Action'. Upgrade Growth Path and send emails in your workflow automations."
-                      primaryAction={{
-                        label: "Growth Path",
-                        accessibilityLabel: "Growth Path",
-                        href: "/growth-path/choose",
-                      }}
-                    />
-                  </Box>
-                )}
+                <CalloutErrors />
                 {loaderData.workflows?.length === 0 ||
                 loaderData.workflows === null ||
-                loaderData.workflows === undefined ? (
-                  <Callout
-                    iconAccessibilityLabel="warning"
-                    title="Automation table is empty!"
-                    key="automation"
-                    type="info"
-                    message="Create a new automation and start sending messages to your customers on autopilot"
-                    // primaryAction={{
-                    //   label: "Community",
-                    //   accessibilityLabel: "Community",
-                    //   href: "/community",
-                    // }}
-                  />
-                ) : (
+                loaderData.workflows === undefined ? null : (
                   <WorkflowTable />
                 )}
               </Box>

@@ -28,7 +28,6 @@ import { SUBSCRIBER_LIST_ADD_SUBSCRIBER_TO_LIST_EVENT } from '../subscriber-list
 import { WorkflowActivityType } from '../workflow-state/enum/workflowActivityType.enum';
 import { WorkflowState } from '../workflow-state/workflow-state.entity';
 import { WorkflowStateService } from '../workflow-state/workflow-state.service';
-import { WorkflowStatus } from '../workflow/enum/workflowStatus.enum';
 import { WorkflowService } from '../workflow/workflow.service';
 import { StoreXPQuestQueueData } from './queues/store.questQueue';
 import { StoreListWorkflowQueueData } from './queues/store.workflowQueue';
@@ -429,7 +428,24 @@ export class StoreListener {
           state.workflowId,
         );
 
-        if (workflow?.workflowStatus !== WorkflowStatus.LIVE) continue;
+        try {
+          await this.storeService.checkWorkflowAuthorized(workflow);
+        } catch {
+          continue;
+        }
+
+        // if (workflow?.workflowStatus !== WorkflowStatus.LIVE) continue;
+
+        // const store = await this.storeService.getStore(workflow?.storeId);
+        // if (!store) continue;
+        // const contactLimitStatus =
+        //   await this.storeService.getContactLimitStatus(store);
+
+        // if (contactLimitStatus === ContactLimitStatus.DISALLOWED) continue;
+        // const emailLimitStatus =
+        //   await this.storeService.getEmailSentLimitStatus(store);
+
+        // if (emailLimitStatus === EmailSentLimitStatus.DISALLOWED) continue;
 
         if (type === 'LIST_TRIGGER') {
           await this.storeWorkflowQueue.add(

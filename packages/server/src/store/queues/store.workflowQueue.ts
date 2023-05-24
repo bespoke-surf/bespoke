@@ -28,7 +28,6 @@ import { WorkflowStateSendEmailActivityValue } from '../../workflow-state/type/s
 import { WorkflowState } from '../../workflow-state/workflow-state.entity';
 import { WorkflowStateService } from '../../workflow-state/workflow-state.service';
 import { WorkflowTransitionService } from '../../workflow-transition/workflow-transition.service';
-import { WorkflowStatus } from '../../workflow/enum/workflowStatus.enum';
 import { WorkflowService } from '../../workflow/workflow.service';
 import { EmailSentLimitStatus } from '../enum/emailSentLimitStatus.enum';
 import { Contact } from '../store.entity';
@@ -81,8 +80,8 @@ export class StoreListWorkflowQueueProcessor {
       const workflow = await this.workflowService.getWorkflow(
         workflowState?.workflowId,
       );
-      if (workflow?.workflowStatus !== WorkflowStatus.LIVE)
-        throw new Error('workflow cancelled');
+
+      await this.storeService.checkWorkflowAuthorized(workflow);
 
       const filtered = await this.storeService.checkFlowFilterPermited(
         workflowState?.workflowId,

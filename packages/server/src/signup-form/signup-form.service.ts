@@ -6,8 +6,8 @@ import { ItemSignupFormData } from '../item/enums/itemData';
 import { ItemService } from '../item/item.service';
 import { MetricService } from '../metric/metirc.service';
 import { StoreItemService } from '../store-item/store-item.service';
+import { CreateSignupFormInput } from '../store/dto/createSignupForm';
 import { AddSignupFormItem } from './dto/addSignupFormItem';
-import { CreateSignupFormInput } from './dto/createSignupForm';
 import { UpdateSignupformInput } from './dto/updateSignupFormInput';
 import { SignupFormState } from './enum/signupFormState.enum';
 import { SignupForm } from './signup-form.entity';
@@ -220,5 +220,9 @@ export class SignupFormService {
     if (viewCount === 0) return 0;
     const rate = Math.round((submittedCount / viewCount) * 100);
     return rate ?? 0;
+  }
+
+  async getSignupFormCount(storeId: string): Promise<number> {
+    return await this.signupFormRepo.count({ where: { storeId } });
   }
 }

@@ -38,3 +38,7 @@ yarn-error.log*
 # turbo
 
 .turbo
+
+privacy-policy.tsx
+refund-policy.tsx
+terms-of-service.tsx

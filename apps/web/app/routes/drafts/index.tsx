@@ -3,7 +3,6 @@ import { redirect } from "@remix-run/node";
 import type { ActionArgs, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
-  Link,
   useFetcher,
   useLoaderData,
   useRouteLoaderData,
@@ -15,17 +14,15 @@ import {
   Datapoint,
   Dropdown,
   Flex,
-  Icon,
   PageHeader,
   Tabs,
-  Text,
 } from "gestalt";
 import React, { useCallback, useMemo } from "react";
 import type { RootData } from "~/root";
 import BigContainer from "../../components/BigContainer";
 import Naviagation from "../../components/Navigation";
-import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { PostFragment } from "../../graphql/__generated__/graphql";
+import { sdk } from "../../graphql/graphqlWrapper.server";
 import {
   getSubdomain,
   isPrivateRoute,
@@ -120,27 +117,6 @@ const Posts = () => {
       <Flex alignItems="start" justifyContent="center">
         <Naviagation />
         <Flex.Item flex="grow">
-          {rootLoaderData?.isUserSubdomain && (
-            <Box paddingX={2}>
-              <Flex justifyContent="start" alignItems="center" gap={2}>
-                <Link to="/tools">
-                  <Text underline size="100">
-                    Tools
-                  </Text>
-                </Link>
-
-                <Icon
-                  accessibilityLabel="arrow-right"
-                  size={10}
-                  icon="arrow-forward"
-                  color="dark"
-                />
-                <Box color="lightWash" rounding="pill" padding={1} paddingX={2}>
-                  <Text size="100">Newsletter</Text>
-                </Box>
-              </Flex>
-            </Box>
-          )}
           <PageHeader
             borderStyle="none"
             title="NEWSLETTER"

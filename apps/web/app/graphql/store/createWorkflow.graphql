@@ -1,0 +1,5 @@
+mutation CreateWorkflow($subdomain: String!) {
+  createWorkflow(subdomain: $subdomain) {
+    ...Workflow
+  }
+}

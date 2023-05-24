@@ -263,7 +263,7 @@ const PublishModal = ({ close }: { close: () => void }) => {
           );
           formData.append("listId", item.value);
           fetcher.submit(formData, {
-            action: `post/${params.postId}/check-handler?index`,
+            action: `/post/${params.postId}/check-handler?index`,
             method: "post",
           });
         }
@@ -406,13 +406,13 @@ const PublishModal = ({ close }: { close: () => void }) => {
               {rootData?.store?.contactLimitStatus ===
                 ContactLimitStatus.Disallowed && (
                 <SlimBanner
-                  message="Unable to publish. Somethings wrong! Head over to Growth Path."
+                  message="Unable to publish. Somethings wrong! Head over to Plan."
                   type="error"
                   iconAccessibilityLabel="error"
                   primaryAction={{
-                    href: "/growth-path",
-                    label: "Growth Path",
-                    accessibilityLabel: "Growth Path",
+                    href: "/plan",
+                    label: "Plan",
+                    accessibilityLabel: "Plan",
                   }}
                 />
               )}

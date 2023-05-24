@@ -17,10 +17,13 @@ import { HasStoreAccessWithShopify } from '../guard/hasStoreAccessWithShopify';
 import { HasStoreAccessWithSubdomain } from '../guard/hasStoreAccessWithSubdomain';
 import { QuestType } from '../quest/enum/questType.enum';
 import { Shopify } from '../shopify/shopify.entity';
+import { SignupForm } from '../signup-form/signup-form.entity';
 import { StoreChallenge } from '../store-challenge/storeChallenge.entity';
+import { Workflow } from '../workflow/workflow.entity';
 import { UpdateDisplayPictureInput } from './dto/add-display-picture-input';
 import { BenchmarkData } from './dto/benchmarkData';
 import { CreateShopifyAppSubscriptionInput } from './dto/createShopifyAppSubscription';
+import { CreateSignupFormInput } from './dto/createSignupForm';
 import { GetStoreEmailMetric } from './dto/getStoreEmailMetric';
 import { UpdateStoreDetailsInput } from './dto/update-store-details';
 import { ContactLimitStatus } from './enum/contactLimitStatus.enum';
@@ -352,5 +355,27 @@ export class StoreResolver {
     @Args('subdomain') subdomain: string,
   ): Promise<boolean> {
     return this.storeService.updateBillingPlanToFree(subdomain);
+  }
+
+  @UseGuards(AuthGuard, HasStoreAccess)
+  @Mutation(() => SignupForm, {
+    nullable: true,
+    description: 'check signup form',
+  })
+  createSignupForm(
+    @Args('input') input: CreateSignupFormInput,
+  ): Promise<SignupForm | null> {
+    return this.storeService.createSignupForm(input);
+  }
+
+  @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
+  @Mutation(() => Workflow, {
+    nullable: true,
+    description: 'create workflows',
+  })
+  createWorkflow(
+    @Args('subdomain') subdoamin: string,
+  ): Promise<Workflow | null> {
+    return this.storeService.createWorkflow(subdoamin);
   }
 }

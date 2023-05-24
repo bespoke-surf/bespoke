@@ -2,7 +2,6 @@ import { useLoaderData } from "@remix-run/react";
 import {
   Box,
   Button,
-  Callout,
   Container,
   Flex,
   IconButton,
@@ -43,7 +42,7 @@ export default function Templates({ close }: { close: () => void }) {
           <PageHeader
             borderStyle="none"
             title="Templates"
-            subtext="Select an Email Template to load."
+            subtext="Select a Email Template to load."
           />
           <Flex justifyContent="center">
             <Box width="92.5%" paddingY={6}>
@@ -58,22 +57,7 @@ export default function Templates({ close }: { close: () => void }) {
                   )}
                 </ClientOnly>
               ) : (
-                <Callout
-                  iconAccessibilityLabel="warning"
-                  message="Get templates by unloking Growth Path to claim rewards and receive Subscription reward items."
-                  title="No templates available."
-                  type="warning"
-                  primaryAction={{
-                    accessibilityLabel: "growth path rewards",
-                    label: "Growth Path Rewards",
-                    href: "/growth-path",
-                  }}
-                  secondaryAction={{
-                    accessibilityLabel: "subscription Rewards",
-                    label: "Subscription Rewards",
-                    href: "/growth-path/subscription-rewards",
-                  }}
-                />
+                <Text>No templates available</Text>
               )}
             </Box>
           </Flex>

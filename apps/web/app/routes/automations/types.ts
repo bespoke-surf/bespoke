@@ -1,7 +1,11 @@
 import * as yup from "yup";
-import type { WorkflowFragment } from "../../graphql/__generated__/graphql";
+import type {
+  BillingFragment,
+  WorkflowFragment,
+} from "../../graphql/__generated__/graphql";
 export interface AutomationData {
   workflows: WorkflowFragment[] | null | undefined;
+  billing: BillingFragment | null | undefined;
 }
 
 export enum AutomationActionEnum {

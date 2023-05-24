@@ -13,7 +13,6 @@ import { HasStoreAccess } from '../guard/hasStoreAccess';
 import { HasStoreAccessWithSignupForm } from '../guard/hasStoreAccessWithSignupForm';
 import { HasStoreAccessWithSubdomain } from '../guard/hasStoreAccessWithSubdomain';
 import { AddSignupFormItem } from './dto/addSignupFormItem';
-import { CreateSignupFormInput } from './dto/createSignupForm';
 import { UpdateSignupformInput } from './dto/updateSignupFormInput';
 import { SignupForm } from './signup-form.entity';
 import { SignupFormService } from './signup-form.service';
@@ -87,17 +86,6 @@ export class SignupFormResolver {
     input: UpdateSignupformInput,
   ): Promise<null> {
     return this.signupFormService.updateSignupForms(input);
-  }
-
-  @UseGuards(AuthGuard, HasStoreAccess)
-  @Mutation(() => SignupForm, {
-    nullable: true,
-    description: 'check signup form',
-  })
-  createSignupForm(
-    @Args('input') input: CreateSignupFormInput,
-  ): Promise<SignupForm | null> {
-    return this.signupFormService.createSignupForm(input);
   }
 
   @UseGuards(AuthGuard, HasStoreAccess)

@@ -10,7 +10,7 @@ import PublicMobileNav from "~/components/PublicMobileNav";
 import PublicNav from "~/components/PublicNav";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { validateForm } from "~/utils/validateForm.server";
-import BigContainer from "../components/BigContainer";
+import BigContainer from "../../components/BigContainer";
 
 const LoginInputSchema = yup.object().shape({
   email: yup
