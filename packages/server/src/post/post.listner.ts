@@ -16,6 +16,7 @@ export class PostListener {
 
   @OnEvent(POST_PUBLISH_EVENT)
   handleUserPublishEvent(event: Post) {
+    console.log('publish event');
     this.eventService.createEvent({
       eventProducerId: event.id,
       eventType: EventType.POST,
@@ -23,6 +24,7 @@ export class PostListener {
       userId: event.store.user.id,
       eventAccessRestriction: EventAccessRestriction.HIGH,
       eventState: EventState.COMPLETED,
+      showAsNotification: true,
     });
   }
 
@@ -35,6 +37,7 @@ export class PostListener {
       userId: event.store.user.id,
       eventAccessRestriction: EventAccessRestriction.HIGH,
       eventState: EventState.COMPLETED,
+      showAsNotification: true,
     });
   }
 
@@ -47,6 +50,7 @@ export class PostListener {
       userId: event.store.user.id,
       eventAccessRestriction: EventAccessRestriction.HIGH,
       eventState: EventState.COMPLETED,
+      showAsNotification: true,
     });
   }
 }

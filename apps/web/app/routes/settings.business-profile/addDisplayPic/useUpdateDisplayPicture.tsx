@@ -2,33 +2,32 @@ import { useRouteLoaderData, useSubmit } from "@remix-run/react";
 import type { UploadResult, UppyFile } from "@uppy/core";
 import Uppy from "@uppy/core";
 import XHRUpload from "@uppy/xhr-upload";
-import { useCallback, useEffect } from "react";
-import {
-  CLOUDINARY_PRESET,
-  CLOUDINARY_UPLOAD_IMAGE_URL,
-  STORE_DISPLAY_PICTURE_POSTFIX,
-  STORE_PREFIX,
-} from "~/constants";
+import { useCallback, useEffect, useMemo } from "react";
+import { STORE_DISPLAY_PICTURE_POSTFIX, STORE_PREFIX } from "~/constants";
 import type { RootData } from "~/root";
 import { SettingsBuisnessProfileActionEnum } from "../types";
-
-const uppy = new Uppy({
-  restrictions: {
-    maxFileSize: 10000000,
-    maxNumberOfFiles: 1,
-    allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
-  },
-}).use(XHRUpload, {
-  endpoint: CLOUDINARY_UPLOAD_IMAGE_URL,
-  method: "POST",
-  formData: true,
-  fieldName: "file",
-  allowedMetaFields: ["file", "folder", "upload_preset"],
-});
 
 const useUpdateDisplayPicture = (): { uppy: Uppy } => {
   const storeData = useRouteLoaderData("root") as RootData;
   const submit = useSubmit();
+
+  const uppy = useMemo(
+    () =>
+      new Uppy({
+        restrictions: {
+          maxFileSize: 10000000,
+          maxNumberOfFiles: 1,
+          allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
+        },
+      }).use(XHRUpload, {
+        endpoint: storeData.CLOUDINARY_UPLOAD_IMAGE_URL as string,
+        method: "POST",
+        formData: true,
+        fieldName: "file",
+        allowedMetaFields: ["file", "folder", "upload_preset"],
+      }),
+    [storeData.CLOUDINARY_UPLOAD_IMAGE_URL]
+  );
 
   const handleFileAdded = useCallback(
     async (
@@ -37,10 +36,11 @@ const useUpdateDisplayPicture = (): { uppy: Uppy } => {
       const folder = `${STORE_PREFIX}/${storeData?.store?.id}/${STORE_DISPLAY_PICTURE_POSTFIX}`;
       uppy.setFileMeta(file.id, {
         folder,
-        upload_preset: CLOUDINARY_PRESET,
+        upload_preset: storeData.CLOUDINARY_PRESET,
       });
     },
-    [storeData?.store?.id]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [storeData.CLOUDINARY_PRESET, storeData?.store?.id]
   );
 
   const handleUploadSuccess = useCallback(
@@ -83,6 +83,7 @@ const useUpdateDisplayPicture = (): { uppy: Uppy } => {
       uppy.off("complete", completed);
       uppy.off("file-added", fileAdded);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleFileAdded, handleUploadSuccess]);
 
   return { uppy };

@@ -10,6 +10,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
+  useNavigate,
   useRouteLoaderData,
   useSubmit,
   useTransition,
@@ -17,6 +18,7 @@ import {
 import getSymbolFromCurrency from "currency-symbol-map";
 import {
   Box,
+  Button,
   Callout,
   Container,
   Datapoint,
@@ -34,8 +36,8 @@ import {
 } from "gestalt";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ClientOnly } from "remix-utils";
-import { sdk } from "~/graphql/graphqlWrapper.server";
 import type { ProductFragment } from "~/graphql/__generated__/graphql";
+import { sdk } from "~/graphql/graphqlWrapper.server";
 import type { RootData } from "~/root";
 import { getImageSrcAndSrcSet } from "~/utils/getCloudinarySrcAndSrcSet";
 import { getSubdomain, isPrivateRoute } from "~/utils/utils.server";
@@ -165,6 +167,8 @@ export default function Products() {
   const fetcher = useFetcher<ProductData>();
   const actionData = useActionData<{ productId: string }>();
 
+  const navigate = useNavigate();
+
   const transition = useTransition();
   const [products, setProducts] = useState<
     ProductFragment[] | null | undefined
@@ -233,29 +237,29 @@ export default function Products() {
                   ? "Products sold from your store. You can also add products on posts you create."
                   : undefined
               }
-              // primaryAction={
-              //   rootData?.isUserSubdomain
-              //     ? {
-              //         component: (
-              //           <Button
-              //             color="red"
-              //             size="lg"
-              //             text="Add"
-              //             href="/products/add-product"
-              //             role="link"
-              //             type="button"
-              //           />
-              //         ),
-              //         dropdownItems: [
-              //           <Dropdown.Item
-              //             onSelect={() => navigate("/products/add-product")}
-              //             key="add-prodcut"
-              //             option={{ label: "Add", value: "add" }}
-              //           />,
-              //         ],
-              //       }
-              //     : undefined
-              // }
+              primaryAction={
+                rootData?.isUserSubdomain
+                  ? {
+                      component: (
+                        <Button
+                          color="red"
+                          size="lg"
+                          text="Add"
+                          href="/products/add-product"
+                          role="link"
+                          type="button"
+                        />
+                      ),
+                      dropdownItems: [
+                        <Dropdown.Item
+                          onSelect={() => navigate("/products/add-product")}
+                          key="add-prodcut"
+                          option={{ label: "Add", value: "add" }}
+                        />,
+                      ],
+                    }
+                  : undefined
+              }
             />
             <Flex justifyContent="center">
               <Box paddingY={6} width="92.5%">

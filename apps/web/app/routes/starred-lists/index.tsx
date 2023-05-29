@@ -72,13 +72,7 @@ export default function Subscribers() {
               <PageHeader
                 borderStyle="none"
                 title="Starred Lists"
-                subtext="Below are your starred lists. To view all your lists or change
-        the starred ones, go to "
-                helperLink={{
-                  text: "Lists",
-                  href: "/subscriber-lists",
-                  accessibilityLabel: "lists",
-                }}
+                subtext="Below are your starred lists"
               />
 
               <Flex justifyContent="center">
@@ -87,13 +81,13 @@ export default function Subscribers() {
                   loaderData.lists.length === 0 ? (
                     <Callout
                       iconAccessibilityLabel=""
-                      message="This tab will show your most important lists. To add a list to the dashboard,
-          go to the lists page and click on the star next to its name."
+                      message="This tab will show your starred lists. To add to Starred Lists,
+          go to the Lists & Segments page and click on the star next to it's name."
                       type="warning"
-                      title="You haven't added any lists to the dashboard."
+                      title="You haven't Starred a List."
                       primaryAction={{
                         accessibilityLabel: "Lists",
-                        label: "Lists",
+                        label: "Lists & Segments",
                         href: "/subscriber-lists",
                         target: "self",
                       }}

@@ -48,7 +48,7 @@ export default function Quests() {
           <Container>
             <PageHeader
               title="PERIODIC REPORTS"
-              subtext="Reports sent to you daily, weekly and quarterly"
+              subtext="Receive regular reports showcasing your performance with daily, weekly, and quarterly metrics. Track your progress based on completed stages and metric percentage growth. Embrace the challenge of completing each stages before receiving your weekly, monthly, and quarterly reports."
             />
 
             <Flex justifyContent="center">

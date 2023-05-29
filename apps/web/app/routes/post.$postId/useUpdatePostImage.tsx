@@ -3,29 +3,10 @@ import type { UploadResult, UppyFile } from "@uppy/core";
 import Uppy from "@uppy/core";
 import XHRUpload from "@uppy/xhr-upload";
 import { useFormikContext } from "formik";
-import { useCallback, useEffect, useState } from "react";
-import {
-  CLOUDINARY_PRESET,
-  CLOUDINARY_UPLOAD_IMAGE_URL,
-  STORE_PREFIX,
-  STORE_PRODUCT_IMAGE_POSTFIX,
-} from "~/constants";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { STORE_PREFIX, STORE_PRODUCT_IMAGE_POSTFIX } from "~/constants";
 import type { RootData } from "~/root";
 import type { PostFormValues } from "./types";
-
-const uppy = new Uppy({
-  restrictions: {
-    maxFileSize: 10000000,
-    maxNumberOfFiles: 1,
-    allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
-  },
-}).use(XHRUpload, {
-  endpoint: CLOUDINARY_UPLOAD_IMAGE_URL,
-  method: "POST",
-  formData: true,
-  fieldName: "file",
-  allowedMetaFields: ["file", "folder", "upload_preset"],
-});
 
 const useUpdatePostImage = (): { uppy: Uppy } => {
   const rootLoaderData = useRouteLoaderData("root") as RootData;
@@ -33,6 +14,24 @@ const useUpdatePostImage = (): { uppy: Uppy } => {
 
   const { values, setValues, handleSubmit } =
     useFormikContext<PostFormValues>();
+
+  const uppy = useMemo(
+    () =>
+      new Uppy({
+        restrictions: {
+          maxFileSize: 10000000,
+          maxNumberOfFiles: 1,
+          allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
+        },
+      }).use(XHRUpload, {
+        endpoint: rootLoaderData.CLOUDINARY_UPLOAD_IMAGE_URL as string,
+        method: "POST",
+        formData: true,
+        fieldName: "file",
+        allowedMetaFields: ["file", "folder", "upload_preset"],
+      }),
+    [rootLoaderData.CLOUDINARY_UPLOAD_IMAGE_URL]
+  );
 
   useEffect(() => {
     if (upload) {
@@ -47,9 +46,10 @@ const useUpdatePostImage = (): { uppy: Uppy } => {
       const folder = `${STORE_PREFIX}/${rootLoaderData?.user?.id}/${STORE_PRODUCT_IMAGE_POSTFIX}`;
       uppy.setFileMeta(file.id, {
         folder,
-        upload_preset: CLOUDINARY_PRESET,
+        upload_preset: rootLoaderData.CLOUDINARY_PRESET,
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [rootLoaderData?.user?.id]
   );
 
@@ -99,6 +99,7 @@ const useUpdatePostImage = (): { uppy: Uppy } => {
       uppy.off("complete", completed);
       uppy.off("file-added", fileAdded);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleFileAdded, handleUploadSuccess]);
 
   return { uppy };

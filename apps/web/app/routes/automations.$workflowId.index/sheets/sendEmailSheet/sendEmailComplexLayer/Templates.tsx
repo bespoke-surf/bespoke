@@ -28,7 +28,15 @@ export default function Templates({ close }: { close: () => void }) {
 
   return (
     <Layer zIndex={TemplateZIndex}>
-      <Box color="light" position="fixed" top left right bottom>
+      <Box
+        color="light"
+        position="fixed"
+        top
+        left
+        right
+        bottom
+        overflow="scrollY"
+      >
         <Container>
           <Flex alignItems="stretch" justifyContent="end">
             <IconButton

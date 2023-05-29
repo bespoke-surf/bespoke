@@ -8,7 +8,12 @@ import {
   InjectShopifySessionStorage,
 } from '@nestjs-shopify/core';
 import { InjectQueue } from '@nestjs/bull';
-import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  OnModuleInit,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -42,6 +47,7 @@ import { SCRIPT_TAG_CREATE } from '../../graphql/scriptags.graphql';
 import { AboutService } from '../about/about.service';
 import { BillingService } from '../billing/billing.service';
 import { BillingPlanStatus } from '../billing/enum/billingPlanStatus.enum';
+import { BillingSubscriptionStatus } from '../billing/enum/billingSubscriptionStatus.enum';
 import {
   SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX,
   STORE_PRODUCT_UPLOAD_QUEUE,
@@ -71,6 +77,7 @@ import { SignupForm } from '../signup-form/signup-form.entity';
 import { SignupFormService } from '../signup-form/signup-form.service';
 import { StoreChallenge } from '../store-challenge/storeChallenge.entity';
 import { StoreChallengeService } from '../store-challenge/storeChallenge.service';
+import { StoreItemService } from '../store-item/store-item.service';
 import { StripeService } from '../stripe/stripe.service';
 import { SubscriberListService } from '../subscriber-list/subscriber-list.service';
 import { Subscriber } from '../subscriber/subscriber.entity';
@@ -145,6 +152,7 @@ export class StoreService implements OnModuleInit {
     @InjectShopifySessionStorage()
     private readonly shopifySessionStorage: ShopifySessionStorage,
     @InjectRedis() private redis: Redis,
+    private storeItemService: StoreItemService,
   ) {}
 
   onModuleInit() {
@@ -312,24 +320,6 @@ export class StoreService implements OnModuleInit {
     return null;
   }
 
-  // async uploadLimitType(rootStore: Store): Promise<UploadLimitType> {
-  //   const store = await prisma.store.findUnique({where:{id:rootStore.id}});
-  //   if (!store) return UploadLimitType.ERROR;
-
-  //   const productCount = await this.getProductCount(store.id);
-
-  //   if (productCount === store.planQuantity) {
-  //     return UploadLimitType.REACHED;
-  //   }
-  //   if (productCount > store.planQuantity) {
-  //     return UploadLimitType.EXCEEDED;
-  //   }
-  //   if (productCount < store.planQuantity) {
-  //     return UploadLimitType.OK;
-  //   }
-  //   return UploadLimitType.ERROR;
-  // }
-
   async updateStoreCurrency(
     storeId: string,
     currency: StoreCurrency,
@@ -413,9 +403,11 @@ export class StoreService implements OnModuleInit {
       });
 
       const contact: Partial<Contact> | undefined = {
-        ...rest,
         ...storeData.contact,
+        ...rest,
       };
+      console.log({ ...rest });
+      console.log({ contact });
 
       if (contact?.id) {
         await this.contactRepo.update(contact?.id, {
@@ -571,6 +563,7 @@ export class StoreService implements OnModuleInit {
       await this.aboutService.createAbout(store);
       await this.integrationService.createIntegration(store);
       await this.listService.createNewList('Newsletter', store.id);
+      await this.storeItemService.addDefaultTemplatesAndForms(store.id);
     }
 
     return store;
@@ -689,11 +682,38 @@ export class StoreService implements OnModuleInit {
     try {
       if (!businessId) throw new NotFoundException('businessId missing');
       const store = await this.getStoreWithBusinessId(businessId);
-      if (!store) throw new NotFoundException('business not found');
-      const forms = await this.signupFormService.getLiveSignupformsWithStoreId(
+      if (!store || !store.subdomain)
+        throw new NotFoundException('business not found');
+      const billing = await this.billingService.getStoreBilling(
+        store.subdomain,
+      );
+      if (
+        billing?.billingSubscriptionStatus ===
+        BillingSubscriptionStatus.CANCELED
+      ) {
+        throw new UnauthorizedException();
+      }
+      const pricingPlan = bespokePricingPlan.find(
+        ({ id }) => id === billing?.bespokePlanId,
+      );
+
+      let forms = await this.signupFormService.getLiveSignupformsWithStoreId(
         store.id,
       );
+
       if (!forms) throw new NotFoundException('no forms available');
+
+      if (pricingPlan?.type === 'default') {
+        forms = forms.slice(0, 1);
+      }
+
+      if (pricingPlan?.type === 'basic') {
+        forms = forms.slice(0, 5);
+      }
+
+      if (pricingPlan?.type === 'advanced') {
+        forms = forms.slice(0, 15);
+      }
 
       forms.forEach((form) => {
         this.signupFormService.incremetFormView(form.id);
@@ -1607,11 +1627,13 @@ export class StoreService implements OnModuleInit {
       const store = await this.getStoreWithSubdomain(subdomain);
       if (!store) throw new Error('store missing');
       const billing = await this.billingService.getStoreBilling(subdomain);
-      if (!store.billing) throw new Error('missing billing');
+      if (!billing) throw new Error('missing billing');
 
       const billingPlan = bespokePricingPlan.find(
         ({ id }) => id === billing?.bespokePlanId,
       );
+
+      console.log(billingPlan);
 
       if (billingPlan?.type === 'basic') {
         throw new Error('not authorized to create workflow on basic plan');

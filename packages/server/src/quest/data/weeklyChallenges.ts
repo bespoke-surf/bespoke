@@ -77,37 +77,37 @@ export const weeklyChallenge: Omit<CreateChallengeInput, 'questId'>[] = [
     completionStages: 3,
     completionCount: 3,
   },
-  {
-    ...defaults,
-    name: 'Increase cart order value by 3%',
-    measuredMetric: MetricTypeEnum.SHOPIFY_CHECKOUT_STARTED_VALUE,
-    measuredValue: 3,
-    completionStages: 2,
-    completionCount: 1,
-  },
+  // {
+  //   ...defaults,
+  //   name: 'Increase cart order value by 3%',
+  //   measuredMetric: MetricTypeEnum.SHOPIFY_CHECKOUT_STARTED_VALUE,
+  //   measuredValue: 3,
+  //   completionStages: 2,
+  //   completionCount: 1,
+  // },
 
-  {
-    ...defaults,
-    name: 'Increase fulfilled order value by 3%',
-    measuredMetric: MetricTypeEnum.SHOPIFY_FULFILLED_ORDER_VALUE,
-    measuredValue: 1,
-    completionStages: 2,
-    completionCount: 3,
-  },
+  // {
+  //   ...defaults,
+  //   name: 'Increase fulfilled order value by 3%',
+  //   measuredMetric: MetricTypeEnum.SHOPIFY_FULFILLED_ORDER_VALUE,
+  //   measuredValue: 1,
+  //   completionStages: 2,
+  //   completionCount: 3,
+  // },
 
-  {
-    ...defaults,
-    name: 'Increase revenue by 2%',
-    measuredMetric: MetricTypeEnum.SHOPIFY_PLACED_ORDER_VALUE,
-    measuredValue: 1,
-    completionStages: 3,
-    completionCount: 2,
-  },
-  {
-    ...defaults,
-    name: 'Increase product ordered value by 5%',
-    measuredMetric: MetricTypeEnum.SHOPIFY_ORDERED_PRODUCT_VALUE,
-  },
+  // {
+  //   ...defaults,
+  //   name: 'Increase revenue by 2%',
+  //   measuredMetric: MetricTypeEnum.SHOPIFY_PLACED_ORDER_VALUE,
+  //   measuredValue: 1,
+  //   completionStages: 3,
+  //   completionCount: 2,
+  // },
+  // {
+  //   ...defaults,
+  //   name: 'Increase product ordered value by 5%',
+  //   measuredMetric: MetricTypeEnum.SHOPIFY_ORDERED_PRODUCT_VALUE,
+  // },
 
   {
     ...defaults,

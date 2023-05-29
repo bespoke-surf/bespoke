@@ -1,18 +1,15 @@
 import { Link, useRouteLoaderData } from "@remix-run/react";
 import { Avatar, Box, Flex, IconButton, Sticky, Text } from "gestalt";
-import { useMemo, useReducer, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import type { RootData } from "../root";
 import { getCloudinaryAvatar } from "../utils/getCloudinaryFavicon";
 import BigContainer from "./BigContainer";
 import { StoreNav } from "./Naviagtion/StoreNav";
-import UserMenu from "./Naviagtion/storeNav/UserMenu";
 
 export default function MobileNavigation() {
   const rootData = useRouteLoaderData("root") as RootData;
 
   const [shouldShow, setShouldShow] = useState(false);
-  const [userMenu, toggleUserMenu] = useReducer((s) => !s, false);
-  const anchorRef = useRef(null);
 
   const avatar = useMemo(
     () => getCloudinaryAvatar(rootData?.store?.displayPicture?.src),
@@ -38,15 +35,7 @@ export default function MobileNavigation() {
             gap={2}
           >
             <Flex.Item flex="grow">
-              <Flex gap={2} alignItems="center">
-                <Box lgDisplay="none" mdDisplay="none" display="block">
-                  <IconButton
-                    iconColor="darkGray"
-                    accessibilityLabel="menu"
-                    icon="menu"
-                    onClick={() => setShouldShow((s) => !s)}
-                  />
-                </Box>
+              <Flex gap={2} alignItems="center" justifyContent="between">
                 <Link to={"/"}>
                   <Flex alignItems="center" gap={2}>
                     <Avatar
@@ -59,16 +48,16 @@ export default function MobileNavigation() {
                     </Text>
                   </Flex>
                 </Link>
+                <Box lgDisplay="none" mdDisplay="none" display="block">
+                  <IconButton
+                    iconColor="darkGray"
+                    accessibilityLabel="menu"
+                    icon="menu"
+                    onClick={() => setShouldShow((s) => !s)}
+                  />
+                </Box>
               </Flex>
             </Flex.Item>
-            <IconButton
-              icon="ellipsis"
-              size="md"
-              ref={anchorRef}
-              accessibilityLabel="more options"
-              onClick={toggleUserMenu}
-              selected={userMenu}
-            />
           </Flex>
           {shouldShow && (
             <Box
@@ -87,10 +76,6 @@ export default function MobileNavigation() {
             >
               <StoreNav closeMobileSideNav={() => setShouldShow(false)} />
             </Box>
-          )}
-
-          {userMenu && rootData.isUserSubdomain && (
-            <UserMenu anchorRef={anchorRef} close={toggleUserMenu} />
           )}
         </BigContainer>
       </Box>

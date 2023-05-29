@@ -10,13 +10,15 @@ import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin
 import type { LinksFunction } from "@remix-run/node";
 import { useRouteLoaderData } from "@remix-run/react";
 import { useFormikContext } from "formik";
-import { Box, CompositeZIndex, Heading, Sticky, Text } from "gestalt";
+import { Box, CompositeZIndex, Divider, Heading, Sticky, Text } from "gestalt";
 import React, { useCallback, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { ClientOnly } from "remix-utils";
 import slug from "slug";
 import type { RootData } from "~/root";
 import { preventEnter } from "~/utils/preventEnter";
+import PostDetails from "./editor/PostDetails";
+import PostImage, { replaceIconZIndex } from "./editor/PostImage";
 import AbandonedCartButtonPlugin from "./editor/plugins/AbandonedCartButtonPlugin";
 import AbandonedCartProductPlugin from "./editor/plugins/AbandonedCartProductPlugin";
 import LexicalAutoLinkPlugin from "./editor/plugins/AutoLinkPlugin";
@@ -31,8 +33,6 @@ import SubscribeWithCaptionPlugin from "./editor/plugins/SubscribeButtonPlugin";
 import TabFocusPlugin from "./editor/plugins/TabFocusPlugin";
 import ToolbarPlugin from "./editor/plugins/ToolbarPlugin";
 import { links as uploadImage } from "./editor/plugins/toolbarPlugin/linkToQuote/UploadImage";
-import PostDetails from "./editor/PostDetails";
-import PostImage, { replaceIconZIndex } from "./editor/PostImage";
 
 export const links: LinksFunction = () => {
   return [...uploadImage()];
@@ -174,8 +174,12 @@ export default function Editor({
         </Box>
       )}
       {disableOptionAndTime ? null : (
-        <Box paddingX={2} marginTop={6}>
-          <PostDetails />
+        <Box paddingX={2} marginTop={6} marginBottom={12}>
+          <Divider />
+          <Box marginTop={4} marginBottom={4}>
+            <PostDetails />
+          </Box>
+          <Divider />
         </Box>
       )}
 

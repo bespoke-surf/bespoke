@@ -11,6 +11,7 @@ import { Request, Response } from 'express';
 import Stripe from 'stripe';
 import { BillingService } from '../../billing/billing.service';
 import { BillingSubscriptionEntity } from '../../billing/enum/billingSubscriptionEntity.enum';
+import { StoreItemService } from '../../store-item/store-item.service';
 import { IStripeMetadata, StripeService } from '../../stripe/stripe.service';
 
 @Controller('store')
@@ -19,6 +20,7 @@ export class StoreStripeController {
     private readonly stripeService: StripeService,
     private billingService: BillingService,
     @InjectSentry() private readonly sentryClient: SentryService,
+    private readonly storeItemServie: StoreItemService,
   ) {}
 
   @Post('stripe-webhook')
@@ -42,6 +44,9 @@ export class StoreStripeController {
           cancelAtPeriodEnd: subscription.cancel_at_period_end,
           billingSubscriptionEntity: BillingSubscriptionEntity.STRIPE,
         });
+      if (subscription.status === 'active') {
+        await this.storeItemServie.addSubscriptionRewardItem(metadata.storeId);
+      }
       switch (event.type) {
         case 'customer.subscription.deleted':
           await updateSubscription();

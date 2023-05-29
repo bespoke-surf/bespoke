@@ -50,6 +50,7 @@ import editorTextAreaCss from "../../components/editor/editorTextArea.css";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 
+import { bespokePricingPlan } from "@bespoke/common/dist/pricingPlan";
 import { FormikProvider, useFormik } from "formik";
 import { ClientOnly } from "remix-utils";
 import BigContainer from "../../components/BigContainer";
@@ -213,13 +214,23 @@ export default function Automation() {
 
   const loading = fetcher.state === "loading" || fetcher.state === "submitting";
 
+  const planType = useMemo(
+    () =>
+      bespokePricingPlan.find(
+        ({ id }) => id === loaderData.billing?.bespokePlanId
+      )?.type,
+    [loaderData.billing?.bespokePlanId]
+  );
+
+  const basicPlan = planType === "basic";
+
   const createAutomation = useCallback(() => {
-    if (loading) return;
+    if (loading || basicPlan) return;
     if (!rootData?.store?.id) return;
     const formData = new FormData();
     formData.append("_action", AutomationActionEnum.createWorkflow);
     fetcher.submit(formData, { method: "post" });
-  }, [fetcher, loading, rootData?.store?.id]);
+  }, [basicPlan, fetcher, loading, rootData?.store?.id]);
 
   return (
     <BigContainer>
@@ -239,30 +250,26 @@ export default function Automation() {
                   value={`${loaderData.workflows?.length}` ?? "0"}
                 />,
               ]}
-              primaryAction={
-                rootData?.isUserSubdomain
-                  ? {
-                      component: (
-                        <Button
-                          color="red"
-                          size="lg"
-                          text="Create"
-                          role="button"
-                          type="button"
-                          onClick={createAutomation}
-                          disabled={loading}
-                        />
-                      ),
-                      dropdownItems: [
-                        <Dropdown.Item
-                          onSelect={createAutomation}
-                          key="automations-editor"
-                          option={{ label: "Create", value: "create" }}
-                        />,
-                      ],
-                    }
-                  : undefined
-              }
+              primaryAction={{
+                component: (
+                  <Button
+                    color="red"
+                    size="lg"
+                    text="Create"
+                    role="button"
+                    type="button"
+                    onClick={createAutomation}
+                    disabled={loading || basicPlan}
+                  />
+                ),
+                dropdownItems: [
+                  <Dropdown.Item
+                    onSelect={createAutomation}
+                    key="automations-editor"
+                    option={{ label: "Create", value: "create" }}
+                  />,
+                ],
+              }}
             />
             <Flex justifyContent="center">
               <Box width="92%" paddingY={6}>

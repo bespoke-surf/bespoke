@@ -54,26 +54,26 @@ export const dailyChallenges: Omit<CreateChallengeInput, 'questId'>[] = [
     name: 'Increase newsletter viewed rate by 1%',
     measuredMetric: MetricTypeEnum.POST_VIEWED,
   },
-  {
-    ...defaults,
-    name: 'Increase cart order value by 1%',
-    measuredMetric: MetricTypeEnum.SHOPIFY_CHECKOUT_STARTED,
-  },
-  {
-    ...defaults,
-    name: 'Increase fulfilled order value by 1%',
-    measuredMetric: MetricTypeEnum.SHOPIFY_FULFILLED_ORDER_VALUE,
-  },
-  {
-    ...defaults,
-    name: 'Increase product ordered value by 1%',
-    measuredMetric: MetricTypeEnum.SHOPIFY_ORDERED_PRODUCT_VALUE,
-  },
-  {
-    ...defaults,
-    name: 'Increase revenue by 1%',
-    measuredMetric: MetricTypeEnum.SHOPIFY_PLACED_ORDER_VALUE,
-  },
+  // {
+  //   ...defaults,
+  //   name: 'Increase cart order value by 1%',
+  //   measuredMetric: MetricTypeEnum.SHOPIFY_CHECKOUT_STARTED,
+  // },
+  // {
+  //   ...defaults,
+  //   name: 'Increase fulfilled order value by 1%',
+  //   measuredMetric: MetricTypeEnum.SHOPIFY_FULFILLED_ORDER_VALUE,
+  // },
+  // {
+  //   ...defaults,
+  //   name: 'Increase product ordered value by 1%',
+  //   measuredMetric: MetricTypeEnum.SHOPIFY_ORDERED_PRODUCT_VALUE,
+  // },
+  // {
+  //   ...defaults,
+  //   name: 'Increase revenue by 1%',
+  //   measuredMetric: MetricTypeEnum.SHOPIFY_PLACED_ORDER_VALUE,
+  // },
 
   {
     ...defaults,

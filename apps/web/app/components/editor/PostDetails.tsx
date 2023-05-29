@@ -3,7 +3,7 @@ import {
   useNavigate,
   useRouteLoaderData,
 } from "@remix-run/react";
-import { Box, Dropdown, Flex, IconButton, Text } from "gestalt";
+import { Box, Dropdown, Flex, IconButton, Link, Text } from "gestalt";
 import { useCallback, useMemo, useRef, useState } from "react";
 import type { RootData } from "../../root";
 import type { PostByHandleData } from "../../routes/p.$postHandle/types";
@@ -35,11 +35,16 @@ export default function PostDetails() {
   }, [navigate]);
 
   return (
-    <Box marginBottom={12}>
+    <Box>
       <Flex alignItems="center" justifyContent="between" width="100%">
-        <Text size="200" color="subtle">
-          {localTimeCal}
-        </Text>
+        <Flex direction="column" gap={2}>
+          <Link href="/">
+            <Text underline>{rootLoader.store?.name}</Text>
+          </Link>
+          <Text size="200" color="subtle">
+            {localTimeCal}
+          </Text>
+        </Flex>
         <Flex gap={2} alignItems="center">
           <IconButton
             accessibilityLabel="share"

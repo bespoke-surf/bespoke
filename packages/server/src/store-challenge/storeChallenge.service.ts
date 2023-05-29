@@ -139,5 +139,18 @@ export class StoreChallengeService {
     await this.storeChallengeRepo.update(storeChallengeId, {
       allCompleted,
     });
+
+    const storeChallenge = await this.storeChallengeRepo.findOne({
+      where: {
+        id: storeChallengeId,
+      },
+      relations: {
+        store: {
+          user: true,
+        },
+      },
+    });
+
+    return storeChallenge ?? null;
   }
 }

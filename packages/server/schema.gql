@@ -636,6 +636,8 @@ type ItemCategory {
 
 """item category type enum"""
 enum ItemCategoryTypeEnum {
+  FREE
+  SCUBSCRIPTION
   SHOP
 }
 
@@ -1346,6 +1348,7 @@ type Query {
 
   """check user onboarded"""
   getSubscribersInListCount(listId: String!): Int
+  getSubscriptionRewardItems: [Item!]!
 
   """get total submitted form"""
   getTotalFormSubmitRate(subdomain: String!): Int!

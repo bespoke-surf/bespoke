@@ -1,18 +1,17 @@
-import { Box, Heading } from "gestalt";
-
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { sdk } from "../../graphql/graphqlWrapper.server";
 import {
   ChallengeTypeEnum,
   QuestType,
 } from "../../graphql/__generated__/graphql";
+import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import { getSubdomain, isPrivateRoute } from "../../utils/utils.server";
 import { Challenge } from "../challenges/Challenge";
+import { SuccessChallenge } from "../challenges/SuccessChallenge";
 export {
   GenericCatchBoundary as CatchBoundary,
   GenericErrorBoundary as ErrorBoundary,
@@ -78,9 +77,6 @@ export default function QuestIndex() {
 
   return (
     <>
-      <Box marginTop={8}>
-        <Heading size="400">MILESTONE</Heading>
-      </Box>
       {loaderData.milestones?.challenges
         .filter(
           ({ challengeType }) => challengeType === ChallengeTypeEnum.Challenge
@@ -94,6 +90,24 @@ export default function QuestIndex() {
             )}
           />
         ))}
+      {loaderData.milestones?.challenges
+        .filter(
+          ({ challengeType }) => challengeType === ChallengeTypeEnum.Challenge
+        )
+        .map((data) => {
+          const storeChallenge = loaderData.storechallenges?.find(
+            ({ challengeId }) => challengeId === data.id
+          );
+          if (!storeChallenge) return undefined;
+          if (storeChallenge.allCompleted) return undefined;
+          return (
+            <SuccessChallenge
+              data={data}
+              key={data.id}
+              storeChallenge={storeChallenge}
+            />
+          );
+        })}
     </>
   );
 }

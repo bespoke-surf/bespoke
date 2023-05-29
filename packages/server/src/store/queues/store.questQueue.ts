@@ -194,37 +194,60 @@ export class StoreQuestProcessor {
         storeChallengeId: storeChallenge.id,
       });
       if (count === ccount + 1 && stages === cStages + 1) {
-        await this.storeChallengeService.updateStoreChallengeAllCompleted({
-          allCompleted: true,
-          storeChallengeId: storeChallenge.id,
-        });
-
-        return true;
-      } else {
-        const storeChalleng =
-          await this.storeChallengeService.updateStoreChallengeCount({
-            completedCount: 0,
+        const updatedStoreChallenge =
+          await this.storeChallengeService.updateStoreChallengeAllCompleted({
+            allCompleted: true,
             storeChallengeId: storeChallenge.id,
           });
-        if (storeChalleng?.store.user.id) {
+        if (updatedStoreChallenge) {
           this.eventService.createEvent({
-            message: `Stage ${
-              cStages + 1
-            } of ${completionStages} - ${name} completed.`,
+            message: `Completed ${name} - ${
+              questType === QuestType.DAILY
+                ? 'Daily Challenge'
+                : questType === QuestType.WEEKLY
+                ? 'Weekly Challenge'
+                : 'Quarterly Challenge'
+            }`,
             eventProducerId: challengeId,
             eventAccessRestriction: EventAccessRestriction.HIGH,
             eventState: EventState.COMPLETED,
             eventType: EventType.STORE_CHALLENGE,
-            userId: storeChalleng.store.user.id,
+            userId: updatedStoreChallenge.store.user.id,
             showAsNotification: true,
             link:
               questType === QuestType.DAILY
-                ? '/dashboard/challenges/daily'
+                ? '/challenges/daily'
                 : questType === QuestType.WEEKLY
-                ? '/dashboard/challenges'
-                : '/dashboard/challenges/milestone',
+                ? '/challenges'
+                : '/challenges/milestone',
           });
         }
+
+        return true;
+      } else {
+        await this.storeChallengeService.updateStoreChallengeCount({
+          completedCount: 0,
+          storeChallengeId: storeChallenge.id,
+        });
+        // if (storeChalleng?.store.user.id) {
+        //   this.eventService.createEvent({
+        //     message: `Stage ${
+        //       cStages + 1
+        //     } of ${completionStages} - ${name} completed.`,
+        //     eventProducerId: challengeId,
+        //     eventAccessRestriction: EventAccessRestriction.HIGH,
+        //     eventState: EventState.COMPLETED,
+        //     eventType: EventType.STORE_CHALLENGE,
+        //     userId: storeChalleng.store.user.id,
+        //     showAsNotification: true,
+        //     link:
+        //       questType === QuestType.DAILY
+        //         ? '/challenges/daily'
+        //         : questType === QuestType.WEEKLY
+        //         ? '/challenges'
+        //         : '/challenges/milestone',
+        //   });
+        // }
         //TODO: should decide to give reward for each stage wins?
       }
     }

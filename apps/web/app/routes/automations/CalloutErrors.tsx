@@ -30,18 +30,20 @@ export default function CalloutErrors() {
   return (
     <>
       {basicPlan && (
-        <Callout
-          iconAccessibilityLabel="warning"
-          title="Workflow are disabled!"
-          key="add subs"
-          type="error"
-          message="Workflows are disabled for Basic Plan type. Please upgarde to the Advanced Plan type to enable workflows."
-          primaryAction={{
-            label: "Plan",
-            accessibilityLabel: "Plan",
-            href: "/Plan",
-          }}
-        />
+        <Box marginBottom={4}>
+          <Callout
+            iconAccessibilityLabel="warning"
+            title="Workflow are disabled!"
+            key="add subs"
+            type="error"
+            message="Workflows are disabled for Basic Plan type. Please upgarde to the Advanced Plan type to enable workflows."
+            primaryAction={{
+              label: "Plan",
+              accessibilityLabel: "Plan",
+              href: "/Plan",
+            }}
+          />
+        </Box>
       )}
       {emailDisalowe && (
         <Box marginBottom={8}>

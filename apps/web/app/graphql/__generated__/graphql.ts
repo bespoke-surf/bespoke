@@ -5,25 +5,27 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  DateTime: any;
-  JSONObject: any;
-  PhoneNumber: any;
+  ID: { input: string | number; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
+  JSONObject: { input: any; output: any; }
+  PhoneNumber: { input: any; output: any; }
 };
 
 export type About = {
   __typename?: 'About';
-  about?: Maybe<Scalars['String']>;
-  aboutHTML?: Maybe<Scalars['String']>;
-  aboutLexical?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  industry?: Maybe<Scalars['String']>;
+  about?: Maybe<Scalars['String']['output']>;
+  aboutHTML?: Maybe<Scalars['String']['output']>;
+  aboutLexical?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  industry?: Maybe<Scalars['String']['output']>;
 };
 
 /** different type of industry verticals */
@@ -58,22 +60,22 @@ export enum AboutIndustryEnum {
 
 /** add comma speratedEmails to list input */
 export type AddCommaSeperatedEmailsToListInput = {
-  emails: Scalars['String'];
-  listId: Scalars['String'];
-  storeId: Scalars['String'];
+  emails: Scalars['String']['input'];
+  listId: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
 };
 
 /** add more product images */
 export type AddMoreProductImagesInput = {
   image: ProductImageInput;
-  productId: Scalars['String'];
+  productId: Scalars['String']['input'];
 };
 
 /** add signup form item */
 export type AddSignupFormItem = {
-  itemId: Scalars['String'];
-  listId: Scalars['String'];
-  storeId: Scalars['String'];
+  itemId: Scalars['String']['input'];
+  listId: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
 };
 
 /** Workflow state delay activity vlaue */
@@ -102,13 +104,13 @@ export type BaseConditionalFilterHasDoneOrNotDoneValue = {
 export type BaseConditionalFilterHasDoneOrNotDoneValueInequality = {
   __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality';
   expression?: Maybe<BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum>;
-  value?: Maybe<Scalars['Float']>;
+  value?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Workflow state delay activity vlaue */
 export type BaseConditionalFilterHasDoneOrNotDoneValueInequalityInput = {
   expression: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum;
-  value?: InputMaybe<Scalars['Float']>;
+  value?: InputMaybe<Scalars['Float']['input']>;
 };
 
 /** Workflow state delay activity vlaue */
@@ -121,12 +123,12 @@ export type BaseConditionalFilterHasDoneOrNotDoneValueInput = {
 /** Workflow state delay activity vlaue */
 export type BaseConditionalFilterHasDoneOrNotDoneValueTime = {
   __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime';
-  date1?: Maybe<Scalars['String']>;
-  date2?: Maybe<Scalars['String']>;
+  date1?: Maybe<Scalars['String']['output']>;
+  date2?: Maybe<Scalars['String']['output']>;
   delayType?: Maybe<DelayTypeEnum>;
   expression?: Maybe<BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum>;
-  value1?: Maybe<Scalars['Float']>;
-  value2?: Maybe<Scalars['Float']>;
+  value1?: Maybe<Scalars['Float']['output']>;
+  value2?: Maybe<Scalars['Float']['output']>;
 };
 
 /** different workflwo flow filters inequality expressions */
@@ -142,12 +144,12 @@ export enum BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum {
 
 /** Workflow state delay activity vlaue */
 export type BaseConditionalFilterHasDoneOrNotDoneValueTimeInput = {
-  date1?: InputMaybe<Scalars['String']>;
-  date2?: InputMaybe<Scalars['String']>;
+  date1?: InputMaybe<Scalars['String']['input']>;
+  date2?: InputMaybe<Scalars['String']['input']>;
   delayType?: InputMaybe<DelayTypeEnum>;
   expression: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum;
-  value1?: InputMaybe<Scalars['Float']>;
-  value2?: InputMaybe<Scalars['Float']>;
+  value1?: InputMaybe<Scalars['Float']['input']>;
+  value2?: InputMaybe<Scalars['Float']['input']>;
 };
 
 /** different workflwo flow filters inequality expressions */
@@ -192,18 +194,18 @@ export type BaseTriggerFilter = {
 /** Workflow state delay activity vlaue */
 export type BaseTriggerFilterBooleanValue = {
   __typename?: 'BaseTriggerFilterBooleanValue';
-  booleanValue?: Maybe<Scalars['Boolean']>;
+  booleanValue?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** Workflow state delay activity vlaue */
 export type BaseTriggerFilterDateValue = {
   __typename?: 'BaseTriggerFilterDateValue';
-  dateDate1?: Maybe<Scalars['String']>;
-  dateDate2?: Maybe<Scalars['String']>;
+  dateDate1?: Maybe<Scalars['String']['output']>;
+  dateDate2?: Maybe<Scalars['String']['output']>;
   dateDelayType?: Maybe<DelayTypeEnum>;
   dateExpression?: Maybe<BaseTriggerFilterDateValueExpressionEnum>;
-  dateValue1?: Maybe<Scalars['Float']>;
-  dateValue2?: Maybe<Scalars['Float']>;
+  dateValue1?: Maybe<Scalars['Float']['output']>;
+  dateValue2?: Maybe<Scalars['Float']['output']>;
 };
 
 /** different workflwo flow filters inequality expressions */
@@ -243,7 +245,7 @@ export enum BaseTriggerFilterDimensionEnum {
 export type BaseTriggerFilterListValue = {
   __typename?: 'BaseTriggerFilterListValue';
   listExpression?: Maybe<BaseTriggerFilterListValueExpressionEnum>;
-  listValue?: Maybe<Scalars['String']>;
+  listValue?: Maybe<Scalars['String']['output']>;
 };
 
 /** different workflwo flow filters inequality expressions */
@@ -262,7 +264,7 @@ export enum BaseTriggerFilterListValueExpressionEnum {
 export type BaseTriggerFilterNumberValue = {
   __typename?: 'BaseTriggerFilterNumberValue';
   numberExpression?: Maybe<BaseTriggerFilterNumberValueExpressionEnum>;
-  numberValue?: Maybe<Scalars['Int']>;
+  numberValue?: Maybe<Scalars['Int']['output']>;
 };
 
 /** different number value expression */
@@ -279,7 +281,7 @@ export enum BaseTriggerFilterNumberValueExpressionEnum {
 export type BaseTriggerFilterTextValue = {
   __typename?: 'BaseTriggerFilterTextValue';
   textExpression?: Maybe<BaseTriggerFilterTextValueExpressionEnum>;
-  textValue?: Maybe<Scalars['String']>;
+  textValue?: Maybe<Scalars['String']['output']>;
 };
 
 /** different text value expressions */
@@ -312,22 +314,22 @@ export type BaseTriggerFilterValueUnion = BaseTriggerFilterBooleanValue | BaseTr
 /** benchmark data */
 export type BenchmarkData = {
   __typename?: 'BenchmarkData';
-  clicked: Scalars['String'];
-  contact: Scalars['String'];
-  delivered: Scalars['String'];
-  id: Scalars['String'];
-  opened: Scalars['String'];
+  clicked: Scalars['String']['output'];
+  contact: Scalars['String']['output'];
+  delivered: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  opened: Scalars['String']['output'];
 };
 
 export type Billing = {
   __typename?: 'Billing';
-  bespokePlanId: Scalars['String'];
+  bespokePlanId: Scalars['String']['output'];
   billingPlanStatus: BillingPlanStatus;
   billingSubscriptionEntity?: Maybe<BillingSubscriptionEntity>;
-  cancelAtPeriodEnd: Scalars['Boolean'];
-  currentPeriodEnd?: Maybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
-  subscriptionId?: Maybe<Scalars['String']>;
+  cancelAtPeriodEnd: Scalars['Boolean']['output'];
+  currentPeriodEnd?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
+  subscriptionId?: Maybe<Scalars['String']['output']>;
 };
 
 /** different types of subscription */
@@ -355,17 +357,17 @@ export enum CdnType {
 export type Challenge = {
   __typename?: 'Challenge';
   challengeType: ChallengeTypeEnum;
-  completionCount: Scalars['Float'];
-  completionStages: Scalars['Float'];
-  createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  isHidden: Scalars['Boolean'];
+  completionCount: Scalars['Float']['output'];
+  completionStages: Scalars['Float']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  isHidden: Scalars['Boolean']['output'];
   measuredMetric?: Maybe<MetricType>;
   measuredUnit?: Maybe<ChallengeMeasuredValueUnit>;
-  measuredValue?: Maybe<Scalars['Float']>;
-  name: Scalars['String'];
-  questId: Scalars['String'];
+  measuredValue?: Maybe<Scalars['Float']['output']>;
+  name: Scalars['String']['output'];
+  questId: Scalars['String']['output'];
 };
 
 /** different types of challenges */
@@ -381,29 +383,29 @@ export enum ChallengeTypeEnum {
 
 /** update store details input */
 export type CompleteOnboardingInput = {
-  about: Scalars['String'];
-  address1: Scalars['String'];
-  address2?: InputMaybe<Scalars['String']>;
-  city: Scalars['String'];
-  country: Scalars['String'];
-  name: Scalars['String'];
-  senderEmail: Scalars['String'];
-  senderName: Scalars['String'];
-  state?: InputMaybe<Scalars['String']>;
-  subdomain: Scalars['String'];
-  zipCode: Scalars['String'];
+  about: Scalars['String']['input'];
+  address1: Scalars['String']['input'];
+  address2?: InputMaybe<Scalars['String']['input']>;
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  senderEmail: Scalars['String']['input'];
+  senderName: Scalars['String']['input'];
+  state?: InputMaybe<Scalars['String']['input']>;
+  subdomain: Scalars['String']['input'];
+  zipCode: Scalars['String']['input'];
 };
 
 export type Contact = {
   __typename?: 'Contact';
-  address1: Scalars['String'];
-  address2?: Maybe<Scalars['String']>;
-  city: Scalars['String'];
-  country: Scalars['String'];
-  senderEmail: Scalars['String'];
-  senderName: Scalars['String'];
-  state?: Maybe<Scalars['String']>;
-  zipCode: Scalars['String'];
+  address1: Scalars['String']['output'];
+  address2?: Maybe<Scalars['String']['output']>;
+  city: Scalars['String']['output'];
+  country: Scalars['String']['output'];
+  senderEmail: Scalars['String']['output'];
+  senderName: Scalars['String']['output'];
+  state?: Maybe<Scalars['String']['output']>;
+  zipCode: Scalars['String']['output'];
 };
 
 /** contact limit status */
@@ -416,92 +418,92 @@ export enum ContactLimitStatus {
 /** update store details input */
 export type CreateConditionalSplitNodeInput = {
   flowFilter: Array<Array<WorkflowFlowFilterInput>>;
-  otherWise: Scalars['Boolean'];
-  workflowId: Scalars['String'];
-  workflowStateId: Scalars['String'];
+  otherWise: Scalars['Boolean']['input'];
+  workflowId: Scalars['String']['input'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 /** create new connection */
 export type CreateNewDelayNodeInput = {
-  delayInMilliseconds: Scalars['Float'];
-  delayType: Scalars['String'];
-  otherWise: Scalars['Boolean'];
-  workflowId: Scalars['String'];
-  workflowStateId: Scalars['String'];
+  delayInMilliseconds: Scalars['Float']['input'];
+  delayType: Scalars['String']['input'];
+  otherWise: Scalars['Boolean']['input'];
+  workflowId: Scalars['String']['input'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 /** create post input */
 export type CreatePostInput = {
-  bodyHTML?: InputMaybe<Scalars['String']>;
-  bodyLexical?: InputMaybe<Scalars['String']>;
+  bodyHTML?: InputMaybe<Scalars['String']['input']>;
+  bodyLexical?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<ImageInput>;
-  storeId: Scalars['String'];
-  subTitle?: InputMaybe<Scalars['String']>;
-  title: Scalars['String'];
+  storeId: Scalars['String']['input'];
+  subTitle?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
 };
 
 /** create post input */
 export type CreatePostViewedInput = {
-  ipAddress?: InputMaybe<Scalars['String']>;
-  postHandle: Scalars['String'];
-  referer?: InputMaybe<Scalars['String']>;
+  ipAddress?: InputMaybe<Scalars['String']['input']>;
+  postHandle: Scalars['String']['input'];
+  referer?: InputMaybe<Scalars['String']['input']>;
   utmData?: InputMaybe<MetricUtmDataInput>;
 };
 
 /** create category input */
 export type CreateProductInput = {
-  externalLink: Scalars['String'];
+  externalLink: Scalars['String']['input'];
   image: Array<ProductImageInput>;
-  name: Scalars['String'];
-  price: Scalars['Int'];
+  name: Scalars['String']['input'];
+  price: Scalars['Int']['input'];
   productSource: ProductSource;
-  storeId: Scalars['String'];
+  storeId: Scalars['String']['input'];
   type: ProductType;
 };
 
 /** create send email */
 export type CreateSendEmailNodeInput = {
-  design: Scalars['String'];
-  html: Scalars['String'];
-  otherWise: Scalars['Boolean'];
-  subject: Scalars['String'];
-  type: Scalars['String'];
-  workflowId: Scalars['String'];
-  workflowStateId: Scalars['String'];
+  design: Scalars['String']['input'];
+  html: Scalars['String']['input'];
+  otherWise: Scalars['Boolean']['input'];
+  subject: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+  workflowId: Scalars['String']['input'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 /** update store details input */
 export type CreateShopifyAppSubscriptionInput = {
-  contactQuantity: Scalars['Int'];
-  isPremium: Scalars['Boolean'];
-  subdomain: Scalars['String'];
+  contactQuantity: Scalars['Int']['input'];
+  isPremium: Scalars['Boolean']['input'];
+  subdomain: Scalars['String']['input'];
 };
 
 /** add signup form input */
 export type CreateSignupFormInput = {
-  listId: Scalars['String'];
-  name: Scalars['String'];
-  storeId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
 };
 
 /** update store details input */
 export type CreateTriggerSplitNodeInput = {
-  otherWise: Scalars['Boolean'];
+  otherWise: Scalars['Boolean']['input'];
   triggerFilter: Array<Array<WorkflowTriggerFilterInput>>;
-  workflowId: Scalars['String'];
-  workflowStateId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 /** create user with email input */
 export type CreateUserWithEmailInput = {
-  email: Scalars['String'];
-  name: Scalars['String'];
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
 };
 
 export type CsvFileEmail = {
-  email: Scalars['String'];
-  firstName?: InputMaybe<Scalars['String']>;
-  lastName?: InputMaybe<Scalars['String']>;
+  email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** different workflwo flow filters inequality expressions */
@@ -514,16 +516,16 @@ export enum DelayTypeEnum {
 
 export type DisplayPicture = {
   __typename?: 'DisplayPicture';
-  height: Scalars['Int'];
-  src: Scalars['String'];
-  width: Scalars['Int'];
+  height: Scalars['Int']['output'];
+  src: Scalars['String']['output'];
+  width: Scalars['Int']['output'];
 };
 
 /** email concent */
 export type EmailConcent = {
   __typename?: 'EmailConcent';
   collectedFrom: EmailConcentCollectedFrom;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   optInLevel: EmailConcentOptInLevel;
   state: EmailConcentState;
 };
@@ -557,7 +559,7 @@ export enum EmailDeliveryStatus {
 
 /** email login input */
 export type EmailLoginInput = {
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
 };
 
 /** email sent limit status */
@@ -570,17 +572,17 @@ export enum EmailSentLimitStatus {
 /** Event */
 export type Event = {
   __typename?: 'Event';
-  createdAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
   eventAccessRestriction: EventConfidentiality;
   eventState: EventState;
   eventType: EventType;
-  id: Scalars['ID'];
-  link?: Maybe<Scalars['String']>;
-  message: Scalars['String'];
-  notificationDismissed: Scalars['Boolean'];
-  notificationRead: Scalars['Boolean'];
-  showAsNotification: Scalars['Boolean'];
-  userId: Scalars['String'];
+  id: Scalars['ID']['output'];
+  link?: Maybe<Scalars['String']['output']>;
+  message: Scalars['String']['output'];
+  notificationDismissed: Scalars['Boolean']['output'];
+  notificationRead: Scalars['Boolean']['output'];
+  showAsNotification: Scalars['Boolean']['output'];
+  userId: Scalars['String']['output'];
 };
 
 /** different types of confidential events for user */
@@ -619,81 +621,82 @@ export enum EventType {
 
 export type GetStoreEmailMetric = {
   __typename?: 'GetStoreEmailMetric';
-  clicked: Scalars['Int'];
-  clickedTrend: Scalars['Float'];
-  contact: Scalars['Int'];
-  delivered: Scalars['Int'];
-  deliveredTrend: Scalars['Float'];
-  opened: Scalars['Int'];
-  openedTrend: Scalars['Float'];
+  clicked: Scalars['Int']['output'];
+  clickedTrend: Scalars['Float']['output'];
+  contact: Scalars['Int']['output'];
+  delivered: Scalars['Int']['output'];
+  deliveredTrend: Scalars['Float']['output'];
+  opened: Scalars['Int']['output'];
+  openedTrend: Scalars['Float']['output'];
 };
 
 export type ImageInput = {
-  height: Scalars['Int'];
-  src: Scalars['String'];
-  width: Scalars['Int'];
+  height: Scalars['Int']['input'];
+  src: Scalars['String']['input'];
+  width: Scalars['Int']['input'];
 };
 
 /** Integration */
 export type Integration = {
   __typename?: 'Integration';
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   shopify?: Maybe<Shopify>;
 };
 
 /** Item */
 export type Item = {
   __typename?: 'Item';
-  createdAt: Scalars['DateTime'];
-  credits?: Maybe<Scalars['Float']>;
+  createdAt: Scalars['DateTime']['output'];
+  credits?: Maybe<Scalars['Float']['output']>;
   data: ItemDataUnion;
-  description?: Maybe<Scalars['String']>;
-  end_date?: Maybe<Scalars['DateTime']>;
-  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']['output']>;
+  end_date?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
   imageData: Array<ItemImageData>;
   itemCategory: ItemCategory;
-  itemCategoryId: Scalars['String'];
-  name: Scalars['String'];
-  start_date?: Maybe<Scalars['DateTime']>;
+  itemCategoryId: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  start_date?: Maybe<Scalars['DateTime']['output']>;
   type: ItemTypeEnum;
 };
 
 /** ItemCategory */
 export type ItemCategory = {
   __typename?: 'ItemCategory';
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   items: Array<Item>;
   type: ItemCategoryTypeEnum;
 };
 
 /** item category type enum */
 export enum ItemCategoryTypeEnum {
+  Scubscription = 'SCUBSCRIPTION',
   Shop = 'SHOP'
 }
 
 export type ItemCreditsData = {
   __typename?: 'ItemCreditsData';
-  credits: Scalars['Float'];
+  credits: Scalars['Float']['output'];
 };
 
 export type ItemDataUnion = ItemCreditsData | ItemEmailTemplateData | ItemSignupFormData;
 
 export type ItemEmailTemplateData = {
   __typename?: 'ItemEmailTemplateData';
-  design: Scalars['String'];
+  design: Scalars['String']['output'];
 };
 
 export type ItemImageData = {
   __typename?: 'ItemImageData';
-  height: Scalars['Float'];
-  src: Scalars['String'];
-  width: Scalars['Float'];
+  height: Scalars['Float']['output'];
+  src: Scalars['String']['output'];
+  width: Scalars['Float']['output'];
 };
 
 export type ItemSignupFormData = {
   __typename?: 'ItemSignupFormData';
-  formDesign: Scalars['String'];
-  successDesign: Scalars['String'];
+  formDesign: Scalars['String']['output'];
+  successDesign: Scalars['String']['output'];
 };
 
 /** different item types */
@@ -706,48 +709,48 @@ export enum ItemTypeEnum {
 /** List */
 export type List = {
   __typename?: 'List';
-  addedThisWeek: Scalars['String'];
-  addedToday: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  isDefaultStoreList: Scalars['Boolean'];
-  members: Scalars['Int'];
-  name: Scalars['String'];
-  starred: Scalars['Boolean'];
+  addedThisWeek: Scalars['String']['output'];
+  addedToday: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  isDefaultStoreList: Scalars['Boolean']['output'];
+  members: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  starred: Scalars['Boolean']['output'];
   store?: Maybe<Store>;
 };
 
 /** Subscriber Metric */
 export type Metric = {
   __typename?: 'Metric';
-  createdAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
   data?: Maybe<MetricData>;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   list?: Maybe<List>;
-  listId?: Maybe<Scalars['String']>;
-  message: Scalars['String'];
+  listId?: Maybe<Scalars['String']['output']>;
+  message: Scalars['String']['output'];
   metricType: MetricType;
   post?: Maybe<Post>;
-  postId?: Maybe<Scalars['String']>;
+  postId?: Maybe<Scalars['String']['output']>;
   signupForm?: Maybe<SignupForm>;
-  signupFormId?: Maybe<Scalars['String']>;
-  storeId: Scalars['String'];
+  signupFormId?: Maybe<Scalars['String']['output']>;
+  storeId: Scalars['String']['output'];
   subscriber?: Maybe<Subscriber>;
-  subscriberId?: Maybe<Scalars['String']>;
+  subscriberId?: Maybe<Scalars['String']['output']>;
 };
 
 export type MetricData = MetricEmailLinkClicked | MetricPostViewed | MetricShopifyCancelledOrder | MetricShopifyCheckoutUpdate | MetricShopifyFulfilledOrder | MetricShopifyPlacedOrder;
 
 export type MetricEmailLinkClicked = {
   __typename?: 'MetricEmailLinkClicked';
-  link: Scalars['String'];
+  link: Scalars['String']['output'];
   type: MetricType;
 };
 
 export type MetricPostViewed = {
   __typename?: 'MetricPostViewed';
-  ipAddress?: Maybe<Scalars['String']>;
-  referer?: Maybe<Scalars['String']>;
+  ipAddress?: Maybe<Scalars['String']['output']>;
+  referer?: Maybe<Scalars['String']['output']>;
   type: MetricType;
   utm?: Maybe<MetricUtmDataType>;
 };
@@ -755,78 +758,78 @@ export type MetricPostViewed = {
 export type MetricShopifyCancelledOrder = {
   __typename?: 'MetricShopifyCancelledOrder';
   discount_codes: Array<MetricShopifyDiscountCodes>;
-  id: Scalars['Int'];
+  id: Scalars['Int']['output'];
   line_items: Array<MetricShopifyLineItems>;
   shipping_lines: Array<MetricShopifyShippingLines>;
-  source_name: Scalars['String'];
-  subtotal_price: Scalars['String'];
-  total_discounts: Scalars['String'];
-  total_price: Scalars['String'];
+  source_name: Scalars['String']['output'];
+  subtotal_price: Scalars['String']['output'];
+  total_discounts: Scalars['String']['output'];
+  total_price: Scalars['String']['output'];
   type: MetricType;
 };
 
 export type MetricShopifyCheckoutUpdate = {
   __typename?: 'MetricShopifyCheckoutUpdate';
-  abandoned_checkout_url: Scalars['String'];
+  abandoned_checkout_url: Scalars['String']['output'];
   discount_codes: Array<MetricShopifyDiscountCodes>;
-  id: Scalars['Int'];
+  id: Scalars['Int']['output'];
   line_items: Array<MetricShopifyLineItems>;
   shipping_lines: Array<MetricShopifyShippingLines>;
-  source_name: Scalars['String'];
-  subtotal_price: Scalars['String'];
-  total_discounts: Scalars['String'];
-  total_price: Scalars['String'];
+  source_name: Scalars['String']['output'];
+  subtotal_price: Scalars['String']['output'];
+  total_discounts: Scalars['String']['output'];
+  total_price: Scalars['String']['output'];
   type: MetricType;
 };
 
 export type MetricShopifyDiscountCodes = {
   __typename?: 'MetricShopifyDiscountCodes';
-  amount: Scalars['String'];
-  code: Scalars['String'];
-  type: Scalars['String'];
+  amount: Scalars['String']['output'];
+  code: Scalars['String']['output'];
+  type: Scalars['String']['output'];
 };
 
 export type MetricShopifyFulfilledOrder = {
   __typename?: 'MetricShopifyFulfilledOrder';
   discount_codes: Array<MetricShopifyDiscountCodes>;
-  id: Scalars['Int'];
+  id: Scalars['Int']['output'];
   line_items: Array<MetricShopifyLineItems>;
   shipping_lines: Array<MetricShopifyShippingLines>;
-  source_name: Scalars['String'];
-  subtotal_price: Scalars['String'];
-  total_discounts: Scalars['String'];
-  total_price: Scalars['String'];
+  source_name: Scalars['String']['output'];
+  subtotal_price: Scalars['String']['output'];
+  total_discounts: Scalars['String']['output'];
+  total_price: Scalars['String']['output'];
   type: MetricType;
 };
 
 export type MetricShopifyLineItems = {
   __typename?: 'MetricShopifyLineItems';
-  compare_at_price?: Maybe<Scalars['String']>;
-  id: Scalars['Float'];
-  key: Scalars['String'];
-  name: Scalars['String'];
-  price: Scalars['String'];
-  product_id: Scalars['Int'];
-  title: Scalars['String'];
+  compare_at_price?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Float']['output'];
+  key: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  price: Scalars['String']['output'];
+  product_id: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
 };
 
 export type MetricShopifyPlacedOrder = {
   __typename?: 'MetricShopifyPlacedOrder';
   discount_codes: Array<MetricShopifyDiscountCodes>;
-  id: Scalars['Int'];
+  id: Scalars['Int']['output'];
   line_items: Array<MetricShopifyLineItems>;
   shipping_lines: Array<MetricShopifyShippingLines>;
-  source_name: Scalars['String'];
-  subtotal_price: Scalars['String'];
-  total_discounts: Scalars['String'];
-  total_price: Scalars['String'];
+  source_name: Scalars['String']['output'];
+  subtotal_price: Scalars['String']['output'];
+  total_discounts: Scalars['String']['output'];
+  total_price: Scalars['String']['output'];
   type: MetricType;
 };
 
 export type MetricShopifyRefundedOrderLineItem = {
   __typename?: 'MetricShopifyRefundedOrderLineItem';
-  name: Scalars['String'];
-  total_discount: Scalars['String'];
+  name: Scalars['String']['output'];
+  total_discount: Scalars['String']['output'];
 };
 
 export type MetricShopifyRefundedOrderLineItems = {
@@ -836,7 +839,7 @@ export type MetricShopifyRefundedOrderLineItems = {
 
 export type MetricShopifyShippingLines = {
   __typename?: 'MetricShopifyShippingLines';
-  code: Scalars['String'];
+  code: Scalars['String']['output'];
 };
 
 /** different types of metrics */
@@ -871,42 +874,42 @@ export enum MetricType {
 }
 
 export type MetricUtmDataInput = {
-  campaign?: InputMaybe<Scalars['String']>;
-  content?: InputMaybe<Scalars['String']>;
-  medium?: InputMaybe<Scalars['String']>;
-  source?: InputMaybe<Scalars['String']>;
-  term?: InputMaybe<Scalars['String']>;
+  campaign?: InputMaybe<Scalars['String']['input']>;
+  content?: InputMaybe<Scalars['String']['input']>;
+  medium?: InputMaybe<Scalars['String']['input']>;
+  source?: InputMaybe<Scalars['String']['input']>;
+  term?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MetricUtmDataType = {
   __typename?: 'MetricUtmDataType';
-  campaign?: Maybe<Scalars['String']>;
-  content?: Maybe<Scalars['String']>;
-  medium?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  term?: Maybe<Scalars['String']>;
+  campaign?: Maybe<Scalars['String']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  medium?: Maybe<Scalars['String']['output']>;
+  source?: Maybe<Scalars['String']['output']>;
+  term?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   /** update multiple product images */
-  addCommaSeperatedEmailsToList?: Maybe<Scalars['Boolean']>;
+  addCommaSeperatedEmailsToList?: Maybe<Scalars['Boolean']['output']>;
   /** update product details */
   addMoreProductImages?: Maybe<Product>;
   /** add signup form item */
   addSignupFormItem?: Maybe<SignupForm>;
   /** check post handle avaialb */
-  checkPostHandleAvailable: Scalars['Boolean'];
+  checkPostHandleAvailable: Scalars['Boolean']['output'];
   /** add shopify integration */
   collectEmailSubscribers?: Maybe<Shopify>;
   /** create a new store */
   completeOnboarding?: Maybe<Store>;
   /** Login user */
-  confirmCodeAndLogin?: Maybe<Scalars['Boolean']>;
+  confirmCodeAndLogin?: Maybe<Scalars['Boolean']['output']>;
   /** convert workflow to public */
   convertWorkflowToPublic?: Maybe<Workflow>;
   /** create checkout session url */
-  createCheckoutSessionUrl?: Maybe<Scalars['String']>;
+  createCheckoutSessionUrl?: Maybe<Scalars['String']['output']>;
   /** update conditional split node */
   createConditionalSplitNode?: Maybe<WorkflowState>;
   /** create a list trigger */
@@ -929,7 +932,7 @@ export type Mutation = {
   /** create send email node */
   createSendEmailNode?: Maybe<WorkflowState>;
   /** create shopify app subscription */
-  createShopifyAppSubscription?: Maybe<Scalars['String']>;
+  createShopifyAppSubscription?: Maybe<Scalars['String']['output']>;
   /** check signup form */
   createSignupForm?: Maybe<SignupForm>;
   /** update trigger split node */
@@ -958,15 +961,15 @@ export type Mutation = {
   /** Login user */
   emailLogin?: Maybe<User>;
   /** Logout */
-  logout?: Maybe<Scalars['Boolean']>;
+  logout?: Maybe<Scalars['Boolean']['output']>;
   /** toggle send email notification */
   newSubscriberNotificationToggle?: Maybe<Notification>;
   /** prorate stripe subscription */
-  prorateStripeSubscription?: Maybe<Scalars['Boolean']>;
+  prorateStripeSubscription?: Maybe<Scalars['Boolean']['output']>;
   /** publish post here */
-  publishPostHere: Scalars['Boolean'];
+  publishPostHere: Scalars['Boolean']['output'];
   /** publish post here */
-  publishPostToList: Scalars['Boolean'];
+  publishPostToList: Scalars['Boolean']['output'];
   /** add shopify integration */
   removeCollectEmailSubscribers?: Maybe<Shopify>;
   /** remove shopify integration */
@@ -980,7 +983,7 @@ export type Mutation = {
   /** set all events as read */
   setAllEventAsRead?: Maybe<Event>;
   /** cancle the shopify app subscription */
-  shopifyAppSubscriptionCancel?: Maybe<Scalars['Boolean']>;
+  shopifyAppSubscriptionCancel?: Maybe<Scalars['Boolean']['output']>;
   /** create user with email */
   signupWithEmail?: Maybe<User>;
   /** add shopify integration */
@@ -988,8 +991,8 @@ export type Mutation = {
   /** add shopify integration */
   stopShopifyProductSync?: Maybe<Shopify>;
   /** update default listid ot collect email */
-  subscribeToStore?: Maybe<Scalars['Boolean']>;
-  syncScript?: Maybe<Scalars['Boolean']>;
+  subscribeToStore?: Maybe<Scalars['Boolean']['output']>;
+  syncScript?: Maybe<Scalars['Boolean']['output']>;
   /** remove shopify integration */
   syncShopifyCustomers?: Maybe<Shopify>;
   /** remove shopify integration */
@@ -997,7 +1000,7 @@ export type Mutation = {
   /** toggle list trigger */
   toggleListStar?: Maybe<List>;
   /** toggle product hidden */
-  toggleProductHidden?: Maybe<Scalars['Boolean']>;
+  toggleProductHidden?: Maybe<Scalars['Boolean']['output']>;
   /** update workflow data */
   turnOffWorkflow?: Maybe<Workflow>;
   /** update workflow data */
@@ -1011,7 +1014,7 @@ export type Mutation = {
   /** update about */
   updateAbout?: Maybe<About>;
   /** update billing plan to free */
-  updateBillingPlanToFree?: Maybe<Scalars['Boolean']>;
+  updateBillingPlanToFree?: Maybe<Scalars['Boolean']['output']>;
   /** update a conditional split state */
   updateConditionalSplitState?: Maybe<WorkflowState>;
   /** update default listid ot collect email */
@@ -1029,7 +1032,7 @@ export type Mutation = {
   /** update metric trigger */
   updateMetricTrigger?: Maybe<WorkflowState>;
   /** update post */
-  updatePost: Scalars['Boolean'];
+  updatePost: Scalars['Boolean']['output'];
   /** update product details */
   updateProductDetails?: Maybe<Product>;
   /** update a conditional split state */
@@ -1049,7 +1052,7 @@ export type Mutation = {
   /** update workflow name */
   updateWorkflowName?: Maybe<Workflow>;
   /** uplaod csv file emails to list */
-  uploadCsvFileEmailsToList?: Maybe<Scalars['String']>;
+  uploadCsvFileEmailsToList?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1069,14 +1072,14 @@ export type MutationAddSignupFormItemArgs = {
 
 
 export type MutationCheckPostHandleAvailableArgs = {
-  handle: Scalars['String'];
-  postId: Scalars['String'];
+  handle: Scalars['String']['input'];
+  postId: Scalars['String']['input'];
 };
 
 
 export type MutationCollectEmailSubscribersArgs = {
-  listId: Scalars['String'];
-  shopifyId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  shopifyId: Scalars['String']['input'];
 };
 
 
@@ -1086,18 +1089,18 @@ export type MutationCompleteOnboardingArgs = {
 
 
 export type MutationConfirmCodeAndLoginArgs = {
-  loginCode: Scalars['String'];
+  loginCode: Scalars['String']['input'];
 };
 
 
 export type MutationConvertWorkflowToPublicArgs = {
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 };
 
 
 export type MutationCreateCheckoutSessionUrlArgs = {
-  stripePriceId: Scalars['String'];
-  subdomain: Scalars['String'];
+  stripePriceId: Scalars['String']['input'];
+  subdomain: Scalars['String']['input'];
 };
 
 
@@ -1107,14 +1110,14 @@ export type MutationCreateConditionalSplitNodeArgs = {
 
 
 export type MutationCreateListTriggerArgs = {
-  listId: Scalars['String'];
-  workflowId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  workflowId: Scalars['String']['input'];
 };
 
 
 export type MutationCreateMetricTriggerArgs = {
   metricType: MetricType;
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 };
 
 
@@ -1124,16 +1127,16 @@ export type MutationCreateNewDelayNodeArgs = {
 
 
 export type MutationCreateNewListArgs = {
-  name: Scalars['String'];
-  storeId: Scalars['String'];
+  name: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
 };
 
 
 export type MutationCreateNodeConnectionArgs = {
-  otherWise: Scalars['Boolean'];
-  sourceId: Scalars['String'];
-  targetId: Scalars['String'];
-  workflowId: Scalars['String'];
+  otherWise: Scalars['Boolean']['input'];
+  sourceId: Scalars['String']['input'];
+  targetId: Scalars['String']['input'];
+  workflowId: Scalars['String']['input'];
 };
 
 
@@ -1153,9 +1156,9 @@ export type MutationCreateProductArgs = {
 
 
 export type MutationCreateProductPostArgs = {
-  nodeKey: Scalars['String'];
-  postId: Scalars['String'];
-  productIds: Array<Scalars['String']>;
+  nodeKey: Scalars['String']['input'];
+  postId: Scalars['String']['input'];
+  productIds: Array<Scalars['String']['input']>;
 };
 
 
@@ -1180,60 +1183,60 @@ export type MutationCreateTriggerSplitNodeArgs = {
 
 
 export type MutationCreateWorkflowArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteListArgs = {
-  listId: Scalars['String'];
+  listId: Scalars['String']['input'];
 };
 
 
 export type MutationDeletePostArgs = {
-  postId: Scalars['String'];
+  postId: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteProductArgs = {
-  productId: Scalars['String'];
+  productId: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteProductImageArgs = {
-  deletingUrl: Scalars['String'];
-  productId: Scalars['String'];
+  deletingUrl: Scalars['String']['input'];
+  productId: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteProductPostArgs = {
-  nodeKey: Scalars['String'];
-  postId: Scalars['String'];
+  nodeKey: Scalars['String']['input'];
+  postId: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteSignupFormArgs = {
-  signupFormId: Scalars['String'];
+  signupFormId: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteWorkflowArgs = {
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteWorkflowNodeArgs = {
-  workflowStateId: Scalars['String'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 
 export type MutationDeleteWorkflowTransitionArgs = {
-  workflowId: Scalars['String'];
-  workflowTransitionId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
+  workflowTransitionId: Scalars['String']['input'];
 };
 
 
 export type MutationDismissNotificationArgs = {
-  eventId: Scalars['String'];
+  eventId: Scalars['String']['input'];
 };
 
 
@@ -1243,59 +1246,59 @@ export type MutationEmailLoginArgs = {
 
 
 export type MutationNewSubscriberNotificationToggleArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type MutationProrateStripeSubscriptionArgs = {
-  newStripePriceId: Scalars['String'];
-  subdomain: Scalars['String'];
+  newStripePriceId: Scalars['String']['input'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type MutationPublishPostHereArgs = {
-  postHandle: Scalars['String'];
-  postId: Scalars['String'];
+  postHandle: Scalars['String']['input'];
+  postId: Scalars['String']['input'];
 };
 
 
 export type MutationPublishPostToListArgs = {
-  listId: Scalars['String'];
-  postHandle: Scalars['String'];
-  postId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  postHandle: Scalars['String']['input'];
+  postId: Scalars['String']['input'];
 };
 
 
 export type MutationRemoveCollectEmailSubscribersArgs = {
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 };
 
 
 export type MutationRemoveShopifyIntegrationArgs = {
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 };
 
 
 export type MutationRemoveSubscriberFromListArgs = {
-  listId: Scalars['String'];
-  subscriberId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  subscriberId: Scalars['String']['input'];
 };
 
 
 export type MutationReplicateWorkflowArgs = {
-  replicaWorkflowId: Scalars['String'];
-  storeId: Scalars['String'];
+  replicaWorkflowId: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
 };
 
 
 export type MutationResubscribeToListArgs = {
-  listId: Scalars['String'];
-  unsubscribeId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  unsubscribeId: Scalars['String']['input'];
 };
 
 
 export type MutationShopifyAppSubscriptionCancelArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
@@ -1305,64 +1308,64 @@ export type MutationSignupWithEmailArgs = {
 
 
 export type MutationStopShopifyCustomerSyncArgs = {
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 };
 
 
 export type MutationStopShopifyProductSyncArgs = {
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 };
 
 
 export type MutationSubscribeToStoreArgs = {
-  email: Scalars['String'];
-  storeId: Scalars['String'];
+  email: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
 };
 
 
 export type MutationSyncShopifyCustomersArgs = {
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 };
 
 
 export type MutationSyncShopifyProductsArgs = {
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 };
 
 
 export type MutationToggleListStarArgs = {
-  listId: Scalars['String'];
+  listId: Scalars['String']['input'];
 };
 
 
 export type MutationToggleProductHiddenArgs = {
-  productId: Scalars['String'];
+  productId: Scalars['String']['input'];
 };
 
 
 export type MutationTurnOffWorkflowArgs = {
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 };
 
 
 export type MutationTurnOnWorkflowArgs = {
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 };
 
 
 export type MutationUnpublishPostArgs = {
-  postId: Scalars['String'];
+  postId: Scalars['String']['input'];
 };
 
 
 export type MutationUnsubscribeFromAllListArgs = {
-  unsubscribeId: Scalars['String'];
+  unsubscribeId: Scalars['String']['input'];
 };
 
 
 export type MutationUnsubscribeFromListArgs = {
-  listId: Scalars['String'];
-  unsubscribeId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  unsubscribeId: Scalars['String']['input'];
 };
 
 
@@ -1372,7 +1375,7 @@ export type MutationUpdateAboutArgs = {
 
 
 export type MutationUpdateBillingPlanToFreeArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
@@ -1382,8 +1385,8 @@ export type MutationUpdateConditionalSplitStateArgs = {
 
 
 export type MutationUpdateDefaultListIdToCollectEmailArgs = {
-  listId: Scalars['String'];
-  storeId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
 };
 
 
@@ -1403,20 +1406,20 @@ export type MutationUpdateFlowFilterArgs = {
 
 
 export type MutationUpdateIndustryArgs = {
-  aboutId: Scalars['String'];
+  aboutId: Scalars['String']['input'];
   industry: AboutIndustryEnum;
 };
 
 
 export type MutationUpdateListTriggerArgs = {
-  listId: Scalars['String'];
-  workflowStateId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 
 export type MutationUpdateMetricTriggerArgs = {
   metricType: MetricType;
-  workflowStateId: Scalars['String'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 
@@ -1442,7 +1445,7 @@ export type MutationUpdateSignupFormArgs = {
 
 export type MutationUpdateStoreCurrencyArgs = {
   currency: StoreCurrency;
-  storeId: Scalars['String'];
+  storeId: Scalars['String']['input'];
 };
 
 
@@ -1462,15 +1465,15 @@ export type MutationUpdateTriggerSplitStateArgs = {
 
 
 export type MutationUpdateWorkflowDescriptionArgs = {
-  descriptionHTML: Scalars['String'];
-  descriptionLexical: Scalars['String'];
-  workflowId: Scalars['String'];
+  descriptionHTML: Scalars['String']['input'];
+  descriptionLexical: Scalars['String']['input'];
+  workflowId: Scalars['String']['input'];
 };
 
 
 export type MutationUpdateWorkflowNameArgs = {
-  name: Scalars['String'];
-  workflowId: Scalars['String'];
+  name: Scalars['String']['input'];
+  workflowId: Scalars['String']['input'];
 };
 
 
@@ -1480,35 +1483,35 @@ export type MutationUploadCsvFileEmailsToListArgs = {
 
 export type Notification = {
   __typename?: 'Notification';
-  id: Scalars['ID'];
-  newSubscriber: Scalars['Boolean'];
+  id: Scalars['ID']['output'];
+  newSubscriber: Scalars['Boolean']['output'];
 };
 
 /** Post */
 export type Post = {
   __typename?: 'Post';
-  bodyHTML?: Maybe<Scalars['String']>;
-  bodyLexical?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
+  bodyHTML?: Maybe<Scalars['String']['output']>;
+  bodyLexical?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
   image?: Maybe<PostImage>;
-  postHandle?: Maybe<Scalars['String']>;
-  postOpenCount: Scalars['Int'];
-  postRecipientCount: Scalars['Int'];
+  postHandle?: Maybe<Scalars['String']['output']>;
+  postOpenCount: Scalars['Int']['output'];
+  postRecipientCount: Scalars['Int']['output'];
   postState: PostState;
   postType: PostType;
-  postViewCount: Scalars['Int'];
-  publishedDate?: Maybe<Scalars['DateTime']>;
+  postViewCount: Scalars['Int']['output'];
+  publishedDate?: Maybe<Scalars['DateTime']['output']>;
   store?: Maybe<Store>;
-  storeId: Scalars['String'];
-  subTitle?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  storeId: Scalars['String']['output'];
+  subTitle?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export type PostImage = {
   __typename?: 'PostImage';
-  height: Scalars['Int'];
-  src: Scalars['String'];
-  width: Scalars['Int'];
+  height: Scalars['Int']['output'];
+  src: Scalars['String']['output'];
+  width: Scalars['Int']['output'];
 };
 
 /** Different post states */
@@ -1527,55 +1530,55 @@ export enum PostType {
 /** Products  */
 export type Product = {
   __typename?: 'Product';
-  description?: Maybe<Scalars['String']>;
-  externalLink?: Maybe<Scalars['String']>;
-  hidden: Scalars['Boolean'];
-  id: Scalars['ID'];
+  description?: Maybe<Scalars['String']['output']>;
+  externalLink?: Maybe<Scalars['String']['output']>;
+  hidden: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
   image?: Maybe<Array<ProductImage>>;
-  name?: Maybe<Scalars['String']>;
-  price: Scalars['Int'];
+  name?: Maybe<Scalars['String']['output']>;
+  price: Scalars['Int']['output'];
   productData?: Maybe<ShopifyProductData>;
   productSource: ProductSource;
   productType: ProductType;
-  rank: Scalars['String'];
-  storeId: Scalars['String'];
+  rank: Scalars['String']['output'];
+  storeId: Scalars['String']['output'];
 };
 
 export type ProductFileInput = {
-  fileName: Scalars['String'];
-  filePath: Scalars['String'];
-  originalFileName: Scalars['String'];
-  src: Scalars['String'];
+  fileName: Scalars['String']['input'];
+  filePath: Scalars['String']['input'];
+  originalFileName: Scalars['String']['input'];
+  src: Scalars['String']['input'];
 };
 
 export type ProductImage = {
   __typename?: 'ProductImage';
   cdnType: CdnType;
-  height: Scalars['Int'];
-  mimeType: Scalars['String'];
-  src: Scalars['String'];
-  width: Scalars['Int'];
+  height: Scalars['Int']['output'];
+  mimeType: Scalars['String']['output'];
+  src: Scalars['String']['output'];
+  width: Scalars['Int']['output'];
 };
 
 /** product image */
 export type ProductImageInput = {
   cdnType: CdnType;
-  height: Scalars['Int'];
-  mimeType: Scalars['String'];
-  src: Scalars['String'];
-  width: Scalars['Int'];
+  height: Scalars['Int']['input'];
+  mimeType: Scalars['String']['input'];
+  src: Scalars['String']['input'];
+  width: Scalars['Int']['input'];
 };
 
 /** Product in posts */
 export type ProductPost = {
   __typename?: 'ProductPost';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  nodeKey: Scalars['String'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  nodeKey: Scalars['String']['output'];
   post: Post;
-  postId: Scalars['String'];
+  postId: Scalars['String']['output'];
   product: Product;
-  productId: Scalars['String'];
+  productId: Scalars['String']['output'];
 };
 
 /** source of the products */
@@ -1595,9 +1598,9 @@ export enum ProductType {
 export type Query = {
   __typename?: 'Query';
   /** check able to send email to list */
-  checkAbleToSendEmailToList: Scalars['Boolean'];
+  checkAbleToSendEmailToList: Scalars['Boolean']['output'];
   /** check user onboarded */
-  checkUserOnboarded?: Maybe<Scalars['Boolean']>;
+  checkUserOnboarded?: Maybe<Scalars['Boolean']['output']>;
   /** get about  */
   getAbout?: Maybe<About>;
   /** get lists of a unsubscirber */
@@ -1610,27 +1613,27 @@ export type Query = {
   getBenchmarkData?: Maybe<Array<BenchmarkData>>;
   getCurrentStoreChallengesByQuestType?: Maybe<Array<StoreChallenge>>;
   /** customer portal session */
-  getCustomerPortalSession?: Maybe<Scalars['String']>;
+  getCustomerPortalSession?: Maybe<Scalars['String']['output']>;
   /** get draft posts */
   getDraftPosts?: Maybe<Array<Post>>;
   /** get emails link clicked */
-  getEmailLinkClickedCount?: Maybe<Scalars['Int']>;
+  getEmailLinkClickedCount?: Maybe<Scalars['Int']['output']>;
   /** get emails opened count */
-  getEmailOpenedCount?: Maybe<Scalars['Int']>;
+  getEmailOpenedCount?: Maybe<Scalars['Int']['output']>;
   /** get emails received count */
-  getEmailReceivedCount?: Maybe<Scalars['Int']>;
+  getEmailReceivedCount?: Maybe<Scalars['Int']['output']>;
   /** get email sent this month */
-  getEmailSentThisMonthCount?: Maybe<Scalars['Int']>;
+  getEmailSentThisMonthCount?: Maybe<Scalars['Int']['output']>;
   /** get email sent today */
-  getEmailSentTodayCount?: Maybe<Scalars['Int']>;
+  getEmailSentTodayCount?: Maybe<Scalars['Int']['output']>;
   getEmailTemplates: Array<StoreItem>;
   getFolderItems: Array<StoreItem>;
   /** get fulfilled order count */
-  getFulfilledOrderCount?: Maybe<Scalars['Int']>;
+  getFulfilledOrderCount?: Maybe<Scalars['Int']['output']>;
   /** get integration with subdomain */
   getIntegrationWithSubdomain?: Maybe<Integration>;
   /** get list count */
-  getListCount?: Maybe<Scalars['Int']>;
+  getListCount?: Maybe<Scalars['Int']['output']>;
   /** get lists */
   getLists: Array<List>;
   /** get mandatory quest */
@@ -1644,19 +1647,19 @@ export type Query = {
   /** get notifications */
   getNotifications: Array<Event>;
   /** get placed order count */
-  getPlacedOrderCount?: Maybe<Scalars['Int']>;
+  getPlacedOrderCount?: Maybe<Scalars['Int']['output']>;
   /** get post */
   getPost?: Maybe<Post>;
   /** get post */
   getPostByHandle?: Maybe<Post>;
   /** get post count */
-  getPostCount?: Maybe<Scalars['Int']>;
+  getPostCount?: Maybe<Scalars['Int']['output']>;
   /** get post */
   getPosts?: Maybe<Array<Post>>;
   /** get product from with product id */
   getProduct: Product;
   /** get product count */
-  getProductCount: Scalars['Int'];
+  getProductCount: Scalars['Int']['output'];
   /** get product from category */
   getProducts: Array<Product>;
   /** get public workflows */
@@ -1670,145 +1673,146 @@ export type Query = {
   /** get starred lists */
   getStarredLists?: Maybe<Array<List>>;
   getStoreBilling?: Maybe<Billing>;
-  getStoreCredits: Scalars['Int'];
+  getStoreCredits: Scalars['Int']['output'];
   /** get subscriber revenue */
-  getStoreDailyRevenueTrend?: Maybe<Scalars['Int']>;
+  getStoreDailyRevenueTrend?: Maybe<Scalars['Int']['output']>;
   /** get subscriber revenue */
   getStoreEmailMetric?: Maybe<GetStoreEmailMetric>;
   /** get subscriber revenue */
-  getStoreRevenue?: Maybe<Scalars['Int']>;
+  getStoreRevenue?: Maybe<Scalars['Int']['output']>;
   /** get store with store name */
   getStoreWithSubdomain?: Maybe<Store>;
   /** get subscriber */
   getSubscriber?: Maybe<Subscriber>;
   /** get subscribers */
-  getSubscriberCountAddedToday?: Maybe<Scalars['Int']>;
+  getSubscriberCountAddedToday?: Maybe<Scalars['Int']['output']>;
   /** check user onboarded */
   getSubscriberLists?: Maybe<Array<SubscriberList>>;
   /** get subscriber metrics */
   getSubscriberMetrics?: Maybe<Array<Metric>>;
   /** get subscriber revenue */
-  getSubscriberRevenue?: Maybe<Scalars['Int']>;
+  getSubscriberRevenue?: Maybe<Scalars['Int']['output']>;
   /** get subscribers */
   getSubscribers?: Maybe<Array<Subscriber>>;
   /** get subscribers list count */
-  getSubscribersCount?: Maybe<Scalars['Int']>;
+  getSubscribersCount?: Maybe<Scalars['Int']['output']>;
   /** check user onboarded */
-  getSubscribersInListCount?: Maybe<Scalars['Int']>;
+  getSubscribersInListCount?: Maybe<Scalars['Int']['output']>;
+  getSubscriptionRewardItems: Array<Item>;
   /** get total submitted form */
-  getTotalFormSubmitRate: Scalars['Int'];
+  getTotalFormSubmitRate: Scalars['Int']['output'];
   /** get total submitted form */
-  getTotalSubmittedForm: Scalars['Int'];
+  getTotalSubmittedForm: Scalars['Int']['output'];
   /** check if user is onboarded */
-  getUserExistByEmail: Scalars['Boolean'];
+  getUserExistByEmail: Scalars['Boolean']['output'];
   /** get user store */
   getUserStore?: Maybe<Store>;
   /** get workflow */
   getWorkflow?: Maybe<Workflow>;
   /** get workflow count */
-  getWorkflowCount?: Maybe<Scalars['Int']>;
+  getWorkflowCount?: Maybe<Scalars['Int']['output']>;
   /** get workflows */
   getWorkflows?: Maybe<Array<Workflow>>;
-  hasProductPost?: Maybe<Scalars['Boolean']>;
+  hasProductPost?: Maybe<Scalars['Boolean']['output']>;
   me?: Maybe<User>;
   /** search subscribers by email for now */
   searchSubscribers?: Maybe<Array<Subscriber>>;
   /** Check subdomain available */
-  subdomainAvailable: Scalars['Boolean'];
+  subdomainAvailable: Scalars['Boolean']['output'];
   /** has unread events */
-  unReadNotificationCount: Scalars['Int'];
+  unReadNotificationCount: Scalars['Int']['output'];
 };
 
 
 export type QueryCheckAbleToSendEmailToListArgs = {
-  listId: Scalars['String'];
-  subdomain: Scalars['String'];
+  listId: Scalars['String']['input'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetAboutArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetAllListsOfASubscriberArgs = {
-  unsubscriberId: Scalars['String'];
+  unsubscriberId: Scalars['String']['input'];
 };
 
 
 export type QueryGetBenchmarkDataArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetCurrentStoreChallengesByQuestTypeArgs = {
   questType: QuestType;
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetCustomerPortalSessionArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetDraftPostsArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetEmailLinkClickedCountArgs = {
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 };
 
 
 export type QueryGetEmailOpenedCountArgs = {
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 };
 
 
 export type QueryGetEmailReceivedCountArgs = {
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 };
 
 
 export type QueryGetEmailSentThisMonthCountArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetEmailSentTodayCountArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetEmailTemplatesArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetFolderItemsArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetFulfilledOrderCountArgs = {
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 };
 
 
 export type QueryGetIntegrationWithSubdomainArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetListCountArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetListsArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
@@ -1818,231 +1822,231 @@ export type QueryGetMandatoryQuestArgs = {
 
 
 export type QueryGetMetricsByTypeArgs = {
-  allMetric?: InputMaybe<Scalars['Boolean']>;
+  allMetric?: InputMaybe<Scalars['Boolean']['input']>;
   metricType?: InputMaybe<MetricType>;
-  skip: Scalars['Int'];
-  subdomain: Scalars['String'];
-  take: Scalars['Int'];
+  skip: Scalars['Int']['input'];
+  subdomain: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
 export type QueryGetMorePostsArgs = {
-  postHandle: Scalars['String'];
+  postHandle: Scalars['String']['input'];
 };
 
 
 export type QueryGetNotificationArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetNotificationsArgs = {
-  skip: Scalars['Int'];
-  take: Scalars['Int'];
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
 export type QueryGetPlacedOrderCountArgs = {
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 };
 
 
 export type QueryGetPostArgs = {
-  postId: Scalars['String'];
+  postId: Scalars['String']['input'];
 };
 
 
 export type QueryGetPostByHandleArgs = {
-  postHandle: Scalars['String'];
+  postHandle: Scalars['String']['input'];
 };
 
 
 export type QueryGetPostCountArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetPostsArgs = {
-  skip: Scalars['Int'];
-  subdomain: Scalars['String'];
-  take: Scalars['Int'];
+  skip: Scalars['Int']['input'];
+  subdomain: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
 export type QueryGetProductArgs = {
-  productId: Scalars['String'];
+  productId: Scalars['String']['input'];
 };
 
 
 export type QueryGetProductCountArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetProductsArgs = {
-  skip: Scalars['Int'];
-  subdomain: Scalars['String'];
-  take: Scalars['Int'];
+  skip: Scalars['Int']['input'];
+  subdomain: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
 export type QueryGetPublicWorkflowsArgs = {
-  skip: Scalars['Int'];
-  take: Scalars['Int'];
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
 export type QueryGetSignupFormArgs = {
-  signupFormId: Scalars['String'];
+  signupFormId: Scalars['String']['input'];
 };
 
 
 export type QueryGetSignupFormsArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetSignupFormsWithStoreIdArgs = {
-  storeId: Scalars['String'];
+  storeId: Scalars['String']['input'];
 };
 
 
 export type QueryGetStarredListsArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetStoreBillingArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetStoreCreditsArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetStoreDailyRevenueTrendArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetStoreEmailMetricArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetStoreRevenueArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetStoreWithSubdomainArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetSubscriberArgs = {
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 };
 
 
 export type QueryGetSubscriberCountAddedTodayArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetSubscriberListsArgs = {
-  listId: Scalars['String'];
-  skip: Scalars['Int'];
-  take: Scalars['Int'];
+  listId: Scalars['String']['input'];
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
 export type QueryGetSubscriberMetricsArgs = {
-  allMetric?: InputMaybe<Scalars['Boolean']>;
+  allMetric?: InputMaybe<Scalars['Boolean']['input']>;
   metricType?: InputMaybe<MetricType>;
-  skip: Scalars['Int'];
-  subscriberId: Scalars['String'];
-  take: Scalars['Int'];
+  skip: Scalars['Int']['input'];
+  subscriberId: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
 export type QueryGetSubscriberRevenueArgs = {
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 };
 
 
 export type QueryGetSubscribersArgs = {
-  skip: Scalars['Int'];
-  subdomain: Scalars['String'];
-  take: Scalars['Int'];
+  skip: Scalars['Int']['input'];
+  subdomain: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
 };
 
 
 export type QueryGetSubscribersCountArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetSubscribersInListCountArgs = {
-  listId: Scalars['String'];
+  listId: Scalars['String']['input'];
 };
 
 
 export type QueryGetTotalFormSubmitRateArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetTotalSubmittedFormArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetUserExistByEmailArgs = {
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
 };
 
 
 export type QueryGetWorkflowArgs = {
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 };
 
 
 export type QueryGetWorkflowCountArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryGetWorkflowsArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QueryHasProductPostArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QuerySearchSubscribersArgs = {
-  searchString: Scalars['String'];
-  subdomain: Scalars['String'];
+  searchString: Scalars['String']['input'];
+  subdomain: Scalars['String']['input'];
 };
 
 
 export type QuerySubdomainAvailableArgs = {
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 };
 
 /** Product in posts */
 export type Quest = {
   __typename?: 'Quest';
   challenges: Array<Challenge>;
-  createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
   questType: QuestType;
 };
 
@@ -2057,52 +2061,52 @@ export enum QuestType {
 /** Shopify */
 export type Shopify = {
   __typename?: 'Shopify';
-  authenticated: Scalars['Boolean'];
-  customerSyncJobId?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  listIdToCollectEmail?: Maybe<Scalars['String']>;
-  productSyncJobId?: Maybe<Scalars['String']>;
-  sessionExpired: Scalars['Boolean'];
-  storeUrl: Scalars['String'];
+  authenticated: Scalars['Boolean']['output'];
+  customerSyncJobId?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  listIdToCollectEmail?: Maybe<Scalars['String']['output']>;
+  productSyncJobId?: Maybe<Scalars['String']['output']>;
+  sessionExpired: Scalars['Boolean']['output'];
+  storeUrl: Scalars['String']['output'];
 };
 
 export type ShopifyProductData = {
   __typename?: 'ShopifyProductData';
-  handle: Scalars['String'];
-  id: Scalars['String'];
+  handle: Scalars['String']['output'];
+  id: Scalars['String']['output'];
   images?: Maybe<Array<ShopifyProductDataImage>>;
   options: Array<ShopifyProductDataOptions>;
-  totalInventory: Scalars['Int'];
+  totalInventory: Scalars['Int']['output'];
   variants: ShopifyProductVariantEdges;
 };
 
 export type ShopifyProductDataImage = {
   __typename?: 'ShopifyProductDataImage';
-  altText?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['String']>;
-  url: Scalars['Int'];
-  width?: Maybe<Scalars['Int']>;
+  altText?: Maybe<Scalars['String']['output']>;
+  height?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  url: Scalars['Int']['output'];
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 export type ShopifyProductDataOptions = {
   __typename?: 'ShopifyProductDataOptions';
-  id: Scalars['String'];
-  name: Scalars['String'];
-  position: Scalars['Int'];
-  values: Array<Scalars['String']>;
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  position: Scalars['Int']['output'];
+  values: Array<Scalars['String']['output']>;
 };
 
 export type ShopifyProductVariant = {
   __typename?: 'ShopifyProductVariant';
-  compareAtPrice?: Maybe<Scalars['Int']>;
-  id: Scalars['String'];
+  compareAtPrice?: Maybe<Scalars['Int']['output']>;
+  id: Scalars['String']['output'];
   image?: Maybe<ShopifyProductDataImage>;
-  position: Scalars['Float'];
-  price: Scalars['Int'];
+  position: Scalars['Float']['output'];
+  price: Scalars['Int']['output'];
   selectedOptions: Array<ShopifyProductVariantSlectedOptions>;
-  sku?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
+  sku?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
 };
 
 export type ShopifyProductVariantEdges = {
@@ -2117,8 +2121,8 @@ export type ShopifyProductVariantNode = {
 
 export type ShopifyProductVariantSlectedOptions = {
   __typename?: 'ShopifyProductVariantSlectedOptions';
-  name: Scalars['String'];
-  value: Scalars['String'];
+  name: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
 /** Signup Form */
@@ -2126,35 +2130,35 @@ export type SignupForm = {
   __typename?: 'SignupForm';
   form?: Maybe<SignupFormData>;
   formState: SignupFormState;
-  formSubmitRate: Scalars['Float'];
-  id: Scalars['ID'];
+  formSubmitRate: Scalars['Float']['output'];
+  id: Scalars['ID']['output'];
   list?: Maybe<List>;
-  name: Scalars['String'];
-  scriptJavascript?: Maybe<Scalars['String']>;
-  scriptModule?: Maybe<Scalars['String']>;
+  name: Scalars['String']['output'];
+  scriptJavascript?: Maybe<Scalars['String']['output']>;
+  scriptModule?: Maybe<Scalars['String']['output']>;
   store?: Maybe<Store>;
-  submitted: Scalars['Int'];
+  submitted: Scalars['Int']['output'];
   success?: Maybe<SignupFormData>;
-  views: Scalars['Int'];
+  views: Scalars['Int']['output'];
 };
 
 export type SignupFormData = {
   __typename?: 'SignupFormData';
-  body: Scalars['String'];
-  css: Scalars['String'];
-  design: Scalars['String'];
-  fonts: Scalars['String'];
-  html: Scalars['String'];
-  js: Scalars['String'];
+  body: Scalars['String']['output'];
+  css: Scalars['String']['output'];
+  design: Scalars['String']['output'];
+  fonts: Scalars['String']['output'];
+  html: Scalars['String']['output'];
+  js: Scalars['String']['output'];
 };
 
 export type SignupFormDataInput = {
-  body: Scalars['String'];
-  css: Scalars['String'];
-  design: Scalars['String'];
-  fonts: Scalars['String'];
-  html: Scalars['String'];
-  js: Scalars['String'];
+  body: Scalars['String']['input'];
+  css: Scalars['String']['input'];
+  design: Scalars['String']['input'];
+  fonts: Scalars['String']['input'];
+  html: Scalars['String']['input'];
+  js: Scalars['String']['input'];
 };
 
 /** Signup form state */
@@ -2168,29 +2172,29 @@ export type Store = {
   about?: Maybe<About>;
   contact?: Maybe<Contact>;
   contactLimitStatus: ContactLimitStatus;
-  createdAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
   currency: StoreCurrency;
-  defaultListIdToCollectEmail?: Maybe<Scalars['String']>;
+  defaultListIdToCollectEmail?: Maybe<Scalars['String']['output']>;
   displayPicture?: Maybe<DisplayPicture>;
   emailSentLimitStatus: EmailSentLimitStatus;
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  shortId?: Maybe<Scalars['String']>;
-  subdomain?: Maybe<Scalars['String']>;
-  userId?: Maybe<Scalars['String']>;
+  id: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  shortId?: Maybe<Scalars['String']['output']>;
+  subdomain?: Maybe<Scalars['String']['output']>;
+  userId?: Maybe<Scalars['String']['output']>;
 };
 
 /** Store challenge */
 export type StoreChallenge = {
   __typename?: 'StoreChallenge';
-  allCompleted: Scalars['Boolean'];
+  allCompleted: Scalars['Boolean']['output'];
   challenge: Challenge;
-  challengeId: Scalars['String'];
-  completedCount: Scalars['Float'];
-  completedStages: Scalars['Float'];
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  storeId: Scalars['String'];
+  challengeId: Scalars['String']['output'];
+  completedCount: Scalars['Float']['output'];
+  completedStages: Scalars['Float']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  storeId: Scalars['String']['output'];
 };
 
 /** the currency of the store */
@@ -2207,40 +2211,40 @@ export enum StoreCurrency {
 /** Store challenge */
 export type StoreItem = {
   __typename?: 'StoreItem';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
   item: Item;
-  itemId: Scalars['String'];
-  storeId: Scalars['String'];
+  itemId: Scalars['String']['output'];
+  storeId: Scalars['String']['output'];
 };
 
 /** Subscriber */
 export type Subscriber = {
   __typename?: 'Subscriber';
-  createdAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
   emailStatus: SubscriberEmailStatus;
-  firstName?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  lastName?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['PhoneNumber']>;
-  storeId: Scalars['String'];
+  firstName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  lastName?: Maybe<Scalars['String']['output']>;
+  phoneNumber?: Maybe<Scalars['PhoneNumber']['output']>;
+  storeId: Scalars['String']['output'];
   subscriberAddress?: Maybe<SubscriberAddress>;
   subscriberType: SubscriberType;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
   user: User;
-  userId: Scalars['String'];
+  userId: Scalars['String']['output'];
 };
 
 /** Subscriber Address */
 export type SubscriberAddress = {
   __typename?: 'SubscriberAddress';
-  address1?: Maybe<Scalars['String']>;
-  address2?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  state?: Maybe<Scalars['String']>;
-  zipCode?: Maybe<Scalars['String']>;
+  address1?: Maybe<Scalars['String']['output']>;
+  address2?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  state?: Maybe<Scalars['String']['output']>;
+  zipCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** subscrber email status */
@@ -2253,13 +2257,13 @@ export enum SubscriberEmailStatus {
 /** Subscriber List */
 export type SubscriberList = {
   __typename?: 'SubscriberList';
-  createdAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
   emailConcent: EmailConcent;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   list: List;
-  listId: Scalars['String'];
+  listId: Scalars['String']['output'];
   subscriber: Subscriber;
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['output'];
 };
 
 /** different types of subscribers */
@@ -2270,121 +2274,121 @@ export enum SubscriberType {
 
 /** update about input */
 export type UpdateAboutInput = {
-  about: Scalars['String'];
-  aboutHTML?: InputMaybe<Scalars['String']>;
-  aboutId: Scalars['String'];
-  aboutLexical?: InputMaybe<Scalars['String']>;
+  about: Scalars['String']['input'];
+  aboutHTML?: InputMaybe<Scalars['String']['input']>;
+  aboutId: Scalars['String']['input'];
+  aboutLexical?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update store details input */
 export type UpdateConditionalSplitStateInput = {
   flowFilter: Array<Array<WorkflowFlowFilterInput>>;
-  workflowStateId: Scalars['String'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 /** update delay sate input */
 export type UpdateDelayStateInput = {
-  delayInMilliseconds: Scalars['Float'];
+  delayInMilliseconds: Scalars['Float']['input'];
   delayType: DelayTypeEnum;
-  workflowStateId: Scalars['String'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 /** update store details input */
 export type UpdateDisplayPictureInput = {
-  height: Scalars['Int'];
-  storeId: Scalars['String'];
-  url: Scalars['String'];
-  width: Scalars['Int'];
+  height: Scalars['Int']['input'];
+  storeId: Scalars['String']['input'];
+  url: Scalars['String']['input'];
+  width: Scalars['Int']['input'];
 };
 
 /** update flow filter input */
 export type UpdateFlowFilterInput = {
   flowFilter?: InputMaybe<Array<Array<WorkflowFlowFilterInput>>>;
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 };
 
 /** update post input */
 export type UpdatePostInput = {
-  bodyHTML?: InputMaybe<Scalars['String']>;
-  bodyLexical?: InputMaybe<Scalars['String']>;
+  bodyHTML?: InputMaybe<Scalars['String']['input']>;
+  bodyLexical?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<ImageInput>;
-  postId: Scalars['String'];
-  subTitle?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
+  postId: Scalars['String']['input'];
+  subTitle?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update product details */
 export type UpdateProductDetailsInput = {
-  description: Scalars['String'];
+  description: Scalars['String']['input'];
   files?: InputMaybe<Array<ProductFileInput>>;
-  hours?: InputMaybe<Scalars['Int']>;
-  minutes?: InputMaybe<Scalars['Int']>;
-  name: Scalars['String'];
-  price: Scalars['Int'];
-  productId: Scalars['String'];
+  hours?: InputMaybe<Scalars['Int']['input']>;
+  minutes?: InputMaybe<Scalars['Int']['input']>;
+  name: Scalars['String']['input'];
+  price: Scalars['Int']['input'];
+  productId: Scalars['String']['input'];
   productType: ProductType;
 };
 
 /** update store details input */
 export type UpdateSendEmailStateInput = {
-  design: Scalars['String'];
-  html: Scalars['String'];
-  subject: Scalars['String'];
-  type: Scalars['String'];
-  workflowStateId: Scalars['String'];
+  design: Scalars['String']['input'];
+  html: Scalars['String']['input'];
+  subject: Scalars['String']['input'];
+  type: Scalars['String']['input'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 /** add signup form input */
 export type UpdateSignupformInput = {
   form: SignupFormDataInput;
   formState: SignupFormState;
-  name: Scalars['String'];
-  scriptJavascript: Scalars['String'];
-  scriptModule: Scalars['String'];
-  signupFormId: Scalars['String'];
+  name: Scalars['String']['input'];
+  scriptJavascript: Scalars['String']['input'];
+  scriptModule: Scalars['String']['input'];
+  signupFormId: Scalars['String']['input'];
   success: SignupFormDataInput;
 };
 
 /** update store details input */
 export type UpdateStoreDetailsInput = {
-  address1: Scalars['String'];
-  address2?: InputMaybe<Scalars['String']>;
-  city: Scalars['String'];
-  country: Scalars['String'];
-  name: Scalars['String'];
-  senderEmail: Scalars['String'];
-  senderName: Scalars['String'];
-  state?: InputMaybe<Scalars['String']>;
-  storeAbout?: InputMaybe<Scalars['String']>;
-  storeId: Scalars['String'];
-  subdomain?: InputMaybe<Scalars['String']>;
-  zipCode: Scalars['String'];
+  address1: Scalars['String']['input'];
+  address2?: InputMaybe<Scalars['String']['input']>;
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  senderEmail: Scalars['String']['input'];
+  senderName: Scalars['String']['input'];
+  state?: InputMaybe<Scalars['String']['input']>;
+  storeAbout?: InputMaybe<Scalars['String']['input']>;
+  storeId: Scalars['String']['input'];
+  subdomain?: InputMaybe<Scalars['String']['input']>;
+  zipCode: Scalars['String']['input'];
 };
 
 /** update flow filter input */
 export type UpdateTriggerFilterInput = {
   triggerFilter?: InputMaybe<Array<Array<WorkflowTriggerFilterInput>>>;
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 };
 
 /** update store details input */
 export type UpdateTriggerSplitStateInput = {
   triggerFilter: Array<Array<WorkflowTriggerFilterInput>>;
-  workflowStateId: Scalars['String'];
+  workflowStateId: Scalars['String']['input'];
 };
 
 /** upload csv file input */
 export type UploadCsvFileEmailsToListInput = {
   csvFileEmails: Array<CsvFileEmail>;
-  listId: Scalars['String'];
-  subdomain: Scalars['String'];
+  listId: Scalars['String']['input'];
+  subdomain: Scalars['String']['input'];
 };
 
 export type User = {
   __typename?: 'User';
-  email: Scalars['String'];
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name?: Maybe<Scalars['String']['output']>;
   store?: Maybe<Store>;
   userEmailDeliveryStatus: UserEmailDeliveryStatus;
 };
@@ -2393,27 +2397,27 @@ export type User = {
 export type UserEmailDeliveryStatus = {
   __typename?: 'UserEmailDeliveryStatus';
   emailDeliveryStatus: EmailDeliveryStatus;
-  id: Scalars['ID'];
-  softBounceCount: Scalars['Int'];
+  id: Scalars['ID']['output'];
+  softBounceCount: Scalars['Int']['output'];
 };
 
 /** Workflow */
 export type Workflow = {
   __typename?: 'Workflow';
-  createdAt: Scalars['DateTime'];
-  descriptionHTML?: Maybe<Scalars['String']>;
-  descriptionLexical?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime']['output'];
+  descriptionHTML?: Maybe<Scalars['String']['output']>;
+  descriptionLexical?: Maybe<Scalars['String']['output']>;
   edge?: Maybe<Array<WorkflowEdge>>;
   flowFilter?: Maybe<Array<Array<BaseConditionalFilter>>>;
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
   node?: Maybe<Array<WorkflowNode>>;
-  public: Scalars['Boolean'];
-  replicationCount: Scalars['Int'];
+  public: Scalars['Boolean']['output'];
+  replicationCount: Scalars['Int']['output'];
   store: Store;
-  storeId: Scalars['String'];
+  storeId: Scalars['String']['output'];
   triggerFilter?: Maybe<Array<Array<BaseTriggerFilter>>>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
   workflowStatus: WorkflowStatus;
 };
 
@@ -2430,10 +2434,10 @@ export enum WorkflowActivityType {
 /** Workflow Edge Type */
 export type WorkflowEdge = {
   __typename?: 'WorkflowEdge';
-  id: Scalars['ID'];
-  source: Scalars['String'];
-  sourceHandle: Scalars['String'];
-  target: Scalars['String'];
+  id: Scalars['ID']['output'];
+  source: Scalars['String']['output'];
+  sourceHandle: Scalars['String']['output'];
+  target: Scalars['String']['output'];
 };
 
 /** workflow state flow filter update input */
@@ -2446,7 +2450,7 @@ export type WorkflowFlowFilterInput = {
 export type WorkflowNode = {
   __typename?: 'WorkflowNode';
   data: WorkflowNodeData;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   position: WorkflowNodeXyPostion;
   type: WorkflowNodeType;
 };
@@ -2454,11 +2458,11 @@ export type WorkflowNode = {
 /** XYPosition */
 export type WorkflowNodeData = {
   __typename?: 'WorkflowNodeData';
-  id: Scalars['String'];
-  name: Scalars['String'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
   value: WorkflowStateValueUnion;
-  workflowActivityType: Scalars['String'];
-  workflowStateType: Scalars['String'];
+  workflowActivityType: Scalars['String']['output'];
+  workflowStateType: Scalars['String']['output'];
 };
 
 /** different workflwo node types */
@@ -2474,18 +2478,18 @@ export enum WorkflowNodeType {
 /** XYPosition */
 export type WorkflowNodeXyPostion = {
   __typename?: 'WorkflowNodeXYPostion';
-  x: Scalars['Float'];
-  y: Scalars['Float'];
+  x: Scalars['Float']['output'];
+  y: Scalars['Float']['output'];
 };
 
 /** WorkflowState */
 export type WorkflowState = {
   __typename?: 'WorkflowState';
-  createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  updatedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   value: WorkflowStateValueUnion;
   workflowActivityType: WorkflowActivityType;
   workflowStateType: WorkflowStateType;
@@ -2500,14 +2504,14 @@ export type WorkflowStateConditionalSplitActivityValue = {
 /** Workflow state delay activity vlaue */
 export type WorkflowStateDelayActivityValue = {
   __typename?: 'WorkflowStateDelayActivityValue';
-  delayInMilliseconds: Scalars['Float'];
+  delayInMilliseconds: Scalars['Float']['output'];
   delayType: DelayTypeEnum;
 };
 
 /** Workflow staet list trigger value */
 export type WorkflowStateListTriggerActivityValue = {
   __typename?: 'WorkflowStateListTriggerActivityValue';
-  listId: Scalars['ID'];
+  listId: Scalars['ID']['output'];
 };
 
 /** Workflow staet metric trigger value */
@@ -2519,9 +2523,9 @@ export type WorkflowStateMetricTriggerActivityValue = {
 /** Workflow state delay activity vlaue */
 export type WorkflowStateSendEmailActivityValue = {
   __typename?: 'WorkflowStateSendEmailActivityValue';
-  design: Scalars['String'];
-  html: Scalars['String'];
-  type: Scalars['String'];
+  design: Scalars['String']['output'];
+  html: Scalars['String']['output'];
+  type: Scalars['String']['output'];
 };
 
 /** Workflow state delay activity vlaue */
@@ -2552,13 +2556,13 @@ export enum WorkflowStatus {
 export type WorkflowTriggerFilterInput = {
   dimension?: InputMaybe<BaseTriggerFilterDimensionEnum>;
   type?: InputMaybe<BaseTriggerFilterTypeEnum>;
-  value: Scalars['JSONObject'];
+  value: Scalars['JSONObject']['input'];
 };
 
 export type AboutFragment = { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null };
 
 export type GetAboutQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -2572,7 +2576,7 @@ export type UpdateAboutMutationVariables = Exact<{
 export type UpdateAboutMutation = { __typename?: 'Mutation', updateAbout?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null };
 
 export type UpdateIndustryMutationVariables = Exact<{
-  aboutId: Scalars['String'];
+  aboutId: Scalars['String']['input'];
   industry: AboutIndustryEnum;
 }>;
 
@@ -2582,14 +2586,14 @@ export type UpdateIndustryMutation = { __typename?: 'Mutation', updateIndustry?:
 export type BillingFragment = { __typename?: 'Billing', id: string, cancelAtPeriodEnd: boolean, billingPlanStatus: BillingPlanStatus, billingSubscriptionEntity?: BillingSubscriptionEntity | null, currentPeriodEnd?: any | null, bespokePlanId: string };
 
 export type GetStoreBillingQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetStoreBillingQuery = { __typename?: 'Query', getStoreBilling?: { __typename?: 'Billing', id: string, cancelAtPeriodEnd: boolean, billingPlanStatus: BillingPlanStatus, billingSubscriptionEntity?: BillingSubscriptionEntity | null, currentPeriodEnd?: any | null, bespokePlanId: string } | null };
 
 export type DismissNotificationMutationVariables = Exact<{
-  eventId: Scalars['String'];
+  eventId: Scalars['String']['input'];
 }>;
 
 
@@ -2598,8 +2602,8 @@ export type DismissNotificationMutation = { __typename?: 'Mutation', dismissNoti
 export type EventFragment = { __typename?: 'Event', id: string, message: string, eventState: EventState, eventType: EventType, notificationRead: boolean, notificationDismissed: boolean, createdAt: any, link?: string | null };
 
 export type GetNotificationsQueryVariables = Exact<{
-  take: Scalars['Int'];
-  skip: Scalars['Int'];
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
 }>;
 
 
@@ -2616,7 +2620,7 @@ export type UnReadNotificationCountQueryVariables = Exact<{ [key: string]: never
 export type UnReadNotificationCountQuery = { __typename?: 'Query', unReadNotificationCount: number };
 
 export type GetIntegrationWithSubdomainQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -2624,41 +2628,46 @@ export type GetIntegrationWithSubdomainQuery = { __typename?: 'Query', getIntegr
 
 export type IntegrationFragment = { __typename?: 'Integration', id: string, shopify?: { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null } | null };
 
+export type GetSubscriptionRewardItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSubscriptionRewardItemsQuery = { __typename?: 'Query', getSubscriptionRewardItems: Array<{ __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } }> };
+
 export type ItemFragment = { __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } };
 
 export type ItemCategoryFragment = { __typename?: 'ItemCategory', id: string, type: ItemCategoryTypeEnum };
 
 export type CreateNewListMutationVariables = Exact<{
-  name: Scalars['String'];
-  storeId: Scalars['String'];
+  name: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
 }>;
 
 
 export type CreateNewListMutation = { __typename?: 'Mutation', createNewList: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean } };
 
 export type DeleteListMutationVariables = Exact<{
-  listId: Scalars['String'];
+  listId: Scalars['String']['input'];
 }>;
 
 
 export type DeleteListMutation = { __typename?: 'Mutation', deleteList: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean } };
 
 export type GetListCountQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetListCountQuery = { __typename?: 'Query', getListCount?: number | null };
 
 export type GetListsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetListsQuery = { __typename?: 'Query', getLists: Array<{ __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean }> };
 
 export type GetStarredListsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -2667,85 +2676,85 @@ export type GetStarredListsQuery = { __typename?: 'Query', getStarredLists?: Arr
 export type ListFragment = { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean };
 
 export type ToggleListStarMutationVariables = Exact<{
-  listId: Scalars['String'];
+  listId: Scalars['String']['input'];
 }>;
 
 
 export type ToggleListStarMutation = { __typename?: 'Mutation', toggleListStar?: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean } | null };
 
 export type GetEmailLinkClickedCountQueryVariables = Exact<{
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 }>;
 
 
 export type GetEmailLinkClickedCountQuery = { __typename?: 'Query', getEmailLinkClickedCount?: number | null };
 
 export type GetEmailOpenedCountQueryVariables = Exact<{
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 }>;
 
 
 export type GetEmailOpenedCountQuery = { __typename?: 'Query', getEmailOpenedCount?: number | null };
 
 export type GetEmailReceivedCountQueryVariables = Exact<{
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 }>;
 
 
 export type GetEmailReceivedCountQuery = { __typename?: 'Query', getEmailReceivedCount?: number | null };
 
 export type GetEmailSentThisMonthCountQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetEmailSentThisMonthCountQuery = { __typename?: 'Query', getEmailSentThisMonthCount?: number | null };
 
 export type GetEmailSentTodayCountQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetEmailSentTodayCountQuery = { __typename?: 'Query', getEmailSentTodayCount?: number | null };
 
 export type GetFulfilledOrderCountQueryVariables = Exact<{
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 }>;
 
 
 export type GetFulfilledOrderCountQuery = { __typename?: 'Query', getFulfilledOrderCount?: number | null };
 
 export type GetMetricsByTypeQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
   metricType?: InputMaybe<MetricType>;
-  allMetric?: InputMaybe<Scalars['Boolean']>;
-  take: Scalars['Int'];
-  skip: Scalars['Int'];
+  allMetric?: InputMaybe<Scalars['Boolean']['input']>;
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
 }>;
 
 
 export type GetMetricsByTypeQuery = { __typename?: 'Query', getMetricsByType?: Array<{ __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null }> | null };
 
 export type GetPlacedOrderCountQueryVariables = Exact<{
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 }>;
 
 
 export type GetPlacedOrderCountQuery = { __typename?: 'Query', getPlacedOrderCount?: number | null };
 
 export type GetSubscriberMetricsQueryVariables = Exact<{
-  subscriberId: Scalars['String'];
-  take: Scalars['Int'];
-  skip: Scalars['Int'];
+  subscriberId: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
   metricType?: InputMaybe<MetricType>;
-  allMetric?: InputMaybe<Scalars['Boolean']>;
+  allMetric?: InputMaybe<Scalars['Boolean']['input']>;
 }>;
 
 
 export type GetSubscriberMetricsQuery = { __typename?: 'Query', getSubscriberMetrics?: Array<{ __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null }> | null };
 
 export type GetSubscriberRevenueQueryVariables = Exact<{
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 }>;
 
 
@@ -2768,14 +2777,14 @@ export type MetricDataFragment = MetricData_MetricEmailLinkClicked_Fragment | Me
 export type MetricFragment = { __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
 
 export type GetNotificationQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetNotificationQuery = { __typename?: 'Query', getNotification?: { __typename?: 'Notification', id: string, newSubscriber: boolean } | null };
 
 export type NewSubscriberNotificationToggleMutationVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -2784,8 +2793,8 @@ export type NewSubscriberNotificationToggleMutation = { __typename?: 'Mutation',
 export type NotificationFragment = { __typename?: 'Notification', id: string, newSubscriber: boolean };
 
 export type CheckPostHandleAvailableMutationVariables = Exact<{
-  postId: Scalars['String'];
-  handle: Scalars['String'];
+  postId: Scalars['String']['input'];
+  handle: Scalars['String']['input'];
 }>;
 
 
@@ -2806,7 +2815,7 @@ export type CreatePostViewedMutationVariables = Exact<{
 export type CreatePostViewedMutation = { __typename?: 'Mutation', createPostViewed?: { __typename?: 'Post', id: string, title?: string | null, subTitle?: string | null, bodyLexical?: string | null, bodyHTML?: string | null, postState: PostState, publishedDate?: any | null, storeId: string, postHandle?: string | null, postViewCount: number, postOpenCount: number, postRecipientCount: number, image?: { __typename?: 'PostImage', src: string, width: number, height: number } | null, store?: { __typename?: 'Store', userId?: string | null } | null } | null };
 
 export type DeletePostMutationVariables = Exact<{
-  postId: Scalars['String'];
+  postId: Scalars['String']['input'];
 }>;
 
 
@@ -2818,44 +2827,44 @@ export type GetAllPublishedPostForSiteMapQueryVariables = Exact<{ [key: string]:
 export type GetAllPublishedPostForSiteMapQuery = { __typename?: 'Query', getAllPublishedPostForSiteMap?: Array<{ __typename?: 'Post', id: string, title?: string | null, subTitle?: string | null, bodyLexical?: string | null, bodyHTML?: string | null, postState: PostState, publishedDate?: any | null, storeId: string, postHandle?: string | null, postViewCount: number, postOpenCount: number, postRecipientCount: number, store?: { __typename?: 'Store', subdomain?: string | null, userId?: string | null } | null, image?: { __typename?: 'PostImage', src: string, width: number, height: number } | null }> | null };
 
 export type GetDraftPostsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetDraftPostsQuery = { __typename?: 'Query', getDraftPosts?: Array<{ __typename?: 'Post', id: string, title?: string | null, subTitle?: string | null, bodyLexical?: string | null, bodyHTML?: string | null, postState: PostState, publishedDate?: any | null, storeId: string, postHandle?: string | null, postViewCount: number, postOpenCount: number, postRecipientCount: number, image?: { __typename?: 'PostImage', src: string, width: number, height: number } | null, store?: { __typename?: 'Store', userId?: string | null } | null }> | null };
 
 export type GetMorePostsQueryVariables = Exact<{
-  postHandle: Scalars['String'];
+  postHandle: Scalars['String']['input'];
 }>;
 
 
 export type GetMorePostsQuery = { __typename?: 'Query', getMorePosts?: Array<{ __typename?: 'Post', id: string, title?: string | null, subTitle?: string | null, bodyLexical?: string | null, bodyHTML?: string | null, postState: PostState, publishedDate?: any | null, storeId: string, postHandle?: string | null, postViewCount: number, postOpenCount: number, postRecipientCount: number, image?: { __typename?: 'PostImage', src: string, width: number, height: number } | null, store?: { __typename?: 'Store', userId?: string | null } | null }> | null };
 
 export type GetPostQueryVariables = Exact<{
-  postId: Scalars['String'];
+  postId: Scalars['String']['input'];
 }>;
 
 
 export type GetPostQuery = { __typename?: 'Query', getPost?: { __typename?: 'Post', id: string, title?: string | null, subTitle?: string | null, bodyLexical?: string | null, bodyHTML?: string | null, postState: PostState, publishedDate?: any | null, storeId: string, postHandle?: string | null, postViewCount: number, postOpenCount: number, postRecipientCount: number, image?: { __typename?: 'PostImage', src: string, width: number, height: number } | null, store?: { __typename?: 'Store', userId?: string | null } | null } | null };
 
 export type GetPostByHandleQueryVariables = Exact<{
-  postHandle: Scalars['String'];
+  postHandle: Scalars['String']['input'];
 }>;
 
 
 export type GetPostByHandleQuery = { __typename?: 'Query', getPostByHandle?: { __typename?: 'Post', id: string, title?: string | null, subTitle?: string | null, bodyLexical?: string | null, bodyHTML?: string | null, postState: PostState, publishedDate?: any | null, storeId: string, postHandle?: string | null, postViewCount: number, postOpenCount: number, postRecipientCount: number, image?: { __typename?: 'PostImage', src: string, width: number, height: number } | null, store?: { __typename?: 'Store', userId?: string | null } | null } | null };
 
 export type GetPostCountQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetPostCountQuery = { __typename?: 'Query', getPostCount?: number | null };
 
 export type GetPostsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
-  take: Scalars['Int'];
-  skip: Scalars['Int'];
+  subdomain: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
 }>;
 
 
@@ -2864,24 +2873,24 @@ export type GetPostsQuery = { __typename?: 'Query', getPosts?: Array<{ __typenam
 export type PostFragment = { __typename?: 'Post', id: string, title?: string | null, subTitle?: string | null, bodyLexical?: string | null, bodyHTML?: string | null, postState: PostState, publishedDate?: any | null, storeId: string, postHandle?: string | null, postViewCount: number, postOpenCount: number, postRecipientCount: number, image?: { __typename?: 'PostImage', src: string, width: number, height: number } | null, store?: { __typename?: 'Store', userId?: string | null } | null };
 
 export type PublishPostHereMutationVariables = Exact<{
-  postId: Scalars['String'];
-  postHandle: Scalars['String'];
+  postId: Scalars['String']['input'];
+  postHandle: Scalars['String']['input'];
 }>;
 
 
 export type PublishPostHereMutation = { __typename?: 'Mutation', publishPostHere: boolean };
 
 export type PublishPostToListMutationVariables = Exact<{
-  postId: Scalars['String'];
-  listId: Scalars['String'];
-  postHandle: Scalars['String'];
+  postId: Scalars['String']['input'];
+  listId: Scalars['String']['input'];
+  postHandle: Scalars['String']['input'];
 }>;
 
 
 export type PublishPostToListMutation = { __typename?: 'Mutation', publishPostToList: boolean };
 
 export type UnpublishPostMutationVariables = Exact<{
-  postId: Scalars['String'];
+  postId: Scalars['String']['input'];
 }>;
 
 
@@ -2909,38 +2918,38 @@ export type CreateProductMutationVariables = Exact<{
 export type CreateProductMutation = { __typename?: 'Mutation', createProduct?: { __typename?: 'Product', id: string, name?: string | null, description?: string | null, storeId: string, price: number, hidden: boolean, productType: ProductType, externalLink?: string | null, productSource: ProductSource, image?: Array<{ __typename?: 'ProductImage', src: string, height: number, width: number, mimeType: string, cdnType: CdnType }> | null } | null };
 
 export type DeleteProductMutationVariables = Exact<{
-  productId: Scalars['String'];
+  productId: Scalars['String']['input'];
 }>;
 
 
 export type DeleteProductMutation = { __typename?: 'Mutation', deleteProduct?: Array<{ __typename?: 'Product', id: string, name?: string | null, description?: string | null, storeId: string, price: number, hidden: boolean, productType: ProductType, externalLink?: string | null, productSource: ProductSource, image?: Array<{ __typename?: 'ProductImage', src: string, height: number, width: number, mimeType: string, cdnType: CdnType }> | null }> | null };
 
 export type DeleteProductImageMutationVariables = Exact<{
-  deletingUrl: Scalars['String'];
-  productId: Scalars['String'];
+  deletingUrl: Scalars['String']['input'];
+  productId: Scalars['String']['input'];
 }>;
 
 
 export type DeleteProductImageMutation = { __typename?: 'Mutation', deleteProductImage?: { __typename?: 'Product', id: string, name?: string | null, description?: string | null, storeId: string, price: number, hidden: boolean, productType: ProductType, externalLink?: string | null, productSource: ProductSource, image?: Array<{ __typename?: 'ProductImage', src: string, height: number, width: number, mimeType: string, cdnType: CdnType }> | null } | null };
 
 export type GetProductQueryVariables = Exact<{
-  productId: Scalars['String'];
+  productId: Scalars['String']['input'];
 }>;
 
 
 export type GetProductQuery = { __typename?: 'Query', getProduct: { __typename?: 'Product', id: string, name?: string | null, description?: string | null, storeId: string, price: number, hidden: boolean, productType: ProductType, externalLink?: string | null, productSource: ProductSource, image?: Array<{ __typename?: 'ProductImage', src: string, height: number, width: number, mimeType: string, cdnType: CdnType }> | null } };
 
 export type GetProductCountQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetProductCountQuery = { __typename?: 'Query', getProductCount: number };
 
 export type GetProductsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
-  take: Scalars['Int'];
-  skip: Scalars['Int'];
+  subdomain: Scalars['String']['input'];
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
 }>;
 
 
@@ -2951,7 +2960,7 @@ export type ProductFragment = { __typename?: 'Product', id: string, name?: strin
 export type ProductImageFragment = { __typename?: 'ProductImage', src: string, height: number, width: number, mimeType: string, cdnType: CdnType };
 
 export type ToggleProductHiddenMutationVariables = Exact<{
-  productId: Scalars['String'];
+  productId: Scalars['String']['input'];
 }>;
 
 
@@ -2965,24 +2974,24 @@ export type UpdateProductDetialsMutationVariables = Exact<{
 export type UpdateProductDetialsMutation = { __typename?: 'Mutation', updateProductDetails?: { __typename?: 'Product', id: string, name?: string | null, description?: string | null, storeId: string, price: number, hidden: boolean, productType: ProductType, externalLink?: string | null, productSource: ProductSource, image?: Array<{ __typename?: 'ProductImage', src: string, height: number, width: number, mimeType: string, cdnType: CdnType }> | null } | null };
 
 export type CreateProductPostMutationVariables = Exact<{
-  postId: Scalars['String'];
-  productIds: Array<Scalars['String']> | Scalars['String'];
-  nodeKey: Scalars['String'];
+  postId: Scalars['String']['input'];
+  productIds: Array<Scalars['String']['input']> | Scalars['String']['input'];
+  nodeKey: Scalars['String']['input'];
 }>;
 
 
 export type CreateProductPostMutation = { __typename?: 'Mutation', createProductPost?: { __typename?: 'ProductPost', id: string, postId: string, productId: string } | null };
 
 export type DeleteProductPostMutationVariables = Exact<{
-  postId: Scalars['String'];
-  nodeKey: Scalars['String'];
+  postId: Scalars['String']['input'];
+  nodeKey: Scalars['String']['input'];
 }>;
 
 
 export type DeleteProductPostMutation = { __typename?: 'Mutation', deleteProductPost?: { __typename?: 'ProductPost', id: string, postId: string, productId: string } | null };
 
 export type HasProductPostQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -3002,22 +3011,22 @@ export type GetMandatoryQuestQuery = { __typename?: 'Query', getMandatoryQuest?:
 export type QuestFragment = { __typename?: 'Quest', id: string, name: string, description?: string | null, questType: QuestType, challenges: Array<{ __typename?: 'Challenge', id: string, name: string, description?: string | null, completionCount: number, completionStages: number, measuredMetric?: MetricType | null, challengeType: ChallengeTypeEnum }> };
 
 export type CollectEmailSubscribersMutationVariables = Exact<{
-  shopifyId: Scalars['String'];
-  listId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
+  listId: Scalars['String']['input'];
 }>;
 
 
 export type CollectEmailSubscribersMutation = { __typename?: 'Mutation', collectEmailSubscribers?: { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null } | null };
 
 export type RemoveCollectEmailSubscribersMutationVariables = Exact<{
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 }>;
 
 
 export type RemoveCollectEmailSubscribersMutation = { __typename?: 'Mutation', removeCollectEmailSubscribers?: { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null } | null };
 
 export type RemoveShopifyIntegrationMutationVariables = Exact<{
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 }>;
 
 
@@ -3026,28 +3035,28 @@ export type RemoveShopifyIntegrationMutation = { __typename?: 'Mutation', remove
 export type ShopifyFragment = { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null };
 
 export type StopShopifyCustomerSyncMutationVariables = Exact<{
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 }>;
 
 
 export type StopShopifyCustomerSyncMutation = { __typename?: 'Mutation', stopShopifyCustomerSync?: { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null } | null };
 
 export type StopShopifyProductSyncMutationVariables = Exact<{
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 }>;
 
 
 export type StopShopifyProductSyncMutation = { __typename?: 'Mutation', stopShopifyProductSync?: { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null } | null };
 
 export type SyncShopifyCustomersMutationVariables = Exact<{
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 }>;
 
 
 export type SyncShopifyCustomersMutation = { __typename?: 'Mutation', syncShopifyCustomers?: { __typename?: 'Shopify', id: string, sessionExpired: boolean, storeUrl: string, authenticated: boolean, productSyncJobId?: string | null, customerSyncJobId?: string | null, listIdToCollectEmail?: string | null } | null };
 
 export type SyncShopifyProductsMutationVariables = Exact<{
-  shopifyId: Scalars['String'];
+  shopifyId: Scalars['String']['input'];
 }>;
 
 
@@ -3068,35 +3077,35 @@ export type CreateSignupFormMutationVariables = Exact<{
 export type CreateSignupFormMutation = { __typename?: 'Mutation', createSignupForm?: { __typename?: 'SignupForm', formSubmitRate: number, views: number, submitted: number, id: string, name: string, formState: SignupFormState, scriptModule?: string | null, scriptJavascript?: string | null, form?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, success?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, list?: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean } | null } | null };
 
 export type DeleteSignupFormMutationVariables = Exact<{
-  signupFormId: Scalars['String'];
+  signupFormId: Scalars['String']['input'];
 }>;
 
 
 export type DeleteSignupFormMutation = { __typename?: 'Mutation', deleteSignupForm?: { __typename?: 'SignupForm', formSubmitRate: number, views: number, submitted: number, id: string, name: string, formState: SignupFormState, scriptModule?: string | null, scriptJavascript?: string | null, form?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, success?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, list?: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean } | null } | null };
 
 export type GetSignupFormQueryVariables = Exact<{
-  signupFormId: Scalars['String'];
+  signupFormId: Scalars['String']['input'];
 }>;
 
 
 export type GetSignupFormQuery = { __typename?: 'Query', getSignupForm?: { __typename?: 'SignupForm', formSubmitRate: number, views: number, submitted: number, id: string, name: string, formState: SignupFormState, scriptModule?: string | null, scriptJavascript?: string | null, form?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, success?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, list?: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean } | null } | null };
 
 export type GetSignupFormsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetSignupFormsQuery = { __typename?: 'Query', getSignupForms?: Array<{ __typename?: 'SignupForm', formSubmitRate: number, views: number, submitted: number, id: string, name: string, formState: SignupFormState, scriptModule?: string | null, scriptJavascript?: string | null, form?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, success?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, list?: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean } | null }> | null };
 
 export type GetTotalFormSubmitRateQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetTotalFormSubmitRateQuery = { __typename?: 'Query', getTotalFormSubmitRate: number };
 
 export type GetTotalSubmittedFormQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -3112,8 +3121,8 @@ export type UpdateSignupFormMutationVariables = Exact<{
 export type UpdateSignupFormMutation = { __typename?: 'Mutation', updateSignupForm?: { __typename?: 'SignupForm', formSubmitRate: number, views: number, submitted: number, id: string, name: string, formState: SignupFormState, scriptModule?: string | null, scriptJavascript?: string | null, form?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, success?: { __typename?: 'SignupFormData', js: string, body: string, css: string, fonts: string, design: string, html: string } | null, list?: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean } | null } | null };
 
 export type CheckAbleToSendEmailToListQueryVariables = Exact<{
-  listId: Scalars['String'];
-  subdomain: Scalars['String'];
+  listId: Scalars['String']['input'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -3125,8 +3134,8 @@ export type CheckUserOrboardedQueryVariables = Exact<{ [key: string]: never; }>;
 export type CheckUserOrboardedQuery = { __typename?: 'Query', checkUserOnboarded?: boolean | null };
 
 export type CreateCheckoutSessionUrlMutationVariables = Exact<{
-  subdomain: Scalars['String'];
-  stripePriceId: Scalars['String'];
+  subdomain: Scalars['String']['input'];
+  stripePriceId: Scalars['String']['input'];
 }>;
 
 
@@ -3140,7 +3149,7 @@ export type CreateShopifyAppSubscriptionMutationVariables = Exact<{
 export type CreateShopifyAppSubscriptionMutation = { __typename?: 'Mutation', createShopifyAppSubscription?: string | null };
 
 export type CreateWorkflowMutationVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -3152,42 +3161,42 @@ export type GetAllStoresForSiteMapQueryVariables = Exact<{ [key: string]: never;
 export type GetAllStoresForSiteMapQuery = { __typename?: 'Query', getAllStoresForSiteMap?: Array<{ __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null }> | null };
 
 export type GetBenchmarkDataQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetBenchmarkDataQuery = { __typename?: 'Query', getBenchmarkData?: Array<{ __typename?: 'BenchmarkData', id: string, opened: string, clicked: string, delivered: string, contact: string }> | null };
 
 export type GetCustomerPortalSessionQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetCustomerPortalSessionQuery = { __typename?: 'Query', getCustomerPortalSession?: string | null };
 
 export type GetStoreCreditsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetStoreCreditsQuery = { __typename?: 'Query', getStoreCredits: number };
 
 export type GetStoreDailyRevenueTrendQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetStoreDailyRevenueTrendQuery = { __typename?: 'Query', getStoreDailyRevenueTrend?: number | null };
 
 export type GetStoreEmailMetricQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetStoreEmailMetricQuery = { __typename?: 'Query', getStoreEmailMetric?: { __typename?: 'GetStoreEmailMetric', contact: number, delivered: number, opened: number, clicked: number, openedTrend: number, clickedTrend: number, deliveredTrend: number } | null };
 
 export type GetStoreRevenueQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -3199,22 +3208,22 @@ export type GetUserStoreQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetUserStoreQuery = { __typename?: 'Query', getUserStore?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type GetStoreWithSubdomainQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetStoreWithSubdomainQuery = { __typename?: 'Query', getStoreWithSubdomain?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type ProrateStripeSubscriptionMutationVariables = Exact<{
-  subdomain: Scalars['String'];
-  newStripePriceId: Scalars['String'];
+  subdomain: Scalars['String']['input'];
+  newStripePriceId: Scalars['String']['input'];
 }>;
 
 
 export type ProrateStripeSubscriptionMutation = { __typename?: 'Mutation', prorateStripeSubscription?: boolean | null };
 
 export type ShopifyAppSubscriptionCancleMutationVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -3223,30 +3232,30 @@ export type ShopifyAppSubscriptionCancleMutation = { __typename?: 'Mutation', sh
 export type StoreFragment = { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null };
 
 export type SubdomainAvailableQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type SubdomainAvailableQuery = { __typename?: 'Query', subdomainAvailable: boolean };
 
 export type SubscribeToStoreMutationVariables = Exact<{
-  storeId: Scalars['String'];
-  email: Scalars['String'];
+  storeId: Scalars['String']['input'];
+  email: Scalars['String']['input'];
 }>;
 
 
 export type SubscribeToStoreMutation = { __typename?: 'Mutation', subscribeToStore?: boolean | null };
 
 export type UpdateBillingPlanToFreeMutationVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type UpdateBillingPlanToFreeMutation = { __typename?: 'Mutation', updateBillingPlanToFree?: boolean | null };
 
 export type UpdateDefaultListIdToCollectEmailMutationVariables = Exact<{
-  storeId: Scalars['String'];
-  listId: Scalars['String'];
+  storeId: Scalars['String']['input'];
+  listId: Scalars['String']['input'];
 }>;
 
 
@@ -3261,7 +3270,7 @@ export type UpdateDisplayPictureMutation = { __typename?: 'Mutation', updateDisp
 
 export type UpdateStoreCurrencyMutationVariables = Exact<{
   currency: StoreCurrency;
-  storeId: Scalars['String'];
+  storeId: Scalars['String']['input'];
 }>;
 
 
@@ -3275,7 +3284,7 @@ export type UpdateStoreDetailsMutationVariables = Exact<{
 export type UpdateStoreDetailsMutation = { __typename?: 'Mutation', updateStoreDetails?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type GetCurrentStoreChallengeByQuestTypeQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
   questType: QuestType;
 }>;
 
@@ -3285,14 +3294,14 @@ export type GetCurrentStoreChallengeByQuestTypeQuery = { __typename?: 'Query', g
 export type StoreChallengeFragment = { __typename?: 'StoreChallenge', id: string, completedCount: number, completedStages: number, challengeId: string, allCompleted: boolean, challenge: { __typename?: 'Challenge', id: string, name: string, description?: string | null, completionCount: number, completionStages: number, measuredMetric?: MetricType | null, challengeType: ChallengeTypeEnum } };
 
 export type GetEmailTemplatesQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetEmailTemplatesQuery = { __typename?: 'Query', getEmailTemplates: Array<{ __typename?: 'StoreItem', id: string, itemId: string, storeId: string, item: { __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } } }> };
 
 export type GetFolderItemsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -3308,31 +3317,31 @@ export type AddCommaSeperatedEmailsToListMutationVariables = Exact<{
 export type AddCommaSeperatedEmailsToListMutation = { __typename?: 'Mutation', addCommaSeperatedEmailsToList?: boolean | null };
 
 export type GetAllListsOfASubscriberQueryVariables = Exact<{
-  unsubscriberId: Scalars['String'];
+  unsubscriberId: Scalars['String']['input'];
 }>;
 
 
 export type GetAllListsOfASubscriberQuery = { __typename?: 'Query', getAllListsOfASubscriber?: Array<{ __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, list: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean }, subscriber: { __typename?: 'Subscriber', emailStatus: SubscriberEmailStatus, id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } }> | null };
 
 export type GetSubscriberListsQueryVariables = Exact<{
-  listId: Scalars['String'];
-  skip: Scalars['Int'];
-  take: Scalars['Int'];
+  listId: Scalars['String']['input'];
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
 }>;
 
 
 export type GetSubscriberListsQuery = { __typename?: 'Query', getSubscriberLists?: Array<{ __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } }> | null };
 
 export type GetSubscribersInListCountQueryVariables = Exact<{
-  listId: Scalars['String'];
+  listId: Scalars['String']['input'];
 }>;
 
 
 export type GetSubscribersInListCountQuery = { __typename?: 'Query', getSubscribersInListCount?: number | null };
 
 export type RemoveSubscriberFromListMutationVariables = Exact<{
-  listId: Scalars['String'];
-  subscriberId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  subscriberId: Scalars['String']['input'];
 }>;
 
 
@@ -3341,54 +3350,54 @@ export type RemoveSubscriberFromListMutation = { __typename?: 'Mutation', remove
 export type SubscriberListFragment = { __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } };
 
 export type UnsubscribeFromListMutationVariables = Exact<{
-  listId: Scalars['String'];
-  unsubscribeId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  unsubscribeId: Scalars['String']['input'];
 }>;
 
 
 export type UnsubscribeFromListMutation = { __typename?: 'Mutation', unsubscribeFromList?: { __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } } | null };
 
 export type GetSubscriberQueryVariables = Exact<{
-  subscriberId: Scalars['String'];
+  subscriberId: Scalars['String']['input'];
 }>;
 
 
 export type GetSubscriberQuery = { __typename?: 'Query', getSubscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
 
 export type GetSubscriberCountAddedTodayQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetSubscriberCountAddedTodayQuery = { __typename?: 'Query', getSubscriberCountAddedToday?: number | null };
 
 export type GetSubscribersQueryVariables = Exact<{
-  subdomain: Scalars['String'];
-  skip: Scalars['Int'];
-  take: Scalars['Int'];
+  subdomain: Scalars['String']['input'];
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
 }>;
 
 
 export type GetSubscribersQuery = { __typename?: 'Query', getSubscribers?: Array<{ __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }> | null };
 
 export type GetSubscribersCountQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetSubscribersCountQuery = { __typename?: 'Query', getSubscribersCount?: number | null };
 
 export type ResubscribeToListMutationVariables = Exact<{
-  listId: Scalars['String'];
-  unsubscribeId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  unsubscribeId: Scalars['String']['input'];
 }>;
 
 
 export type ResubscribeToListMutation = { __typename?: 'Mutation', resubscribeToList?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
 
 export type SearchSubscribersQueryVariables = Exact<{
-  searchString: Scalars['String'];
-  subdomain: Scalars['String'];
+  searchString: Scalars['String']['input'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
@@ -3397,7 +3406,7 @@ export type SearchSubscribersQuery = { __typename?: 'Query', searchSubscribers?:
 export type SubscriberFragment = { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null };
 
 export type UnsubscribeFromAllListMutationVariables = Exact<{
-  unsubscribeId: Scalars['String'];
+  unsubscribeId: Scalars['String']['input'];
 }>;
 
 
@@ -3411,7 +3420,7 @@ export type CompleteOnboardingMutationVariables = Exact<{
 export type CompleteOnboardingMutation = { __typename?: 'Mutation', completeOnboarding?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type ConfirmCodeAndLoginMutationVariables = Exact<{
-  loginCode: Scalars['String'];
+  loginCode: Scalars['String']['input'];
 }>;
 
 
@@ -3425,7 +3434,7 @@ export type EmailLoginMutationVariables = Exact<{
 export type EmailLoginMutation = { __typename?: 'Mutation', emailLogin?: { __typename?: 'User', id: string, email: string, name?: string | null, store?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null } | null };
 
 export type GetUserExistByEmailQueryVariables = Exact<{
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
 }>;
 
 
@@ -3465,8 +3474,8 @@ export type CreateConditionalSplitNodeMutationVariables = Exact<{
 export type CreateConditionalSplitNodeMutation = { __typename?: 'Mutation', createConditionalSplitNode?: { __typename?: 'WorkflowState', id: string, name: string, description?: string | null, workflowStateType: WorkflowStateType, workflowActivityType: WorkflowActivityType, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } | null };
 
 export type CreateListTriggerMutationVariables = Exact<{
-  listId: Scalars['String'];
-  workflowId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  workflowId: Scalars['String']['input'];
 }>;
 
 
@@ -3474,7 +3483,7 @@ export type CreateListTriggerMutation = { __typename?: 'Mutation', createListTri
 
 export type CreateMetricTriggerMutationVariables = Exact<{
   metricType: MetricType;
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 }>;
 
 
@@ -3495,16 +3504,16 @@ export type CreateTriggerSplitNodeMutationVariables = Exact<{
 export type CreateTriggerSplitNodeMutation = { __typename?: 'Mutation', createTriggerSplitNode?: { __typename?: 'WorkflowState', id: string, name: string, description?: string | null, workflowStateType: WorkflowStateType, workflowActivityType: WorkflowActivityType, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } | null };
 
 export type DeleteWorkflowTransitionMutationVariables = Exact<{
-  workflowId: Scalars['String'];
-  workflowTransitionId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
+  workflowTransitionId: Scalars['String']['input'];
 }>;
 
 
 export type DeleteWorkflowTransitionMutation = { __typename?: 'Mutation', deleteWorkflowTransition?: { __typename?: 'WorkflowState', id: string, name: string, description?: string | null, workflowStateType: WorkflowStateType, workflowActivityType: WorkflowActivityType, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } | null };
 
 export type UpdateListTriggerMutationVariables = Exact<{
-  listId: Scalars['String'];
-  workflowStateId: Scalars['String'];
+  listId: Scalars['String']['input'];
+  workflowStateId: Scalars['String']['input'];
 }>;
 
 
@@ -3526,7 +3535,7 @@ export type UpdateDelayStateMutation = { __typename?: 'Mutation', updateDelaySta
 
 export type UpdateMetricTriggerMutationVariables = Exact<{
   metricType: MetricType;
-  workflowStateId: Scalars['String'];
+  workflowStateId: Scalars['String']['input'];
 }>;
 
 
@@ -3563,7 +3572,7 @@ type WorkflowStateValueUnion_WorkflowStateTriggerSplitActivityValue_Fragment = {
 export type WorkflowStateValueUnionFragment = WorkflowStateValueUnion_WorkflowStateConditionalSplitActivityValue_Fragment | WorkflowStateValueUnion_WorkflowStateDelayActivityValue_Fragment | WorkflowStateValueUnion_WorkflowStateListTriggerActivityValue_Fragment | WorkflowStateValueUnion_WorkflowStateMetricTriggerActivityValue_Fragment | WorkflowStateValueUnion_WorkflowStateSendEmailActivityValue_Fragment | WorkflowStateValueUnion_WorkflowStateTriggerSplitActivityValue_Fragment;
 
 export type ConvertWorkflowToPublicMutationVariables = Exact<{
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 }>;
 
 
@@ -3577,84 +3586,84 @@ export type CreateNewDelayNodeMutationVariables = Exact<{
 export type CreateNewDelayNodeMutation = { __typename?: 'Mutation', createNewDelayNode?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type CreateNodeConnectionMutationVariables = Exact<{
-  workflowId: Scalars['String'];
-  sourceId: Scalars['String'];
-  targetId: Scalars['String'];
-  otherWise: Scalars['Boolean'];
+  workflowId: Scalars['String']['input'];
+  sourceId: Scalars['String']['input'];
+  targetId: Scalars['String']['input'];
+  otherWise: Scalars['Boolean']['input'];
 }>;
 
 
 export type CreateNodeConnectionMutation = { __typename?: 'Mutation', createNodeConnection?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type DeleteWorkflowMutationVariables = Exact<{
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 }>;
 
 
 export type DeleteWorkflowMutation = { __typename?: 'Mutation', deleteWorkflow?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type DeleteWorkflowNodeMutationVariables = Exact<{
-  workflowStateId: Scalars['String'];
+  workflowStateId: Scalars['String']['input'];
 }>;
 
 
 export type DeleteWorkflowNodeMutation = { __typename?: 'Mutation', deleteWorkflowNode?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type GetPublicWorkflowsQueryVariables = Exact<{
-  take: Scalars['Int'];
-  skip: Scalars['Int'];
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
 }>;
 
 
 export type GetPublicWorkflowsQuery = { __typename?: 'Query', getPublicWorkflows?: Array<{ __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, store: { __typename?: 'Store', name?: string | null, id: string }, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null }> | null };
 
 export type GetWorkflowQueryVariables = Exact<{
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 }>;
 
 
 export type GetWorkflowQuery = { __typename?: 'Query', getWorkflow?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type GetWorkflowCountQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetWorkflowCountQuery = { __typename?: 'Query', getWorkflowCount?: number | null };
 
 export type GetWorkflowsQueryVariables = Exact<{
-  subdomain: Scalars['String'];
+  subdomain: Scalars['String']['input'];
 }>;
 
 
 export type GetWorkflowsQuery = { __typename?: 'Query', getWorkflows?: Array<{ __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null }> | null };
 
 export type ReplicateWorkflowMutationVariables = Exact<{
-  storeId: Scalars['String'];
-  replicaWorkflowId: Scalars['String'];
+  storeId: Scalars['String']['input'];
+  replicaWorkflowId: Scalars['String']['input'];
 }>;
 
 
 export type ReplicateWorkflowMutation = { __typename?: 'Mutation', replicateWorkflow?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type TurnOffWorkflowMutationVariables = Exact<{
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 }>;
 
 
 export type TurnOffWorkflowMutation = { __typename?: 'Mutation', turnOffWorkflow?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type TurnOnWorkflowMutationVariables = Exact<{
-  workflowId: Scalars['String'];
+  workflowId: Scalars['String']['input'];
 }>;
 
 
 export type TurnOnWorkflowMutation = { __typename?: 'Mutation', turnOnWorkflow?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type UpdateWorkflowDescriptionMutationVariables = Exact<{
-  workflowId: Scalars['String'];
-  descriptionHTML: Scalars['String'];
-  descriptionLexical: Scalars['String'];
+  workflowId: Scalars['String']['input'];
+  descriptionHTML: Scalars['String']['input'];
+  descriptionLexical: Scalars['String']['input'];
 }>;
 
 
@@ -3675,8 +3684,8 @@ export type UpdateTriggerFilterMutationVariables = Exact<{
 export type UpdateTriggerFilterMutation = { __typename?: 'Mutation', updateTriggerFilter?: { __typename?: 'Workflow', id: string, name: string, workflowStatus: WorkflowStatus, public: boolean, descriptionLexical?: string | null, descriptionHTML?: string | null, replicationCount: number, createdAt: any, updatedAt: any, node?: Array<{ __typename?: 'WorkflowNode', id: string, type: WorkflowNodeType, position: { __typename?: 'WorkflowNodeXYPostion', x: number, y: number }, data: { __typename?: 'WorkflowNodeData', id: string, name: string, workflowStateType: string, workflowActivityType: string, value: { __typename: 'WorkflowStateConditionalSplitActivityValue', flowFilter: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> } | { __typename: 'WorkflowStateDelayActivityValue', delayType: DelayTypeEnum, delayInMilliseconds: number } | { __typename: 'WorkflowStateListTriggerActivityValue', listId: string } | { __typename: 'WorkflowStateMetricTriggerActivityValue', metricType: MetricType } | { __typename: 'WorkflowStateSendEmailActivityValue', type: string, design: string, html: string } | { __typename: 'WorkflowStateTriggerSplitActivityValue', triggerFilter: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> } } }> | null, edge?: Array<{ __typename?: 'WorkflowEdge', id: string, source: string, target: string, sourceHandle: string }> | null, flowFilter?: Array<Array<{ __typename?: 'BaseConditionalFilter', condition?: BaseConditionalFilterConditionEnum | null, value?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValue', trigger?: BaseConditionalFilterHasDoneOrNotDoneValueTriggerEnum | null, inequality?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueInequality', expression?: BaseCondtionalFilterHasDoneOrNotDoneValueInequalityExpressionEnum | null, value?: number | null } | null, time?: { __typename?: 'BaseConditionalFilterHasDoneOrNotDoneValueTime', expression?: BaseConditionalFilterHasDoneOrNotDoneValueTimeExpressionEnum | null, value1?: number | null, value2?: number | null, date1?: string | null, date2?: string | null, delayType?: DelayTypeEnum | null } | null } | null }>> | null, triggerFilter?: Array<Array<{ __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null }>> | null } | null };
 
 export type UpdateWorkflowNameMutationVariables = Exact<{
-  workflowId: Scalars['String'];
-  name: Scalars['String'];
+  workflowId: Scalars['String']['input'];
+  name: Scalars['String']['input'];
 }>;
 
 
@@ -4256,6 +4265,13 @@ export const GetIntegrationWithSubdomainDocument = gql`
   }
 }
     ${IntegrationFragmentDoc}`;
+export const GetSubscriptionRewardItemsDocument = gql`
+    query GetSubscriptionRewardItems {
+  getSubscriptionRewardItems {
+    ...Item
+  }
+}
+    ${ItemFragmentDoc}`;
 export const CreateNewListDocument = gql`
     mutation CreateNewList($name: String!, $storeId: String!) {
   createNewList(name: $name, storeId: $storeId) {
@@ -5223,6 +5239,9 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     GetIntegrationWithSubdomain(variables: GetIntegrationWithSubdomainQueryVariables, options?: C): Promise<GetIntegrationWithSubdomainQuery> {
       return requester<GetIntegrationWithSubdomainQuery, GetIntegrationWithSubdomainQueryVariables>(GetIntegrationWithSubdomainDocument, variables, options) as Promise<GetIntegrationWithSubdomainQuery>;
+    },
+    GetSubscriptionRewardItems(variables?: GetSubscriptionRewardItemsQueryVariables, options?: C): Promise<GetSubscriptionRewardItemsQuery> {
+      return requester<GetSubscriptionRewardItemsQuery, GetSubscriptionRewardItemsQueryVariables>(GetSubscriptionRewardItemsDocument, variables, options) as Promise<GetSubscriptionRewardItemsQuery>;
     },
     CreateNewList(variables: CreateNewListMutationVariables, options?: C): Promise<CreateNewListMutation> {
       return requester<CreateNewListMutation, CreateNewListMutationVariables>(CreateNewListDocument, variables, options) as Promise<CreateNewListMutation>;

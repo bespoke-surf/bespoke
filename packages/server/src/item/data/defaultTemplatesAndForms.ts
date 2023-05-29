@@ -1,9 +1,5 @@
 import { getThisQuarter } from '../../utils/quarterDates';
-import {
-  ItemCreditsData,
-  ItemEmailTemplateData,
-  ItemSignupFormData,
-} from '../enums/itemData';
+import { ItemEmailTemplateData, ItemSignupFormData } from '../enums/itemData';
 import { ItemTypeEnum } from '../enums/type';
 import { Item } from '../items.entity';
 import {
@@ -18,7 +14,7 @@ import {
   presidentDaySaleData,
   wereSpringCleaingEarly,
   womentCollection,
-} from './pageUnlock/data';
+} from './defaultTemplateAndForms/data';
 
 const quarterStart = getThisQuarter().quarterStart;
 const quarterEnd = getThisQuarter().quarterEnd;
@@ -26,16 +22,16 @@ const quarterEnd = getThisQuarter().quarterEnd;
 const start_date = new Date(quarterStart);
 const end_date = new Date(quarterEnd);
 
-const creditImageData = [
-  {
-    height: 600,
-    width: 600,
-    src: 'https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1673974509/Frame_5_1_i2ooz7.png',
-  },
-];
+// const creditImageData = [
+//   {
+//     height: 600,
+//     width: 600,
+//     src: 'https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1673974509/Frame_5_1_i2ooz7.png',
+//   },
+// ];
 
 // 7,7,4,5,5
-export const pageUnlockPage1Level0: Partial<Item>[] = [
+export const defaultTemplateAndForms: Partial<Item>[] = [
   {
     name: 'Long Weekend Sale',
     description: '',
@@ -53,17 +49,17 @@ export const pageUnlockPage1Level0: Partial<Item>[] = [
     start_date,
     end_date,
   },
-  {
-    name: 'Credits Page 1 - 1',
-    description: '',
-    type: ItemTypeEnum.CREDITS,
-    imageData: creditImageData,
-    data: {
-      credits: 100,
-    } satisfies ItemCreditsData,
-    start_date,
-    end_date,
-  },
+  // {
+  //   name: 'Credits Page 1 - 1',
+  //   description: '',
+  //   type: ItemTypeEnum.CREDITS,
+  //   imageData: creditImageData,
+  //   data: {
+  //     credits: 100,
+  //   } satisfies ItemCreditsData,
+  //   start_date,
+  //   end_date,
+  // },
   {
     name: 'February Flash Sale',
     description: '',
@@ -116,17 +112,17 @@ export const pageUnlockPage1Level0: Partial<Item>[] = [
     start_date,
     end_date,
   },
-  {
-    name: 'Credist Page 1 - 2',
-    description: '',
-    type: ItemTypeEnum.CREDITS,
-    imageData: creditImageData,
-    data: {
-      credits: 100,
-    },
-    start_date,
-    end_date,
-  },
+  // {
+  //   name: 'Credist Page 1 - 2',
+  //   description: '',
+  //   type: ItemTypeEnum.CREDITS,
+  //   imageData: creditImageData,
+  //   data: {
+  //     credits: 100,
+  //   },
+  //   start_date,
+  //   end_date,
+  // },
   {
     name: 'Hold Up! Instantly Unlock',
     description: '',
@@ -155,9 +151,7 @@ export const pageUnlockPage1Level0: Partial<Item>[] = [
     start_date,
     end_date,
   },
-];
 
-export const pageUnlockPageLevel5: Partial<Item>[] = [
   {
     name: 'A Collection for the women that inpire us',
     description: '',
@@ -208,20 +202,18 @@ export const pageUnlockPageLevel5: Partial<Item>[] = [
     start_date,
     end_date,
   },
-  {
-    name: 'Credits Page 2',
-    description: '',
-    type: ItemTypeEnum.CREDITS,
-    imageData: creditImageData,
-    data: {
-      credits: 100,
-    },
-    start_date,
-    end_date,
-  },
-];
+  // {
+  //   name: 'Credits Page 2',
+  //   description: '',
+  //   type: ItemTypeEnum.CREDITS,
+  //   imageData: creditImageData,
+  //   data: {
+  //     credits: 100,
+  //   },
+  //   start_date,
+  //   end_date,
+  // },
 
-export const pageUnlockPageLevel8: Partial<Item>[] = [
   {
     name: "We're spring cleaning early",
     description: '',

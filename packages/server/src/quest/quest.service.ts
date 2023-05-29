@@ -21,7 +21,7 @@ export class QuestService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    // this.defaultSeed();
+    this.defaultSeed();
   }
 
   async creatQuest(input: CreateQuestInput): Promise<Quest> {

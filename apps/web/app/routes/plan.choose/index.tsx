@@ -126,7 +126,8 @@ const common = [
   "Segmentation (coming soon)",
   "Campaign (coming soon)",
   "A/B Testing & Dashboard Analytics",
-  "Free Templates & Forms",
+  "9 Templates & 2 Forms",
+  "Periodic Reports",
   "Newsletter",
 ];
 
@@ -197,7 +198,9 @@ const PlanDetails = ({
               ${numberWithCommas(data.price)}
               {isFree ? null : "/month"}
             </Text>
-            {planData?.id === parentData.billing?.bespokePlanId ? (
+            {planData?.id === parentData.billing?.bespokePlanId &&
+            parentData.billing?.billingPlanStatus !==
+              BillingPlanStatus.Cancelled ? (
               <CurrentPlan />
             ) : (
               <>
@@ -401,6 +404,7 @@ const BasicPlan = () => {
         <Details data={data} type="success" key={data} />
       ))}
       <Details data="5 Sign-up Form" type="success" />
+      <Details data="Subscription Rewards Every Month" type="success" />
       <Details data="Ticket & Chat Support" type="success" />
       <Details data="No Automation" type="fail" />
       <Details data="No Dedicated IPs" type="fail" />
@@ -415,6 +419,7 @@ const AdvancedPlan = () => {
         <Details data={data} type="success" key={data} />
       ))}
       <Details data="15 Sign-up Form" type="success" />
+      <Details data="Subscription Rewards Every Month" type="success" />
       <Details data="Ticket & Chat Support" type="success" />
       <Details data="Automation" type="success" />
       <Details data="Dedicated IPs (coming soon)" type="success" />

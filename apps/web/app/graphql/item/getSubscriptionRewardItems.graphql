@@ -1,0 +1,5 @@
+query GetSubscriptionRewardItems {
+  getSubscriptionRewardItems {
+    ...Item
+  }
+}

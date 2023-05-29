@@ -11,7 +11,7 @@ import {
   SlimBanner,
   Tooltip,
 } from "gestalt";
-import { lazy, Suspense, useMemo, useReducer } from "react";
+import { Suspense, lazy, useMemo, useReducer } from "react";
 import type { RootData } from "~/root";
 import { getImageSrcAndSrcSet } from "~/utils/getCloudinarySrcAndSrcSet";
 import type { EditorFormikValues } from "../Editor";

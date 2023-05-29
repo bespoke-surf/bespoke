@@ -1,7 +1,8 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum ItemCategoryTypeEnum {
-  // SCUBSCRIPTION = 'SUBSCRIPTION',
+  FREE = 'FREE',
+  SCUBSCRIPTION = 'SUBSCRIPTION',
   SHOP = 'SHOP',
 }
 

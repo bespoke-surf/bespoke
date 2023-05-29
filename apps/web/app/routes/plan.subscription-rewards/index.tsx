@@ -1,21 +1,12 @@
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import {
-  Box,
-  Flex,
-  Icon,
-  Image,
-  Mask,
-  Masonry,
-  PageHeader,
-  Text,
-} from "gestalt";
+import { useLoaderData } from "@remix-run/react";
+import { Box, Flex, Image, Mask, Masonry, PageHeader, Text } from "gestalt";
 import { useMemo } from "react";
 import { ClientOnly } from "remix-utils";
-import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { ItemFragment } from "../../graphql/__generated__/graphql";
 import { CdnType, ItemTypeEnum } from "../../graphql/__generated__/graphql";
+import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -43,10 +34,10 @@ export async function loader({ request }: LoaderArgs) {
     return redirect("/");
   }
 
-  const pathCrate = await sdk.GetPathCrateItems({}, { request });
+  const pathCrate = await sdk.GetSubscriptionRewardItems({}, { request });
   return json(
     {
-      pathCrate: pathCrate.getPathCrateItems,
+      pathCrate: pathCrate.getSubscriptionRewardItems,
     },
     {
       headers: {
@@ -61,45 +52,12 @@ export default function PathCrate() {
 
   return (
     <>
-      <Box paddingX={2}>
-        <Flex justifyContent="start" alignItems="center" gap={2}>
-          <Link to="/growth-path">
-            <Text underline size="100">
-              Growth Path Rewards
-            </Text>
-          </Link>
-
-          <Icon
-            accessibilityLabel="arrow-right"
-            size={10}
-            icon="arrow-forward"
-            color="dark"
-          />
-
-          <Link to="/growth-path/choose">
-            <Text underline size="100">
-              Growth Path
-            </Text>
-          </Link>
-
-          <Icon
-            accessibilityLabel="arrow-right"
-            size={10}
-            icon="arrow-forward"
-            color="dark"
-          />
-
-          <Box color="lightWash" rounding="pill" padding={1} paddingX={2}>
-            <Text size="100">Subscription Rewards</Text>
-          </Box>
-        </Flex>
-      </Box>
       <PageHeader
         borderStyle="none"
         title={`${monthName[
           new Date().getMonth()
         ]?.toUpperCase()} SUBSCRIPTION REWARDS`}
-        subtext="Get new rewards every month during your Growth Path renewal."
+        subtext="Subscribe to a paid plan and get Premium Templates & Forms. Auto syched when subscription starts."
       />
       <Flex justifyContent="center">
         <Box width="92.5%" paddingY={6}>

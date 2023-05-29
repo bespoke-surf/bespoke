@@ -108,6 +108,7 @@ export async function action({ request }: ActionArgs) {
         request,
       }
     );
+    console.log({ respnoe }, "hello");
     if (respnoe.getCustomerPortalSession) {
       return redirect(respnoe.getCustomerPortalSession);
     }
@@ -141,13 +142,13 @@ export default function ChoosePlan() {
 
   const free = parentData.billing?.billingPlanStatus === BillingPlanStatus.Free;
 
-  const planData = useMemo(
-    () =>
-      bespokePricingPlan.find(
-        ({ id }) => id === parentData.billing?.bespokePlanId
-      ),
-    [parentData.billing?.bespokePlanId]
-  );
+  // const planData = useMemo(
+  //   () =>
+  //     bespokePricingPlan.find(
+  //       ({ id }) => id === parentData.billing?.bespokePlanId
+  //     ),
+  //   [parentData.billing?.bespokePlanId]
+  // );
 
   const handleMangeBilling = useCallback(() => {
     if (
@@ -189,8 +190,7 @@ export default function ChoosePlan() {
           dropdownItems: [
             <Dropdown.Link
               href="/plan/choose"
-              // onSelect={handleMangeBilling}
-              key="add-prodcut"
+              key="choose-plan"
               option={{ label: "Change Plan", value: "add" }}
             />,
           ],

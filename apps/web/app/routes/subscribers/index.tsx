@@ -31,8 +31,8 @@ import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { InView } from "react-intersection-observer";
 import { ClientOnly } from "remix-utils";
-import { sdk } from "~/graphql/graphqlWrapper.server";
 import type { SubscriberFragment } from "~/graphql/__generated__/graphql";
+import { sdk } from "~/graphql/graphqlWrapper.server";
 import { useDebounce } from "~/hooks/useDebounce";
 import BigContainer from "../../components/BigContainer";
 import Naviagation from "../../components/Navigation";
@@ -134,7 +134,7 @@ export default function Profiles() {
                 <PageHeader
                   borderStyle="none"
                   title="SUBSCRIBERS"
-                  subtext="Your subscribers across Newsletter & Checkout."
+                  subtext="Your subscribers from all of your Lists."
                   items={[
                     <Datapoint
                       key="revenue"
@@ -153,7 +153,7 @@ export default function Profiles() {
                           title="Subscribers table is empty!"
                           key="add subs"
                           type="warning"
-                          message="Sync your subscribers from your business via integrations"
+                          message="Your subscribers will show up here. Also you can sync your subscribers from your business via integrations."
                           primaryAction={{
                             label: "Sync Subscribers",
                             accessibilityLabel: "sync subscribers",

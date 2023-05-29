@@ -24,6 +24,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
+  useNavigate,
   useNavigation,
   useSubmit,
 } from "@remix-run/react";
@@ -217,6 +218,7 @@ const Noti = ({ event }: { event: EventFragment }) => {
   const anchorRef = useRef(null);
   const submit = useSubmit();
   const navigation = useNavigation();
+  const navigate = useNavigate();
 
   const isDismissed =
     navigation.formData?.get("_action") ===
@@ -231,6 +233,10 @@ const Noti = ({ event }: { event: EventFragment }) => {
     submit(formData, { method: "post" });
   }, [event.id, submit]);
 
+  const handleOnTap = useCallback(() => {
+    navigate(`${event.link}`);
+  }, [event.link, navigate]);
+
   if (isDismissed) return null;
 
   return (
@@ -244,10 +250,7 @@ const Noti = ({ event }: { event: EventFragment }) => {
         rounding={4}
         marginBottom={6}
       >
-        <TapArea
-        // onTap={() => navigate(`${event.link}`)}
-        // disabled={event.link ? false : true}
-        >
+        <TapArea onTap={handleOnTap} disabled={event.link ? false : true}>
           <Flex gap={1} direction="column">
             <Flex alignItems="center" justifyContent="between">
               <Text>{event.message}</Text>

@@ -103,11 +103,9 @@ export const StoreNav = ({
                   }
                 : undefined
             }
-            active={
-              location.pathname.includes("/notifications") ? "page" : undefined
-            }
+            active={location.pathname == "/notifications" ? "page" : undefined}
           />
-          <SideNavigation.Group label="Newsletter" icon="gmail">
+          <SideNavigation.Group label="Write" icon="edit">
             <SideNavigation.NestedItem
               href="/"
               label="Newsletter"
@@ -141,7 +139,7 @@ export const StoreNav = ({
 
             <SideNavigation.NestedItem
               href="/subscriber-lists"
-              label="Lists"
+              label="Lists & Segments"
               onClick={handleClosIsMobile}
               active={
                 location.pathname.includes("/subscriber-lists")
@@ -154,6 +152,14 @@ export const StoreNav = ({
               label="Profiles"
               active={
                 location.pathname.includes("/subscribers") ? "page" : undefined
+              }
+              onClick={handleClosIsMobile}
+            />
+            <SideNavigation.NestedItem
+              href="/campaigns"
+              label="Campaigns"
+              active={
+                location.pathname.includes("/campaigns") ? "page" : undefined
               }
               onClick={handleClosIsMobile}
             />
@@ -202,12 +208,24 @@ export const StoreNav = ({
             />
           </SideNavigation.Group>
           <SideNavigation.Group label="Account" icon="cog">
-            <SideNavigation.NestedItem
-              href="/plan"
-              label="Plan"
-              onClick={handleClosIsMobile}
-              active={location.pathname.includes("/plan") ? "page" : undefined}
-            />
+            <SideNavigation.NestedGroup label="Billing">
+              <SideNavigation.NestedItem
+                href="/plan"
+                label="Plan"
+                onClick={handleClosIsMobile}
+                active={location.pathname === "/plan" ? "page" : undefined}
+              />
+              <SideNavigation.NestedItem
+                href="/plan/subscription-rewards"
+                label="Subscription Rewards"
+                onClick={handleClosIsMobile}
+                active={
+                  location.pathname === "/plan/subscription-rewards"
+                    ? "page"
+                    : undefined
+                }
+              />
+            </SideNavigation.NestedGroup>
             <SideNavigation.NestedItem
               href="/integrations"
               label="Integrations"
@@ -216,14 +234,14 @@ export const StoreNav = ({
                 location.pathname.includes("/integrations") ? "page" : undefined
               }
             />
-            {/* <SideNavigation.NestedItem
+            <SideNavigation.NestedItem
               href="/challenges"
               label="Periodic Reports"
               onClick={handleClosIsMobile}
               active={
                 location.pathname.includes("/challenges") ? "page" : undefined
               }
-            /> */}
+            />
 
             <SideNavigation.NestedItem
               href="/settings"

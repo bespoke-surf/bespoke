@@ -133,14 +133,19 @@ export default function SignupForms() {
                     <Box marginBottom={8}>
                       <Callout
                         iconAccessibilityLabel="warning"
-                        title="Add new forms that we created"
+                        title="Create or Add Forms!"
                         key="add subs"
                         type="recommendation"
-                        message="Quickly add new forms from your Templates and Forms tab. We upload exciting new Forms and Templates."
+                        message="Create a new form here or add forms from the Template & Forms tab. Also subscribe to a paid plan to get new forms every month."
                         primaryAction={{
                           accessibilityLabel: "templates and forms",
                           label: "Templates & Forms",
                           href: "/folder",
+                        }}
+                        secondaryAction={{
+                          accessibilityLabel: "Subscription Rewards",
+                          label: "Subscription Rewards",
+                          href: "/plan/subscription-rewards",
                         }}
                       />
                     </Box>

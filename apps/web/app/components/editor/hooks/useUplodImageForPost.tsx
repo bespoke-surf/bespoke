@@ -3,34 +3,33 @@ import type { SuccessResponse, UppyFile } from "@uppy/core";
 import Uppy from "@uppy/core";
 import XHRUpload from "@uppy/xhr-upload";
 import type { LexicalEditor } from "lexical";
-import { useCallback, useEffect } from "react";
-import {
-  CLOUDINARY_PRESET,
-  CLOUDINARY_UPLOAD_IMAGE_URL,
-  STORE_PREFIX,
-  STORE_PRODUCT_IMAGE_POSTFIX,
-} from "~/constants";
+import { useCallback, useEffect, useMemo } from "react";
+import { STORE_PREFIX, STORE_PRODUCT_IMAGE_POSTFIX } from "~/constants";
 import type { RootData } from "~/root";
 
 import type { InsertImagePayload } from "../plugins/ImagesPlugin";
 import { INSERT_IMAGE_COMMAND } from "../plugins/ImagesPlugin";
 
-const uppy = new Uppy({
-  restrictions: {
-    maxFileSize: 10000000,
-    maxNumberOfFiles: 1,
-    allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
-  },
-}).use(XHRUpload, {
-  endpoint: CLOUDINARY_UPLOAD_IMAGE_URL ?? "",
-  method: "POST",
-  formData: true,
-  fieldName: "file",
-  allowedMetaFields: ["file", "folder", "upload_preset"],
-});
-
 const useUploadImageForPost = (activeEditor: LexicalEditor) => {
   const loaderData = useRouteLoaderData("root") as RootData;
+
+  const uppy = useMemo(
+    () =>
+      new Uppy({
+        restrictions: {
+          maxFileSize: 10000000,
+          maxNumberOfFiles: 1,
+          allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
+        },
+      }).use(XHRUpload, {
+        endpoint: loaderData.CLOUDINARY_UPLOAD_IMAGE_URL ?? "",
+        method: "POST",
+        formData: true,
+        fieldName: "file",
+        allowedMetaFields: ["file", "folder", "upload_preset"],
+      }),
+    [loaderData.CLOUDINARY_UPLOAD_IMAGE_URL]
+  );
 
   const handleFileAdded = useCallback(
     async (
@@ -39,10 +38,10 @@ const useUploadImageForPost = (activeEditor: LexicalEditor) => {
       const folder = `${STORE_PREFIX}/${loaderData?.user?.id}/${STORE_PRODUCT_IMAGE_POSTFIX}`;
       uppy.setFileMeta(file.id, {
         folder,
-        upload_preset: CLOUDINARY_PRESET,
+        upload_preset: loaderData.CLOUDINARY_PRESET,
       });
     },
-    [loaderData?.user?.id]
+    [loaderData.CLOUDINARY_PRESET, loaderData?.user?.id, uppy]
   );
 
   const handleFileUploaded = useCallback(
@@ -84,6 +83,8 @@ const useUploadImageForPost = (activeEditor: LexicalEditor) => {
       uppy.off("upload-success", handler);
       uppy.off("file-added", fileAddedhandler);
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleFileAdded, handleFileUploaded]);
 
   return { uppy };

@@ -6,31 +6,32 @@ import { Item } from '../items.entity';
 import {
   pathCaretFromDesign,
   pathCratesuccessFormDesign,
-} from './pathCrate/feb/signupFrom';
-import { siteWideOff } from './pathCrate/feb/siteWideOff';
-import { winOver100 } from './pathCrate/feb/winOver100';
+} from './subscriptionRewards/may/signupFrom';
+import { siteWideOff } from './subscriptionRewards/may/siteWideOff';
+import { winOver100 } from './subscriptionRewards/may/winOver100';
+
 import {
   marchFormDesign,
   marchSuccessForm,
-} from './pathCrate/march/signupform';
-import { marchTemplate1 } from './pathCrate/march/template1';
-import { marchTemplate2 } from './pathCrate/march/template2';
+} from './subscriptionRewards/june/signupform';
+import { marchTemplate1 } from './subscriptionRewards/june/template1';
+import { marchTemplate2 } from './subscriptionRewards/june/template2';
 
-const start_date_feb = new Date(
-  dayjs().month(1).startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
+const start_date_may = new Date(
+  dayjs().month(4).startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
 );
-const end_date_feb = new Date(
-  dayjs().month(1).endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
-);
-
-const start_date_march = new Date(
-  dayjs().month(2).startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
-);
-const end_date_march = new Date(
-  dayjs().month(2).endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
+const end_date_may = new Date(
+  dayjs().month(4).endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
 );
 
-export const pathCrateItemsJanuary: Partial<Item>[] = [
+const start_date_june = new Date(
+  dayjs().month(5).startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
+);
+const end_date_june = new Date(
+  dayjs().month(5).endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
+);
+
+export const subscrpitonRewardItems: Partial<Item>[] = [
   {
     name: 'Win over $1000 worth of products',
     description: 'Win Over $1000 Worth of Products - Enter Now!',
@@ -42,8 +43,8 @@ export const pathCrateItemsJanuary: Partial<Item>[] = [
         width: 600,
       },
     ],
-    start_date: start_date_feb,
-    end_date: end_date_feb,
+    start_date: start_date_may,
+    end_date: end_date_may,
 
     data: {
       design: winOver100,
@@ -60,8 +61,8 @@ export const pathCrateItemsJanuary: Partial<Item>[] = [
       },
     ],
     type: ItemTypeEnum.EMAIL_TEMPLATE,
-    start_date: start_date_feb,
-    end_date: end_date_feb,
+    start_date: start_date_may,
+    end_date: end_date_may,
 
     data: {
       design: siteWideOff,
@@ -72,8 +73,8 @@ export const pathCrateItemsJanuary: Partial<Item>[] = [
     name: 'Do you want 10% off?',
     description: '',
     type: ItemTypeEnum.SIGNUP_FORM,
-    start_date: start_date_feb,
-    end_date: end_date_feb,
+    start_date: start_date_may,
+    end_date: end_date_may,
 
     imageData: [
       {
@@ -101,8 +102,8 @@ export const pathCrateItemsJanuary: Partial<Item>[] = [
     name: 'Explore new-in white dress',
     description: '',
     type: ItemTypeEnum.EMAIL_TEMPLATE,
-    start_date: start_date_march,
-    end_date: end_date_march,
+    start_date: start_date_june,
+    end_date: end_date_june,
     imageData: [
       {
         src: 'https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1677651686/_home_afi_Desktop_form_1_fwlg4r.png',
@@ -118,8 +119,8 @@ export const pathCrateItemsJanuary: Partial<Item>[] = [
     name: 'Spring collection just dropped ',
     description: '',
     type: ItemTypeEnum.EMAIL_TEMPLATE,
-    start_date: start_date_march,
-    end_date: end_date_march,
+    start_date: start_date_june,
+    end_date: end_date_june,
     imageData: [
       {
         src: 'https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1677686343/Frame_13_3_ejfxfr.png',
@@ -135,8 +136,8 @@ export const pathCrateItemsJanuary: Partial<Item>[] = [
     name: 'Join the club and get rewards',
     description: '',
     type: ItemTypeEnum.SIGNUP_FORM,
-    start_date: start_date_march,
-    end_date: end_date_march,
+    start_date: start_date_june,
+    end_date: end_date_june,
     imageData: [
       {
         src: 'https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1677685980/Frame_12_4_qj8a5n.png',

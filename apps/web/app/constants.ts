@@ -1,6 +1,3 @@
-export const CLOUDINARY_UPLOAD_IMAGE_URL = "";
-export const CLOUDINARY_PRESET = "";
-
 export const UNLAYER_PROJECT_ID = 125274;
 
 export const STORE_PRODUCT_IMAGE_POSTFIX = "product";

@@ -1,4 +1,3 @@
-import type { ActionArgs, LinksFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { useFetcher, useNavigate, useRouteLoaderData } from "@remix-run/react";
 import coreStyle from "@uppy/core/dist/style.css";
@@ -21,14 +20,14 @@ import {
   TextField,
 } from "gestalt";
 import { useCallback, useState } from "react";
-import { sdk } from "~/graphql/graphqlWrapper.server";
 import { ProductSource, ProductType } from "~/graphql/__generated__/graphql";
+import { sdk } from "~/graphql/graphqlWrapper.server";
 import type { RootData } from "~/root";
 import type { AddProductFormValues } from "./type";
 import { CreateProductShcema, ProductsActionEnum } from "./type";
 import useUploadProducts from "./useUploadProducts";
 
-import type { LoaderArgs } from "@remix-run/node";
+import type { ActionArgs, LinksFunction, LoaderArgs } from "@remix-run/node";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import { isPrivateRoute } from "../../utils/utils.server";
@@ -114,12 +113,12 @@ const AddProduct = () => {
   const handleSubmit = useCallback(
     (values: AddProductFormValues) => {
       if (!loader?.store?.id) return;
-
       if (step == 0) {
         setStep(1);
         return;
       }
       if (step == 1) {
+        if (values.image.length === 0 || values.image[0]?.src === "") return;
         const formData = new FormData();
         formData.append("_action", ProductsActionEnum.uploadProduct);
         formData.append("externalLink", values.externalLink);
@@ -179,7 +178,14 @@ const AddProduct = () => {
                   />
                 </Flex>
               ) : null}
-              {step === 1 && <Button text="Finish" color="red" disabled />}
+              {step === 1 && (
+                <Button
+                  text="Finish"
+                  color="red"
+                  //@ts-ignore
+                  onClick={formik.handleSubmit}
+                />
+              )}
             </Flex>
           }
         >

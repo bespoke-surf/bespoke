@@ -50,7 +50,7 @@ export default function DashboardCallouts() {
         EmailSentLimitStatus.Disallowed ? (
         <Callout
           iconAccessibilityLabel="error"
-          message="Head over to Plan tab and see why the issue is."
+          message="Head over to Plan tab and see what the issue is."
           type="error"
           primaryAction={{
             label: "Plan",

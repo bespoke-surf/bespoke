@@ -59,11 +59,11 @@ export class Item {
   type: ItemTypeEnum;
 
   @Field(() => Date, { nullable: true })
-  @Column({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz', nullable: true })
   start_date?: Date;
 
   @Field(() => Date, { nullable: true })
-  @Column({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz', nullable: true })
   end_date?: Date;
 
   @Field()

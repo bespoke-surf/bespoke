@@ -144,6 +144,8 @@ export interface RootData {
   unReadCount: number;
   BACKEND_HOST?: string | null | undefined;
   isMobile: boolean;
+  CLOUDINARY_UPLOAD_IMAGE_URL?: string | null | undefined;
+  CLOUDINARY_PRESET?: string | null | undefined;
 }
 
 export let loader: LoaderFunction = async ({ request }) => {
@@ -202,8 +204,10 @@ export let loader: LoaderFunction = async ({ request }) => {
           subdomain: isOnSubdomain ? subdomain : undefined,
           isUserSubdomain,
           unReadCount,
-          BACKEND_HOST: process.env.BACKEND_HOST as string,
           isMobile: mobile,
+          BACKEND_HOST: process.env.BACKEND_HOST as string,
+          CLOUDINARY_UPLOAD_IMAGE_URL: process.env.CLOUDINARY_UPLOAD_IMAGE_URL,
+          CLOUDINARY_PRESET: process.env.CLOUDINARY_PRESET,
         },
         {
           headers: {

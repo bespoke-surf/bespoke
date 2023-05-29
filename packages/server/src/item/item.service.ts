@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import dayjs from 'dayjs';
 import { Repository } from 'typeorm';
+import { ItemCategoryTypeEnum } from '../itemCategory/enum/itemCategoryType';
+import { DAYJS_TIMESTAMPZ_FORMAT } from '../utils/constants';
 import { Item } from './items.entity';
 
 @Injectable()
@@ -36,22 +39,32 @@ export class ItemService {
     return item;
   }
 
-  // async getPathCrateItems() {
-  //   const startOfMonth = new Date(
-  //     dayjs().startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
-  //   );
-  //   const endOfMonth = new Date(
-  //     dayjs().endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
-  //   );
-  //   const items = await this.itemRepo.find({
-  //     where: {
-  //       start_date: startOfMonth,
-  //       end_date: endOfMonth,
-  //       itemCategory: {
-  //         type: ItemCategoryTypeEnum.SCUBSCRIPTION,
-  //       },
-  //     },
-  //   });
-  //   return items;
-  // }
+  async getSubscriptionRewardItems() {
+    const startOfMonth = new Date(
+      dayjs().startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
+    );
+    const endOfMonth = new Date(
+      dayjs().endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
+    );
+    const items = await this.itemRepo.find({
+      where: {
+        start_date: startOfMonth,
+        end_date: endOfMonth,
+        itemCategory: {
+          type: ItemCategoryTypeEnum.SCUBSCRIPTION,
+        },
+      },
+    });
+    return items;
+  }
+  async getDefaultTemplatesAndForms() {
+    const items = await this.itemRepo.find({
+      where: {
+        itemCategory: {
+          type: ItemCategoryTypeEnum.FREE,
+        },
+      },
+    });
+    return items;
+  }
 }

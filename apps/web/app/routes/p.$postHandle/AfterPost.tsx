@@ -18,7 +18,7 @@ import {
   Text,
   WashAnimated,
 } from "gestalt";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import type { PostFragment } from "../../graphql/__generated__/graphql";
 import type { RootData } from "../../root";
 import { calculateLocalTime } from "../../utils/calculateLocalTime";
@@ -30,8 +30,18 @@ export default function AfterPost() {
   const loaderData = useLoaderData<PostByHandleData>();
   const navigate = useNavigate();
 
-  const morePosts = loaderData.morePosts?.map((post) => (
-    <ListPost post={post} key={post.id} />
+  const morePosts = loaderData.morePosts?.map((post, index) => (
+    <React.Fragment key={post.id}>
+      <Box
+        marginBottom={4}
+        marginTop={4}
+        display={index === 0 ? "none" : "block"}
+      >
+        <Divider />
+      </Box>
+
+      <ListPost post={post} />
+    </React.Fragment>
   ));
   if (!loaderData.morePosts || loaderData.morePosts.length === 0) return null;
   return (
@@ -40,7 +50,6 @@ export default function AfterPost() {
         <IconButton
           icon="share"
           size="md"
-          bgColor="darkGray"
           accessibilityLabel="share"
           onClick={() => navigate("share")}
         />
@@ -62,11 +71,12 @@ export default function AfterPost() {
             <Text underline>See all</Text>
           </Link>
         </Flex>
+        <Box marginBottom={4} />
         <Flex
           alignItems="stretch"
           justifyContent="start"
           direction="column"
-          gap={4}
+          // gap={4}
         >
           <Box />
           {morePosts}
@@ -77,6 +87,7 @@ export default function AfterPost() {
 }
 
 function ListPost({ post }: { post: PostFragment }) {
+  const rootLoader = useRouteLoaderData("root") as RootData;
   return (
     <Link href={`/p/${post.postHandle}`} underline="none">
       <WashAnimated>
@@ -102,10 +113,16 @@ function ListPost({ post }: { post: PostFragment }) {
                   {post.subTitle}
                 </Text>
               </Flex>
-              <Flex alignItems="center">
+              <Flex alignItems="center" gap={1} wrap>
                 <Text size="200">
                   {calculateLocalTime(post.publishedDate, `DD MMMM YYYY`)}
                 </Text>
+                <Text size="200">•</Text>
+                <Link href="/">
+                  <Text size="200" underline>
+                    {rootLoader.store?.name}
+                  </Text>
+                </Link>
               </Flex>
             </Flex>
             {post?.image && (

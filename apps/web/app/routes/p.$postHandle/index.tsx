@@ -30,6 +30,7 @@ import { parseCampaign } from "../../utils/utmExtractor.server";
 
 import Editor, { links as editorLinks } from "../../components/Editor";
 import { isPrivateRoute } from "../../utils/utils.server";
+import PostFooter from "./Footer";
 export {
   GenericCatchBoundary as CatchBoundary,
   GenericErrorBoundary as ErrorBoundary,
@@ -218,6 +219,7 @@ export default function PostHandle() {
       </FormikProvider>
       <Outlet />
       <AfterPost />
+      <PostFooter />
     </Container>
   );
 }

@@ -1,6 +1,9 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { defaultTemplateAndForms } from '../item/data/defaultTemplatesAndForms';
+import { subscrpitonRewardItems } from '../item/data/subscriptonRewards';
+import { ItemService } from '../item/item.service';
 import { ItemCategoryTypeEnum } from './enum/itemCategoryType';
 import { ItemCategory } from './itemCategory.entity';
 
@@ -9,10 +12,12 @@ export class ItemCategoryService implements OnModuleInit {
   constructor(
     @InjectRepository(ItemCategory)
     private readonly itemCategoryRepo: Repository<ItemCategory>, // private readonly itemService: ItemService,
+    private readonly itemService: ItemService,
   ) {}
 
   onModuleInit() {
-    // this.seedPathCrate();
+    this.seedSubscriptionReward();
+    this.seedDefaultTemplateAndForms();
   }
 
   async createCategory({
@@ -33,16 +38,28 @@ export class ItemCategoryService implements OnModuleInit {
     return newCategory;
   }
 
-  // async seedPathCrate() {
-  //   const category = await this.createCategory({
-  //     type: ItemCategoryTypeEnum.SCUBSCRIPTION,
-  //   });
+  async seedSubscriptionReward() {
+    const category = await this.createCategory({
+      type: ItemCategoryTypeEnum.SCUBSCRIPTION,
+    });
 
-  //   for (const item of pathCrateItemsJanuary) {
-  //     await this.itemService.createItem({
-  //       ...item,
-  //       itemCategoryId: category.id,
-  //     });
-  //   }
-  // }
+    for (const item of subscrpitonRewardItems) {
+      await this.itemService.createItem({
+        ...item,
+        itemCategoryId: category.id,
+      });
+    }
+  }
+  async seedDefaultTemplateAndForms() {
+    const category = await this.createCategory({
+      type: ItemCategoryTypeEnum.FREE,
+    });
+
+    for (const item of defaultTemplateAndForms) {
+      await this.itemService.createItem({
+        ...item,
+        itemCategoryId: category.id,
+      });
+    }
+  }
 }

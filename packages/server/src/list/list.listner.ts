@@ -21,6 +21,7 @@ export class ListListener {
       userId: event.store.user.id,
       eventAccessRestriction: EventAccessRestriction.HIGH,
       eventState: EventState.COMPLETED,
+      showAsNotification: true,
     });
   }
 }

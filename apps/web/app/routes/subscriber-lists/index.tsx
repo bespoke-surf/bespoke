@@ -134,8 +134,8 @@ export default function Subscribers() {
               <>
                 <PageHeader
                   borderStyle="none"
-                  title="LISTS"
-                  subtext="Two default lists Newsletter & Checkout."
+                  title="LISTS & SEGMENTS"
+                  subtext="(Segmentation is coming soon)"
                   items={[
                     <Datapoint
                       key="revenue"

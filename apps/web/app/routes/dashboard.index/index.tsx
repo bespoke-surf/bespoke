@@ -1,9 +1,5 @@
-import { Box, Text } from "gestalt";
+import { Box } from "gestalt";
 
 export default function DashboardIndex() {
-  return (
-    <Box>
-      <Text>Hello</Text>
-    </Box>
-  );
+  return <Box></Box>;
 }
