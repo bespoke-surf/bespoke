@@ -1,3 +1,4 @@
+import type { Fetcher } from "@remix-run/react";
 import {
   useFetcher,
   useLoaderData,
@@ -37,10 +38,9 @@ import PostURL from "./controls/PostURL";
 import type { PostData, PostFormValues, submitStateType } from "./types";
 import { PostActionEnum } from "./types";
 
-export default function Controls() {
+export default function Controls({ fetcher }: { fetcher: Fetcher }) {
   const { setFieldValue, handleSubmit, validateForm } =
     useFormikContext<PostFormValues>();
-  const transition = useTransition();
   const submit = useSubmit();
   const rootLoader = useRouteLoaderData("root") as RootData;
   const loaderData = useLoaderData<PostData>();
@@ -57,8 +57,8 @@ export default function Controls() {
   }, [navigate]);
 
   const loading =
-    (transition.state === "loading" || transition.state === "submitting") &&
-    transition.type !== "normalLoad";
+    (fetcher.state === "loading" || fetcher.state === "submitting") &&
+    fetcher.type !== "normalLoad";
 
   const handleOnSelect = useCallback(
     async (item: DropdownOption, state: submitStateType) => {

@@ -38,8 +38,8 @@ import React, {
 } from "react";
 import { InView } from "react-intersection-observer";
 import { ClientOnly } from "remix-utils";
-import { sdk } from "~/graphql/graphqlWrapper.server";
 import type { SubscriberListFragment } from "~/graphql/__generated__/graphql";
+import { sdk } from "~/graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";

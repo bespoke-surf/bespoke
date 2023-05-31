@@ -30,6 +30,9 @@ export class User {
   @Column({ nullable: true })
   name?: string;
 
+  @Field(() => String)
+  unlayerSignature: string;
+
   @Column({ nullable: true })
   stripeCustomerId?: string;
 

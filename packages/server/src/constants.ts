@@ -35,3 +35,5 @@ export const DEFAULT_EMAIL_SENDS = 6000;
 
 export const EMAIL_HEADER_POST_ID_KEY = 'X-Bmail-Post';
 export const EMAIL_HEADER_UNSUBSCRIBE_ID_KEY = 'X-Bmail-Unsubscribe';
+
+export const UNLAYER_SIGNATURE_KEY = 'unlayerSignature:';

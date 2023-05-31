@@ -10,7 +10,6 @@ import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { FormikProvider, useFormik } from "formik";
 import { Container } from "gestalt";
-import { useMemo } from "react";
 import type { StructuredDataFunction } from "remix-utils";
 import { getClientIPAddress, redirectBack } from "remix-utils";
 import PlaygroundNodes from "../../components/editor/nodes/PlaygroundNodes";
@@ -171,22 +170,17 @@ export async function loader({ params, request }: LoaderArgs) {
 export default function PostHandle() {
   const loaderData = useLoaderData<PostByHandleData>();
 
-  const initialConfig = useMemo(
-    () => ({
-      editorState:
-        loaderData.post?.bodyLexical === ""
-          ? null
-          : loaderData.post?.bodyLexical,
-      editable: false,
-      namespace: "Playground",
-      nodes: PlaygroundNodes,
-      onError: (error: Error) => {
-        throw error;
-      },
-      theme: PlaygroundEditorTheme,
-    }),
-    [loaderData.post?.bodyLexical]
-  );
+  const initialConfig = {
+    editorState:
+      loaderData.post?.bodyLexical === "" ? null : loaderData.post?.bodyLexical,
+    editable: false,
+    namespace: "Playground",
+    nodes: PlaygroundNodes,
+    onError: (error: Error) => {
+      throw error;
+    },
+    theme: PlaygroundEditorTheme,
+  };
 
   const formik = useFormik<PostByHandleValues>({
     initialValues: {

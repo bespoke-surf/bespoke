@@ -3,9 +3,9 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import {
   Outlet,
   useActionData,
+  useFetcher,
   useLoaderData,
   useRouteLoaderData,
-  useSubmit,
 } from "@remix-run/react";
 import type {
   ActionFunction,
@@ -223,7 +223,7 @@ function MyCustomAutoFocusPlugin() {
 }
 
 const Home = () => {
-  const submit = useSubmit();
+  const fetcher = useFetcher();
   const loaderData = useLoaderData<PostData>();
   const rootLoader = useRouteLoaderData("root") as RootData;
   const actionData = useActionData<PostActionData>();
@@ -269,18 +269,18 @@ const Home = () => {
       );
       if (values.submitState === "save") {
         formData.append("_action", PostActionEnum.updatePost);
-        submit(formData, { method: "post", replace: true });
+        fetcher.submit(formData, { method: "post", replace: true });
       } else if (values.submitState === "publishToBespoke") {
         formData.append("_action", PostActionEnum.publishPostHere);
         if (values.handle === "") {
           return action.setFieldError("handle", "Please add a post URL");
         } else {
           formData.append("handle", values.handle);
-          submit(formData, { method: "post", replace: true });
+          fetcher.submit(formData, { method: "post", replace: true });
         }
       } else if (values.submitState === "unpublish") {
         formData.append("_action", PostActionEnum.unpublish);
-        submit(formData, { method: "post", replace: true });
+        fetcher.submit(formData, { method: "post", replace: true });
       } else if (values.submitState === "emailBlast") {
         if (values.handle === "") {
           return action.setFieldError("handle", "Please add a post URL");
@@ -288,11 +288,11 @@ const Home = () => {
           formData.append("listId", values.listId);
           formData.append("handle", values.handle);
           formData.append("_action", PostActionEnum.publishPostToList);
-          submit(formData, { method: "post", replace: true });
+          fetcher.submit(formData, { method: "post", replace: true });
         }
       }
     },
-    [submit]
+    [fetcher]
   );
 
   const formik = useFormik<PostFormValues>({
@@ -324,7 +324,7 @@ const Home = () => {
     <Container>
       <FormikProvider value={formik}>
         <LexicalComposer initialConfig={initialConfig}>
-          <Controls />
+          <Controls fetcher={fetcher} />
           <div className="editor-shell">
             <Editor
               disableOptionAndTime={true}

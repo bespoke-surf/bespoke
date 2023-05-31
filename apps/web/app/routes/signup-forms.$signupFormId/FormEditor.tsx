@@ -1,10 +1,11 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useRouteLoaderData } from "@remix-run/react";
 import { useFormikContext } from "formik";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type EmailEditor from "react-email-editor";
 import type { MyFromValue, loader } from ".";
 import { ReactEmailEditor } from "../../components/ReactEmailEditor";
 import { UNLAYER_PROJECT_ID } from "../../constants";
+import type { RootData } from "../../root";
 import { customFonts } from "../../utils/customFonts";
 import { addFormData } from "./utilts";
 
@@ -14,6 +15,7 @@ export const FormEditor = () => {
   const formEditorRef = useRef<EmailEditor>(null);
 
   const loaderData = useLoaderData<typeof loader>();
+  const rootData = useRouteLoaderData("root") as RootData;
 
   const exportHtml = useCallback(() => {
     formEditorRef.current?.exportHtml(
@@ -49,6 +51,12 @@ export const FormEditor = () => {
   return (
     <div hidden={values.formType === "success"}>
       <ReactEmailEditor
+        userData={{
+          email: rootData.user?.email ?? "",
+          id: rootData.user?.id ?? "",
+          name: rootData.user?.name ?? "",
+          signature: rootData.user?.unlayerSignature ?? "",
+        }}
         onReady={handleOnReady}
         displayMode="popup"
         ref={formEditorRef}

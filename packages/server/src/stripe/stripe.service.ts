@@ -6,6 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
 import { Stripe } from 'stripe';
 import invariant from 'tiny-invariant';
 import { EnvironmentVariables } from '../types';
@@ -79,7 +80,7 @@ export class StripeService {
         ({ stripePriceId: id }) => id === stripePriceId,
       )?.id;
 
-      if (!bespokePlanId) throw new Error();
+      if (!bespokePlanId) throw new Error('missing plan id');
 
       const FRONTEND_HOST = this.configService.get('FRONTEND_HOST');
       const FRONTEND_HOST_PROTOCOL = this.configService.get(
@@ -299,5 +300,38 @@ export class StripeService {
       console.log(err);
       throw new Error('stripe proration failed');
     }
+  }
+
+  async createUsageRecords({
+    usageQuantity,
+    subscriptionId,
+    timestamp,
+  }: {
+    subscriptionId: string;
+    usageQuantity: number;
+    timestamp: number;
+  }) {
+    const subscription = await this.stripe.subscriptions.retrieve(
+      subscriptionId,
+    );
+    const idempotencyKey = nanoid();
+
+    console.log(JSON.stringify(subscription));
+    const subItemId = subscription.items.data[0]?.id;
+    if (!subItemId) throw new Error('subscription item id is missing');
+
+    console.log({ subItemId, usageQuantity, timestamp, idempotencyKey });
+
+    await this.stripe.subscriptionItems.createUsageRecord(
+      subItemId,
+      {
+        quantity: usageQuantity,
+        timestamp,
+        action: 'set',
+      },
+      {
+        idempotencyKey,
+      },
+    );
   }
 }

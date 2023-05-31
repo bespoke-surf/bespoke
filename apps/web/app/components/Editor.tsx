@@ -13,7 +13,6 @@ import { useFormikContext } from "formik";
 import { Box, CompositeZIndex, Divider, Heading, Sticky, Text } from "gestalt";
 import React, { useCallback, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { ClientOnly } from "remix-utils";
 import slug from "slug";
 import type { RootData } from "~/root";
 import { preventEnter } from "~/utils/preventEnter";
@@ -241,7 +240,7 @@ export default function Editor({
             <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
           </>
         )}
-        <ClientOnly>{() => <ImagesPlugin />}</ClientOnly>
+        <ImagesPlugin />
       </div>
     </>
   );

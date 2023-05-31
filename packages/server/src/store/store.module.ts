@@ -73,7 +73,6 @@ import { StoreService } from './store.service';
     BullModule.registerQueue({
       name: STORE_QUARTERLY_CRON_QUEUE,
     }),
-
     TypeOrmModule.forFeature([Store, DisplayPicture, Contact]),
     AboutModule,
     PostModule,

@@ -1,5 +1,13 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Context,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { CurrentUserId } from '../decorator/userDecorator';
 import { AuthGuard } from '../guard/authGuard';
 import { HasStoreAccess } from '../guard/hasStoreAccess';
@@ -19,6 +27,11 @@ import { UserService } from './user.service';
 @Resolver(() => User)
 export class UserResolver {
   constructor(private userService: UserService) {}
+
+  @ResolveField()
+  async unlayerSignature(@Parent() user: User): Promise<string> {
+    return this.userService.getUnlayerSignature(user);
+  }
 
   @Query(() => Boolean, { description: 'check if user is onboarded' })
   getUserExistByEmail(@Args('email') email: string): Promise<boolean> {

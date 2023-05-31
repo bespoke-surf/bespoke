@@ -18,7 +18,6 @@ export function Autosave() {
 
   useEffect(() => {
     if (debouncedEditor && debouncedEditor !== loaderData.post?.bodyLexical) {
-      console.log("submitted");
       handleSubmit();
     }
   }, [debouncedEditor, handleSubmit, loaderData.post?.bodyLexical]);

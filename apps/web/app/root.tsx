@@ -35,6 +35,7 @@ import posthog from "posthog-js";
 import { useEffect, useRef, useState } from "react";
 import type { DynamicLinksFunction } from "remix-utils";
 import { DynamicLinks, StructuredData } from "remix-utils";
+import { getEnvVars } from "../env.server";
 import MobileNavigation from "./components/MobileNavigation";
 import type {
   StoreFragment,
@@ -45,7 +46,6 @@ import { useClientNavigationLinks } from "./hooks/useClientNavigationLinks";
 import { pathedRoutes } from "./other-routes.server";
 import rootCss from "./styles/root.css";
 import { getCloudinaryFavicons } from "./utils/getCloudinaryFavicon";
-import { pageview } from "./utils/gtag";
 import {
   getSubdomain,
   isMobile,
@@ -205,9 +205,9 @@ export let loader: LoaderFunction = async ({ request }) => {
           isUserSubdomain,
           unReadCount,
           isMobile: mobile,
-          BACKEND_HOST: process.env.BACKEND_HOST as string,
-          CLOUDINARY_UPLOAD_IMAGE_URL: process.env.CLOUDINARY_UPLOAD_IMAGE_URL,
-          CLOUDINARY_PRESET: process.env.CLOUDINARY_PRESET,
+          BACKEND_HOST: getEnvVars().BACKEND_HOST,
+          CLOUDINARY_UPLOAD_IMAGE_URL: getEnvVars().CLOUDINARY_UPLOAD_IMAGE_URL,
+          CLOUDINARY_PRESET: getEnvVars().CLOUDINARY_PRESET,
         },
         {
           headers: {
@@ -257,10 +257,6 @@ function App() {
       posthog.people.set({ email: loaderData.user?.email });
     }
   }, [loaderData.user]);
-
-  useEffect(() => {
-    pageview(location.pathname, "G-8W7V3MVEC9");
-  }, [location]);
 
   return (
     <html lang="en">

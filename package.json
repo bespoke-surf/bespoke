@@ -17,14 +17,14 @@
     "build:web": "turbo run build --scope=@bespoke/web --include-dependencies --no-deps --force",
     "build:server": "turbo run build --scope=@bespoke/server --include-dependencies --no-deps --force",
     "deploy:server": "fly deploy --config ./fly.server.toml --dockerfile ./Dockerfile.production.server",
-    "deploy:web": "fly deploy  --config ./fly.web.toml --dockerfile ./Dockerfile.production.web"
+    "deploy:web": "fly deploy  --config ./fly.web.toml --dockerfile ./Dockerfile.production.web --build-arg SENTRY_AUTH_TOKEN= --build-arg SENTRY_ORG= --build-arg SENTRY_PROJECT= --build-arg AWS_ACCESS_KEY_ID= --build-arg AWS_SECRET_ACCESS_KEY= --build-arg AWS_S3_BUCKET_REGION= --build-arg AWS_S3_BUCKET= --build-arg CLOUDFRONT="
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "3.3.0",
     "lerna": "^6.6.2",
     "prettier": "2.8.8",
-    "turbo": "1.9.9"
+    "turbo": "1.10.0"
   },
   "engines": {
     "npm": ">=7.0.0",

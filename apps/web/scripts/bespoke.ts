@@ -1,7 +1,7 @@
 import type { SignupForm } from "../app/graphql/__generated__/graphql";
 
-const FRONTEND_HOST = "https://your-frontend-host";
-const BACKEND_HOST = "https://your-backend-host";
+const FRONTEND_HOST = process.env.FRONTEND_HOST as string;
+const BACKEND_HOST = process.env.BACKEND_HOST as string;
 
 function isMe(scriptElem: HTMLScriptElement) {
   return scriptElem.getAttribute("src")?.includes(FRONTEND_HOST);

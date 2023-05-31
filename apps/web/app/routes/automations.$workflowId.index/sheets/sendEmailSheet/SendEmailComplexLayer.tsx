@@ -256,6 +256,12 @@ export default function SendEmailComplexLayer({
       </Sticky>
 
       <ReactEmailEditor
+        userData={{
+          email: rootData.user?.email ?? "",
+          id: rootData.user?.id ?? "",
+          name: rootData.user?.name ?? "",
+          signature: rootData.user?.unlayerSignature ?? "",
+        }}
         ref={emailEditorRef}
         onReady={onReady}
         projectId={UNLAYER_PROJECT_ID}

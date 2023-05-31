@@ -47,6 +47,7 @@ import { SCRIPT_TAG_CREATE } from '../../graphql/scriptags.graphql';
 import { AboutService } from '../about/about.service';
 import { BillingService } from '../billing/billing.service';
 import { BillingPlanStatus } from '../billing/enum/billingPlanStatus.enum';
+import { BillingSubscriptionEntity } from '../billing/enum/billingSubscriptionEntity.enum';
 import { BillingSubscriptionStatus } from '../billing/enum/billingSubscriptionStatus.enum';
 import {
   SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX,
@@ -793,7 +794,10 @@ export class StoreService implements OnModuleInit {
       }
 
       const emailSentThisMonth =
-        await this.metricService.getEmailSentThisMonthCount(store.subdomain);
+        await this.metricService.getEmailSentDuringPeriod(
+          store.subdomain,
+          'month',
+        );
 
       const sentQuantity = bespokePricingPlan.find(
         ({ id }) => id === billing.bespokePlanId,
@@ -842,7 +846,7 @@ export class StoreService implements OnModuleInit {
     }
 
     const emailSentThisMonth =
-      await this.metricService.getEmailSentThisMonthCount(subdomain);
+      await this.metricService.getEmailSentDuringPeriod(subdomain, 'month');
 
     const sendingQuantity =
       await this.subscriberListService.getSubscribersInListCount(listId);
@@ -1451,9 +1455,13 @@ export class StoreService implements OnModuleInit {
       },
       relations: {
         about: true,
+        billing: true,
       },
     });
     if (!store || !store.about?.industry) return null;
+    const planId = store.billing?.bespokePlanId;
+
+    if (planId === FREE_PLAN_ID) return null;
 
     // const { endDate, startDate } = starAndEndDatesOfCurrenQuarter();
 
@@ -1465,6 +1473,8 @@ export class StoreService implements OnModuleInit {
       .from(Store, 'store')
       .select('store.id', 'id')
       .groupBy('store.id')
+      .leftJoin('store.billing', 'billing')
+      .where('billing.bespokePlanId =:planId', { planId })
       // .leftJoin('store.experiencePoint', 'xp')
       // .addSelect('SUM(xp.point)', 'points')
       // .orderBy('points', 'DESC')
@@ -1664,5 +1674,76 @@ export class StoreService implements OnModuleInit {
 
     if (emailLimitStatus === EmailSentLimitStatus.DISALLOWED)
       throw new Error('email sent limit reached');
+  }
+
+  async stripeReportUsageForBilling(
+    storeId: string,
+    currentPeriodStart: number,
+  ) {
+    try {
+      const store = await this.getStore(storeId);
+      if (!store || !store.subdomain) throw new Error('missing store');
+
+      const subdomain = store?.subdomain;
+
+      const billing = await this.billingService.getStoreBilling(subdomain);
+      if (!billing) throw new Error('missing billing');
+
+      if (
+        billing?.billingSubscriptionEntity !== BillingSubscriptionEntity.STRIPE
+      ) {
+        throw new Error('not stripe billing');
+      }
+      if (!billing.subscriptionId) {
+        throw new Error('missing subscription id');
+      }
+      if (!billing.currentPeriodEnd) {
+        throw new Error('missing period end');
+      }
+
+      const billingPlanStaus = await this.billingService.billingPlanStatus(
+        billing,
+      );
+
+      if (
+        billingPlanStaus === BillingPlanStatus.CANCELLED ||
+        billingPlanStaus === BillingPlanStatus.FREE
+      ) {
+        throw new Error('invalid billling status');
+      }
+
+      const emailSentUsageCount =
+        await this.metricService.getEmailSentDuringPeriod(subdomain, 'month');
+
+      const contactUsageCount =
+        await this.subscriberService.getSubscribersCount(subdomain);
+
+      const billingPlan = bespokePricingPlan.find(
+        ({ id }) => id === billing.bespokePlanId,
+      );
+
+      if (!billingPlan) throw new Error('billing plan is missing');
+
+      if (billingPlan?.type === 'default')
+        throw new Error('billing is free plan');
+
+      const usageEmail = emailSentUsageCount - billingPlan.emails;
+      let totalUsage = contactUsageCount + 6000;
+
+      if (usageEmail > 0) {
+        totalUsage += usageEmail;
+      }
+
+      if (!totalUsage || totalUsage <= 0) throw new Error('usage not exceeded');
+      console.log({ currentPeriodStart });
+
+      await this.stripeService.createUsageRecords({
+        subscriptionId: billing.subscriptionId,
+        usageQuantity: 60000,
+        timestamp: dayjs.unix(currentPeriodStart).add(1, 'minute').unix(),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

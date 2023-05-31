@@ -10,6 +10,7 @@ import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { Shopify as ShopifyApi } from '@shopify/shopify-api';
 import { Queue } from 'bull';
 import { isEmpty } from 'class-validator';
+import crypto from 'crypto';
 import { Redis } from 'ioredis';
 import IsEmail from 'isemail';
 import { nanoid } from 'nanoid';
@@ -17,6 +18,7 @@ import invariant from 'tiny-invariant';
 import {
   LOGIN_CONFIRMATION_PREFIX,
   REDIS_SESSION_ID_PREFIX,
+  UNLAYER_SIGNATURE_KEY,
   USER_CUSTOMER_UPLOAD_QUEUE,
   USER_STORE_UPLOAD_CSV_FILE_QUEUE,
 } from '../constants';
@@ -666,5 +668,20 @@ export class UserService {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async getUnlayerSignature(user: User) {
+    let signature = await this.redis.get(`${UNLAYER_SIGNATURE_KEY}${user.id}`);
+
+    if (!signature) {
+      const secret = this.configService.get('UNLAYER_SECRET');
+      signature = crypto
+        .createHmac('sha256', secret)
+        .update(user.id)
+        .digest('hex');
+      this.redis.set(`${UNLAYER_SIGNATURE_KEY}${user.id}`, signature);
+    }
+
+    return signature;
   }
 }

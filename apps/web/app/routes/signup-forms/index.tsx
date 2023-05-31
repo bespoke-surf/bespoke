@@ -10,6 +10,8 @@ import {
   Flex,
   PageHeader,
 } from "gestalt";
+import { Suspense, lazy, useReducer } from "react";
+import { ClientOnly } from "remix-utils";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import BigContainer from "../../components/BigContainer";
 import Naviagation from "../../components/Navigation";
@@ -25,6 +27,8 @@ export {
   GenericCatchBoundary as CatchBoundary,
   GenericErrorBoundary as ErrorBoundary,
 };
+
+const InstallCodeSnippet = lazy(() => import("./InstallCode"));
 
 export const meta: MetaFunction = ({ parentsData }) => {
   const rootData = parentsData.root as RootData;
@@ -92,6 +96,8 @@ export async function action({ request }: ActionArgs) {
 export default function SignupForms() {
   const loaderData = useLoaderData<SignupFormsData>();
 
+  const [codeSinppet, toggleCodeSnippet] = useReducer((s) => !s, false);
+
   const { limitReached } = useSignupFormLimitReached();
 
   return (
@@ -103,8 +109,8 @@ export default function SignupForms() {
             <Container>
               <PageHeader
                 borderStyle="none"
-                title="SIGNUP FORMS"
-                subtext="Forms to add subscribers to a list. Create a form to display on your store."
+                title="SIGN-UP FORMS"
+                subtext="Forms to add subscribers to a list. Create a form to display on your website"
                 primaryAction={{
                   component: (
                     <Button
@@ -124,7 +130,36 @@ export default function SignupForms() {
                     />,
                   ],
                 }}
+                secondaryAction={{
+                  component: (
+                    <Button
+                      text="Install Code Snippet"
+                      color="gray"
+                      size="lg"
+                      onClick={toggleCodeSnippet}
+                    />
+                  ),
+                  dropdownItems: [
+                    <Dropdown.Item
+                      onSelect={toggleCodeSnippet}
+                      key="install-script"
+                      option={{
+                        label: "Install Code Snippet",
+                        value: "install-script",
+                      }}
+                    />,
+                  ],
+                }}
               />
+              {codeSinppet && (
+                <ClientOnly fallback={null}>
+                  {() => (
+                    <Suspense fallback={null}>
+                      <InstallCodeSnippet close={toggleCodeSnippet} />
+                    </Suspense>
+                  )}
+                </ClientOnly>
+              )}
               <Flex justifyContent="center">
                 <Box width="92.5%" paddingY={6}>
                   {loaderData.forms?.length === 0 ||

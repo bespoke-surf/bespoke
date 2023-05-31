@@ -22,6 +22,12 @@ interface AppearanceConfig {
       }
     | undefined;
 }
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  signature: string;
+}
 
 export const ReactEmailEditor = forwardRef<
   {},
@@ -31,6 +37,7 @@ export const ReactEmailEditor = forwardRef<
     options: any;
     projectId: number;
     appearance: AppearanceConfig;
+    userData: UserData;
     displayMode?: DisplayMode;
     onReady?: () => void;
   }
@@ -42,6 +49,7 @@ export const ReactEmailEditor = forwardRef<
       options,
       projectId,
       appearance,
+      userData,
       displayMode = "email",
       onReady,
     },
@@ -49,6 +57,8 @@ export const ReactEmailEditor = forwardRef<
   ) => {
     const status = useScript("https://editor.unlayer.com/embed.js");
     const editorRef = useRef<any>(null);
+
+    console.log(userData);
 
     useEffect(() => {
       if (status === "ready") {
@@ -59,6 +69,12 @@ export const ReactEmailEditor = forwardRef<
           minHeight,
           id: editorId,
           displayMode,
+          user: {
+            id: userData.id,
+            name: userData.name,
+            email: userData.email,
+            signature: userData.signature,
+          },
         });
         if (onReady) {
           editorRef.current?.addEventListener("editor:ready", onReady);

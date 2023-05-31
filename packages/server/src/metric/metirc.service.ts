@@ -3,14 +3,14 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import getSymbolFromCurrency from 'currency-symbol-map';
-import dayjs from 'dayjs';
+import dayjs, { OpUnitType } from 'dayjs';
 import { Not, Repository } from 'typeorm';
 import { DelayTypeEnum } from '../enum/delaytype.enum';
 import { MonthTypeEnum } from '../enum/monthType.enum';
 import { DAYJS_TIMESTAMPZ_FORMAT } from '../utils/constants';
 import {
-  getStarAndEndOfUnits,
   StartOfEndOfUnitType,
+  getStarAndEndOfUnits,
 } from '../utils/quarterDates';
 import { WorkflowState } from '../workflow-state/workflow-state.entity';
 import { WorkflowStateService } from '../workflow-state/workflow-state.service';
@@ -837,10 +837,13 @@ export class MetricService {
     return subscribers;
   }
 
-  async getEmailSentThisMonthCount(subdomain: string): Promise<number> {
+  async getEmailSentDuringPeriod(
+    subdomain: string,
+    unit: OpUnitType,
+  ): Promise<number> {
     const day = dayjs()
       .utc()
-      .startOf('month')
+      .startOf(unit)
       .format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
 
     const subscribers = await this.metricRepo

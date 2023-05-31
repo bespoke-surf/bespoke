@@ -18,6 +18,7 @@ import type {
   RangeSelection,
 } from "lexical";
 import {
+  $createParagraphNode,
   $getSelection,
   $isRangeSelection,
   DEPRECATED_$isGridSelection,
@@ -60,6 +61,15 @@ export default function LinkToQuote({
         ) {
           $setBlocksType(selection, () => $createQuoteNode());
         }
+      });
+    } else {
+      editor.update(() => {
+        const selection = $getSelection();
+        if (
+          $isRangeSelection(selection) ||
+          DEPRECATED_$isGridSelection(selection)
+        )
+          $setBlocksType(selection, () => $createParagraphNode());
       });
     }
   };

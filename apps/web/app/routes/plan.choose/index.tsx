@@ -241,7 +241,6 @@ export default function Choose() {
 
   useEffect(() => {
     if (actionData?.notifyProrated) {
-      console.log("heyo");
       setToast(true);
     }
   }, [actionData?.notifyProrated, setToast]);

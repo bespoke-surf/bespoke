@@ -1,6 +1,6 @@
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Link as RLink, Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, Link as RLink, useLoaderData } from "@remix-run/react";
 import {
   Box,
   Button,
@@ -20,9 +20,9 @@ import { useMemo } from "react";
 import { ClientOnly } from "remix-utils";
 import BigContainer from "../../components/BigContainer";
 import Naviagation from "../../components/Navigation";
-import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { ItemFragment } from "../../graphql/__generated__/graphql";
 import { CdnType, ItemTypeEnum } from "../../graphql/__generated__/graphql";
+import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -78,8 +78,8 @@ export default function SignupForms() {
             <Container>
               <PageHeader
                 borderStyle="none"
-                title="Folder"
-                subtext="Claimed and received Rewards show up here."
+                title="Templates & Forms"
+                subtext="Received Subscription Rewards also show up here"
               />
 
               <Flex justifyContent="center">

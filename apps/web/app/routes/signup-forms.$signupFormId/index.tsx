@@ -5,12 +5,13 @@ import { load } from "cheerio";
 import { FormikProvider, useFormik } from "formik";
 import { Box, Layer, Sticky } from "gestalt";
 import { useCallback } from "react";
-import { sdk } from "../../graphql/graphqlWrapper.server";
+import { getEnvVars } from "../../../env.server";
 import type {
   SignupFormData,
   SignupFormDataInput,
 } from "../../graphql/__generated__/graphql";
 import { SignupFormState } from "../../graphql/__generated__/graphql";
+import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -129,7 +130,7 @@ export async function action({ request, params }: ActionArgs) {
             formId: signupFormId,
             successFormId: `${signupFormId}-success`,
             key,
-            backendHost: process.env.BACKEND_HOST as string,
+            backendHost: getEnvVars().BACKEND_HOST,
             storeId,
           }),
           scriptModule: signuFromModuleJs(signupFormId, key),

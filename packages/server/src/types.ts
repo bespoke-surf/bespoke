@@ -33,4 +33,5 @@ export interface EnvironmentVariables {
   AWS_SECRET_ACCESS_KEY: string;
   PRIMARY_REGION: string;
   FLY_REGION: string;
+  UNLAYER_SECRET: string;
 }

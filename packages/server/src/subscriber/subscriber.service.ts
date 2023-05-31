@@ -2,7 +2,7 @@ import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import { Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
-import dayjs from 'dayjs';
+import dayjs, { OpUnitType } from 'dayjs';
 import { Redis } from 'ioredis';
 import { Like, Repository } from 'typeorm';
 import { UNSUBSCRIBE_ID_PREFIX } from '../constants';
@@ -272,10 +272,13 @@ export class SubscriberService {
     return metric ?? null;
   }
 
-  async getSubscriberCountAddedToday(subdomain: string): Promise<number> {
+  async getSubscriberCountDuringPeriod(
+    subdomain: string,
+    unit: OpUnitType,
+  ): Promise<number> {
     const day = dayjs()
       .utc()
-      .startOf('day')
+      .startOf(unit)
       .format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
 
     const subscribers = await this.subscriberRepo

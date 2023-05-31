@@ -63,7 +63,10 @@ export class SubscriberResolver {
   getSubscriberCountAddedToday(
     @Args('subdomain') subdomain: string,
   ): Promise<number> {
-    return this.subscriberService.getSubscriberCountAddedToday(subdomain);
+    return this.subscriberService.getSubscriberCountDuringPeriod(
+      subdomain,
+      'day',
+    );
   }
 
   @Mutation(() => Subscriber, {

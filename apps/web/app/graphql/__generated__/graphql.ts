@@ -670,6 +670,7 @@ export type ItemCategory = {
 
 /** item category type enum */
 export enum ItemCategoryTypeEnum {
+  Free = 'FREE',
   Scubscription = 'SCUBSCRIPTION',
   Shop = 'SHOP'
 }
@@ -2390,6 +2391,7 @@ export type User = {
   id: Scalars['ID']['output'];
   name?: Maybe<Scalars['String']['output']>;
   store?: Maybe<Store>;
+  unlayerSignature: Scalars['String']['output'];
   userEmailDeliveryStatus: UserEmailDeliveryStatus;
 };
 
@@ -2733,7 +2735,7 @@ export type GetMetricsByTypeQueryVariables = Exact<{
 }>;
 
 
-export type GetMetricsByTypeQuery = { __typename?: 'Query', getMetricsByType?: Array<{ __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null }> | null };
+export type GetMetricsByTypeQuery = { __typename?: 'Query', getMetricsByType?: Array<{ __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null }> | null };
 
 export type GetPlacedOrderCountQueryVariables = Exact<{
   subscriberId: Scalars['String']['input'];
@@ -2751,7 +2753,7 @@ export type GetSubscriberMetricsQueryVariables = Exact<{
 }>;
 
 
-export type GetSubscriberMetricsQuery = { __typename?: 'Query', getSubscriberMetrics?: Array<{ __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null }> | null };
+export type GetSubscriberMetricsQuery = { __typename?: 'Query', getSubscriberMetrics?: Array<{ __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null }> | null };
 
 export type GetSubscriberRevenueQueryVariables = Exact<{
   subscriberId: Scalars['String']['input'];
@@ -2774,7 +2776,7 @@ type MetricData_MetricShopifyPlacedOrder_Fragment = { __typename: 'MetricShopify
 
 export type MetricDataFragment = MetricData_MetricEmailLinkClicked_Fragment | MetricData_MetricPostViewed_Fragment | MetricData_MetricShopifyCancelledOrder_Fragment | MetricData_MetricShopifyCheckoutUpdate_Fragment | MetricData_MetricShopifyFulfilledOrder_Fragment | MetricData_MetricShopifyPlacedOrder_Fragment;
 
-export type MetricFragment = { __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
+export type MetricFragment = { __typename?: 'Metric', id: string, metricType: MetricType, message: string, postId?: string | null, listId?: string | null, subscriberId?: string | null, createdAt: any, data?: { __typename: 'MetricEmailLinkClicked', type: MetricType, link: string } | { __typename: 'MetricPostViewed', type: MetricType, referer?: string | null, ipAddress?: string | null, utm?: { __typename?: 'MetricUtmDataType', campaign?: string | null, source?: string | null, term?: string | null, medium?: string | null, content?: string | null } | null } | { __typename: 'MetricShopifyCancelledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyCheckoutUpdate', type: MetricType, id: number } | { __typename: 'MetricShopifyFulfilledOrder', type: MetricType, id: number } | { __typename: 'MetricShopifyPlacedOrder', type: MetricType, id: number, subtotal_price: string, total_price: string } | null, subscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
 
 export type GetNotificationQueryVariables = Exact<{
   subdomain: Scalars['String']['input'];
@@ -3158,7 +3160,7 @@ export type CreateWorkflowMutation = { __typename?: 'Mutation', createWorkflow?:
 export type GetAllStoresForSiteMapQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllStoresForSiteMapQuery = { __typename?: 'Query', getAllStoresForSiteMap?: Array<{ __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null }> | null };
+export type GetAllStoresForSiteMapQuery = { __typename?: 'Query', getAllStoresForSiteMap?: Array<{ __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null }> | null };
 
 export type GetBenchmarkDataQueryVariables = Exact<{
   subdomain: Scalars['String']['input'];
@@ -3205,14 +3207,14 @@ export type GetStoreRevenueQuery = { __typename?: 'Query', getStoreRevenue?: num
 export type GetUserStoreQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserStoreQuery = { __typename?: 'Query', getUserStore?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
+export type GetUserStoreQuery = { __typename?: 'Query', getUserStore?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type GetStoreWithSubdomainQueryVariables = Exact<{
   subdomain: Scalars['String']['input'];
 }>;
 
 
-export type GetStoreWithSubdomainQuery = { __typename?: 'Query', getStoreWithSubdomain?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
+export type GetStoreWithSubdomainQuery = { __typename?: 'Query', getStoreWithSubdomain?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type ProrateStripeSubscriptionMutationVariables = Exact<{
   subdomain: Scalars['String']['input'];
@@ -3229,7 +3231,7 @@ export type ShopifyAppSubscriptionCancleMutationVariables = Exact<{
 
 export type ShopifyAppSubscriptionCancleMutation = { __typename?: 'Mutation', shopifyAppSubscriptionCancel?: boolean | null };
 
-export type StoreFragment = { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null };
+export type StoreFragment = { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null };
 
 export type SubdomainAvailableQueryVariables = Exact<{
   subdomain: Scalars['String']['input'];
@@ -3259,14 +3261,14 @@ export type UpdateDefaultListIdToCollectEmailMutationVariables = Exact<{
 }>;
 
 
-export type UpdateDefaultListIdToCollectEmailMutation = { __typename?: 'Mutation', updateDefaultListIdToCollectEmail?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
+export type UpdateDefaultListIdToCollectEmailMutation = { __typename?: 'Mutation', updateDefaultListIdToCollectEmail?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type UpdateDisplayPictureMutationVariables = Exact<{
   input: UpdateDisplayPictureInput;
 }>;
 
 
-export type UpdateDisplayPictureMutation = { __typename?: 'Mutation', updateDisplayPicture?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
+export type UpdateDisplayPictureMutation = { __typename?: 'Mutation', updateDisplayPicture?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type UpdateStoreCurrencyMutationVariables = Exact<{
   currency: StoreCurrency;
@@ -3274,14 +3276,14 @@ export type UpdateStoreCurrencyMutationVariables = Exact<{
 }>;
 
 
-export type UpdateStoreCurrencyMutation = { __typename?: 'Mutation', updateStoreCurrency: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } };
+export type UpdateStoreCurrencyMutation = { __typename?: 'Mutation', updateStoreCurrency: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } };
 
 export type UpdateStoreDetailsMutationVariables = Exact<{
   input: UpdateStoreDetailsInput;
 }>;
 
 
-export type UpdateStoreDetailsMutation = { __typename?: 'Mutation', updateStoreDetails?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
+export type UpdateStoreDetailsMutation = { __typename?: 'Mutation', updateStoreDetails?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type GetCurrentStoreChallengeByQuestTypeQueryVariables = Exact<{
   subdomain: Scalars['String']['input'];
@@ -3321,7 +3323,7 @@ export type GetAllListsOfASubscriberQueryVariables = Exact<{
 }>;
 
 
-export type GetAllListsOfASubscriberQuery = { __typename?: 'Query', getAllListsOfASubscriber?: Array<{ __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, list: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean }, subscriber: { __typename?: 'Subscriber', emailStatus: SubscriberEmailStatus, id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } }> | null };
+export type GetAllListsOfASubscriberQuery = { __typename?: 'Query', getAllListsOfASubscriber?: Array<{ __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, list: { __typename?: 'List', id: string, name: string, members: number, createdAt: any, starred: boolean }, subscriber: { __typename?: 'Subscriber', emailStatus: SubscriberEmailStatus, id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } }> | null };
 
 export type GetSubscriberListsQueryVariables = Exact<{
   listId: Scalars['String']['input'];
@@ -3330,7 +3332,7 @@ export type GetSubscriberListsQueryVariables = Exact<{
 }>;
 
 
-export type GetSubscriberListsQuery = { __typename?: 'Query', getSubscriberLists?: Array<{ __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } }> | null };
+export type GetSubscriberListsQuery = { __typename?: 'Query', getSubscriberLists?: Array<{ __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } }> | null };
 
 export type GetSubscribersInListCountQueryVariables = Exact<{
   listId: Scalars['String']['input'];
@@ -3345,9 +3347,9 @@ export type RemoveSubscriberFromListMutationVariables = Exact<{
 }>;
 
 
-export type RemoveSubscriberFromListMutation = { __typename?: 'Mutation', removeSubscriberFromList?: { __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } } | null };
+export type RemoveSubscriberFromListMutation = { __typename?: 'Mutation', removeSubscriberFromList?: { __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } } | null };
 
-export type SubscriberListFragment = { __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } };
+export type SubscriberListFragment = { __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } };
 
 export type UnsubscribeFromListMutationVariables = Exact<{
   listId: Scalars['String']['input'];
@@ -3355,14 +3357,14 @@ export type UnsubscribeFromListMutationVariables = Exact<{
 }>;
 
 
-export type UnsubscribeFromListMutation = { __typename?: 'Mutation', unsubscribeFromList?: { __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } } | null };
+export type UnsubscribeFromListMutation = { __typename?: 'Mutation', unsubscribeFromList?: { __typename?: 'SubscriberList', id: string, listId: string, subscriberId: string, createdAt: any, subscriber: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }, emailConcent: { __typename?: 'EmailConcent', state: EmailConcentState, optInLevel: EmailConcentOptInLevel, collectedFrom: EmailConcentCollectedFrom } } | null };
 
 export type GetSubscriberQueryVariables = Exact<{
   subscriberId: Scalars['String']['input'];
 }>;
 
 
-export type GetSubscriberQuery = { __typename?: 'Query', getSubscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
+export type GetSubscriberQuery = { __typename?: 'Query', getSubscriber?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
 
 export type GetSubscriberCountAddedTodayQueryVariables = Exact<{
   subdomain: Scalars['String']['input'];
@@ -3378,7 +3380,7 @@ export type GetSubscribersQueryVariables = Exact<{
 }>;
 
 
-export type GetSubscribersQuery = { __typename?: 'Query', getSubscribers?: Array<{ __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }> | null };
+export type GetSubscribersQuery = { __typename?: 'Query', getSubscribers?: Array<{ __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }> | null };
 
 export type GetSubscribersCountQueryVariables = Exact<{
   subdomain: Scalars['String']['input'];
@@ -3393,7 +3395,7 @@ export type ResubscribeToListMutationVariables = Exact<{
 }>;
 
 
-export type ResubscribeToListMutation = { __typename?: 'Mutation', resubscribeToList?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
+export type ResubscribeToListMutation = { __typename?: 'Mutation', resubscribeToList?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
 
 export type SearchSubscribersQueryVariables = Exact<{
   searchString: Scalars['String']['input'];
@@ -3401,23 +3403,23 @@ export type SearchSubscribersQueryVariables = Exact<{
 }>;
 
 
-export type SearchSubscribersQuery = { __typename?: 'Query', searchSubscribers?: Array<{ __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }> | null };
+export type SearchSubscribersQuery = { __typename?: 'Query', searchSubscribers?: Array<{ __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null }> | null };
 
-export type SubscriberFragment = { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null };
+export type SubscriberFragment = { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null };
 
 export type UnsubscribeFromAllListMutationVariables = Exact<{
   unsubscribeId: Scalars['String']['input'];
 }>;
 
 
-export type UnsubscribeFromAllListMutation = { __typename?: 'Mutation', unsubscribeFromAllList?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
+export type UnsubscribeFromAllListMutation = { __typename?: 'Mutation', unsubscribeFromAllList?: { __typename?: 'Subscriber', id: string, subscriberType: SubscriberType, storeId: string, userId: string, createdAt: any, updatedAt: any, firstName?: string | null, lastName?: string | null, phoneNumber?: any | null, user: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string }, subscriberAddress?: { __typename?: 'SubscriberAddress', address1?: string | null, address2?: string | null, city?: string | null, country?: string | null, state?: string | null, zipCode?: string | null } | null } | null };
 
 export type CompleteOnboardingMutationVariables = Exact<{
   input: CompleteOnboardingInput;
 }>;
 
 
-export type CompleteOnboardingMutation = { __typename?: 'Mutation', completeOnboarding?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
+export type CompleteOnboardingMutation = { __typename?: 'Mutation', completeOnboarding?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
 export type ConfirmCodeAndLoginMutationVariables = Exact<{
   loginCode: Scalars['String']['input'];
@@ -3431,7 +3433,7 @@ export type EmailLoginMutationVariables = Exact<{
 }>;
 
 
-export type EmailLoginMutation = { __typename?: 'Mutation', emailLogin?: { __typename?: 'User', id: string, email: string, name?: string | null, store?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null } | null };
+export type EmailLoginMutation = { __typename?: 'Mutation', emailLogin?: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string, store?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null } | null };
 
 export type GetUserExistByEmailQueryVariables = Exact<{
   email: Scalars['String']['input'];
@@ -3448,14 +3450,14 @@ export type LogoutMutation = { __typename?: 'Mutation', logout?: boolean | null 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, email: string, name?: string | null } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string } | null };
 
 export type SignupWithEmailMutationVariables = Exact<{
   input: CreateUserWithEmailInput;
 }>;
 
 
-export type SignupWithEmailMutation = { __typename?: 'Mutation', signupWithEmail?: { __typename?: 'User', id: string, email: string, name?: string | null } | null };
+export type SignupWithEmailMutation = { __typename?: 'Mutation', signupWithEmail?: { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string } | null };
 
 export type UploadCsvFileEmailsToListMutationVariables = Exact<{
   input: UploadCsvFileEmailsToListInput;
@@ -3464,7 +3466,7 @@ export type UploadCsvFileEmailsToListMutationVariables = Exact<{
 
 export type UploadCsvFileEmailsToListMutation = { __typename?: 'Mutation', uploadCsvFileEmailsToList?: string | null };
 
-export type UserFragment = { __typename?: 'User', id: string, email: string, name?: string | null };
+export type UserFragment = { __typename?: 'User', id: string, email: string, name?: string | null, unlayerSignature: string };
 
 export type CreateConditionalSplitNodeMutationVariables = Exact<{
   input: CreateConditionalSplitNodeInput;
@@ -3816,6 +3818,7 @@ export const UserFragmentDoc = gql`
   id
   email
   name
+  unlayerSignature
 }
     `;
 export const SubscriberFragmentDoc = gql`
@@ -3998,6 +4001,7 @@ export const StoreFragmentDoc = gql`
   id
   subdomain
   name
+  shortId
   currency
   userId
   defaultListIdToCollectEmail

@@ -4,6 +4,7 @@ import type { Integration } from "@sentry/types";
 import posthog from "posthog-js";
 import { StrictMode, startTransition, useEffect } from "react";
 import { hydrateRoot } from "react-dom/client";
+import { getEnvVars } from "../env.server";
 
 if (process.env.NODE_ENV === "production") {
   const {
@@ -11,7 +12,7 @@ if (process.env.NODE_ENV === "production") {
     POSTHOG_ORGANISATION,
     POSTHOG_PROJECT_ID,
     SENTRY_DSN,
-  } = process.env;
+  } = getEnvVars();
 
   posthog.init(String(POSTHOG_TOKEN), {
     api_host: "https://app.posthog.com",

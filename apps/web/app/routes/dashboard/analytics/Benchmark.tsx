@@ -97,7 +97,7 @@ export default function Benchmark() {
           >
             {isLocked && <Skeleton />}
             {!isLocked && rootData.store?.about?.industry && (
-              <Suspense fallback={<IndividualCompany index={0} />}>
+              <Suspense fallback={<Skeleton />}>
                 <Await
                   resolve={loaderData.benchmarkDataPromise}
                   errorElement={<Text>somthing bad happened here</Text>}
@@ -154,6 +154,7 @@ const Header = ({
   isLocked: boolean;
 }) => {
   const rootData = useRouteLoaderData("root") as RootData;
+  const loaderData = useLoaderData() as DashboardData;
 
   return (
     <Box padding={2}>
@@ -184,9 +185,36 @@ const Header = ({
         )}
         <Flex direction="column" gap={2}>
           <Text weight="bold" size="400">
-            {!isLocked &&
-              rootData.store?.about?.industry &&
-              "You're ranked #10"}
+            {!isLocked && rootData.store?.about?.industry && (
+              <Suspense
+                fallback={
+                  <Text size="400" weight="bold">
+                    Calculating Rank...
+                  </Text>
+                }
+              >
+                <Await
+                  resolve={loaderData.benchmarkDataPromise}
+                  errorElement={<Text color="error">Error</Text>}
+                >
+                  {(benchmarkData) => {
+                    return benchmarkData.getBenchmarkData?.map(
+                      (data, index) => {
+                        if (data.id === rootData?.store?.id) {
+                          return (
+                            <Text key={data.id} weight="bold" size="400">
+                              You're Ranked #{index + 1}
+                            </Text>
+                          );
+                        }
+                        return undefined;
+                      }
+                    );
+                  }}
+                </Await>
+              </Suspense>
+            )}
+
             {!isLocked && !rootData.store?.about?.industry && "Unlocked!"}
             {isLocked && "Locked!"}
           </Text>

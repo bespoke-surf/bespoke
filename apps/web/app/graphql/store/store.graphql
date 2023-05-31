@@ -2,6 +2,7 @@ fragment Store on Store {
   id
   subdomain
   name
+  shortId
   currency
   userId
   defaultListIdToCollectEmail
