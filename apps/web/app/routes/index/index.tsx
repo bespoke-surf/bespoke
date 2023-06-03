@@ -1,10 +1,9 @@
 import type {
   ActionFunction,
   HeadersFunction,
-  LinksFunction,
   LoaderFunction,
 } from "@remix-run/node";
-import { json, redirect, Response } from "@remix-run/node";
+import { Response, json, redirect } from "@remix-run/node";
 import { useNavigation, useRouteLoaderData, useSubmit } from "@remix-run/react";
 import { useCallback } from "react";
 import { sdk } from "~/graphql/graphqlWrapper.server";
@@ -18,8 +17,7 @@ import {
 import { validateForm } from "~/utils/validateForm.server";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
-import LandingPage, { links as landingPageLinks } from "./LandingPage";
-import { links as readerLinks } from "./PostCreate";
+import NewLandingPage from "./LandingPage";
 import Posts from "./Posts";
 import type { IndexData } from "./types";
 import { CreateNewPostSchema, IndexActionEnum, POST_TAKE } from "./types";
@@ -32,10 +30,6 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
     "cache-control": loaderHeaders.get("cache-control") ?? "no-store",
   };
-};
-
-export const links: LinksFunction = () => {
-  return [...landingPageLinks(), ...readerLinks()];
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -201,7 +195,7 @@ export default function App() {
     submit(formData, { method: "post" });
   }, [loading, rootLoaderData.store?.id, submit]);
 
-  if (rootLoaderData?.subdomain === undefined) return <LandingPage />;
+  if (rootLoaderData?.subdomain === undefined) return <NewLandingPage />;
 
   return <Posts createPost={handleOpenReader} />;
 }

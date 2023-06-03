@@ -4,9 +4,10 @@ import { ExpressAdapter } from '@bull-board/express';
 import { RawBodyRequest } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Queue } from 'bull';
 import RedisStore from 'connect-redis';
-import { json, NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response, json } from 'express';
 import session from 'express-session';
 import helmet from 'helmet';
 import Redis from 'ioredis';
@@ -115,7 +116,7 @@ async function bootstrap() {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        maxAge: 1000 * 60 * 60 * 24,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
         domain:
           NODE_ENV === 'production'
@@ -125,6 +126,16 @@ async function bootstrap() {
       },
     }),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('Cats example')
+    .setDescription('The cats API description')
+    .setVersion('2023-06-01')
+    .addTag('cats')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(PORT);
   console.log(`Server started at http://localhost:${PORT}/graphql`);

@@ -1,7 +1,6 @@
 import { defer, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import { Box, Container, Flex, PageHeader } from "gestalt";
-import { useMemo } from "react";
 
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { ClientOnly } from "remix-utils";
@@ -92,12 +91,8 @@ const pages: Pages[] = [
       "Each subscribers belong to a list. Create a list to add subscribers.",
   },
 ];
-
+const boxes = pages.map((data) => <Boxes data={data} key={data.title} />);
 export default function Builds() {
-  const boxes = useMemo(
-    () => pages.map((data) => <Boxes data={data} key={data.title} />),
-    []
-  );
   return (
     <>
       <BigContainer>

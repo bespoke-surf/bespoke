@@ -269,7 +269,7 @@ export default function SubscribersIndex() {
                     <Table.HeaderCell>
                       <Text weight="bold">Subscription Date</Text>
                     </Table.HeaderCell>
-                    <Table.HeaderCell />
+                    <Table.HeaderCell>{}</Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
 

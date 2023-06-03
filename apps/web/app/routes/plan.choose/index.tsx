@@ -317,6 +317,7 @@ export default function Choose() {
           <Box marginTop={8} />
           <Divider />
           <Box marginTop={8} />
+
           <Flex direction="row" justifyContent="between">
             <Flex direction="column" gap={3}>
               <Heading size="400">Basic</Heading>

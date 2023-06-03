@@ -1,130 +1,95 @@
-import type { LinksFunction } from "@remix-run/node";
-import { Box, Image } from "gestalt";
-import { Suspense, useReducer } from "react";
+import {
+  Box,
+  Callout,
+  Container,
+  Flex,
+  Heading,
+  List,
+  PageHeader,
+  Upsell,
+} from "gestalt";
 import BigContainer from "../../components/BigContainer";
-import Footer from "../../components/Footer";
-import PublicMobileNav from "../../components/PublicMobileNav";
-import PublicNav from "../../components/PublicNav";
-import JoinTheWaitlist from "../../components/footer/JoinTheWaitlist";
-import { CdnType } from "../../graphql/__generated__/graphql";
-import { getImageSrcAndSrcSet } from "../../utils/getCloudinarySrcAndSrcSet";
-import { links as analyticsLinks } from "./newLanding/Analytics";
-import ComparisonTable from "./newLanding/ComparisonTable";
-import Head from "./newLanding/Head";
-import { links as headerLInks } from "./newLanding/Header";
-import { links as OurServicesLinks } from "./newLanding/OurServices";
-import PoundCount, { links as pricingLinks } from "./newLanding/Pricing";
-import SectionMore from "./newLanding/SectionMore";
-import SectionValue from "./newLanding/SectionValue";
-import Subscription from "./newLanding/Subscription";
-import { links as whyChooseUsLinks } from "./newLanding/WhyChooseUs";
-export const links: LinksFunction = () => {
-  return [
-    ...analyticsLinks(),
-    ...headerLInks(),
-    ...OurServicesLinks(),
-    ...pricingLinks(),
-    ...whyChooseUsLinks(),
-  ];
-};
+import ComparisonTable from "./LandingPage/ComparisonTable";
+import { Navigation } from "./LandingPage/Navigation";
 
-const image = [
-  "https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1683444614/Frame_14_1_aceeti.png",
+const common = [
+  "Design Email",
+  "Segmentation (coming soon)",
+  "Campaign (coming soon)",
+  "A/B Testing & Dashboard Analytics",
+  "9 Templates & 2 Forms",
+  "Periodic Reports",
+  "Newsletter",
+  "Sign-up Form",
+  "Subscription Rewards Every Month",
+  "Ticket & Chat Support",
+  "Automation",
+  "Dedicated IPs (coming soon)",
+  "Benchmarks",
 ];
 
 export default function LandingPage() {
-  const src = getImageSrcAndSrcSet(image[0], false, CdnType.Cloudinary);
-  const [waitList, setWaitlist] = useReducer((s) => !s, false);
   return (
-    <>
-      <PublicNav />
-      <PublicMobileNav />
-      <BigContainer>
-        <Box marginTop={12} paddingX={4}>
-          <Head />
-        </Box>
-        <Box
-          dangerouslySetInlineStyle={{
-            __style: {
-              marginBottom: "6rem",
-            },
-          }}
-        />
-        <Box paddingX={4}>
-          <Image
-            src={image[0] ?? ""}
-            alt="Unlock 35 rewards and 600 credits"
-            color="#0a295a"
-            srcSet={src?.srcSet}
-            sizes={src?.sizes}
-            naturalHeight={900}
-            naturalWidth={1600}
-          />
-        </Box>
-        <Box
-          dangerouslySetInlineStyle={{
-            __style: {
-              marginBottom: "6rem",
-            },
-          }}
-        />
-        <Box paddingX={4}>
-          <SectionValue />
-        </Box>
-        <Box
-          dangerouslySetInlineStyle={{
-            __style: {
-              marginBottom: "6rem",
-            },
-          }}
-        />
-      </BigContainer>
-      <Box color="primary">
-        <BigContainer>
-          <Box
-            paddingX={4}
-            dangerouslySetInlineStyle={{ __style: { color: "white" } }}
-          >
-            <PoundCount />
-          </Box>
-        </BigContainer>
-      </Box>
-      <BigContainer>
-        <Box
-          paddingX={4}
-          dangerouslySetInlineStyle={{
-            __style: { marginTop: "6rem", marginBottom: "6rem" },
-          }}
-        >
-          <Subscription />
-        </Box>
-        <ComparisonTable />
-      </BigContainer>
-      <BigContainer>
-        <Box paddingX={4}>
-          <hr className="Hru" />
-        </Box>
-      </BigContainer>
-      <BigContainer>
-        <Box paddingX={4}>
-          <SectionMore />
-        </Box>
-      </BigContainer>
-      <Box
-        dangerouslySetInlineStyle={{
-          __style: {
-            marginBottom: "6rem",
-            marginTop: "6rem",
-          },
-        }}
-      />
+    <BigContainer>
+      <Flex alignItems="start">
+        <Navigation />
+        <Flex.Item flex="grow">
+          <Container>
+            <PageHeader
+              title="Open Source Email, Automation & Newsletter"
+              subtext="Combining best parts of Mailchimp, Klaviyo's automation, Substack's newsletter & eventually Typeform for surveys"
+            />
+            <Flex justifyContent="center">
+              <Box width="92.5%" paddingY={6}>
+                <Flex direction="column" gap={12}>
+                  <Callout
+                    title="Self Host or Sign Up!"
+                    message="Self host Bespoke today, follow instruction on Github or Sign up to use Bespoke"
+                    iconAccessibilityLabel="recommendation"
+                    type="recommendation"
+                    primaryAction={{
+                      label: "Sign Up",
+                      accessibilityLabel: "Sign Up",
+                    }}
+                    secondaryAction={{
+                      label: "Github",
+                      accessibilityLabel: "Github",
+                    }}
+                  />
+                  <ComparisonTable />
+                  <Upsell
+                    message="Get started with our free plan"
+                    title="Pricing"
+                    primaryAction={{
+                      label: "Pricing",
+                      accessibilityLabel: "Pricing",
+                    }}
+                    secondaryAction={{
+                      label: "Get started",
+                      accessibilityLabel: "sign up",
+                    }}
+                  />
 
-      <Footer />
-      {waitList && (
-        <Suspense>
-          <JoinTheWaitlist dismiss={setWaitlist} />
-        </Suspense>
-      )}
-    </>
+                  <Flex gap={4} direction="column">
+                    <Heading accessibilityLevel="none" size="400">
+                      Feature Summary
+                    </Heading>
+                    <List
+                      labelDisplay="hidden"
+                      label="Use the synchronous analytics endpoints if:"
+                      type="unordered"
+                    >
+                      {common.map((value) => (
+                        <List.Item text={value} key={value} />
+                      ))}
+                    </List>
+                  </Flex>
+                </Flex>
+              </Box>
+            </Flex>
+          </Container>
+        </Flex.Item>
+      </Flex>
+    </BigContainer>
   );
 }

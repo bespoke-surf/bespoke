@@ -22,7 +22,7 @@ import type { SubscribersSubscriberIndexData } from "./types";
 export default function Metrics() {
   const { subscriberId } = useParams<{ subscriberId: string }>();
   const loaderData = useLoaderData<SubscribersSubscriberIndexData>();
-  const [items, setItems] = useState<typeof loaderData["metrics"]>(
+  const [items, setItems] = useState<(typeof loaderData)["metrics"]>(
     loaderData.metrics ? loaderData.metrics : []
   );
   const [options, setOptions] = useState(defaultOptions);
@@ -143,8 +143,8 @@ export default function Metrics() {
         <Table accessibilityLabel="Activity feed table">
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell />
-              <Table.HeaderCell />
+              <Table.HeaderCell>{}</Table.HeaderCell>
+              <Table.HeaderCell>{}</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>{metrics}</Table.Body>
