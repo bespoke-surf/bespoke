@@ -1,0 +1,5 @@
+query GetApiKeys($subdomain: String!) {
+  getApiKeys(subdomain: $subdomain) {
+    ...ApiKey
+  }
+}

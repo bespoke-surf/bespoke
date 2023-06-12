@@ -71,6 +71,17 @@ export default function SettingIndex() {
                 />
               </Flex>
             </Link>
+            <Link to="api-keys" prefetch="intent">
+              <Flex justifyContent="between" alignItems="center">
+                <Heading size="400">API Keys</Heading>
+                <Icon
+                  accessibilityLabel="arrow forward"
+                  icon="arrow-forward"
+                  size={15}
+                  color="dark"
+                />
+              </Flex>
+            </Link>
           </Flex>
         </Box>
       </Flex>

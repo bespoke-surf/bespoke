@@ -1,18 +1,20 @@
 import { createBullBoard } from '@bull-board/api';
 import { BullAdapter } from '@bull-board/api/bullAdapter';
 import { ExpressAdapter } from '@bull-board/express';
-import { RawBodyRequest } from '@nestjs/common';
+import { RawBodyRequest, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Queue } from 'bull';
 import RedisStore from 'connect-redis';
 import { NextFunction, Request, Response, json } from 'express';
+import expressListRoutes from 'express-list-routes';
 import session from 'express-session';
 import helmet from 'helmet';
 import Redis from 'ioredis';
 import invariant from 'tiny-invariant';
 import { AppModule } from './app.module';
+
+import { SwaggerModule } from '@nestjs/swagger';
 import {
   STORE_DIALY_CRON_QUEUE,
   STORE_PRODUCT_UPLOAD_QUEUE,
@@ -25,6 +27,7 @@ import {
   USER_SNS_EMAIL_METRIC_WEBHOOK_QUEUE,
   USER_STORE_UPLOAD_CSV_FILE_QUEUE,
 } from './constants';
+import { listApiDocument, subscriberApiDocument } from './utils/openApiBuilder';
 
 declare module 'express-session' {
   interface SessionData {
@@ -59,11 +62,24 @@ async function bootstrap() {
     },
   });
 
+  app.useGlobalPipes(new ValidationPipe());
+
   if (NODE_ENV === 'production') {
     app.set('trust proxy', 1);
   }
 
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: [`'self'`],
+          styleSrc: [`'self'`, `'unsafe-inline'`],
+          imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+          scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+        },
+      },
+    }),
+  );
 
   if (NODE_ENV === 'development') {
     const serverAdapter = new ExpressAdapter();
@@ -127,36 +143,19 @@ async function bootstrap() {
     }),
   );
 
-  const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
-    .setVersion('2023-06-01')
-    .addTag('cats')
-    .build();
-
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  if (process.env.NODE_ENV === 'development') {
+    const listDoument = listApiDocument(app);
+    SwaggerModule.setup('api/list', app, listDoument);
+    const subscriber = subscriberApiDocument(app);
+    SwaggerModule.setup('api/subscriber', app, subscriber);
+  }
 
   await app.listen(PORT);
   console.log(`Server started at http://localhost:${PORT}/graphql`);
-  // const server = app.getHttpServer();
-  // const router = server._events.request._router;
 
-  // if (process.env.NODE_ENV === 'development') {
-  //   const availableRoutes: [] = router.stack
-  //     .map((layer: any) => {
-  //       if (layer.route) {
-  //         return {
-  //           route: {
-  //             path: layer.route?.path,
-  //             method: layer.route?.stack[0].method,
-  //           },
-  //         };
-  //       }
-  //       return undefined;
-  //     })
-  //     .filter((item: any) => item !== undefined);
-  //   console.log(availableRoutes);
-  // }
+  if (process.env.NODE_ENV === 'development') {
+    const express = app.getHttpAdapter().getInstance();
+    console.log(expressListRoutes(express));
+  }
 }
 bootstrap();

@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { About } from '../about/about.entity';
+import { ApiKey } from '../apiKey/apiKey.entity';
 import { Integration } from '../integration/integration.entity';
 import { List } from '../list/list.entity';
 import { Post } from '../post/post.entity';
@@ -30,6 +31,7 @@ import { AuthorizationService } from './authorization.service';
       Workflow,
       WorkflowState,
       About,
+      ApiKey,
     ]),
   ],
   providers: [AuthorizationService],

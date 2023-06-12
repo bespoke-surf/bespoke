@@ -1,0 +1,9 @@
+fragment ApiKey on ApiKey {
+  id
+  name
+  key
+  accessLevel
+  scopes
+  lastUsed
+  createdAt
+}

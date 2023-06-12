@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { About } from '../about/about.entity';
+import { ApiKey } from '../apiKey/apiKey.entity';
 import { Integration } from '../integration/integration.entity';
 import { List } from '../list/list.entity';
 import { Post } from '../post/post.entity';
@@ -13,7 +14,6 @@ import { Subscriber } from '../subscriber/subscriber.entity';
 import { User } from '../user/user.entity';
 import { WorkflowState } from '../workflow-state/workflow-state.entity';
 import { Workflow } from '../workflow/workflow.entity';
-
 @Injectable()
 export class AuthorizationService {
   constructor(
@@ -41,6 +41,8 @@ export class AuthorizationService {
     private workflowStateRepo: Repository<WorkflowState>,
     @InjectRepository(About)
     private aboutRepo: Repository<About>,
+    @InjectRepository(ApiKey)
+    private apiKeyRepo: Repository<ApiKey>,
   ) {}
 
   async validUser(userId: string) {
@@ -188,6 +190,40 @@ export class AuthorizationService {
       .createQueryBuilder('about')
       .where('about.id =:aboutId', { aboutId })
       .leftJoinAndSelect('about.store', 'store')
+      .leftJoinAndSelect('store.user', 'user')
+      .andWhere('user.id =:userId', { userId })
+      .getOne();
+    if (list) return true;
+    return false;
+  }
+
+  async hasApiKeyAccess(apiKeyId: string) {
+    const apiKey = await this.apiKeyRepo.findOne({
+      where: {
+        key: apiKeyId,
+      },
+    });
+    if (!apiKey) return false;
+
+    //TODO: not sure if we should do this. API's hit all the time, might slow down the db.
+    // need to think make this efficent, maybe only update it once in a while etc...
+    // await this.apiKeyRepo.update(apiKey.id, {
+    //   lastUsed: new Date(),
+    // });
+
+    return true;
+  }
+
+  async getApiKey(apiKeyId: string): Promise<ApiKey | null> {
+    const apiKey = await this.apiKeyRepo.findOne({ where: { key: apiKeyId } });
+    return apiKey;
+  }
+
+  async hasStoreAccessWithApiKey(userId: string, apiKeyId: string) {
+    const list = await this.apiKeyRepo
+      .createQueryBuilder('apiKey')
+      .where('apiKey.id =:apiKeyId', { apiKeyId })
+      .leftJoinAndSelect('apiKey.store', 'store')
       .leftJoinAndSelect('store.user', 'user')
       .andWhere('user.id =:userId', { userId })
       .getOne();

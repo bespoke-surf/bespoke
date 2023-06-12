@@ -34,18 +34,21 @@ export const Navigation = () => {
             active={location.pathname === "/pricing" ? "page" : undefined}
             label="Free Plan | Pricing"
           />
+
           <SideNavigation.Section label="App">
             <SideNavigation.TopItem href="" label="Sign Up" />
             <SideNavigation.TopItem href="" label="Login" />
             <SideNavigation.TopItem href="" label="See What's New" />
+            <SideNavigation.Group label="Support">
+              <SideNavigation.NestedItem href="" label="Devs on Discord" />
+              <SideNavigation.NestedItem href="" label="Twitter" />
+              <SideNavigation.NestedItem href="" label="Email Us" />
+            </SideNavigation.Group>
           </SideNavigation.Section>
-          <SideNavigation.Section label="Support">
-            <SideNavigation.TopItem href="" label="Devs on Discord" />
-            <SideNavigation.TopItem href="" label="Twitter" />
-            <SideNavigation.TopItem href="" label="Email Us" />
-          </SideNavigation.Section>
-          <SideNavigation.Section label="">
-            <SideNavigation.TopItem href="" label="Self Host | Github" />
+
+          <SideNavigation.Section label="Guides & References">
+            <SideNavigation.TopItem href="" label="Self Host Guide | Github" />
+            <SideNavigation.TopItem href="" label="API Reference" />
           </SideNavigation.Section>
         </SideNavigation>
       </Box>

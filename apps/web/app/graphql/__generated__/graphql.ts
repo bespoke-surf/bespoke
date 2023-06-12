@@ -78,6 +78,33 @@ export type AddSignupFormItem = {
   storeId: Scalars['String']['input'];
 };
 
+/** ApiAccessLevel */
+export enum ApiAccessLevel {
+  Custom = 'CUSTOM',
+  Full = 'FULL',
+  Read = 'READ'
+}
+
+export type ApiKey = {
+  __typename?: 'ApiKey';
+  accessLevel: ApiAccessLevel;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  key: Scalars['String']['output'];
+  lastUsed?: Maybe<Scalars['DateTime']['output']>;
+  name: Scalars['String']['output'];
+  scopes: Array<ApiKeyAccessScopeEnum>;
+  storeId: Scalars['String']['output'];
+};
+
+/** Diffrent api key access scope enums */
+export enum ApiKeyAccessScopeEnum {
+  ListManage = 'LIST_MANAGE',
+  ListRead = 'LIST_READ',
+  SubscriberManage = 'SUBSCRIBER_MANAGE',
+  SubscriberRead = 'SUBSCRIBER_READ'
+}
+
 /** Workflow state delay activity vlaue */
 export type BaseConditionalFilter = {
   __typename?: 'BaseConditionalFilter';
@@ -909,6 +936,7 @@ export type Mutation = {
   confirmCodeAndLogin?: Maybe<Scalars['Boolean']['output']>;
   /** convert workflow to public */
   convertWorkflowToPublic?: Maybe<Workflow>;
+  createApiKey?: Maybe<ApiKey>;
   /** create checkout session url */
   createCheckoutSessionUrl?: Maybe<Scalars['String']['output']>;
   /** update conditional split node */
@@ -940,6 +968,7 @@ export type Mutation = {
   createTriggerSplitNode?: Maybe<WorkflowState>;
   /** create workflows */
   createWorkflow?: Maybe<Workflow>;
+  deleteApiKey?: Maybe<Scalars['String']['output']>;
   /** delete list with id */
   deleteList: List;
   /** delete post */
@@ -1099,6 +1128,14 @@ export type MutationConvertWorkflowToPublicArgs = {
 };
 
 
+export type MutationCreateApiKeyArgs = {
+  accessLevel: ApiAccessLevel;
+  name: Scalars['String']['input'];
+  scopes?: InputMaybe<Array<ApiKeyAccessScopeEnum>>;
+  storeId: Scalars['String']['input'];
+};
+
+
 export type MutationCreateCheckoutSessionUrlArgs = {
   stripePriceId: Scalars['String']['input'];
   subdomain: Scalars['String']['input'];
@@ -1185,6 +1222,11 @@ export type MutationCreateTriggerSplitNodeArgs = {
 
 export type MutationCreateWorkflowArgs = {
   subdomain: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteApiKeyArgs = {
+  apiKeyId: Scalars['String']['input'];
 };
 
 
@@ -1610,6 +1652,7 @@ export type Query = {
   getAllPublishedPostForSiteMap?: Maybe<Array<Post>>;
   /** get all stores for sitemap */
   getAllStoresForSiteMap?: Maybe<Array<Store>>;
+  getApiKeys?: Maybe<Array<ApiKey>>;
   /** get benchmark data */
   getBenchmarkData?: Maybe<Array<BenchmarkData>>;
   getCurrentStoreChallengesByQuestType?: Maybe<Array<StoreChallenge>>;
@@ -1738,6 +1781,11 @@ export type QueryGetAboutArgs = {
 
 export type QueryGetAllListsOfASubscriberArgs = {
   unsubscriberId: Scalars['String']['input'];
+};
+
+
+export type QueryGetApiKeysArgs = {
+  subdomain: Scalars['String']['input'];
 };
 
 
@@ -2584,6 +2632,32 @@ export type UpdateIndustryMutationVariables = Exact<{
 
 
 export type UpdateIndustryMutation = { __typename?: 'Mutation', updateIndustry?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null };
+
+export type ApiKeyFragment = { __typename?: 'ApiKey', id: string, name: string, key: string, accessLevel: ApiAccessLevel, scopes: Array<ApiKeyAccessScopeEnum>, lastUsed?: any | null, createdAt: any };
+
+export type CreateApiKeyMutationVariables = Exact<{
+  name: Scalars['String']['input'];
+  storeId: Scalars['String']['input'];
+  accessLevel: ApiAccessLevel;
+  scopes?: InputMaybe<Array<ApiKeyAccessScopeEnum> | ApiKeyAccessScopeEnum>;
+}>;
+
+
+export type CreateApiKeyMutation = { __typename?: 'Mutation', createApiKey?: { __typename?: 'ApiKey', id: string, name: string, key: string, accessLevel: ApiAccessLevel, scopes: Array<ApiKeyAccessScopeEnum>, lastUsed?: any | null, createdAt: any } | null };
+
+export type DeleteApiKeyMutationVariables = Exact<{
+  apiKeyId: Scalars['String']['input'];
+}>;
+
+
+export type DeleteApiKeyMutation = { __typename?: 'Mutation', deleteApiKey?: string | null };
+
+export type GetApiKeysQueryVariables = Exact<{
+  subdomain: Scalars['String']['input'];
+}>;
+
+
+export type GetApiKeysQuery = { __typename?: 'Query', getApiKeys?: Array<{ __typename?: 'ApiKey', id: string, name: string, key: string, accessLevel: ApiAccessLevel, scopes: Array<ApiKeyAccessScopeEnum>, lastUsed?: any | null, createdAt: any }> | null };
 
 export type BillingFragment = { __typename?: 'Billing', id: string, cancelAtPeriodEnd: boolean, billingPlanStatus: BillingPlanStatus, billingSubscriptionEntity?: BillingSubscriptionEntity | null, currentPeriodEnd?: any | null, bespokePlanId: string };
 
@@ -3699,6 +3773,17 @@ export type WorkflowFragment = { __typename?: 'Workflow', id: string, name: stri
 
 export type BaseTriggerFilterFragment = { __typename?: 'BaseTriggerFilter', dimension?: BaseTriggerFilterDimensionEnum | null, type?: BaseTriggerFilterTypeEnum | null, value?: { __typename: 'BaseTriggerFilterBooleanValue', booleanValue?: boolean | null } | { __typename: 'BaseTriggerFilterDateValue', dateExpression?: BaseTriggerFilterDateValueExpressionEnum | null, dateValue1?: number | null, dateValue2?: number | null, dateDate1?: string | null, dateDate2?: string | null, dateDelayType?: DelayTypeEnum | null } | { __typename: 'BaseTriggerFilterListValue', listExpression?: BaseTriggerFilterListValueExpressionEnum | null, listValue?: string | null } | { __typename: 'BaseTriggerFilterNumberValue', numberExpression?: BaseTriggerFilterNumberValueExpressionEnum | null, numberValue?: number | null } | { __typename: 'BaseTriggerFilterTextValue', textExpression?: BaseTriggerFilterTextValueExpressionEnum | null, textValue?: string | null } | null };
 
+export const ApiKeyFragmentDoc = gql`
+    fragment ApiKey on ApiKey {
+  id
+  name
+  key
+  accessLevel
+  scopes
+  lastUsed
+  createdAt
+}
+    `;
 export const BillingFragmentDoc = gql`
     fragment Billing on Billing {
   id
@@ -4229,6 +4314,30 @@ export const UpdateIndustryDocument = gql`
   }
 }
     ${AboutFragmentDoc}`;
+export const CreateApiKeyDocument = gql`
+    mutation CreateApiKey($name: String!, $storeId: String!, $accessLevel: ApiAccessLevel!, $scopes: [ApiKeyAccessScopeEnum!]) {
+  createApiKey(
+    storeId: $storeId
+    name: $name
+    accessLevel: $accessLevel
+    scopes: $scopes
+  ) {
+    ...ApiKey
+  }
+}
+    ${ApiKeyFragmentDoc}`;
+export const DeleteApiKeyDocument = gql`
+    mutation DeleteApiKey($apiKeyId: String!) {
+  deleteApiKey(apiKeyId: $apiKeyId)
+}
+    `;
+export const GetApiKeysDocument = gql`
+    query GetApiKeys($subdomain: String!) {
+  getApiKeys(subdomain: $subdomain) {
+    ...ApiKey
+  }
+}
+    ${ApiKeyFragmentDoc}`;
 export const GetStoreBillingDocument = gql`
     query GetStoreBilling($subdomain: String!) {
   getStoreBilling(subdomain: $subdomain) {
@@ -5225,6 +5334,15 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     UpdateIndustry(variables: UpdateIndustryMutationVariables, options?: C): Promise<UpdateIndustryMutation> {
       return requester<UpdateIndustryMutation, UpdateIndustryMutationVariables>(UpdateIndustryDocument, variables, options) as Promise<UpdateIndustryMutation>;
+    },
+    CreateApiKey(variables: CreateApiKeyMutationVariables, options?: C): Promise<CreateApiKeyMutation> {
+      return requester<CreateApiKeyMutation, CreateApiKeyMutationVariables>(CreateApiKeyDocument, variables, options) as Promise<CreateApiKeyMutation>;
+    },
+    DeleteApiKey(variables: DeleteApiKeyMutationVariables, options?: C): Promise<DeleteApiKeyMutation> {
+      return requester<DeleteApiKeyMutation, DeleteApiKeyMutationVariables>(DeleteApiKeyDocument, variables, options) as Promise<DeleteApiKeyMutation>;
+    },
+    GetApiKeys(variables: GetApiKeysQueryVariables, options?: C): Promise<GetApiKeysQuery> {
+      return requester<GetApiKeysQuery, GetApiKeysQueryVariables>(GetApiKeysDocument, variables, options) as Promise<GetApiKeysQuery>;
     },
     GetStoreBilling(variables: GetStoreBillingQueryVariables, options?: C): Promise<GetStoreBillingQuery> {
       return requester<GetStoreBillingQuery, GetStoreBillingQueryVariables>(GetStoreBillingDocument, variables, options) as Promise<GetStoreBillingQuery>;

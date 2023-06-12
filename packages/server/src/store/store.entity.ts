@@ -11,6 +11,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { About } from '../about/about.entity';
+import { ApiKey } from '../apiKey/apiKey.entity';
 import { Billing } from '../billing/billing.entity';
 import { Credit } from '../credit/credit.entity';
 import { Integration } from '../integration/integration.entity';
@@ -119,6 +120,9 @@ export class Store {
 
   @OneToMany(() => Metric, (metric) => metric.store)
   metric: Relation<Metric[]>;
+
+  @OneToMany(() => ApiKey, (apiKey) => apiKey.store)
+  apiKey: Relation<ApiKey[]>;
 
   @OneToOne(() => Integration, (integration) => integration.store, {
     nullable: true,

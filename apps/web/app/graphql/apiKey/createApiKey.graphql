@@ -1,0 +1,15 @@
+mutation CreateApiKey(
+  $name: String!
+  $storeId: String!
+  $accessLevel: ApiAccessLevel!
+  $scopes: [ApiKeyAccessScopeEnum!]
+) {
+  createApiKey(
+    storeId: $storeId
+    name: $name
+    accessLevel: $accessLevel
+    scopes: $scopes
+  ) {
+    ...ApiKey
+  }
+}

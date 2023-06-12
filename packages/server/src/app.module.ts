@@ -16,6 +16,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphqlInterceptor, SentryModule } from '@ntegral/nestjs-sentry';
 import { ApiVersion, LogSeverity } from '@shopify/shopify-api';
@@ -23,17 +24,23 @@ import '@shopify/shopify-api/adapters/node';
 import { restResources } from '@shopify/shopify-api/rest/admin/2023-01';
 import cors from 'cors';
 import { GraphQLJSONObject, PhoneNumberResolver } from 'graphql-scalars';
+import { ThrottlerStorageRedisService } from 'nestjs-throttler-storage-redis';
 import { join } from 'node:path';
 import { Migrations1684427301725 } from '../migrations/1684427301725-migrations';
 import { Migrations1684584388289 } from '../migrations/1684584388289-migrations';
 import { Migrations1685179383693 } from '../migrations/1685179383693-migrations';
 import { Migrations1685184841744 } from '../migrations/1685184841744-migrations';
 import { Migrations1685186715544 } from '../migrations/1685186715544-migrations';
+import { Migrations1685924820793 } from '../migrations/1685924820793-migrations';
+import { Migrations1686443589817 } from '../migrations/1686443589817-migrations';
+import { Migrations1686446395750 } from '../migrations/1686446395750-migrations';
 import { AboutModule } from './about/about.module';
+import { ApiKeyModule } from './apiKey/apiKey.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthorizationModule } from './authorization/authorization.module';
 import { BillingModule } from './billing/billing.module';
+import { CaslModule } from './casl/casl.module';
 import { ChallengeModule } from './challenge/challenge.module';
 import { CreditModule } from './credit/credit.module';
 import { EventModule } from './event/event.module';
@@ -73,6 +80,18 @@ import { WorkflowModule } from './workflow/workflow.module';
 
 @Module({
   imports: [
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        storage: new ThrottlerStorageRedisService({
+          host: configService.get('REDIS_HOST'),
+          port: configService.get('REDIS_PORT'),
+          password: configService.get('REDIS_PASSWORD'),
+          tls: configService.get('NODE_ENV') === 'production' ? {} : undefined,
+        }),
+      }),
+    }),
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot(),
     ConfigModule.forRoot({
@@ -106,6 +125,9 @@ import { WorkflowModule } from './workflow/workflow.module';
           Migrations1685179383693,
           Migrations1685184841744,
           Migrations1685186715544,
+          Migrations1685924820793,
+          Migrations1686443589817,
+          Migrations1686446395750,
         ],
         url: configService.get('DATABASE_URL') as string,
         // replication: {
@@ -137,6 +159,7 @@ import { WorkflowModule } from './workflow/workflow.module';
         autoSchemaFile: join(process.cwd(), './schema.gql'),
         sortSchema: true,
         cache: 'bounded',
+        csrfPrevention: true,
         plugins: [ApolloServerPluginLandingPageLocalDefault()],
         resolvers: {
           PhoneNumber: PhoneNumberResolver,
@@ -266,6 +289,8 @@ import { WorkflowModule } from './workflow/workflow.module';
     CreditModule,
     SesModule,
     SessionModule,
+    CaslModule,
+    ApiKeyModule,
   ],
   controllers: [AppController],
   providers: [

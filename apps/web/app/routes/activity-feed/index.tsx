@@ -227,8 +227,8 @@ function ActivityFeed() {
               <Table accessibilityLabel="Activity feed table">
                 <Table.Header>
                   <Table.Row>
-                    <Table.HeaderCell />
-                    <Table.HeaderCell />
+                    <Table.HeaderCell>{}</Table.HeaderCell>
+                    <Table.HeaderCell>{}</Table.HeaderCell>
                   </Table.Row>
                 </Table.Header>
 

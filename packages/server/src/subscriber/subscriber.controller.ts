@@ -1,8 +1,10 @@
 import { Controller, HttpStatus, Post, Query, Res } from '@nestjs/common';
+import { ApiExcludeController } from '@nestjs/swagger';
 import { Response } from 'express';
 import { SubscriberService } from './subscriber.service';
 
-@Controller('subscriber')
+@ApiExcludeController()
+@Controller()
 export class SubscriberController {
   constructor(private subscirberService: SubscriberService) {}
 

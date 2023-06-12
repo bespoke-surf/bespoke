@@ -1,9 +1,11 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  FindOptionsSelect,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -15,6 +17,15 @@ import { PostList } from '../post-list/post-list.entity';
 import { SignupForm } from '../signup-form/signup-form.entity';
 import { Store } from '../store/store.entity';
 import { SubscriberList } from '../subscriber-list/subscriber-list.entity';
+
+export const listSelect: FindOptionsSelect<List> = {
+  id: true,
+  isDefaultStoreList: true,
+  name: true,
+  starred: true,
+  createdAt: true,
+  updatedAt: true,
+};
 
 @ObjectType({
   description: 'List',
@@ -34,14 +45,17 @@ export class List {
   @Field(() => Int)
   members: number;
 
+  @ApiProperty()
   @Field()
   @Column({ default: false })
   isDefaultStoreList: boolean;
 
+  @ApiProperty()
   @Field()
   @Column()
   name: string;
 
+  @ApiProperty()
   @Field()
   @Column({ default: false })
   starred: boolean;
@@ -49,7 +63,6 @@ export class List {
   @Column({ type: 'uuid' })
   storeId: string;
 
-  @Field(() => Store, { nullable: true })
   @ManyToOne(() => Store, (store) => store.list, {
     onDelete: 'CASCADE',
   })
@@ -67,10 +80,13 @@ export class List {
   @OneToMany(() => SignupForm, (signupForm) => signupForm.list)
   signupForm: Relation<SignupForm[]>;
 
+  @ApiProperty()
   @Field(() => Date)
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
+  @ApiProperty()
+  @Field()
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 

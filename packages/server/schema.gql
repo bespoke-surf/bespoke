@@ -60,6 +60,32 @@ input AddSignupFormItem {
   storeId: String!
 }
 
+"""ApiAccessLevel"""
+enum ApiAccessLevel {
+  CUSTOM
+  FULL
+  READ
+}
+
+type ApiKey {
+  accessLevel: ApiAccessLevel!
+  createdAt: DateTime!
+  id: ID!
+  key: String!
+  lastUsed: DateTime
+  name: String!
+  scopes: [ApiKeyAccessScopeEnum!]!
+  storeId: String!
+}
+
+"""Diffrent api key access scope enums"""
+enum ApiKeyAccessScopeEnum {
+  LIST_MANAGE
+  LIST_READ
+  SUBSCRIBER_MANAGE
+  SUBSCRIBER_READ
+}
+
 """Workflow state delay activity vlaue"""
 type BaseConditionalFilter {
   condition: BaseConditionalFilterConditionEnum
@@ -684,7 +710,7 @@ type List {
   members: Int!
   name: String!
   starred: Boolean!
-  store: Store
+  updatedAt: DateTime!
 }
 
 """Subscriber Metric"""
@@ -868,6 +894,7 @@ type Mutation {
 
   """convert workflow to public"""
   convertWorkflowToPublic(workflowId: String!): Workflow
+  createApiKey(accessLevel: ApiAccessLevel!, name: String!, scopes: [ApiKeyAccessScopeEnum!], storeId: String!): ApiKey
 
   """create checkout session url"""
   createCheckoutSessionUrl(stripePriceId: String!, subdomain: String!): String
@@ -914,6 +941,7 @@ type Mutation {
 
   """create workflows"""
   createWorkflow(subdomain: String!): Workflow
+  deleteApiKey(apiKeyId: String!): String
 
   """delete list with id"""
   deleteList(listId: String!): List!
@@ -1217,6 +1245,7 @@ type Query {
 
   """get all stores for sitemap"""
   getAllStoresForSiteMap: [Store!]
+  getApiKeys(subdomain: String!): [ApiKey!]
 
   """get benchmark data"""
   getBenchmarkData(subdomain: String!): [BenchmarkData!]
