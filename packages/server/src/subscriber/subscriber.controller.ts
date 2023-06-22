@@ -1,20 +1,20 @@
 import { Controller, HttpStatus, Post, Query, Res } from '@nestjs/common';
 import { ApiExcludeController } from '@nestjs/swagger';
 import { Response } from 'express';
-import { SubscriberService } from './subscriber.service';
+import { SubscriberListService } from '../subscriber-list/subscriber-list.service';
 
 @ApiExcludeController()
-@Controller()
-export class SubscriberController {
-  constructor(private subscirberService: SubscriberService) {}
+@Controller('subscriber')
+export class SubscriberListController {
+  constructor(private subscirberListService: SubscriberListService) {}
 
-  // http event for unbuscriber with userId
+  // http event to unbuscriber - received from unsubscribe events from List-Unsubscribe
   @Post('unsubscribe')
   unsbuscribe(
     @Query('unsubscribeId') unsubscribeId: string,
     @Res() res: Response,
   ): void {
-    this.subscirberService.unsubscrbe(unsubscribeId);
+    this.subscirberListService.unsubscribe(unsubscribeId);
     res.status(HttpStatus.OK).send('ok');
   }
 

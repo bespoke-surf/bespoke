@@ -27,7 +27,7 @@ import {
   USER_SNS_EMAIL_METRIC_WEBHOOK_QUEUE,
   USER_STORE_UPLOAD_CSV_FILE_QUEUE,
 } from './constants';
-import { listApiDocument, subscriberApiDocument } from './utils/openApiBuilder';
+import { bespokeApiDocumnet } from './utils/openApiBuilder';
 
 declare module 'express-session' {
   interface SessionData {
@@ -144,10 +144,10 @@ async function bootstrap() {
   );
 
   if (process.env.NODE_ENV === 'development') {
-    const listDoument = listApiDocument(app);
-    SwaggerModule.setup('api/list', app, listDoument);
-    const subscriber = subscriberApiDocument(app);
-    SwaggerModule.setup('api/subscriber', app, subscriber);
+    const document = bespokeApiDocumnet(app);
+    SwaggerModule.setup('api', app, document);
+    // const subscriber = subscriberApiDocument(app);
+    // SwaggerModule.setup('api/subscriber', app, subscriber);
   }
 
   await app.listen(PORT);

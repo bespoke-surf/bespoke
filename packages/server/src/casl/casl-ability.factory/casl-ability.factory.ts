@@ -10,8 +10,11 @@ import { ApiKey } from '../../apiKey/apiKey.entity';
 import { ApiKeyAccessScopeEnum } from '../../apiKey/enum/apikScopeEnum';
 import { List } from '../../list/list.entity';
 import { Subscriber } from '../../subscriber/subscriber.entity';
+import { User } from '../../user/user.entity';
 
-type Subjects = InferSubjects<typeof List | typeof Subscriber> | 'all';
+type Subjects =
+  | InferSubjects<typeof List | typeof Subscriber | typeof User>
+  | 'all';
 
 export type AppAbility = PureAbility<[ApiKeyAccessScopeEnum, Subjects]>;
 
@@ -41,6 +44,7 @@ export class CaslAbilityFactory {
       can(ApiKeyAccessScopeEnum.SUBSCRIBER_READ, Subscriber);
       cannot(ApiKeyAccessScopeEnum.SUBSCRIBER_MANAGE, Subscriber);
     }
+
     return build({
       detectSubjectType: (item) =>
         item.constructor as ExtractSubjectType<Subjects>,

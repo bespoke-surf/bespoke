@@ -279,20 +279,15 @@ export class StoreListWorkflowQueueProcessor {
         // return Promise.resolve();
       }
 
-      let createUnsubParams: {
+      const createUnsubParams: {
         listId?: string;
         subscriberId: string;
         redis: Redis;
       } = {
         subscriberId: subscriber.id,
         redis: this.redis,
+        listId: listId,
       };
-      if (listId) {
-        createUnsubParams = {
-          ...createUnsubParams,
-          listId: listId,
-        };
-      }
 
       const unsubscribeId = createUnsubscribeId(createUnsubParams);
 

@@ -94,6 +94,7 @@ export class SubscriberService {
     userId: string,
     firstName?: string,
     lastName?: string,
+    phoneNumber?: string,
   ): Promise<Subscriber | null> {
     const subscriber = await this.subscriberRepo.save({
       storeId,
@@ -110,7 +111,11 @@ export class SubscriberService {
         lastName,
       });
     }
-
+    if (phoneNumber && phoneNumber !== 'undefined') {
+      await this.subscriberRepo.update(subscriber.id, {
+        phoneNumber,
+      });
+    }
     this.emitEvent(SUBSCRIBER_ADD_SUBSCRIBER_EVENT, subscriber.id);
     return subscriber;
   }
@@ -427,7 +432,7 @@ export class SubscriberService {
       SubscriberEmailStatus.SUBSCRIBED,
     );
 
-    return await this.subscriberListService.addToList(
+    return await this.subscriberListService.addOrSubscribeToList(
       listId,
       subscriberId,
       collectedFrom,
@@ -485,35 +490,6 @@ export class SubscriberService {
             ? SubscriberEmailStatus.UNSUBSCRIBED
             : SubscriberEmailStatus.SUBSCRIBED,
       });
-
-      return null;
-    } catch (err) {
-      console.log(err);
-      return null;
-    }
-  }
-
-  async unsubscrbe(unsubscribeId: string): Promise<null> {
-    try {
-      const data = await this.redis.get(
-        `${UNSUBSCRIBE_ID_PREFIX}${unsubscribeId}`,
-      );
-      if (!data) return null;
-
-      const { subscriberId, listId } = JSON.parse(data);
-
-      if (!subscriberId) return null;
-
-      await this.subscriberRepo.update(subscriberId, {
-        emailStatus: SubscriberEmailStatus.UNSUBSCRIBED,
-      });
-
-      if (listId) {
-        await this.subscriberListService.unsubscrbeFromList(
-          unsubscribeId,
-          listId,
-        );
-      }
 
       return null;
     } catch (err) {

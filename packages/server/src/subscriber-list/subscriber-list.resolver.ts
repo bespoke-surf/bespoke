@@ -60,10 +60,13 @@ export class SubscriberListResolver {
     nullable: true,
     description: 'unsubscribe from list',
   })
-  unsubscribeFromList(
+  async unsubscribeFromList(
     @Args('unsubscribeId') unsubscribeId: string,
     @Args('listId') listId: string,
   ): Promise<SubscriberList | null> {
-    return this.subscriberListService.unsubscrbeFromList(unsubscribeId, listId);
+    return this.subscriberListService.getSubscriberIdAndUnsubscribeFromList(
+      unsubscribeId,
+      listId,
+    );
   }
 }

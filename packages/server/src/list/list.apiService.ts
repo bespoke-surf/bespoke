@@ -31,12 +31,12 @@ export class ListApiService {
 
   async getLists({
     apiKey,
-    page = 1,
+    offset = 0,
     limit = 100,
   }: {
     apiKey: string;
     limit?: number;
-    page?: number;
+    offset?: number;
   }): Promise<List[]> {
     if (limit > 100) limit = 100;
     const list = await this.listRepo.find({
@@ -49,7 +49,7 @@ export class ListApiService {
       },
       select: listSelect,
       take: limit,
-      skip: limit * (page - 1),
+      skip: offset,
     });
     return list;
   }
@@ -90,25 +90,37 @@ export class ListApiService {
     }
   }
 
-  async updateList(body: UpdateListDto): Promise<List> {
+  async updateList(id: string, body: UpdateListDto): Promise<List> {
     try {
       const list = await this.listRepo.findOneByOrFail({
-        id: Equal(body.data.id),
+        id: Equal(id),
       });
       if (!list) throw new Error();
-      console.log({ list, body });
 
       await this.listRepo.update(list.id, {
         name: body.data.attributes.name,
       });
 
       const updateList = await this.listRepo.findOneOrFail({
-        where: { id: body.data.id },
+        where: { id: body.data.listId },
         select: listSelect,
       });
       return updateList;
     } catch (err) {
       throw new NotFoundException();
+    }
+  }
+
+  async getListCount(apiKey: string): Promise<number> {
+    try {
+      const api = await this.apiKeyService.getApiKey(apiKey);
+      return await this.listRepo.count({
+        where: {
+          storeId: api?.storeId,
+        },
+      });
+    } catch (err) {
+      return 0;
     }
   }
 }

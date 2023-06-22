@@ -8,3 +8,4 @@ export const BESPOKE_API_KEY = 'Bespoke-API-Key';
 
 export const apiReferenceWebiste = `https://bespoke-api.readme.io/${ApiVersion.June23}`;
 export const apiOverview = `${apiReferenceWebiste}/reference/api-overview`;
+export const apiPagination = `${apiReferenceWebiste}/reference/pagination`;

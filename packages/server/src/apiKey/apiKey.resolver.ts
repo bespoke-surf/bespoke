@@ -1,8 +1,8 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { HasStoreAccessWithApiKey } from '../guard/api/hasStoreAccessWithApiKey';
 import { AuthGuard } from '../guard/authGuard';
 import { HasStoreAccess } from '../guard/hasStoreAccess';
-import { HasStoreAccessWithApiKey } from '../guard/hasStoreAccessWithApiKey';
 import { HasStoreAccessWithSubdomain } from '../guard/hasStoreAccessWithSubdomain';
 import { ApiKey } from './apiKey.entity';
 import { ApiKeyService } from './apiKey.service';

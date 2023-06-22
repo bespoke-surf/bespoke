@@ -1,9 +1,12 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { ApiProperty } from '@nestjs/swagger';
 import { GraphQLPhoneNumber } from 'graphql-scalars';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  FindOptionsRelations,
+  FindOptionsSelect,
   JoinColumn,
   ManyToOne,
   OneToMany,
@@ -19,11 +22,43 @@ import { User } from '../user/user.entity';
 import { SubscriberEmailStatus } from './enum/emailStatus.enum';
 import { SubscriberTypeEnum } from './enum/subscriberType.enum';
 
+export const subscriberSelect: FindOptionsSelect<Subscriber> = {
+  id: true,
+  emailStatus: true,
+  firstName: true,
+  lastName: true,
+  phoneNumber: true,
+  createdAt: true,
+  updatedAt: true,
+  user: {
+    email: true,
+    userEmailDeliveryStatus: {
+      emailDeliveryStatus: true,
+      softBounceCount: true,
+    },
+  },
+  subscriberAddress: {
+    address1: true,
+    address2: true,
+    city: true,
+    country: true,
+    state: true,
+    zipCode: true,
+  },
+};
+export const subscriberRelations: FindOptionsRelations<Subscriber> = {
+  user: {
+    userEmailDeliveryStatus: true,
+  },
+  subscriberAddress: true,
+};
+
 @ObjectType({
   description: 'Subscriber',
 })
 @Entity()
 export class Subscriber {
+  @ApiProperty()
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
@@ -36,10 +71,12 @@ export class Subscriber {
   })
   subscriberType: SubscriberTypeEnum;
 
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   firstName?: string | null;
 
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   lastName?: string | null | undefined;
@@ -52,6 +89,7 @@ export class Subscriber {
   @Column({ type: 'uuid' })
   userId: string;
 
+  @ApiProperty()
   @Field(() => GraphQLPhoneNumber, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   phoneNumber?: string | null | undefined;
@@ -65,6 +103,7 @@ export class Subscriber {
   @OneToMany(() => Metric, (metric) => metric.subscriber)
   metric: Relation<Metric[]>;
 
+  @ApiProperty()
   @Field(() => SubscriberEmailStatus)
   @Column({
     type: 'enum',
@@ -84,14 +123,17 @@ export class Subscriber {
   })
   store: Relation<Store>;
 
+  @ApiProperty()
   @Field(() => Date)
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
+  @ApiProperty()
   @Field(() => Date)
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
+  @ApiProperty()
   @Field(() => SubscriberAddress, { nullable: true })
   @OneToOne(
     () => SubscriberAddress,
@@ -113,26 +155,32 @@ export class SubscriberAddress {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   address1?: string | null | undefined;
 
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   address2?: string | null | undefined;
 
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   city?: string | null | undefined;
 
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   country?: string | null | undefined;
 
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   state?: string | null | undefined;
 
+  @ApiProperty()
   @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'text' })
   zipCode?: string | null | undefined;

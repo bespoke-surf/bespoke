@@ -197,7 +197,7 @@ export class UserStoreSnsEmailMetricWebhookQueue {
 
         if (headerUnsubscribeId?.value && listId) {
           await this.subscriberListService.unsubscrbeFromList(
-            headerUnsubscribeId.value,
+            subscriberId,
             listId,
           );
         }

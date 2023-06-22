@@ -5,9 +5,9 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { AuthorizationService } from '../authorization/authorization.service';
-import { MyContext } from '../types';
-import { BESPOKE_API_KEY } from '../utils/constants';
+import { AuthorizationService } from '../../authorization/authorization.service';
+import { MyContext } from '../../types';
+import { BESPOKE_API_KEY } from '../../utils/constants';
 
 @Injectable()
 export class ApiKeyAuthGurad implements CanActivate {

@@ -230,4 +230,28 @@ export class AuthorizationService {
     if (list) return true;
     return false;
   }
+
+  async hasApiKeyAccessWithList(key: string, listId: string) {
+    const list = await this.listRepo
+      .createQueryBuilder('list')
+      .where('list.id = :listId', { listId })
+      .leftJoinAndSelect('list.store', 'store')
+      .leftJoinAndSelect('store.apiKey', 'apiKey')
+      .andWhere('apiKey.key = :key', { key })
+      .getOne();
+    if (list) return true;
+    return false;
+  }
+
+  async hasApiKeyAccessWithSubscriber(key: string, subscriberId: string) {
+    const list = await this.subscriberRepo
+      .createQueryBuilder('subscriber')
+      .where('subscriber.id = :subscriberId', { subscriberId })
+      .leftJoinAndSelect('subscriber.store', 'store')
+      .leftJoinAndSelect('store.apiKey', 'apiKey')
+      .andWhere('apiKey.key = :key', { key })
+      .getOne();
+    if (list) return true;
+    return false;
+  }
 }

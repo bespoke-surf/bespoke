@@ -10,7 +10,7 @@ import {
   IsUUID,
   ValidateNested,
 } from 'class-validator';
-import { ListEnum } from '../enum/ListEnum';
+import { ApiBodyTypeEnum } from '../../apiKey/enum/apiBodyTypeEnum';
 
 class AttributesObject {
   @IsString()
@@ -25,12 +25,12 @@ class AttributesObject {
 
 class DataObject {
   @IsDefined()
-  @IsEnum(ListEnum, { each: true })
+  @IsEnum(ApiBodyTypeEnum, { always: true })
   @ApiProperty({
-    enum: ListEnum,
-    default: ListEnum.List,
+    enum: ApiBodyTypeEnum,
+    default: ApiBodyTypeEnum.List,
   })
-  type: ListEnum;
+  type: ApiBodyTypeEnum;
 
   @IsNotEmpty()
   @IsUUID()
@@ -40,7 +40,7 @@ class DataObject {
     default: 'UUID',
     example: 'UUID',
   })
-  id: string;
+  listId: string;
 
   @IsObject()
   @ValidateNested()

@@ -1,8 +1,11 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  FindOptionsRelations,
+  FindOptionsSelect,
   JoinColumn,
   ManyToOne,
   OneToOne,
@@ -16,19 +19,38 @@ import { EmailConcentCollectedFrom } from './enum/emailConcentCollectedFrom.enum
 import { EmailConcentOptInLevel } from './enum/emailConcentOptInLevel.enum';
 import { EmailConcentState } from './enum/emailConcentState.enum';
 
+export const subscriberListSelct: FindOptionsSelect<SubscriberList> = {
+  id: true,
+  createdAt: true,
+  listId: true,
+  subscriberId: true,
+  emailConcent: {
+    collectedFrom: true,
+    id: true,
+    optInLevel: true,
+    state: true,
+  },
+};
+export const subscriberListRelation: FindOptionsRelations<SubscriberList> = {
+  emailConcent: true,
+};
+
 @ObjectType({
   description: 'Subscriber List',
 })
 @Entity()
 export class SubscriberList {
+  @ApiProperty()
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @ApiProperty()
   @Field(() => String)
   @Column({ type: 'uuid' })
   listId: string;
 
+  @ApiProperty()
   @Field(() => String)
   @Column({ type: 'uuid' })
   subscriberId: string;
@@ -45,6 +67,7 @@ export class SubscriberList {
   })
   subscriber: Relation<Subscriber>;
 
+  @ApiProperty()
   @Field(() => EmailConcent)
   @OneToOne(() => EmailConcent, (emailConcent) => emailConcent.subscriberList, {
     nullable: true,
@@ -52,6 +75,7 @@ export class SubscriberList {
   @JoinColumn()
   emailConcent: Relation<EmailConcent>;
 
+  @ApiProperty()
   @Field(() => Date)
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
@@ -65,18 +89,22 @@ export class SubscriberList {
 })
 @Entity()
 export class EmailConcent {
+  @ApiProperty()
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @ApiProperty()
   @Field(() => EmailConcentState)
   @Column({ type: 'enum', enum: EmailConcentState })
   state: EmailConcentState;
 
+  @ApiProperty()
   @Field(() => EmailConcentOptInLevel)
   @Column({ type: 'enum', enum: EmailConcentOptInLevel })
   optInLevel: EmailConcentOptInLevel;
 
+  @ApiProperty()
   @Field(() => EmailConcentCollectedFrom)
   @Column({ type: 'enum', enum: EmailConcentCollectedFrom })
   collectedFrom: EmailConcentCollectedFrom;
@@ -91,6 +119,7 @@ export class EmailConcent {
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
+  @ApiProperty()
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 }

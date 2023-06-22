@@ -66,6 +66,7 @@ export const smptpSubscriberListEmail = ({
     listId: listId,
     redis,
   });
+  const unsbscirbeHeader = listHeader(host, unsubscribeId);
   // const customArgs = {
   //   postId: postWithStoreAndContact.id,
   //   subscriberId: subscriber.id,
@@ -90,8 +91,7 @@ export const smptpSubscriberListEmail = ({
       ),
     }),
     list: {
-      Unsubscribe: `<${host}/subscriber/unsubscribe?unsubscribeId=${unsubscribeId}>`,
-      'Unsubscribe-Post': `List-Unsubscribe=One-Click`,
+      ...unsbscirbeHeader,
       Post: `<${frontEndHostProtocol}//${postWithStoreAndContact.store.subdomain}.${frontEndHost}/p/${postWithStoreAndContact.postHandle}>`,
       Url: `<${frontEndHostProtocol}//${postWithStoreAndContact.store.subdomain}.${frontEndHost}>`,
       Id: `<${postWithStoreAndContact.store.subdomain}.${frontEndHost}>`,
@@ -131,22 +131,8 @@ export const smptpAutomationEmail = ({
 }): Mail.Options => {
   const storeURL = `${frontEndHostProtocol}//${storeWithContact.subdomain}.${frontEndHost}`;
 
-  let listHeaders: Mail.Options['list'] = {
-    Owner: `<mailto:${storeWithContact.contact?.senderEmail}>`,
-  };
+  const unsbscirbeHeader = listHeader(host, unsubscribeId);
 
-  if (listId) {
-    listHeaders = {
-      ...listHeaders,
-      Unsubscribe: `<${host}/subscriber/unsubscribe?unsubscribeId=${unsubscribeId}>`,
-      'Unsubscribe-Post': `List-Unsubscribe=One-Click`,
-    };
-  } else {
-    listHeaders = {
-      Unsubscribe: `<${host}/subscriber/unsubscribe?unsubscribeId=${unsubscribeId}>`,
-      'Unsubscribe-Post': `List-Unsubscribe=One-Click`,
-    };
-  }
   const headers = {
     [EMAIL_HEADER_UNSUBSCRIBE_ID_KEY]: unsubscribeId,
   };
@@ -156,7 +142,12 @@ export const smptpAutomationEmail = ({
     from: `${storeWithContact.contact?.senderName} <${storeWithContact.subdomain}@bespoke.surf>`,
     replyTo: `${storeWithContact.contact?.senderName} <${storeWithContact.contact?.senderEmail}>`,
     subject: `${subject}`,
-    list: listHeaders,
+    list: listId
+      ? {
+          ...unsbscirbeHeader,
+          Owner: `<mailto:${storeWithContact.contact?.senderEmail}>`,
+        }
+      : undefined,
     html: htmlOutput({
       html: Handlebars.compile(html)({ handleBarValues }),
       bodyFooterInject: automationUnsubscribeFooter(
@@ -344,4 +335,15 @@ const htmlOutput = ({
 `,
     {},
   ).html;
+};
+
+const listHeader = (
+  host: string,
+  unsubscribeId: string,
+): { Unsubscribe: string; 'Unsubscribe-Post': string } => {
+  // a post request is sent to the server and subscriber-list controller handles it
+  return {
+    Unsubscribe: `<${host}/subscriber/unsubscribe?unsubscribeId=${unsubscribeId}>`,
+    'Unsubscribe-Post': `List-Unsubscribe=One-Click`,
+  };
 };

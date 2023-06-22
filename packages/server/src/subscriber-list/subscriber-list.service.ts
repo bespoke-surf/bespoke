@@ -166,7 +166,7 @@ export class SubscriberListService {
     }
   }
 
-  async addToList(
+  async addOrSubscribeToList(
     listId: string,
     subscriberId: string,
     collectedFrom: EmailConcentCollectedFrom,
@@ -226,17 +226,10 @@ export class SubscriberListService {
   }
 
   async unsubscrbeFromList(
-    unsubscribeId: string,
+    subscriberId: string,
     listId: string,
   ): Promise<null> {
     try {
-      const data = await this.redis.get(
-        `${UNSUBSCRIBE_ID_PREFIX}${unsubscribeId}`,
-      );
-      if (!data) return null;
-
-      const { subscriberId } = JSON.parse(data);
-
       const subsriberList = await this.subscriberListRepo.findOne({
         where: {
           listId,
@@ -254,8 +247,6 @@ export class SubscriberListService {
         state: EmailConcentState.UNSUBSCRIBED,
       });
 
-      // TODO: not sure if its neeed here, might get event from sendgrid webhook
-      // enbaled for now, better to have than not have. need to check if sendgrid webhook gets sent or not, havnt confirmed yet.
       await this.metricService.createEmailUnsubscribed({
         subscriberId,
         listId,
@@ -291,5 +282,52 @@ export class SubscriberListService {
       .andWhere('subscriberList.createdAt >= :date', { date: day })
       .getCount();
     return subscribers;
+  }
+
+  async getSubscriberIdAndUnsubscribeFromList(
+    unsubscribeId: string,
+    listId: string,
+  ): Promise<null> {
+    try {
+      const data = await this.redis.get(
+        `${UNSUBSCRIBE_ID_PREFIX}${unsubscribeId}`,
+      );
+      if (!data) return null;
+
+      const { subscriberId } = JSON.parse(data);
+
+      if (!subscriberId) return null;
+
+      if (listId) {
+        await this.unsubscrbeFromList(subscriberId, listId);
+      }
+
+      return null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+  async unsubscribe(unsubscribeId: string): Promise<null> {
+    try {
+      const data = await this.redis.get(
+        `${UNSUBSCRIBE_ID_PREFIX}${unsubscribeId}`,
+      );
+      if (!data) return null;
+
+      const { subscriberId, listId } = JSON.parse(data);
+
+      if (!subscriberId) return null;
+
+      if (listId) {
+        await this.unsubscrbeFromList(subscriberId, listId);
+      }
+
+      return null;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   }
 }

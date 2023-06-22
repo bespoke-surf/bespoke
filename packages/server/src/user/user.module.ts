@@ -1,6 +1,8 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ApiKeyModule } from '../apiKey/apiKey.module';
+import { CaslModule } from '../casl/casl.module';
 import {
   USER_CUSTOMER_UPLOAD_QUEUE,
   USER_SNS_EMAIL_METRIC_WEBHOOK_QUEUE,
@@ -21,11 +23,12 @@ import { StoreModule } from '../store/store.module';
 import { StripeModule } from '../stripe/stripe.module';
 import { SubscriberListModule } from '../subscriber-list/subscriber-list.module';
 import { SubscriberModule } from '../subscriber/subscriber.module';
+import { UserApiController } from './controller/user.api.controller';
 import { UserController } from './controller/user.controller';
-import { UserStoreSnsController } from './controller/user.storeSns.controller';
 import { UserCustomerUploadProcessor } from './queue/shopify.customerUpload';
 import { UserStoreSnsEmailMetricWebhookQueue } from './queue/sns-webhookQueue';
 import { UserStoreUploadCSVFileQueue } from './queue/uploadCsvFileQueue';
+import { UserApiService } from './user.api.service';
 import { UserEmailDeliveryStatusService } from './user.emailDeliveryStatus';
 import { User, UserEmailDeliveryStatus } from './user.entity';
 import { UserListener } from './user.listner';
@@ -60,6 +63,8 @@ import { UserService } from './user.service';
     SesModule,
     MetricModule,
     PostModule,
+    ApiKeyModule,
+    CaslModule,
   ],
   providers: [
     UserResolver,
@@ -70,8 +75,9 @@ import { UserService } from './user.service';
     UserStoreUploadCSVFileQueue,
     UserEmailDeliveryStatusService,
     UserStoreSnsEmailMetricWebhookQueue,
+    UserApiService,
   ],
   exports: [UserService],
-  controllers: [UserController, UserStoreSnsController],
+  controllers: [UserController, UserApiController],
 })
 export class UserModule {}

@@ -6,6 +6,7 @@ import {
 } from '@nestjs/swagger';
 import { ListModule } from '../list/list.module';
 import { SubscriberModule } from '../subscriber/subscriber.module';
+import { UserModule } from '../user/user.module';
 import { ApiVersion, BESPOKE_API_KEY } from './constants';
 
 const options: SwaggerDocumentOptions = {
@@ -41,32 +42,34 @@ const config = new DocumentBuilder()
   )
   .addSecurityRequirements(BESPOKE_API_KEY);
 
-export const listApiDocument = (app: INestApplication) => {
+export const bespokeApiDocumnet = (app: INestApplication) => {
   const conf = config
-    .setTitle('Lists API')
+    .setTitle('BESPOKE REST API')
     .setDescription(
       'The Bespoke List API. Please visit https://developers.bespoke.surf for more details.',
     )
-    .addTag('Lists', 'lists')
+    .addTag('List', 'The List API')
+    .addTag('Subscriber', 'The Subscriber API')
     .build();
 
   return SwaggerModule.createDocument(app, conf, {
     ...options,
-    include: [ListModule],
+    include: [ListModule, SubscriberModule, UserModule],
   });
 };
 
-export const subscriberApiDocument = (app: INestApplication) => {
-  const conf = config
-    .setTitle('Subscriber API')
-    .setDescription(
-      'The Bespoke Subscriber API. Please visit https://developers.bespoke.surf for more details.',
-    )
-    .addTag('Subscriber', 'subscriber')
-    .build();
+// export const subscriberApiDocument = (app: INestApplication) => {
+//   const conf = config
+//     .setTitle('Subscriber API')
+//     .setDescription(
+//       'The Bespoke Subscriber API. Please visit https://developers.bespoke.surf for more details.',
+//     )
+//     .addTag('Subscriber', 'The Subscriber API')
+//     .build();
 
-  return SwaggerModule.createDocument(app, conf, {
-    ...options,
-    include: [SubscriberModule],
-  });
-};
+//   return SwaggerModule.createDocument(app, conf, {
+//     ...options,
+//     include: [],
+//   });
+
+// };

@@ -5,8 +5,8 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { AuthorizationService } from '../authorization/authorization.service';
-import { MyContext } from '../types';
+import { AuthorizationService } from '../../authorization/authorization.service';
+import { MyContext } from '../../types';
 
 @Injectable()
 export class HasStoreAccessWithApiKey implements CanActivate {

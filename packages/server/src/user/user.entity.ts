@@ -1,4 +1,5 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
@@ -22,6 +23,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @ApiProperty()
   @Field()
   @Column({ unique: true })
   email: string;
@@ -55,6 +57,7 @@ export class User {
   @OneToMany(() => Event, (event) => event.user)
   event: Relation<Event[]>;
 
+  @ApiProperty()
   @Field(() => UserEmailDeliveryStatus)
   @OneToOne(
     () => UserEmailDeliveryStatus,
@@ -76,6 +79,7 @@ export class UserEmailDeliveryStatus {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @ApiProperty()
   @Field(() => EmailDeliveryStatus)
   @Column({
     type: 'enum',
@@ -84,6 +88,7 @@ export class UserEmailDeliveryStatus {
   })
   emailDeliveryStatus: EmailDeliveryStatus;
 
+  @ApiProperty()
   @Field(() => Int)
   @Column({ default: 0 })
   softBounceCount: number;

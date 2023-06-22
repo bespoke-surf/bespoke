@@ -6,14 +6,16 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
-import { AuthorizationService } from '../authorization/authorization.service';
+import { AuthorizationService } from '../../authorization/authorization.service';
 import {
   AppAbility,
   CaslAbilityFactory,
-} from '../casl/casl-ability.factory/casl-ability.factory';
-import { CHECK_POLICIES_KEY, PolicyHandler } from '../decorator/checkPolicies';
-import { BESPOKE_API_KEY } from '../utils/constants';
-
+} from '../../casl/casl-ability.factory/casl-ability.factory';
+import {
+  CHECK_POLICIES_KEY,
+  PolicyHandler,
+} from '../../decorator/checkPolicies';
+import { BESPOKE_API_KEY } from '../../utils/constants';
 @Injectable()
 export class ApiPoliciesGuard implements CanActivate {
   constructor(
