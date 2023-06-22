@@ -1,12 +1,8 @@
 {
-  "lerna": "7.0.0",
+  "lerna": "4.0.0",
   "packages": ["*"],
   "apps": ["*"],
   "version": "0.0.1",
-  "command": {
-    "version": {
-      "conventionalCommits": true
-    }
-  },
-  "npmClient": "yarn"
+  "npmClient": "yarn",
+  "useWorkspaces": true
 }
