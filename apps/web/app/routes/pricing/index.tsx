@@ -11,9 +11,9 @@ import {
   Upsell,
 } from "gestalt";
 import BigContainer from "../../components/BigContainer";
+import { UnauthenticatedNavigation } from "../../components/UnauthenticatedNavigation";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
-import { Navigation } from "../index/LandingPage/Navigation";
 import { AdditionalFeatures } from "./AdditionalFeatures";
 import { AdvancedPlan } from "./AdvancedPlan";
 import { BasicPlan } from "./BasicPlan";
@@ -31,7 +31,7 @@ export default function Pricing() {
   return (
     <BigContainer>
       <Flex alignItems="start">
-        <Navigation />
+        <UnauthenticatedNavigation />
         <Flex.Item flex="grow">
           <Container>
             <PageHeader
@@ -44,6 +44,7 @@ export default function Pricing() {
                     href="/signup"
                     size="lg"
                     color="red"
+                    role="link"
                   />
                 ),
                 dropdownItems: [
@@ -84,10 +85,12 @@ export default function Pricing() {
                   primaryAction={{
                     accessibilityLabel: "Discord",
                     label: "Discord",
+                    href: "https://discord.com/invite/sXAkfWBM",
                   }}
                   secondaryAction={{
                     accessibilityLabel: "Get Started",
                     label: "Get Started",
+                    href: "/signup",
                   }}
                 />
               </Box>

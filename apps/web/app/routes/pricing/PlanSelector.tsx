@@ -166,7 +166,13 @@ export const PlanSelector = ({
             {pricing ? pricing?.price : type === "basic" ? "15" : "60"}
             /mo{pricing ? " estimated*" : "*"}
           </Text>
-          <Button text="Start for free" size="lg" color="blue" />
+          <Button
+            text="Start for free"
+            size="lg"
+            color="blue"
+            href="/signup"
+            role="link"
+          />
         </Flex>
       </Flex>
       <Box

@@ -1,16 +1,6 @@
-import {
-  Box,
-  Callout,
-  Container,
-  Flex,
-  Heading,
-  List,
-  PageHeader,
-  Upsell,
-} from "gestalt";
-import BigContainer from "../../components/BigContainer";
+import { Callout, Flex, Heading, List, Upsell } from "gestalt";
+import UnautheticatedPageLayout from "../../components/UnauthenticatedPageLayout";
 import ComparisonTable from "./LandingPage/ComparisonTable";
-import { Navigation } from "./LandingPage/Navigation";
 
 const common = [
   "Design Email",
@@ -30,66 +20,61 @@ const common = [
 
 export default function LandingPage() {
   return (
-    <BigContainer>
-      <Flex alignItems="start">
-        <Navigation />
-        <Flex.Item flex="grow">
-          <Container>
-            <PageHeader
-              title="Open Source Email, Automation & Newsletter"
-              subtext="Combining best parts of Mailchimp, Klaviyo's automation, Substack's newsletter & eventually Typeform for surveys"
-            />
-            <Flex justifyContent="center">
-              <Box width="92.5%" paddingY={6}>
-                <Flex direction="column" gap={12}>
-                  <Callout
-                    title="Self Host or Sign Up!"
-                    message="Self host Bespoke today, follow instruction on Github or Sign up to use Bespoke"
-                    iconAccessibilityLabel="recommendation"
-                    type="recommendation"
-                    primaryAction={{
-                      label: "Sign Up",
-                      accessibilityLabel: "Sign Up",
-                    }}
-                    secondaryAction={{
-                      label: "Github",
-                      accessibilityLabel: "Github",
-                    }}
-                  />
-                  <ComparisonTable />
-                  <Upsell
-                    message="Get started with our free plan"
-                    title="Pricing"
-                    primaryAction={{
-                      label: "Pricing",
-                      accessibilityLabel: "Pricing",
-                    }}
-                    secondaryAction={{
-                      label: "Get started",
-                      accessibilityLabel: "sign up",
-                    }}
-                  />
+    <UnautheticatedPageLayout
+      pageHeaderPorps={{
+        title: "Open Source Email, Automation & Newsletter",
+        subtext:
+          "Combining best parts of Mailchimp, Klaviyo's automation, Substack's newsletter & eventually Typeform for surveys",
+      }}
+    >
+      <Flex direction="column" gap={12}>
+        <Callout
+          title="Self Host or Sign Up!"
+          message="Self host Bespoke today, follow instruction on Github or Sign up to use Bespoke"
+          iconAccessibilityLabel="recommendation"
+          type="recommendation"
+          primaryAction={{
+            label: "Sign Up",
+            accessibilityLabel: "Sign Up",
+            href: "/signup",
+          }}
+          secondaryAction={{
+            label: "Github",
+            accessibilityLabel: "Github",
+            href: "https://github.com/bespoke-surf/bespoke",
+          }}
+        />
+        <ComparisonTable />
+        <Upsell
+          message="Get started with our free plan"
+          title="Pricing"
+          primaryAction={{
+            label: "Pricing",
+            accessibilityLabel: "Pricing",
+            href: "/pricing",
+          }}
+          secondaryAction={{
+            label: "Get started",
+            accessibilityLabel: "sign up",
+            href: "/signup",
+          }}
+        />
 
-                  <Flex gap={4} direction="column">
-                    <Heading accessibilityLevel="none" size="400">
-                      Feature Summary
-                    </Heading>
-                    <List
-                      labelDisplay="hidden"
-                      label="Use the synchronous analytics endpoints if:"
-                      type="unordered"
-                    >
-                      {common.map((value) => (
-                        <List.Item text={value} key={value} />
-                      ))}
-                    </List>
-                  </Flex>
-                </Flex>
-              </Box>
-            </Flex>
-          </Container>
-        </Flex.Item>
+        <Flex gap={4} direction="column">
+          <Heading accessibilityLevel="none" size="400">
+            Feature Summary
+          </Heading>
+          <List
+            labelDisplay="hidden"
+            label="Use the synchronous analytics endpoints if:"
+            type="unordered"
+          >
+            {common.map((value) => (
+              <List.Item text={value} key={value} />
+            ))}
+          </List>
+        </Flex>
       </Flex>
-    </BigContainer>
+    </UnautheticatedPageLayout>
   );
 }
