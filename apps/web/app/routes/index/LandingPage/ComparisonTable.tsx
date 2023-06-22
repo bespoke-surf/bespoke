@@ -14,7 +14,7 @@ interface IData {
 
 const data: IData[] = [
   {
-    text: "You can collect eamils, also from your website, and add to a list",
+    text: "You can collect emails, also from a website with a form and add to a list",
     readiness: "ready",
     klaviyo: "yes",
     bespoke: "yes",

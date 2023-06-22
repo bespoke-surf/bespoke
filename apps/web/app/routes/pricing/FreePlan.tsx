@@ -7,7 +7,13 @@ const FreePlanModal = () => {
         <Text size="300">2,000 contacts + 6,000 marketing emails/month</Text>
         <Flex direction="row" justifyContent="between" alignItems="baseline">
           <Text weight="bold">$0/mo</Text>
-          <Button text="Start for free" size="lg" color="blue" />
+          <Button
+            text="Start for free"
+            href="/signup"
+            role="link"
+            size="lg"
+            color="blue"
+          />
         </Flex>
       </Flex>
     </Module>
