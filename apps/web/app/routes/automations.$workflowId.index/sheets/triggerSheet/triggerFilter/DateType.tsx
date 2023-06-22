@@ -222,8 +222,10 @@ export default function DateType({
               rangeEndDate={endDate}
               nextRef={endDateInput}
               onChange={({ value }) => {
-                setStartDate(value);
-                handleDateChange({ date: value, value: "date1" });
+                if (value) {
+                  setStartDate(value);
+                  handleDateChange({ date: value, value: "date1" });
+                }
               }}
               rangeSelector="start"
               value={startDate}
@@ -250,8 +252,10 @@ export default function DateType({
                   rangeEndDate={endDate}
                   nextRef={startDateInput}
                   onChange={({ value }) => {
-                    setEndDate(value);
-                    handleDateChange({ date: value, value: "date2" });
+                    if (value) {
+                      setEndDate(value);
+                      handleDateChange({ date: value, value: "date2" });
+                    }
                   }}
                   rangeSelector="end"
                   value={endDate}

@@ -187,7 +187,7 @@ export const Boxes = ({ data }: { data: Pages | undefined }) => {
           <IconButton
             accessibilityLabel="forward"
             icon="arrow-forward"
-            role="link"
+            role="button"
             size="md"
           />
         </Link>

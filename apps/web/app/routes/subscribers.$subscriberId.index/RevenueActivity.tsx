@@ -12,6 +12,10 @@ export default function RevenueActivity() {
     "routes/subscribers.$subscriberId/index"
   ) as SubscribersSubscriberData;
 
+  if (!loaderData.integration?.shopify?.authenticated) {
+    return null;
+  }
+
   return (
     <Box>
       <Heading size="400">Revenue activity</Heading>

@@ -4,13 +4,13 @@ import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import type { SubscribersSubscriberData } from "../subscribers.$subscriberId/types";
 import EmailActivity from "./EmailActivity";
-import { loader } from "./loader";
 import Metrics from "./Metrics";
 import RevenueActivity from "./RevenueActivity";
-export { loader };
+import { loader } from "./loader";
 export {
   GenericCatchBoundary as CatchBoundary,
   GenericErrorBoundary as ErrorBoundary,
+  loader,
 };
 
 export default function SubscribersSubscriberIndex() {

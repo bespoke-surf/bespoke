@@ -78,6 +78,7 @@ async function bootstrap() {
           scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
         },
       },
+      crossOriginEmbedderPolicy: true,
     }),
   );
 

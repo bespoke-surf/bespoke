@@ -95,7 +95,7 @@ export function $isShareAbandonedCartButtonNode(
 }
 
 function AbandonedCartButtonComponent({ title }: ShareButtonCompnentProps) {
-  const { postId } = useParams<{ postId: string }>();
+  const { postId } = useParams<{ postId?: string | undefined }>();
   // changes made here should reflect the above element node for html generation
   return (
     <Box
@@ -105,14 +105,24 @@ function AbandonedCartButtonComponent({ title }: ShareButtonCompnentProps) {
       justifyContent="center"
     >
       <Box margin={1}>
-        <Button
-          color="red"
-          text={title}
-          size="lg"
-          href={ABANDONED_CART_VALUE}
-          target="self"
-          role={postId ? "button" : "link"}
-        />
+        {postId ? (
+          <Button
+            color="red"
+            text={title}
+            size="lg"
+            role="button"
+            type="button"
+          />
+        ) : (
+          <Button
+            color="red"
+            text={title}
+            size="lg"
+            href={ABANDONED_CART_VALUE}
+            target="self"
+            role="link"
+          />
+        )}
       </Box>
     </Box>
   );

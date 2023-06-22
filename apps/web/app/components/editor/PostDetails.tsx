@@ -11,7 +11,7 @@ import { calculateLocalTime } from "../../utils/calculateLocalTime";
 
 export default function PostDetails() {
   const rootLoader = useRouteLoaderData("root") as RootData;
-  const loaderData = useLoaderData<PostByHandleData>();
+  const loaderData = useLoaderData() as PostByHandleData;
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLAnchorElement>(null);
 
@@ -20,7 +20,7 @@ export default function PostDetails() {
   const localTimeCal = useMemo(
     () =>
       calculateLocalTime(
-        loaderData.post?.publishedDate,
+        loaderData?.post?.publishedDate,
         `DD MMMM YYYY ${rootLoader?.isUserSubdomain ? "hh:mm a" : ""}`
       ),
     [loaderData.post?.publishedDate, rootLoader?.isUserSubdomain]
