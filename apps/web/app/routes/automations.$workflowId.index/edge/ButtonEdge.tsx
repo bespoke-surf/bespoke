@@ -63,6 +63,7 @@ export default function ButtonEdge({
               size="xs"
               bgColor="white"
               type="submit"
+              role="button"
             />
           </Form>
         </Box>

@@ -94,7 +94,7 @@ export function $isShareButtonNode(
 }
 
 function ShareButtonComponent({ href }: ShareButtonCompnentProps) {
-  const { postId } = useParams<{ postId: string }>();
+  const { postId } = useParams<{ postId?: string }>();
   // changes made here should reflect the above element node for html generation
   return (
     <Box
@@ -104,14 +104,18 @@ function ShareButtonComponent({ href }: ShareButtonCompnentProps) {
       justifyContent="center"
     >
       <Box margin={1}>
-        <Button
-          color="red"
-          text="Share"
-          size="lg"
-          href={href}
-          target="self"
-          role={postId ? "button" : "link"}
-        />
+        {postId ? (
+          <Button color="red" text="Share" size="lg" role="button" />
+        ) : (
+          <Button
+            color="red"
+            text="Share"
+            size="lg"
+            href={href}
+            target="self"
+            role="link"
+          />
+        )}
       </Box>
     </Box>
   );

@@ -10,8 +10,8 @@ import { links } from "./links";
 export {
   GenericCatchBoundary as CatchBoundary,
   GenericErrorBoundary as ErrorBoundary,
+  links,
 };
-export { links };
 
 export const meta: MetaFunction = ({ parentsData }) => {
   const rootData = parentsData.root as RootData;
@@ -61,9 +61,8 @@ export default function About() {
                           color="red"
                           size="lg"
                           text="Edit About Page"
-                          type="button"
-                          href="/about/edit"
                           role="link"
+                          href="/about/edit"
                           // onClick={() => formik.handleSubmit()}
                           // disabled={loading}
                         />

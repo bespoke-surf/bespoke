@@ -36,7 +36,7 @@ interface MyFormValues {
   name: string;
 }
 export default function WorkflowBar() {
-  const loaderData = useLoaderData<AutomationWorkflowData>();
+  const loaderData = useLoaderData() as AutomationWorkflowData;
   const navigate = useNavigate();
   const fetcher = useFetcher();
   const transition = useTransition();
