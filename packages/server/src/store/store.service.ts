@@ -794,10 +794,10 @@ export class StoreService implements OnModuleInit {
       }
 
       const emailSentThisMonth =
-        await this.metricService.getEmailSentDuringPeriod(
-          store.subdomain,
-          'month',
-        );
+        await this.metricService.getEmailSentDuringPeriod({
+          subdomain: store.subdomain,
+          unit: 'month',
+        });
 
       const sentQuantity = bespokePricingPlan.find(
         ({ id }) => id === billing.bespokePlanId,
@@ -846,7 +846,10 @@ export class StoreService implements OnModuleInit {
     }
 
     const emailSentThisMonth =
-      await this.metricService.getEmailSentDuringPeriod(subdomain, 'month');
+      await this.metricService.getEmailSentDuringPeriod({
+        subdomain,
+        unit: 'month',
+      });
 
     const sendingQuantity =
       await this.subscriberListService.getSubscribersInListCount(listId);
@@ -1676,10 +1679,10 @@ export class StoreService implements OnModuleInit {
       throw new Error('email sent limit reached');
   }
 
-  async stripeReportUsageForBilling(
+  async getExceededQuantity(
     storeId: string,
-    currentPeriodStart: number,
-  ) {
+    currentPeriodStartInUnix: number,
+  ): Promise<number | null> {
     try {
       const store = await this.getStore(storeId);
       if (!store || !store.subdomain) throw new Error('missing store');
@@ -1713,7 +1716,10 @@ export class StoreService implements OnModuleInit {
       }
 
       const emailSentUsageCount =
-        await this.metricService.getEmailSentDuringPeriod(subdomain, 'month');
+        await this.metricService.getEmailSentDuringPeriod({
+          subdomain,
+          unixTime: currentPeriodStartInUnix,
+        });
 
       const contactUsageCount =
         await this.subscriberService.getSubscribersCount(subdomain);
@@ -1728,22 +1734,24 @@ export class StoreService implements OnModuleInit {
         throw new Error('billing is free plan');
 
       const usageEmail = emailSentUsageCount - billingPlan.emails;
-      let totalUsage = contactUsageCount + 6000;
+      const contactUsage = contactUsageCount - billingPlan.contacts;
 
-      if (usageEmail > 0) {
-        totalUsage += usageEmail;
-      }
+      // const usageEmailAmount = usageEmail * billingPlan.overages;
+      // const contactUsageAmount = contactUsage * billingPlan.overages;
 
-      if (!totalUsage || totalUsage <= 0) throw new Error('usage not exceeded');
-      console.log({ currentPeriodStart });
+      // const totalUsageAmount =
+      //   usageEmailAmount + contactUsageAmount + billingPlan.price;
 
-      await this.stripeService.createUsageRecords({
-        subscriptionId: billing.subscriptionId,
-        usageQuantity: 60000,
-        timestamp: dayjs.unix(currentPeriodStart).add(1, 'minute').unix(),
-      });
+      // count subscribes as total count with usageEmail on top
+      const exceededQuantity = Number(contactUsage) + Number(usageEmail);
+
+      if (!exceededQuantity || exceededQuantity <= 0)
+        throw new Error('usage not exceeded');
+
+      return Number(exceededQuantity);
     } catch (error) {
       console.log(error);
+      return null;
     }
   }
 }

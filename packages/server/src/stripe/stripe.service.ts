@@ -327,11 +327,41 @@ export class StripeService {
       {
         quantity: usageQuantity,
         timestamp,
-        action: 'set',
+        action: 'increment',
       },
       {
         idempotencyKey,
       },
     );
+  }
+  async getSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
+    return this.stripe.subscriptions.retrieve(subscriptionId);
+  }
+
+  async createInvoiceItem({
+    invoiceId,
+    quantity,
+    bespokePlanId,
+    customerId,
+    subscriptionId,
+  }: {
+    invoiceId: string;
+    bespokePlanId: string;
+    quantity: number;
+    customerId: string;
+    subscriptionId: string;
+  }) {
+    const bespokePlan = bespokePricingPlan.find(
+      ({ id }) => id === bespokePlanId,
+    );
+    if (!bespokePlan) throw new Error('Missing bespoke plan');
+    await this.stripe.invoiceItems.create({
+      customer: customerId,
+      unit_amount_decimal: String(bespokePlan.overages * 100),
+      quantity,
+      invoice: invoiceId,
+      subscription: subscriptionId,
+      description: `${bespokePlan.contacts + 1} and above`,
+    });
   }
 }

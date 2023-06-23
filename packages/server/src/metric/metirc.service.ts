@@ -837,15 +837,22 @@ export class MetricService {
     return subscribers;
   }
 
-  async getEmailSentDuringPeriod(
-    subdomain: string,
-    unit: OpUnitType,
-  ): Promise<number> {
-    const day = dayjs()
-      .utc()
-      .startOf(unit)
-      .format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
-
+  async getEmailSentDuringPeriod({
+    subdomain,
+    unit,
+    unixTime,
+  }: {
+    subdomain: string;
+    unit?: OpUnitType;
+    unixTime?: number;
+  }): Promise<number> {
+    let day;
+    if (unit) {
+      day = dayjs().utc().startOf(unit).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    }
+    if (unixTime) {
+      day = dayjs.unix(unixTime).utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+    }
     const subscribers = await this.metricRepo
       .createQueryBuilder('metric')
       .leftJoinAndSelect('metric.subscriber', 'subscriber')

@@ -147,7 +147,10 @@ export class MetircResolver {
   getEmailSentThisMonthCount(
     @Args('subdomain') subdomain: string,
   ): Promise<number> {
-    return this.metricService.getEmailSentDuringPeriod(subdomain, 'month');
+    return this.metricService.getEmailSentDuringPeriod({
+      subdomain,
+      unit: 'month',
+    });
   }
 
   @UseGuards(AuthGuard, HasStoreAccessWithWorkflow)
