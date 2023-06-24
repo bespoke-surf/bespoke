@@ -56,12 +56,16 @@ export class StoreStripeController {
         );
         const { storeId, bespokePlanId } = this.getMetaData(subscription);
 
-        const quantity = await this.storeService.getExceededQuantity(
+        const quantity = await this.storeService.getUsageQuanityt(
           storeId,
           subscription.current_period_start,
         );
 
-        if (!quantity || !invoice.lines.data[0]?.id) {
+        if (!quantity) {
+          throw new Error('no exceeded quantity');
+        }
+
+        if (!invoice.lines.data[0]?.id) {
           throw new Error('invoice id missing');
         }
 
@@ -75,6 +79,7 @@ export class StoreStripeController {
       }
     } catch (err) {
       console.log(err);
+
       this.sentryClient.instance().captureException(err);
       if (err instanceof Stripe.errors.StripeError)
         console.log(`⚠️  Webhook signature verification failed.`, err.message);

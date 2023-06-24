@@ -1679,79 +1679,78 @@ export class StoreService implements OnModuleInit {
       throw new Error('email sent limit reached');
   }
 
-  async getExceededQuantity(
+  async getUsageQuanityt(
     storeId: string,
     currentPeriodStartInUnix: number,
-  ): Promise<number | null> {
-    try {
-      const store = await this.getStore(storeId);
-      if (!store || !store.subdomain) throw new Error('missing store');
+  ): Promise<number> {
+    const store = await this.getStore(storeId);
+    if (!store || !store.subdomain) throw new Error('missing store');
 
-      const subdomain = store?.subdomain;
+    const subdomain = store?.subdomain;
 
-      const billing = await this.billingService.getStoreBilling(subdomain);
-      if (!billing) throw new Error('missing billing');
+    const billing = await this.billingService.getStoreBilling(subdomain);
+    if (!billing) throw new Error('missing billing');
 
-      if (
-        billing?.billingSubscriptionEntity !== BillingSubscriptionEntity.STRIPE
-      ) {
-        throw new Error('not stripe billing');
-      }
-      if (!billing.subscriptionId) {
-        throw new Error('missing subscription id');
-      }
-      if (!billing.currentPeriodEnd) {
-        throw new Error('missing period end');
-      }
-
-      const billingPlanStaus = await this.billingService.billingPlanStatus(
-        billing,
-      );
-
-      if (
-        billingPlanStaus === BillingPlanStatus.CANCELLED ||
-        billingPlanStaus === BillingPlanStatus.FREE
-      ) {
-        throw new Error('invalid billling status');
-      }
-
-      const emailSentUsageCount =
-        await this.metricService.getEmailSentDuringPeriod({
-          subdomain,
-          unixTime: currentPeriodStartInUnix,
-        });
-
-      const contactUsageCount =
-        await this.subscriberService.getSubscribersCount(subdomain);
-
-      const billingPlan = bespokePricingPlan.find(
-        ({ id }) => id === billing.bespokePlanId,
-      );
-
-      if (!billingPlan) throw new Error('billing plan is missing');
-
-      if (billingPlan?.type === 'default')
-        throw new Error('billing is free plan');
-
-      const usageEmail = emailSentUsageCount - billingPlan.emails;
-      const contactUsage = contactUsageCount - billingPlan.contacts;
-
-      // const usageEmailAmount = usageEmail * billingPlan.overages;
-      // const contactUsageAmount = contactUsage * billingPlan.overages;
-
-      // const totalUsageAmount =
-      //   usageEmailAmount + contactUsageAmount + billingPlan.price;
-
-      // count subscribes as total count with usageEmail on top
-      const exceededQuantity = Number(contactUsage) + Number(usageEmail);
-
-      if (!exceededQuantity || exceededQuantity <= 0)
-        throw new Error('usage not exceeded');
-
-      return Number(exceededQuantity);
-    } catch (error) {
-      console.log(error);
-      return null;
+    if (
+      billing?.billingSubscriptionEntity !== BillingSubscriptionEntity.STRIPE
+    ) {
+      throw new Error('not stripe billing');
     }
+    if (!billing.subscriptionId) {
+      throw new Error('missing subscription id');
+    }
+    if (!billing.currentPeriodEnd) {
+      throw new Error('missing period end');
+    }
+
+    const billingPlanStaus = await this.billingService.billingPlanStatus(
+      billing,
+    );
+
+    if (
+      billingPlanStaus === BillingPlanStatus.CANCELLED ||
+      billingPlanStaus === BillingPlanStatus.FREE
+    ) {
+      throw new Error('invalid billling status');
+    }
+
+    const emailSentUsageCount =
+      await this.metricService.getEmailSentDuringPeriod({
+        subdomain,
+        unixTime: currentPeriodStartInUnix,
+      });
+
+    const contactUsageCount = await this.subscriberService.getSubscribersCount(
+      subdomain,
+    );
+
+    const billingPlan = bespokePricingPlan.find(
+      ({ id }) => id === billing.bespokePlanId,
+    );
+
+    if (!billingPlan) throw new Error('billing plan is missing');
+
+    if (billingPlan?.type === 'default')
+      throw new Error('billing is free plan');
+
+    const usageEmail = emailSentUsageCount - billingPlan.emails;
+    const contactUsage = contactUsageCount - billingPlan.contacts;
+
+    // const usageEmailAmount = usageEmail * billingPlan.overages;
+    // const contactUsageAmount = contactUsage * billingPlan.overages;
+
+    // const totalUsageAmount =
+    //   usageEmailAmount + contactUsageAmount + billingPlan.price;
+
+    // count subscribes as total count with usageEmail on top
+    let exceededQuantity = 0;
+    if (contactUsage > 0) {
+      exceededQuantity += contactUsage;
+    }
+    if (usageEmail > 0) {
+      exceededQuantity += usageEmail;
+    }
+
+    return exceededQuantity;
   }
 }
