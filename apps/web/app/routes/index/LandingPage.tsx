@@ -1,4 +1,4 @@
-import { Callout, Flex, Heading, List, Upsell } from "gestalt";
+import { Callout, Flex, Heading, Link, List, Text, Upsell } from "gestalt";
 import UnautheticatedPageLayout from "../../components/UnauthenticatedPageLayout";
 import ComparisonTable from "./LandingPage/ComparisonTable";
 
@@ -29,8 +29,8 @@ export default function LandingPage() {
     >
       <Flex direction="column" gap={12}>
         <Callout
-          title="Self Host or Sign Up!"
-          message="Self host Bespoke today, follow instruction on Github or Sign up to use Bespoke"
+          title="Self Host or Sign Up for Bespoke Cloud"
+          message="Self host Bespoke today, follow instruction on Github or Sign up to use Bespoke Cloud"
           iconAccessibilityLabel="recommendation"
           type="recommendation"
           primaryAction={{
@@ -47,7 +47,7 @@ export default function LandingPage() {
         <ComparisonTable />
         <Upsell
           message="Get started with our free plan"
-          title="Pricing"
+          title="Bespoke Cloud Pricing"
           primaryAction={{
             label: "Pricing",
             accessibilityLabel: "Pricing",
@@ -61,12 +61,26 @@ export default function LandingPage() {
         />
 
         <Flex gap={4} direction="column">
-          <Heading accessibilityLevel="none" size="400">
-            Feature Summary
-          </Heading>
+          <Flex direction="column" gap={2}>
+            <Heading accessibilityLevel="none" size="400">
+              Feature Summary
+            </Heading>
+            <Text size="200" inline>
+              See full feature breakdown under{" "}
+              <Link
+                underline="always"
+                href="/pricing#full-feature-breakdown"
+                display="inlineBlock"
+              >
+                <Text underline size="200">
+                  pricing
+                </Text>
+              </Link>
+            </Text>
+          </Flex>
           <List
             labelDisplay="hidden"
-            label="Use the synchronous analytics endpoints if:"
+            label="See full feature breakdown under pricing"
             type="unordered"
           >
             {common.map((value) => (

@@ -1,4 +1,5 @@
 import { Box, Flex, Icon, Table, Text } from "gestalt";
+import CloudTable from "./CloudTable";
 /*
  */
 
@@ -53,16 +54,9 @@ const data: IData[] = [
   //   substack: "no",
   //   mailchimp: "yes",
   // },
+
   {
-    text: "You can quickly replicate the top strategies shared by other strategists",
-    readiness: "ready",
-    klaviyo: "no",
-    bespoke: "partial",
-    substack: "no",
-    mailchimp: "no",
-  },
-  {
-    text: "You can execute new campaigns based on personalized or segmented content",
+    text: "You can execute new campaigns based on personalized or segmented data",
     readiness: "ready",
     klaviyo: "yes",
     bespoke: "partial",
@@ -94,7 +88,7 @@ export default function ComparisonTable() {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <Text weight="bold">Benefits</Text>
+              <Text weight="bold">Benefits of Open Source</Text>
             </Table.HeaderCell>
             <Table.HeaderCell>
               <Text weight="bold">Bespoke</Text>
@@ -165,6 +159,17 @@ export default function ComparisonTable() {
               </Table.Cell>
             </Table.Row>
           ))}
+          <Table.Row>
+            <Table.Cell>
+              <Text weight="bold">Benifits of Bespoke Cloud</Text>
+            </Table.Cell>
+            <Table.Cell>{}</Table.Cell>
+            <Table.Cell>{}</Table.Cell>
+            <Table.Cell>{}</Table.Cell>
+            <Table.Cell>{}</Table.Cell>
+          </Table.Row>
+
+          <CloudTable />
         </Table.Body>
       </Table>
     </Box>

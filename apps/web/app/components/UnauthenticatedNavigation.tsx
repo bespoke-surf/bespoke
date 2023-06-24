@@ -36,7 +36,7 @@ export const UnauthenticatedNavigation = () => {
           <SideNavigation.TopItem
             href="/pricing"
             active={location.pathname === "/pricing" ? "page" : undefined}
-            label="Free Plan | Pricing"
+            label="Pricing"
           />
 
           <SideNavigation.Section label="App">
