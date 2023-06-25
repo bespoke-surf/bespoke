@@ -18,7 +18,6 @@ import { Box, Button, Container, Dropdown, Flex, PageHeader } from "gestalt";
 import React, { useCallback, useState } from "react";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { validateForm } from "~/utils/validateForm.server";
-import { QuestType } from "../../graphql/__generated__/graphql";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -78,14 +77,6 @@ export const loader = async ({ request }: LoaderArgs) => {
     const response = await Promise.all([
       sdk.CheckUserOrboarded({}, { request, forbiddenRedirect: "/" }),
       sdk.GetUserStore({}, { request }),
-      sdk.GetMandatoryQuest(
-        {
-          questType: QuestType.Daily,
-        },
-        {
-          request,
-        }
-      ),
       sdk.GetPublicWorkflows(
         {
           take: 3,
@@ -102,8 +93,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
     return json<OnboardingData>({
       store,
-      dailyQuest: response[2].getMandatoryQuest,
-      workflows: response[3].getPublicWorkflows,
+      workflows: response[2].getPublicWorkflows,
     });
   } catch (err) {
     if (err instanceof Response) throw err;

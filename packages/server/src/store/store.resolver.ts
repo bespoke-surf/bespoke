@@ -15,10 +15,8 @@ import { HasStoreAccessWithList } from '../guard/hasStoreAccessWithList';
 import { HasStoreAccessWithPost } from '../guard/hasStoreAccessWithPost';
 import { HasStoreAccessWithShopify } from '../guard/hasStoreAccessWithShopify';
 import { HasStoreAccessWithSubdomain } from '../guard/hasStoreAccessWithSubdomain';
-import { QuestType } from '../quest/enum/questType.enum';
 import { Shopify } from '../shopify/shopify.entity';
 import { SignupForm } from '../signup-form/signup-form.entity';
-import { StoreChallenge } from '../store-challenge/storeChallenge.entity';
 import { Workflow } from '../workflow/workflow.entity';
 import { UpdateDisplayPictureInput } from './dto/add-display-picture-input';
 import { BenchmarkData } from './dto/benchmarkData';
@@ -272,18 +270,6 @@ export class StoreResolver {
   })
   syncScript() {
     return this.storeService.syncScript();
-  }
-
-  @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
-  @Query(() => [StoreChallenge], { nullable: true })
-  getCurrentStoreChallengesByQuestType(
-    @Args('subdomain') subdomain: string,
-    @Args('questType', { type: () => QuestType }) questType: QuestType,
-  ): Promise<StoreChallenge[] | null> {
-    return this.storeService.getCurrentStoreChallengesByQuestType({
-      subdomain,
-      questType,
-    });
   }
 
   @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)

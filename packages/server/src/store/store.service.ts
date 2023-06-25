@@ -11,12 +11,10 @@ import { InjectQueue } from '@nestjs/bull';
 import {
   Injectable,
   NotFoundException,
-  OnModuleInit,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { Session, Shopify as ShopifyApi } from '@shopify/shopify-api';
@@ -52,11 +50,8 @@ import { BillingSubscriptionEntity } from '../billing/enum/billingSubscriptionEn
 import { BillingSubscriptionStatus } from '../billing/enum/billingSubscriptionStatus.enum';
 import {
   SHOPIFY_APP_SUBSCRIPTON_BESPOKE_PRICING_ID_PREFIX,
-  STORE_DIALY_CRON_QUEUE,
   STORE_PRODUCT_UPLOAD_QUEUE,
-  STORE_QUARTERLY_CRON_QUEUE,
   STORE_SEND_EMAIL_TO_SUBSCRIBER_LIST_QUEUE,
-  STORE_WEEKLY_CRON_QUEUE,
 } from '../constants';
 import { CreditService } from '../credit/credit.service';
 import { IntegrationService } from '../integration/integration.service';
@@ -74,14 +69,11 @@ import { ProductSource } from '../product/enum/productSource.enum';
 import { ProductType } from '../product/enum/productType.enum';
 import { ProductService } from '../product/product.service';
 import { ShopifyProductData } from '../product/type/shopifyProductData';
-import { QuestType } from '../quest/enum/questType.enum';
 import { ShopifySessionStorage } from '../session/shopifySessionStorage';
 import { Shopify } from '../shopify/shopify.entity';
 import { ShopifyService } from '../shopify/shopify.service';
 import { SignupForm } from '../signup-form/signup-form.entity';
 import { SignupFormService } from '../signup-form/signup-form.service';
-import { StoreChallenge } from '../store-challenge/storeChallenge.entity';
-import { StoreChallengeService } from '../store-challenge/storeChallenge.service';
 import { StoreItemService } from '../store-item/store-item.service';
 import { StripeService } from '../stripe/stripe.service';
 import { SubscriberListService } from '../subscriber-list/subscriber-list.service';
@@ -114,7 +106,7 @@ import { EmailSentLimitStatus } from './enum/emailSentLimitStatus.enum';
 import { Contact, DisplayPicture, Store } from './store.entity';
 dayjs.extend(utc);
 @Injectable()
-export class StoreService implements OnModuleInit {
+export class StoreService {
   constructor(
     @InjectRepository(Store)
     private storeRepo: Repository<Store>,
@@ -131,12 +123,6 @@ export class StoreService implements OnModuleInit {
     private readonly storeSendEmailQueue: Queue<StoreSendEmailData>,
     @InjectQueue(STORE_PRODUCT_UPLOAD_QUEUE)
     private readonly storeProductUploadQueue: Queue,
-    @InjectQueue(STORE_DIALY_CRON_QUEUE)
-    private readonly storeDailyCronQueue: Queue,
-    @InjectQueue(STORE_WEEKLY_CRON_QUEUE)
-    private readonly storeWeeklyCronQueue: Queue,
-    @InjectQueue(STORE_QUARTERLY_CRON_QUEUE)
-    private readonly storeQuarterlyQueue: Queue,
     private metricService: MetricService,
     private workflowService: WorkflowService,
     private subscriberListService: SubscriberListService,
@@ -148,7 +134,6 @@ export class StoreService implements OnModuleInit {
     private subscriberService: SubscriberService,
     private productService: ProductService,
     private workflowStateService: WorkflowStateService,
-    private storeChallengeService: StoreChallengeService,
     private crediService: CreditService,
     private eventEmitter: EventEmitter2,
     private configService: ConfigService<EnvironmentVariables>,
@@ -159,39 +144,6 @@ export class StoreService implements OnModuleInit {
     @InjectRedis() private redis: Redis,
     private storeItemService: StoreItemService,
   ) {}
-
-  onModuleInit() {
-    this.storeDailyCronQueue.add(
-      {},
-      {
-        repeat: {
-          cron: CronExpression.EVERY_DAY_AT_MIDNIGHT,
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    );
-    this.storeWeeklyCronQueue.add(
-      {},
-      {
-        repeat: {
-          cron: CronExpression.EVERY_WEEK,
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    );
-    this.storeQuarterlyQueue.add(
-      {},
-      {
-        repeat: {
-          cron: CronExpression.EVERY_QUARTER,
-        },
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    );
-  }
 
   async emitEvent(eventName: string, storeId: string) {
     const store = await this.storeRepo.findOne({
@@ -1241,30 +1193,6 @@ export class StoreService implements OnModuleInit {
         productData,
       );
     }
-  }
-
-  async getCurrentStoreChallengesByQuestType({
-    subdomain,
-    questType,
-  }: {
-    subdomain: string;
-    questType: QuestType;
-  }): Promise<StoreChallenge[] | null> {
-    const store = await this.storeRepo.findOne({
-      where: {
-        subdomain,
-      },
-    });
-
-    if (!store) return null;
-
-    const challenges =
-      await this.storeChallengeService.getCurrentStoreChallengesByQuestType({
-        questType,
-        storeId: store.id,
-      });
-
-    return challenges;
   }
 
   async getStoreCredits(subdomain: string): Promise<number> {

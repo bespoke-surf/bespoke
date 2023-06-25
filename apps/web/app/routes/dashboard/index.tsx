@@ -127,24 +127,6 @@ export default function Dashboard() {
                   />,
                 ],
               }}
-              secondaryAction={{
-                component: (
-                  <Button
-                    color="white"
-                    size="lg"
-                    text="Periodic Reports"
-                    role="link"
-                    href="/challenges"
-                  />
-                ),
-                dropdownItems: [
-                  <Dropdown.Link
-                    href="/challenges"
-                    key="challenges"
-                    option={{ label: "Challengs", value: "challenges" }}
-                  />,
-                ],
-              }}
 
               // items={[
               //   <Suspense

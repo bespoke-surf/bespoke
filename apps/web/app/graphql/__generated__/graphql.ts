@@ -9,7 +9,7 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string | number; output: string; }
+  ID: { input: string; output: string; }
   String: { input: string; output: string; }
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
@@ -380,34 +380,6 @@ export enum CdnType {
   Shopify = 'SHOPIFY'
 }
 
-/** Product in posts */
-export type Challenge = {
-  __typename?: 'Challenge';
-  challengeType: ChallengeTypeEnum;
-  completionCount: Scalars['Float']['output'];
-  completionStages: Scalars['Float']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  isHidden: Scalars['Boolean']['output'];
-  measuredMetric?: Maybe<MetricType>;
-  measuredUnit?: Maybe<ChallengeMeasuredValueUnit>;
-  measuredValue?: Maybe<Scalars['Float']['output']>;
-  name: Scalars['String']['output'];
-  questId: Scalars['String']['output'];
-};
-
-/** different types of challenges */
-export enum ChallengeMeasuredValueUnit {
-  Percentage = 'PERCENTAGE',
-  Rate = 'RATE'
-}
-
-/** different types of challenges */
-export enum ChallengeTypeEnum {
-  Challenge = 'CHALLENGE'
-}
-
 /** update store details input */
 export type CompleteOnboardingInput = {
   about: Scalars['String']['input'];
@@ -745,7 +717,7 @@ export type List = {
   members: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   starred: Scalars['Boolean']['output'];
-  store?: Maybe<Store>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 /** Subscriber Metric */
@@ -1655,7 +1627,6 @@ export type Query = {
   getApiKeys?: Maybe<Array<ApiKey>>;
   /** get benchmark data */
   getBenchmarkData?: Maybe<Array<BenchmarkData>>;
-  getCurrentStoreChallengesByQuestType?: Maybe<Array<StoreChallenge>>;
   /** customer portal session */
   getCustomerPortalSession?: Maybe<Scalars['String']['output']>;
   /** get draft posts */
@@ -1680,8 +1651,6 @@ export type Query = {
   getListCount?: Maybe<Scalars['Int']['output']>;
   /** get lists */
   getLists: Array<List>;
-  /** get mandatory quest */
-  getMandatoryQuest?: Maybe<Quest>;
   /** get subscriber metrics by type */
   getMetricsByType?: Maybe<Array<Metric>>;
   /** get more post */
@@ -1794,12 +1763,6 @@ export type QueryGetBenchmarkDataArgs = {
 };
 
 
-export type QueryGetCurrentStoreChallengesByQuestTypeArgs = {
-  questType: QuestType;
-  subdomain: Scalars['String']['input'];
-};
-
-
 export type QueryGetCustomerPortalSessionArgs = {
   subdomain: Scalars['String']['input'];
 };
@@ -1862,11 +1825,6 @@ export type QueryGetListCountArgs = {
 
 export type QueryGetListsArgs = {
   subdomain: Scalars['String']['input'];
-};
-
-
-export type QueryGetMandatoryQuestArgs = {
-  questType: QuestType;
 };
 
 
@@ -2088,25 +2046,6 @@ export type QuerySubdomainAvailableArgs = {
   subdomain: Scalars['String']['input'];
 };
 
-/** Product in posts */
-export type Quest = {
-  __typename?: 'Quest';
-  challenges: Array<Challenge>;
-  createdAt: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  questType: QuestType;
-};
-
-/** quest type */
-export enum QuestType {
-  Custome = 'CUSTOME',
-  Daily = 'DAILY',
-  Milestone = 'MILESTONE',
-  Weekly = 'WEEKLY'
-}
-
 /** Shopify */
 export type Shopify = {
   __typename?: 'Shopify';
@@ -2233,19 +2172,6 @@ export type Store = {
   userId?: Maybe<Scalars['String']['output']>;
 };
 
-/** Store challenge */
-export type StoreChallenge = {
-  __typename?: 'StoreChallenge';
-  allCompleted: Scalars['Boolean']['output'];
-  challenge: Challenge;
-  challengeId: Scalars['String']['output'];
-  completedCount: Scalars['Float']['output'];
-  completedStages: Scalars['Float']['output'];
-  createdAt: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  storeId: Scalars['String']['output'];
-};
-
 /** the currency of the store */
 export enum StoreCurrency {
   Aed = 'AED',
@@ -2257,7 +2183,7 @@ export enum StoreCurrency {
   Usd = 'USD'
 }
 
-/** Store challenge */
+/** Store Item */
 export type StoreItem = {
   __typename?: 'StoreItem';
   createdAt: Scalars['DateTime']['output'];
@@ -3075,17 +3001,6 @@ export type HasProductPostQuery = { __typename?: 'Query', hasProductPost?: boole
 
 export type ProductPostFragment = { __typename?: 'ProductPost', id: string, postId: string, productId: string };
 
-export type ChallengeFragment = { __typename?: 'Challenge', id: string, name: string, description?: string | null, completionCount: number, completionStages: number, measuredMetric?: MetricType | null, challengeType: ChallengeTypeEnum };
-
-export type GetMandatoryQuestQueryVariables = Exact<{
-  questType: QuestType;
-}>;
-
-
-export type GetMandatoryQuestQuery = { __typename?: 'Query', getMandatoryQuest?: { __typename?: 'Quest', id: string, name: string, description?: string | null, questType: QuestType, challenges: Array<{ __typename?: 'Challenge', id: string, name: string, description?: string | null, completionCount: number, completionStages: number, measuredMetric?: MetricType | null, challengeType: ChallengeTypeEnum }> } | null };
-
-export type QuestFragment = { __typename?: 'Quest', id: string, name: string, description?: string | null, questType: QuestType, challenges: Array<{ __typename?: 'Challenge', id: string, name: string, description?: string | null, completionCount: number, completionStages: number, measuredMetric?: MetricType | null, challengeType: ChallengeTypeEnum }> };
-
 export type CollectEmailSubscribersMutationVariables = Exact<{
   shopifyId: Scalars['String']['input'];
   listId: Scalars['String']['input'];
@@ -3358,32 +3273,6 @@ export type UpdateStoreDetailsMutationVariables = Exact<{
 
 
 export type UpdateStoreDetailsMutation = { __typename?: 'Mutation', updateStoreDetails?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
-
-export type GetCurrentStoreChallengeByQuestTypeQueryVariables = Exact<{
-  subdomain: Scalars['String']['input'];
-  questType: QuestType;
-}>;
-
-
-export type GetCurrentStoreChallengeByQuestTypeQuery = { __typename?: 'Query', getCurrentStoreChallengesByQuestType?: Array<{ __typename?: 'StoreChallenge', id: string, completedCount: number, completedStages: number, challengeId: string, allCompleted: boolean, challenge: { __typename?: 'Challenge', id: string, name: string, description?: string | null, completionCount: number, completionStages: number, measuredMetric?: MetricType | null, challengeType: ChallengeTypeEnum } }> | null };
-
-export type StoreChallengeFragment = { __typename?: 'StoreChallenge', id: string, completedCount: number, completedStages: number, challengeId: string, allCompleted: boolean, challenge: { __typename?: 'Challenge', id: string, name: string, description?: string | null, completionCount: number, completionStages: number, measuredMetric?: MetricType | null, challengeType: ChallengeTypeEnum } };
-
-export type GetEmailTemplatesQueryVariables = Exact<{
-  subdomain: Scalars['String']['input'];
-}>;
-
-
-export type GetEmailTemplatesQuery = { __typename?: 'Query', getEmailTemplates: Array<{ __typename?: 'StoreItem', id: string, itemId: string, storeId: string, item: { __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } } }> };
-
-export type GetFolderItemsQueryVariables = Exact<{
-  subdomain: Scalars['String']['input'];
-}>;
-
-
-export type GetFolderItemsQuery = { __typename?: 'Query', getFolderItems: Array<{ __typename?: 'StoreItem', id: string, itemId: string, storeId: string, item: { __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } } }> };
-
-export type StoreItemFragment = { __typename?: 'StoreItem', id: string, itemId: string, storeId: string };
 
 export type AddCommaSeperatedEmailsToListMutationVariables = Exact<{
   input: AddCommaSeperatedEmailsToListInput;
@@ -4010,28 +3899,6 @@ export const ProductPostFragmentDoc = gql`
   productId
 }
     `;
-export const ChallengeFragmentDoc = gql`
-    fragment Challenge on Challenge {
-  id
-  name
-  description
-  completionCount
-  completionStages
-  measuredMetric
-  challengeType
-}
-    `;
-export const QuestFragmentDoc = gql`
-    fragment Quest on Quest {
-  id
-  name
-  description
-  questType
-  challenges {
-    ...Challenge
-  }
-}
-    ${ChallengeFragmentDoc}`;
 export const ListFragmentDoc = gql`
     fragment List on List {
   id
@@ -4113,25 +3980,6 @@ export const StoreFragmentDoc = gql`
   }
 }
     ${AboutFragmentDoc}`;
-export const StoreChallengeFragmentDoc = gql`
-    fragment StoreChallenge on StoreChallenge {
-  id
-  completedCount
-  completedStages
-  challengeId
-  allCompleted
-  challenge {
-    ...Challenge
-  }
-}
-    ${ChallengeFragmentDoc}`;
-export const StoreItemFragmentDoc = gql`
-    fragment StoreItem on StoreItem {
-  id
-  itemId
-  storeId
-}
-    `;
 export const SubscriberListFragmentDoc = gql`
     fragment SubscriberList on SubscriberList {
   id
@@ -4683,13 +4531,6 @@ export const HasProductPostDocument = gql`
   hasProductPost(subdomain: $subdomain)
 }
     `;
-export const GetMandatoryQuestDocument = gql`
-    query GetMandatoryQuest($questType: QuestType!) {
-  getMandatoryQuest(questType: $questType) {
-    ...Quest
-  }
-}
-    ${QuestFragmentDoc}`;
 export const CollectEmailSubscribersDocument = gql`
     mutation CollectEmailSubscribers($shopifyId: String!, $listId: String!) {
   collectEmailSubscribers(shopifyId: $shopifyId, listId: $listId) {
@@ -4939,38 +4780,6 @@ export const UpdateStoreDetailsDocument = gql`
   }
 }
     ${StoreFragmentDoc}`;
-export const GetCurrentStoreChallengeByQuestTypeDocument = gql`
-    query GetCurrentStoreChallengeByQuestType($subdomain: String!, $questType: QuestType!) {
-  getCurrentStoreChallengesByQuestType(
-    subdomain: $subdomain
-    questType: $questType
-  ) {
-    ...StoreChallenge
-  }
-}
-    ${StoreChallengeFragmentDoc}`;
-export const GetEmailTemplatesDocument = gql`
-    query GetEmailTemplates($subdomain: String!) {
-  getEmailTemplates(subdomain: $subdomain) {
-    ...StoreItem
-    item {
-      ...Item
-    }
-  }
-}
-    ${StoreItemFragmentDoc}
-${ItemFragmentDoc}`;
-export const GetFolderItemsDocument = gql`
-    query GetFolderItems($subdomain: String!) {
-  getFolderItems(subdomain: $subdomain) {
-    ...StoreItem
-    item {
-      ...Item
-    }
-  }
-}
-    ${StoreItemFragmentDoc}
-${ItemFragmentDoc}`;
 export const AddCommaSeperatedEmailsToListDocument = gql`
     mutation AddCommaSeperatedEmailsToList($input: AddCommaSeperatedEmailsToListInput!) {
   addCommaSeperatedEmailsToList(input: $input)
@@ -5500,9 +5309,6 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     HasProductPost(variables: HasProductPostQueryVariables, options?: C): Promise<HasProductPostQuery> {
       return requester<HasProductPostQuery, HasProductPostQueryVariables>(HasProductPostDocument, variables, options) as Promise<HasProductPostQuery>;
     },
-    GetMandatoryQuest(variables: GetMandatoryQuestQueryVariables, options?: C): Promise<GetMandatoryQuestQuery> {
-      return requester<GetMandatoryQuestQuery, GetMandatoryQuestQueryVariables>(GetMandatoryQuestDocument, variables, options) as Promise<GetMandatoryQuestQuery>;
-    },
     CollectEmailSubscribers(variables: CollectEmailSubscribersMutationVariables, options?: C): Promise<CollectEmailSubscribersMutation> {
       return requester<CollectEmailSubscribersMutation, CollectEmailSubscribersMutationVariables>(CollectEmailSubscribersDocument, variables, options) as Promise<CollectEmailSubscribersMutation>;
     },
@@ -5616,15 +5422,6 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     UpdateStoreDetails(variables: UpdateStoreDetailsMutationVariables, options?: C): Promise<UpdateStoreDetailsMutation> {
       return requester<UpdateStoreDetailsMutation, UpdateStoreDetailsMutationVariables>(UpdateStoreDetailsDocument, variables, options) as Promise<UpdateStoreDetailsMutation>;
-    },
-    GetCurrentStoreChallengeByQuestType(variables: GetCurrentStoreChallengeByQuestTypeQueryVariables, options?: C): Promise<GetCurrentStoreChallengeByQuestTypeQuery> {
-      return requester<GetCurrentStoreChallengeByQuestTypeQuery, GetCurrentStoreChallengeByQuestTypeQueryVariables>(GetCurrentStoreChallengeByQuestTypeDocument, variables, options) as Promise<GetCurrentStoreChallengeByQuestTypeQuery>;
-    },
-    GetEmailTemplates(variables: GetEmailTemplatesQueryVariables, options?: C): Promise<GetEmailTemplatesQuery> {
-      return requester<GetEmailTemplatesQuery, GetEmailTemplatesQueryVariables>(GetEmailTemplatesDocument, variables, options) as Promise<GetEmailTemplatesQuery>;
-    },
-    GetFolderItems(variables: GetFolderItemsQueryVariables, options?: C): Promise<GetFolderItemsQuery> {
-      return requester<GetFolderItemsQuery, GetFolderItemsQueryVariables>(GetFolderItemsDocument, variables, options) as Promise<GetFolderItemsQuery>;
     },
     AddCommaSeperatedEmailsToList(variables: AddCommaSeperatedEmailsToListMutationVariables, options?: C): Promise<AddCommaSeperatedEmailsToListMutation> {
       return requester<AddCommaSeperatedEmailsToListMutation, AddCommaSeperatedEmailsToListMutationVariables>(AddCommaSeperatedEmailsToListDocument, variables, options) as Promise<AddCommaSeperatedEmailsToListMutation>;

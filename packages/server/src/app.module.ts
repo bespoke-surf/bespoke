@@ -41,7 +41,6 @@ import { AppService } from './app.service';
 import { AuthorizationModule } from './authorization/authorization.module';
 import { BillingModule } from './billing/billing.module';
 import { CaslModule } from './casl/casl.module';
-import { ChallengeModule } from './challenge/challenge.module';
 import { CreditModule } from './credit/credit.module';
 import { EventModule } from './event/event.module';
 import { ShopifyWebhookHandlers } from './handlers/shopify-webhook-handler';
@@ -58,7 +57,6 @@ import { PostModule } from './post/post.module';
 import { PosthogModule } from './posthog/posthog.module';
 import { ProductPostModule } from './product-post/product-post.module';
 import { ProductModule } from './product/product.module';
-import { QuestModule } from './quest/quest.module';
 import { S3Module } from './s3/s3.module';
 import { SesModule } from './ses/ses.module';
 import { SessionModule } from './session/session.module';
@@ -66,7 +64,6 @@ import { ShopifySessionStorage } from './session/shopifySessionStorage';
 import { ShopifyModule } from './shopify/shopify.module';
 import { SignupFormModule } from './signup-form/signup-form.module';
 import { SseModule } from './sse/sse.module';
-import { StoreChallengeModule } from './store-challenge/store-challenge.module';
 import { StoreItemModule } from './store-item/store-item.module';
 import { StoreModule } from './store/store.module';
 import { StripeModule } from './stripe/stripe.module';
@@ -280,9 +277,6 @@ import { WorkflowModule } from './workflow/workflow.module';
     BillingModule,
     NotificationModule,
     PosthogModule,
-    ChallengeModule,
-    QuestModule,
-    StoreChallengeModule,
     ItemModule,
     StoreItemModule,
     ItemCategoryModule,

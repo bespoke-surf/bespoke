@@ -349,33 +349,6 @@ enum CDNType {
   SHOPIFY
 }
 
-"""Product in posts"""
-type Challenge {
-  challengeType: ChallengeTypeEnum!
-  completionCount: Float!
-  completionStages: Float!
-  createdAt: DateTime!
-  description: String
-  id: ID!
-  isHidden: Boolean!
-  measuredMetric: MetricType
-  measuredUnit: ChallengeMeasuredValueUnit
-  measuredValue: Float
-  name: String!
-  questId: String!
-}
-
-"""different types of challenges"""
-enum ChallengeMeasuredValueUnit {
-  PERCENTAGE
-  RATE
-}
-
-"""different types of challenges"""
-enum ChallengeTypeEnum {
-  CHALLENGE
-}
-
 """update store details input"""
 input CompleteOnboardingInput {
   about: String!
@@ -1249,7 +1222,6 @@ type Query {
 
   """get benchmark data"""
   getBenchmarkData(subdomain: String!): [BenchmarkData!]
-  getCurrentStoreChallengesByQuestType(questType: QuestType!, subdomain: String!): [StoreChallenge!]
 
   """customer portal session"""
   getCustomerPortalSession(subdomain: String!): String
@@ -1285,9 +1257,6 @@ type Query {
 
   """get lists"""
   getLists(subdomain: String!): [List!]!
-
-  """get mandatory quest"""
-  getMandatoryQuest(questType: QuestType!): Quest
 
   """get subscriber metrics by type"""
   getMetricsByType(allMetric: Boolean, metricType: MetricType, skip: Int!, subdomain: String!, take: Int!): [Metric!]
@@ -1412,24 +1381,6 @@ type Query {
   unReadNotificationCount: Int!
 }
 
-"""Product in posts"""
-type Quest {
-  challenges: [Challenge!]!
-  createdAt: DateTime!
-  description: String
-  id: ID!
-  name: String!
-  questType: QuestType!
-}
-
-"""quest type"""
-enum QuestType {
-  CUSTOME
-  DAILY
-  MILESTONE
-  WEEKLY
-}
-
 """Shopify"""
 type Shopify {
   authenticated: Boolean!
@@ -1545,18 +1496,6 @@ type Store {
   userId: String
 }
 
-"""Store challenge"""
-type StoreChallenge {
-  allCompleted: Boolean!
-  challenge: Challenge!
-  challengeId: String!
-  completedCount: Float!
-  completedStages: Float!
-  createdAt: DateTime!
-  id: ID!
-  storeId: String!
-}
-
 """the currency of the store"""
 enum StoreCurrency {
   AED
@@ -1568,7 +1507,7 @@ enum StoreCurrency {
   USD
 }
 
-"""Store challenge"""
+"""Store Item"""
 type StoreItem {
   createdAt: DateTime!
   id: ID!

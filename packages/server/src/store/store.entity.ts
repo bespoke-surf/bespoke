@@ -21,7 +21,6 @@ import { Notification } from '../notification/notification.entity';
 import { Post } from '../post/post.entity';
 import { Product } from '../product/product.entity';
 import { SignupForm } from '../signup-form/signup-form.entity';
-import { StoreChallenge } from '../store-challenge/storeChallenge.entity';
 import { StoreItem } from '../store-item/store-item.entity';
 import { Subscriber } from '../subscriber/subscriber.entity';
 import { User } from '../user/user.entity';
@@ -90,9 +89,6 @@ export class Store {
 
   @OneToOne(() => User, (user) => user.store, { onDelete: 'CASCADE' })
   user: Relation<User>;
-
-  @OneToMany(() => StoreChallenge, (storeChallenge) => storeChallenge.store)
-  storeChallenge: Relation<StoreChallenge[]>;
 
   @OneToMany(() => StoreItem, (storeItem) => storeItem.store)
   storeItem: Relation<StoreItem[]>;
