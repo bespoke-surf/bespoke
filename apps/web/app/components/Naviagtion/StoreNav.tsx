@@ -120,7 +120,11 @@ export const StoreNav = ({
             <SideNavigation.NestedItem
               href="/"
               label="Newsletter"
-              active={pathname.match(/^\/$/) || "/drafts" ? "page" : undefined}
+              active={
+                pathname.match(/^\/$/) || pathname.includes("/drafts")
+                  ? "page"
+                  : undefined
+              }
               onClick={handleClosIsMobile}
             />
 
