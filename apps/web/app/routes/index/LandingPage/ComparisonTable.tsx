@@ -63,6 +63,15 @@ const data: IData[] = [
     substack: "no",
     mailchimp: "yes",
   },
+  {
+    text: "You can ask questions with surveys and then do personalised targeting via Automations and Campaigns",
+    readiness: "ready",
+    klaviyo: "no",
+    bespoke: "partial",
+    substack: "no",
+    mailchimp: "yes",
+  },
+
   // {
   //   text: "You can create an unique personalized brand expierence for your customers'",
   //   readiness: "ready",
@@ -88,7 +97,7 @@ export default function ComparisonTable() {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <Text weight="bold">Benefits of Open Source</Text>
+              <Text weight="bold">Benefits</Text>
             </Table.HeaderCell>
             <Table.HeaderCell>
               <Text weight="bold">Bespoke</Text>
@@ -161,7 +170,7 @@ export default function ComparisonTable() {
           ))}
           <Table.Row>
             <Table.Cell>
-              <Text weight="bold">Benifits of Bespoke Cloud</Text>
+              <Text weight="bold">Bespoke Cloud</Text>
             </Table.Cell>
             <Table.Cell>{}</Table.Cell>
             <Table.Cell>{}</Table.Cell>
