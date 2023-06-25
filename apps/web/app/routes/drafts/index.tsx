@@ -133,15 +133,6 @@ const Posts = () => {
                 ? "Write your newsletters and send to your audience. People can also see your published posts here."
                 : undefined
             }
-            helperLink={
-              rootLoaderData.isUserSubdomain
-                ? {
-                    href: "/tools/public-profile",
-                    accessibilityLabel: "how to view public website",
-                    text: "See how to view my public website.",
-                  }
-                : undefined
-            }
             primaryAction={
               rootLoaderData?.isUserSubdomain
                 ? {

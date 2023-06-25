@@ -120,7 +120,7 @@ export const StoreNav = ({
             <SideNavigation.NestedItem
               href="/"
               label="Newsletter"
-              active={pathname.match(/^\/$/) ? "page" : undefined}
+              active={pathname.match(/^\/$/) || "/drafts" ? "page" : undefined}
               onClick={handleClosIsMobile}
             />
 
@@ -160,7 +160,7 @@ export const StoreNav = ({
             />
             <SideNavigation.NestedItem
               href="/subscribers"
-              label="Profiles"
+              label="Subscribers"
               active={
                 location.pathname.includes("/subscribers") ? "page" : undefined
               }
