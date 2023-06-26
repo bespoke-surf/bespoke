@@ -52,7 +52,7 @@ export default function EmailUsage() {
               EMAIL SENT
             </Text>
           </Box>
-          <Box display={statusFree ? "block" : "none"}>
+          <Box display={statusFree && !rootData.OPEN_SOURCE ? "block" : "none"}>
             <Text size="200" inline color="subtle" weight="bold">
               OF{" "}
             </Text>

@@ -1,4 +1,6 @@
+import { useRouteLoaderData } from "@remix-run/react";
 import { Box, Flex, Icon, Table, Text } from "gestalt";
+import type { RootData } from "../../../root";
 import CloudTable from "./CloudTable";
 /*
  */
@@ -91,6 +93,7 @@ const data: IData[] = [
 ];
 
 export default function ComparisonTable() {
+  const rootLoaderData = useRouteLoaderData("root") as RootData;
   return (
     <Box width="100%">
       <Table accessibilityLabel="Table.RowDrawer example" stickyColumns={1}>
@@ -168,17 +171,21 @@ export default function ComparisonTable() {
               </Table.Cell>
             </Table.Row>
           ))}
-          <Table.Row>
-            <Table.Cell>
-              <Text weight="bold">Bespoke Cloud</Text>
-            </Table.Cell>
-            <Table.Cell>{}</Table.Cell>
-            <Table.Cell>{}</Table.Cell>
-            <Table.Cell>{}</Table.Cell>
-            <Table.Cell>{}</Table.Cell>
-          </Table.Row>
+          {rootLoaderData.OPEN_SOURCE ? null : (
+            <>
+              <Table.Row>
+                <Table.Cell>
+                  <Text weight="bold">Bespoke Cloud</Text>
+                </Table.Cell>
+                <Table.Cell>{}</Table.Cell>
+                <Table.Cell>{}</Table.Cell>
+                <Table.Cell>{}</Table.Cell>
+                <Table.Cell>{}</Table.Cell>
+              </Table.Row>
 
-          <CloudTable />
+              <CloudTable />
+            </>
+          )}
         </Table.Body>
       </Table>
     </Box>

@@ -34,4 +34,5 @@ export interface EnvironmentVariables {
   PRIMARY_REGION: string;
   FLY_REGION: string;
   UNLAYER_SECRET: string;
+  OPEN_SOURCE: boolean;
 }

@@ -27,6 +27,7 @@ import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useCallback, useEffect, useMemo } from "react";
 import { namedAction } from "remix-utils";
+import { getEnvVars } from "../../../env.server";
 import { BottomToast } from "../../components/BottomToast";
 import type {
   CreateCheckoutSessionUrlMutationVariables,
@@ -41,6 +42,9 @@ import type { IActionData } from "./type";
 import { PlanChooseActionEnum } from "./type";
 
 export async function loader({ request }: LoaderArgs) {
+  if (getEnvVars().OPEN_SOURCE) {
+    return redirect("/");
+  }
   const isPrivate = await isPrivateRoute(request);
   if (isPrivate == false) {
     return redirect("/");

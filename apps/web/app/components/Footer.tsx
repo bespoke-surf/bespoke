@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { Box, Flex, IconButton, Link, TapArea, Text } from "gestalt";
 import { Suspense, lazy, useReducer, useState } from "react";
+import { TAG_LINE } from "../constants";
 import BigContainer from "./BigContainer";
 
 const CookiePrefrences = lazy(() => import("./footer/CookiePrefrences"));
@@ -21,18 +22,7 @@ export default function Footer() {
             <Link href="mailto:support@bespoke.surf">
               <Text size="600">Email Us</Text>
             </Link>
-
-            <Link href="https://bespoke.bespoke.surf/p/why-email-strategies-need-to-be-revolutionized">
-              <Text size="600">Why Revolutionize?</Text>
-            </Link>
           </Flex.Item>
-          <Box>
-            <TapArea onTap={setWaitlist}>
-              <Text underline size="600">
-                Join The Waitlist
-              </Text>
-            </TapArea>
-          </Box>
         </Flex>
       </BigContainer>
       <BigContainer>
@@ -48,9 +38,7 @@ export default function Footer() {
       </BigContainer>
       <BigContainer>
         <Flex direction="column" gap={4}>
-          <Text>
-            Bespoke.surf - Helping humanity become financially independent
-          </Text>
+          <Text>Bespoke.surf - {TAG_LINE}</Text>
           <Flex alignItems="center" gap={4} wrap>
             <Text>© {dayjs().get("year")} Cartegan Software Pvt Ltd</Text>
             <Link href="/privacy-policy">

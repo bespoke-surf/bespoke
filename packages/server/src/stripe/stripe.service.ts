@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { Stripe } from 'stripe';
 import invariant from 'tiny-invariant';
+import { TAG_LINE } from '../constants';
 import { EnvironmentVariables } from '../types';
 import { CreateCheckoutSessionInput } from './dto/createCheckoutSessionInput';
 
@@ -256,7 +257,7 @@ export class StripeService {
         },
       },
       business_profile: {
-        headline: 'Bespoke - Helping humanity become financially independent.',
+        headline: `Bespoke - ${TAG_LINE}`,
         privacy_policy_url: `https://${FRONTEND_HOST}/privacy-policy`,
         terms_of_service_url: `https://${FRONTEND_HOST}/terms-of-service`,
       },

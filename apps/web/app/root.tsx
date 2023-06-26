@@ -146,6 +146,7 @@ export interface RootData {
   isMobile: boolean;
   CLOUDINARY_UPLOAD_IMAGE_URL?: string | null | undefined;
   CLOUDINARY_PRESET?: string | null | undefined;
+  OPEN_SOURCE: boolean;
 }
 
 export let loader: LoaderFunction = async ({ request }) => {
@@ -208,6 +209,7 @@ export let loader: LoaderFunction = async ({ request }) => {
           BACKEND_HOST: getEnvVars().BACKEND_HOST,
           CLOUDINARY_UPLOAD_IMAGE_URL: getEnvVars().CLOUDINARY_UPLOAD_IMAGE_URL,
           CLOUDINARY_PRESET: getEnvVars().CLOUDINARY_PRESET,
+          OPEN_SOURCE: getEnvVars().OPEN_SOURCE,
         },
         {
           headers: {
@@ -224,6 +226,7 @@ export let loader: LoaderFunction = async ({ request }) => {
           isUserSubdomain: false,
           unReadCount: 0,
           isMobile: mobile,
+          OPEN_SOURCE: getEnvVars().OPEN_SOURCE,
         },
         {
           headers: {

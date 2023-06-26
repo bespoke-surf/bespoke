@@ -1,3 +1,5 @@
+import { TAG_LINE } from '../../constants';
+
 export const signupOrLoginEmailTemplate = ({
   loginOrSignupCode,
 }: {
@@ -184,7 +186,7 @@ export const signupOrLoginEmailTemplate = ({
 </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="bd528bf5-678f-4309-a59e-bfa0fb06135c" data-mc-module-version="2019-10-22">
   <tbody>
     <tr>
-      <td style="padding:18px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit"><span style="background-color: #fde293">Bespoke</span><span style="color: #000000">.surf</span><span style="color: #bababa">.</span><span style="color: #828282"> Helping humanity become financially independent.</span></div><div></div></div></td>
+      <td style="padding:18px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit"><span style="background-color: #fde293">Bespoke</span><span style="color: #000000">.surf</span><span style="color: #bababa">.</span><span style="color: #828282">${TAG_LINE}</span></div><div></div></div></td>
     </tr>
   </tbody>
 </table></td>

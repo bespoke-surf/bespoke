@@ -19,6 +19,7 @@ const envSchema = z.object({
   SENTRY_AUTH_TOKEN: z.string(),
   SENTRY_ORG: z.string(),
   SENTRY_PROJECT: z.string(),
+  OPEN_SOURCE: z.boolean(),
 });
 
 export type EnvVars = z.infer<typeof envSchema>;

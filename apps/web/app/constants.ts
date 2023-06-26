@@ -6,3 +6,6 @@ export const STORE_PREFIX = "store";
 
 export const MARKETING_COOKIE_KEY = "@marketing_cookie_key";
 export const ANALYTICS_COOKIE_KEY = "@analytics_cookie_key";
+
+export const TAG_LINE =
+  "Open Source Personalized Recommendation and Marketing Platform.";

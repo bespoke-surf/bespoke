@@ -68,7 +68,7 @@ export const meta: MetaFunction = ({ parentsData }) => {
   return {
     title: `Onboarding | ${rootData.store?.name}`,
     description:
-      "Onboarding process to start your journey to empower humanity to become financially indepnendent",
+      "Onboarding process to start your journey for better personlization.",
   };
 };
 

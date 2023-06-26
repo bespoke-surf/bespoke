@@ -230,16 +230,18 @@ export const StoreNav = ({
                 onClick={handleClosIsMobile}
                 active={location.pathname === "/plan" ? "page" : undefined}
               />
-              <SideNavigation.NestedItem
-                href="/plan/subscription-rewards"
-                label="Subscription Rewards"
-                onClick={handleClosIsMobile}
-                active={
-                  location.pathname === "/plan/subscription-rewards"
-                    ? "page"
-                    : undefined
-                }
-              />
+              {rootLoaderData.OPEN_SOURCE ? null : (
+                <SideNavigation.NestedItem
+                  href="/plan/subscription-rewards"
+                  label="Subscription Rewards"
+                  onClick={handleClosIsMobile}
+                  active={
+                    location.pathname === "/plan/subscription-rewards"
+                      ? "page"
+                      : undefined
+                  }
+                />
+              )}
             </SideNavigation.NestedGroup>
             <SideNavigation.NestedItem
               href="/integrations"

@@ -13,7 +13,7 @@ import {
 } from "gestalt";
 import { useCookiePrefrences } from "../../hooks/useCookiePrefrencecs";
 
-const HEADER_ZINDEX = new FixedZIndex(10);
+const HEADER_ZINDEX = new FixedZIndex(999);
 const zIndex = new CompositeZIndex([HEADER_ZINDEX]);
 
 export default function CookiePrefrences({ dismiss }: { dismiss: () => void }) {

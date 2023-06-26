@@ -1,9 +1,11 @@
-import { useLocation } from "@remix-run/react";
+import { useLocation, useRouteLoaderData } from "@remix-run/react";
 import { Avatar, Box, Flex, Link, SideNavigation, Sticky, Text } from "gestalt";
+import type { RootData } from "../root";
 import Footer from "./Naviagtion/storeNav/Footer";
 
 export const UnauthenticatedNavigation = () => {
   const location = useLocation();
+  const rootLoaderData = useRouteLoaderData("root") as RootData;
   return (
     <Sticky top={0} zIndex={{ index: () => 0 }}>
       <Box display="none" mdDisplay="block" lgDisplay="block" height="100vh">
@@ -14,11 +16,7 @@ export const UnauthenticatedNavigation = () => {
             <Flex justifyContent="between">
               <Link href={"/"}>
                 <Flex alignItems="center" gap={2}>
-                  <Avatar
-                    name="Bespoke"
-                    size="md"
-                    src="https://res.cloudinary.com/bespoke-cloudinary/image/upload/f_auto/v1651261766/Group_1_3_vhvfbd.png"
-                  />
+                  <Avatar name="Bespoke" size="md" src="/bespoke-icon.png" />
                   <Text weight="bold" size="300">
                     Bespoke
                   </Text>
@@ -33,11 +31,14 @@ export const UnauthenticatedNavigation = () => {
             active={location.pathname === "/" ? "page" : undefined}
             label="What is Bespoke?"
           />
-          <SideNavigation.TopItem
-            href="/pricing"
-            active={location.pathname === "/pricing" ? "page" : undefined}
-            label="Pricing"
-          />
+
+          {rootLoaderData.OPEN_SOURCE ? null : (
+            <SideNavigation.TopItem
+              href="/pricing"
+              active={location.pathname === "/pricing" ? "page" : undefined}
+              label="Pricing"
+            />
+          )}
 
           <SideNavigation.Section label="App">
             <SideNavigation.TopItem
@@ -53,10 +54,12 @@ export const UnauthenticatedNavigation = () => {
           </SideNavigation.Section>
 
           <SideNavigation.Section label="External Links">
-            <SideNavigation.TopItem
-              href="https://github.com/bespoke-surf/bespoke"
-              label="Self Host Guide | Github"
-            />
+            {rootLoaderData.OPEN_SOURCE ? null : (
+              <SideNavigation.TopItem
+                href="https://github.com/bespoke-surf/bespoke"
+                label="Self Host Guide | Github"
+              />
+            )}
             <SideNavigation.TopItem
               href="https://bespoke-api.readme.io/"
               label="API Reference"
@@ -66,20 +69,23 @@ export const UnauthenticatedNavigation = () => {
               href="https://feedback.bespoke.surf/changelog"
               label="See What's New"
             />
-            <SideNavigation.Group label="Support">
-              <SideNavigation.NestedItem
-                href="https://discord.gg/sXAkfWBM"
-                label="Devs on Discord"
-              />
-              <SideNavigation.NestedItem
-                href="https://twitter.com/bespoke_surf"
-                label="Twitter"
-              />
-              <SideNavigation.NestedItem
-                href="mailto:support@bespoke.surf"
-                label="Email Us"
-              />
-            </SideNavigation.Group>
+
+            {rootLoaderData.OPEN_SOURCE ? null : (
+              <SideNavigation.Group label="Support">
+                <SideNavigation.NestedItem
+                  href="https://discord.gg/sXAkfWBM"
+                  label="Devs on Discord"
+                />
+                <SideNavigation.NestedItem
+                  href="https://twitter.com/bespoke_surf"
+                  label="Twitter"
+                />
+                <SideNavigation.NestedItem
+                  href="mailto:support@bespoke.surf"
+                  label="Email Us"
+                />
+              </SideNavigation.Group>
+            )}
           </SideNavigation.Section>
         </SideNavigation>
       </Box>

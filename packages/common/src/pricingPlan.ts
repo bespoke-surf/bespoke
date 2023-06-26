@@ -1,6 +1,6 @@
 export interface IPricing {
   id: PricingIdType;
-  type: "basic" | "advanced" | "default";
+  type: "basic" | "advanced" | "default" | "open source";
   title: string;
   overages: number;
   price: number;
@@ -10,6 +10,7 @@ export interface IPricing {
 }
 
 export const FREE_PLAN_ID = "FREE";
+export const OPEN_SOURCE_PLAN_ID = "OPEN_SOURCE";
 
 export const BASIC_PLAN_5K_ID = "BASIC_5K";
 export const BASIC_PLAN_10K_ID = "BASIC_10K";
@@ -24,6 +25,7 @@ export const ADVANCED_PLAN_100K_ID = "ADVANCED_100K";
 export const ADVANCED_PLAN_200K_ID = "ADVANCED_200K";
 
 export type PricingIdType =
+  | typeof OPEN_SOURCE_PLAN_ID
   | typeof FREE_PLAN_ID
   | typeof BASIC_PLAN_5K_ID
   | typeof BASIC_PLAN_10K_ID
@@ -37,6 +39,16 @@ export type PricingIdType =
   | typeof ADVANCED_PLAN_200K_ID;
 
 export const bespokePricingPlan: IPricing[] = [
+  {
+    id: OPEN_SOURCE_PLAN_ID,
+    type: "open source",
+    title: "Open Source",
+    contacts: 999999999999,
+    emails: 999999999999,
+    overages: 0,
+    price: 0,
+    stripePriceId: "",
+  },
   {
     id: FREE_PLAN_ID,
     type: "default",

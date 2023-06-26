@@ -1579,8 +1579,6 @@ export class StoreService {
         ({ id }) => id === billing?.bespokePlanId,
       );
 
-      console.log(billingPlan);
-
       if (billingPlan?.type === 'basic') {
         throw new Error('not authorized to create workflow on basic plan');
       }
