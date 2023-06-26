@@ -13,14 +13,14 @@ interface IData {
 }
 
 const data: IData[] = [
-  {
-    text: "You can compare your metrics with related industries with benchmarks",
-    readiness: "ready",
-    klaviyo: "yes",
-    bespoke: "yes",
-    substack: "no",
-    mailchimp: "no",
-  },
+  // {
+  //   text: "You can compare your metrics with related industries with benchmarks",
+  //   readiness: "ready",
+  //   klaviyo: "yes",
+  //   bespoke: "yes",
+  //   substack: "no",
+  //   mailchimp: "no",
+  // },
 
   {
     text: "You can quickly replicate the top strategies shared by other strategists",

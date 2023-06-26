@@ -29,6 +29,7 @@ import { StoreCurrency } from './enum/currency.enum';
 import { EmailSentLimitStatus } from './enum/emailSentLimitStatus.enum';
 import { Store } from './store.entity';
 import { StoreService } from './store.service';
+import { GettingStartedResponse } from './types/gettingStartedResponse';
 
 @Resolver(() => Store)
 export class StoreResolver {
@@ -363,5 +364,16 @@ export class StoreResolver {
     @Args('subdomain') subdoamin: string,
   ): Promise<Workflow | null> {
     return this.storeService.createWorkflow(subdoamin);
+  }
+
+  @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
+  @Query(() => [GettingStartedResponse], {
+    nullable: true,
+    description: 'getting started',
+  })
+  gettingStarted(
+    @Args('subdomain') subdoamin: string,
+  ): Promise<GettingStartedResponse[] | null> {
+    return this.storeService.gettingStarted(subdoamin);
   }
 }

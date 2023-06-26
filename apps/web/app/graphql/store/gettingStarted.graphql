@@ -1,0 +1,6 @@
+query GettingStarted($subdomain: String!) {
+  gettingStarted(subdomain: $subdomain) {
+    type
+    completed
+  }
+}

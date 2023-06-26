@@ -110,7 +110,6 @@ export default function SignupForms() {
               <PageHeader
                 borderStyle="none"
                 title="SIGN-UP FORMS"
-                subtext="Forms to add subscribers to a list. Create a form to display on your website"
                 primaryAction={{
                   component: (
                     <Button
@@ -168,10 +167,10 @@ export default function SignupForms() {
                     <Box marginBottom={8}>
                       <Callout
                         iconAccessibilityLabel="warning"
-                        title="Create or Add Forms!"
+                        title="Quickly Add Forms"
                         key="add subs"
                         type="recommendation"
-                        message="Create a new form here or add forms from the Template & Forms tab. Also subscribe to a paid plan to get new forms every month."
+                        message="You can add forms from the Template & Forms page. Also subscribe to a paid plan to get new forms every month."
                         primaryAction={{
                           accessibilityLabel: "templates and forms",
                           label: "Templates & Forms",

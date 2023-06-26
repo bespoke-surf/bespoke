@@ -1,7 +1,19 @@
 import type { ActionArgs, LoaderArgs, MetaFunction } from "@remix-run/node";
 import { defer, redirect } from "@remix-run/node";
+import { Await, Outlet, useLoaderData } from "@remix-run/react";
 import { withYup } from "@remix-validated-form/with-yup";
-import { Box, Button, Container, Dropdown, Flex, PageHeader } from "gestalt";
+import {
+  Box,
+  Button,
+  Container,
+  Dropdown,
+  Flex,
+  Heading,
+  Link,
+  PageHeader,
+  Text,
+} from "gestalt";
+import { ClientOnly } from "remix-utils";
 import * as yup from "yup";
 import BigContainer from "~/components/BigContainer";
 import Naviagation from "../../components/Navigation";
@@ -13,13 +25,15 @@ import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry
 import { getSubdomain, isPrivateRoute } from "../../utils/utils.server";
 import Analytics from "./Analytics";
 import DashboardCallouts from "./DashboardCallouts";
+import GettingStarted from "./GettingStarted";
+import Resources from "./Resrouces";
 import type { DashboardData } from "./types";
 import { DashboardActionEnum, UpdateIndustrySchema } from "./types";
+
 export {
   GenericCatchBoundary as CatchBoundary,
   GenericErrorBoundary as ErrorBoundary,
 };
-
 export const meta: MetaFunction = ({ parentsData }) => {
   const rootData = parentsData.root as RootData;
 
@@ -48,11 +62,13 @@ export async function loader({ request }: LoaderArgs) {
   // );
   const emailMetric = sdk.GetStoreEmailMetric({ subdomain }, { request });
   const banchmarkData = sdk.GetBenchmarkData({ subdomain }, { request });
+  const gettingStarted = sdk.GettingStarted({ subdomain }, { request });
 
   return defer({
     billing: storeBilling.getStoreBilling,
     emailMetricPromise: emailMetric,
     benchmarkDataPromise: banchmarkData,
+    gettinStartedPromise: gettingStarted,
     // storeRevenuePromise: storeRevenue,
     // storeDailyRevenuePromise: storeDailyRevenue,
   } satisfies DashboardData);
@@ -93,8 +109,8 @@ export async function action({ request }: ActionArgs) {
 
 export default function Dashboard() {
   // const location = useLocation();
-  // const { storeRevenuePromise, storeDailyRevenuePromise } =
-  //   useLoaderData() as DashboardData;
+  const { gettinStartedPromise } = useLoaderData() as DashboardData;
+
   // const revenuePromise = suspendAll([
   //   storeRevenuePromise,
   //   storeDailyRevenuePromise,
@@ -107,16 +123,16 @@ export default function Dashboard() {
         <Flex.Item flex="grow">
           <Container>
             <PageHeader
-              title="Home"
-              subtext="Your Metrics and Benchmarks. Head over to Periodic Reports to drive performance. Upload your customer emails under lists."
+              title="HOME"
+              subtext=""
               primaryAction={{
                 component: (
                   <Button
                     color="gray"
-                    size="lg"
-                    text="Lists"
+                    size="md"
+                    text="View Public Website"
                     role="link"
-                    href="/subscriber-lists"
+                    href="/dashboard/public-profile"
                   />
                 ),
                 dropdownItems: [
@@ -174,12 +190,75 @@ export default function Dashboard() {
             <Flex justifyContent="center">
               <Box width="93.5%" paddingY={6}>
                 <DashboardCallouts />
-                <Analytics />
+                <Flex direction="column" gap={8}>
+                  <Await resolve={gettinStartedPromise}>
+                    {({ gettingStarted }) => (
+                      <GettingStarted gettingStartedData={gettingStarted} />
+                    )}
+                  </Await>
+                  <Analytics />
+                  <Resources />
+                  <Box marginTop={8}>
+                    <Flex justifyContent="between" alignItems="center">
+                      <Flex direction="column" gap={0}>
+                        <Heading size="500">Need help?</Heading>
+
+                        <Text color="subtle" inline>
+                          Get quick real time help from{" "}
+                          <Link
+                            href="https://discord.gg/sXAkfWBM"
+                            display="inlineBlock"
+                            underline="none"
+                          >
+                            <Text weight="bold" inline>
+                              Devs on Discord.
+                            </Text>
+                          </Link>
+                        </Text>
+                        <Text color="subtle" inline>
+                          See detailed reports on our latest{" "}
+                          <Link
+                            href="https://feedback.bespoke.surf/changelog"
+                            display="inlineBlock"
+                            underline="none"
+                          >
+                            <Text weight="bold" inline>
+                              Feature Releases.
+                            </Text>
+                          </Link>
+                        </Text>
+                        <Text color="subtle" inline>
+                          Privately communicate with us via{" "}
+                          <Link
+                            href="mailto:support@bespoke.surf"
+                            display="inlineBlock"
+                            underline="none"
+                          >
+                            <Text inline weight="bold">
+                              Email{" "}
+                            </Text>
+                          </Link>
+                          or{" "}
+                          <Link
+                            href="https://twitter.com/bespoke_surf"
+                            display="inlineBlock"
+                            underline="none"
+                          >
+                            <Text inline weight="bold">
+                              Twitter DM's.
+                            </Text>
+                          </Link>
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </Box>
+                </Flex>
               </Box>
             </Flex>
           </Container>
         </Flex.Item>
       </Flex>
+      <ClientOnly>{() => <Outlet />}</ClientOnly>
     </BigContainer>
   );
 }

@@ -7540,6 +7540,11 @@
     "@uppy/utils" "^5.4.0"
     nanoid "^4.0.0"
 
+"@use-effect/did-update@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@use-effect/did-update/-/did-update-0.0.3.tgz#97078be2508f8f754faa2f7dd8a4cc9e96affeb8"
+  integrity sha512-FAKRuCfR+sz2kXtFzy0nXc4mOacmquAR/qZWYuDTmcJ8vhPCMbM/+mDJTxba9BALxo7gcw4POUHp8PfdCwoemA==
+
 "@vanilla-extract/babel-plugin-debug-ids@^1.0.2":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@vanilla-extract/babel-plugin-debug-ids/-/babel-plugin-debug-ids-1.0.3.tgz#ce07190343b51ed658b385bdce1e79952a4e8526"
@@ -21001,6 +21006,11 @@ urlpattern-polyfill@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/urlpattern-polyfill/-/urlpattern-polyfill-9.0.0.tgz#bc7e386bb12fd7898b58d1509df21d3c29ab3460"
   integrity sha512-WHN8KDQblxd32odxeIgo83rdVDE2bvdkb86it7bMhYZwWKJz0+O0RK/eZiHYnM+zgt/U7hAHOlCQGfjjvSkw2g==
+
+use-carousel-hook@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/use-carousel-hook/-/use-carousel-hook-0.2.1.tgz#73725ef932c150d77827a33e0ed9e32ce86c0e41"
+  integrity sha512-SYra3IJHd/M9bwcIKBi1bxKCIGhdMGYeOcYNH3C7N8jKle2eI6BKfV5Vszjwcsd9Lq6jcrg+xS4qN7ohM0v1LQ==
 
 use-composed-ref@^1.3.0:
   version "1.3.0"

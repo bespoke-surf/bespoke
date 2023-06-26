@@ -81,12 +81,12 @@ const data: IData[] = [
     basic: true,
     advanced: true,
   },
-  {
-    text: "Periodic Reports",
-    free: true,
-    basic: true,
-    advanced: true,
-  },
+  // {
+  //   text: "Periodic Reports",
+  //   free: true,
+  //   basic: true,
+  //   advanced: true,
+  // },
   {
     text: "Subscription Rewards",
     free: false,

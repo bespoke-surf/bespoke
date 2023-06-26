@@ -241,7 +241,6 @@ export default function Automation() {
             <PageHeader
               borderStyle="none"
               title="AUTOMATIONS"
-              subtext="Create a workflow that sends your customers messages on autopilot."
               items={[
                 <Datapoint
                   key="revenue"

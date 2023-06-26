@@ -104,6 +104,7 @@ import { ContactLimitStatus } from './enum/contactLimitStatus.enum';
 import { StoreCurrency } from './enum/currency.enum';
 import { EmailSentLimitStatus } from './enum/emailSentLimitStatus.enum';
 import { Contact, DisplayPicture, Store } from './store.entity';
+import { GettingStartedResponse } from './types/gettingStartedResponse';
 dayjs.extend(utc);
 @Injectable()
 export class StoreService {
@@ -1684,5 +1685,69 @@ export class StoreService {
     }
 
     return exceededQuantity;
+  }
+
+  async gettingStarted(
+    subdoamin: string,
+  ): Promise<GettingStartedResponse[] | null> {
+    const response: GettingStartedResponse[] = [];
+    const store = await this.getStoreWithSubdomain(subdoamin);
+
+    if (!store) return null;
+
+    const product = await this.productService.getProductCount(subdoamin);
+    if (product > 0) {
+      response.push({
+        completed: true,
+        type: 'product',
+      });
+    } else {
+      response.push({
+        completed: false,
+        type: 'product',
+      });
+    }
+
+    const form = await this.signupFormService.getSignupFormCount(store.id);
+    if (form > 0) {
+      response.push({
+        completed: true,
+        type: 'form',
+      });
+    } else {
+      response.push({
+        completed: false,
+        type: 'form',
+      });
+    }
+
+    const automation = await this.workflowService.getWorkflowCount(subdoamin);
+    if (automation > 0) {
+      response.push({
+        completed: true,
+        type: 'automation',
+      });
+    } else {
+      response.push({
+        completed: false,
+        type: 'automation',
+      });
+    }
+
+    const post = await this.postService.getPostCount(subdoamin);
+
+    if (post > 0) {
+      response.push({
+        completed: true,
+        type: 'post',
+      });
+    } else {
+      response.push({
+        completed: false,
+        type: 'post',
+      });
+    }
+
+    return response;
   }
 }

@@ -175,14 +175,12 @@ export default function ChoosePlan() {
       <PageHeader
         borderStyle="none"
         title="PLAN"
-        subtext="Subscription plan to supercharge your business for growth"
         primaryAction={{
           component: (
             <Button
               color={free ? "red" : "gray"}
               size="lg"
               text="Change Plan"
-              type="button"
               role="link"
               href="/plan/choose"
             />

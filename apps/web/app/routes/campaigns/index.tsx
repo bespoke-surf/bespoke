@@ -11,8 +11,8 @@ export default function Campaigns() {
       <Callout
         iconAccessibilityLabel="info"
         type="info"
-        title="Campaigns are coming soon!"
-        message="Campaings would be ready by end of next week. Visit our discord server to see progress. We recommend you to give your thoughts and suggestions. PR's are welcome too!"
+        title="Coming Soon!"
+        message="Campaigns are work in progress. Visit our Discrod server to see current progress. PR's are welcome!"
         primaryAction={{
           label: "Discord",
           href: "https://discord.gg/HNfkXzNDKH",

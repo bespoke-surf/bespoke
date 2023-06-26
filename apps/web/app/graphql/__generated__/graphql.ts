@@ -629,6 +629,12 @@ export type GetStoreEmailMetric = {
   openedTrend: Scalars['Float']['output'];
 };
 
+export type GettingStartedResponse = {
+  __typename?: 'GettingStartedResponse';
+  completed: Scalars['Boolean']['output'];
+  type: Scalars['String']['output'];
+};
+
 export type ImageInput = {
   height: Scalars['Int']['input'];
   src: Scalars['String']['input'];
@@ -1726,6 +1732,8 @@ export type Query = {
   getWorkflowCount?: Maybe<Scalars['Int']['output']>;
   /** get workflows */
   getWorkflows?: Maybe<Array<Workflow>>;
+  /** getting started */
+  gettingStarted?: Maybe<Array<GettingStartedResponse>>;
   hasProductPost?: Maybe<Scalars['Boolean']['output']>;
   me?: Maybe<User>;
   /** search subscribers by email for now */
@@ -2027,6 +2035,11 @@ export type QueryGetWorkflowCountArgs = {
 
 
 export type QueryGetWorkflowsArgs = {
+  subdomain: Scalars['String']['input'];
+};
+
+
+export type QueryGettingStartedArgs = {
   subdomain: Scalars['String']['input'];
 };
 
@@ -3205,6 +3218,13 @@ export type GetStoreWithSubdomainQueryVariables = Exact<{
 
 export type GetStoreWithSubdomainQuery = { __typename?: 'Query', getStoreWithSubdomain?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
 
+export type GettingStartedQueryVariables = Exact<{
+  subdomain: Scalars['String']['input'];
+}>;
+
+
+export type GettingStartedQuery = { __typename?: 'Query', gettingStarted?: Array<{ __typename?: 'GettingStartedResponse', type: string, completed: boolean }> | null };
+
 export type ProrateStripeSubscriptionMutationVariables = Exact<{
   subdomain: Scalars['String']['input'];
   newStripePriceId: Scalars['String']['input'];
@@ -3273,6 +3293,22 @@ export type UpdateStoreDetailsMutationVariables = Exact<{
 
 
 export type UpdateStoreDetailsMutation = { __typename?: 'Mutation', updateStoreDetails?: { __typename?: 'Store', id: string, subdomain?: string | null, name?: string | null, shortId?: string | null, currency: StoreCurrency, userId?: string | null, defaultListIdToCollectEmail?: string | null, contactLimitStatus: ContactLimitStatus, emailSentLimitStatus: EmailSentLimitStatus, createdAt: any, contact?: { __typename?: 'Contact', senderName: string, senderEmail: string, address1: string, address2?: string | null, city: string, state?: string | null, country: string, zipCode: string } | null, displayPicture?: { __typename?: 'DisplayPicture', height: number, src: string, width: number } | null, about?: { __typename?: 'About', id: string, about?: string | null, aboutLexical?: string | null, aboutHTML?: string | null, industry?: string | null } | null } | null };
+
+export type GetEmailTemplatesQueryVariables = Exact<{
+  subdomain: Scalars['String']['input'];
+}>;
+
+
+export type GetEmailTemplatesQuery = { __typename?: 'Query', getEmailTemplates: Array<{ __typename?: 'StoreItem', id: string, itemId: string, storeId: string, item: { __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } } }> };
+
+export type GetFolderItemsQueryVariables = Exact<{
+  subdomain: Scalars['String']['input'];
+}>;
+
+
+export type GetFolderItemsQuery = { __typename?: 'Query', getFolderItems: Array<{ __typename?: 'StoreItem', id: string, itemId: string, storeId: string, item: { __typename?: 'Item', id: string, name: string, credits?: number | null, type: ItemTypeEnum, start_date?: any | null, end_date?: any | null, description?: string | null, imageData: Array<{ __typename?: 'ItemImageData', height: number, width: number, src: string }>, data: { __typename?: 'ItemCreditsData', credits: number } | { __typename?: 'ItemEmailTemplateData', design: string } | { __typename?: 'ItemSignupFormData', formDesign: string, successDesign: string } } }> };
+
+export type StoreItemFragment = { __typename?: 'StoreItem', id: string, itemId: string, storeId: string };
 
 export type AddCommaSeperatedEmailsToListMutationVariables = Exact<{
   input: AddCommaSeperatedEmailsToListInput;
@@ -3980,6 +4016,13 @@ export const StoreFragmentDoc = gql`
   }
 }
     ${AboutFragmentDoc}`;
+export const StoreItemFragmentDoc = gql`
+    fragment StoreItem on StoreItem {
+  id
+  itemId
+  storeId
+}
+    `;
 export const SubscriberListFragmentDoc = gql`
     fragment SubscriberList on SubscriberList {
   id
@@ -4724,6 +4767,14 @@ export const GetStoreWithSubdomainDocument = gql`
   }
 }
     ${StoreFragmentDoc}`;
+export const GettingStartedDocument = gql`
+    query GettingStarted($subdomain: String!) {
+  gettingStarted(subdomain: $subdomain) {
+    type
+    completed
+  }
+}
+    `;
 export const ProrateStripeSubscriptionDocument = gql`
     mutation ProrateStripeSubscription($subdomain: String!, $newStripePriceId: String!) {
   prorateStripeSubscription(
@@ -4780,6 +4831,28 @@ export const UpdateStoreDetailsDocument = gql`
   }
 }
     ${StoreFragmentDoc}`;
+export const GetEmailTemplatesDocument = gql`
+    query GetEmailTemplates($subdomain: String!) {
+  getEmailTemplates(subdomain: $subdomain) {
+    ...StoreItem
+    item {
+      ...Item
+    }
+  }
+}
+    ${StoreItemFragmentDoc}
+${ItemFragmentDoc}`;
+export const GetFolderItemsDocument = gql`
+    query GetFolderItems($subdomain: String!) {
+  getFolderItems(subdomain: $subdomain) {
+    ...StoreItem
+    item {
+      ...Item
+    }
+  }
+}
+    ${StoreItemFragmentDoc}
+${ItemFragmentDoc}`;
 export const AddCommaSeperatedEmailsToListDocument = gql`
     mutation AddCommaSeperatedEmailsToList($input: AddCommaSeperatedEmailsToListInput!) {
   addCommaSeperatedEmailsToList(input: $input)
@@ -5396,6 +5469,9 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     GetStoreWithSubdomain(variables: GetStoreWithSubdomainQueryVariables, options?: C): Promise<GetStoreWithSubdomainQuery> {
       return requester<GetStoreWithSubdomainQuery, GetStoreWithSubdomainQueryVariables>(GetStoreWithSubdomainDocument, variables, options) as Promise<GetStoreWithSubdomainQuery>;
     },
+    GettingStarted(variables: GettingStartedQueryVariables, options?: C): Promise<GettingStartedQuery> {
+      return requester<GettingStartedQuery, GettingStartedQueryVariables>(GettingStartedDocument, variables, options) as Promise<GettingStartedQuery>;
+    },
     ProrateStripeSubscription(variables: ProrateStripeSubscriptionMutationVariables, options?: C): Promise<ProrateStripeSubscriptionMutation> {
       return requester<ProrateStripeSubscriptionMutation, ProrateStripeSubscriptionMutationVariables>(ProrateStripeSubscriptionDocument, variables, options) as Promise<ProrateStripeSubscriptionMutation>;
     },
@@ -5422,6 +5498,12 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     UpdateStoreDetails(variables: UpdateStoreDetailsMutationVariables, options?: C): Promise<UpdateStoreDetailsMutation> {
       return requester<UpdateStoreDetailsMutation, UpdateStoreDetailsMutationVariables>(UpdateStoreDetailsDocument, variables, options) as Promise<UpdateStoreDetailsMutation>;
+    },
+    GetEmailTemplates(variables: GetEmailTemplatesQueryVariables, options?: C): Promise<GetEmailTemplatesQuery> {
+      return requester<GetEmailTemplatesQuery, GetEmailTemplatesQueryVariables>(GetEmailTemplatesDocument, variables, options) as Promise<GetEmailTemplatesQuery>;
+    },
+    GetFolderItems(variables: GetFolderItemsQueryVariables, options?: C): Promise<GetFolderItemsQuery> {
+      return requester<GetFolderItemsQuery, GetFolderItemsQueryVariables>(GetFolderItemsDocument, variables, options) as Promise<GetFolderItemsQuery>;
     },
     AddCommaSeperatedEmailsToList(variables: AddCommaSeperatedEmailsToListMutationVariables, options?: C): Promise<AddCommaSeperatedEmailsToListMutation> {
       return requester<AddCommaSeperatedEmailsToListMutation, AddCommaSeperatedEmailsToListMutationVariables>(AddCommaSeperatedEmailsToListDocument, variables, options) as Promise<AddCommaSeperatedEmailsToListMutation>;

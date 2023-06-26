@@ -128,11 +128,6 @@ const Posts = () => {
                 value={`${loaderData.drafts?.length}` ?? "0"}
               />,
             ]}
-            subtext={
-              rootLoaderData?.isUserSubdomain
-                ? "Write your newsletters and send to your audience. People can also see your published posts here."
-                : undefined
-            }
             primaryAction={
               rootLoaderData?.isUserSubdomain
                 ? {

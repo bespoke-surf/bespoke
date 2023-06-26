@@ -227,7 +227,6 @@ export default function SubscribersIndex() {
       <PageHeader
         borderStyle="none"
         title={params.listName ?? ""}
-        subtext="Add subscribers manually with a csv file or use a Signup Form to add subscribers from your connected website."
         items={[
           <Datapoint
             key="revenue"
@@ -242,7 +241,6 @@ export default function SubscribersIndex() {
               size="lg"
               text="Add"
               color="red"
-              type="button"
               href={`/subscriber-lists/${params.listName}/${params.listId}/add-subscribers`}
               role="link"
             />
@@ -280,20 +278,20 @@ export default function SubscribersIndex() {
               <Box>
                 <Callout
                   iconAccessibilityLabel="warning"
-                  title={`${params.listName} subscribers table is empty!`}
+                  title="Add via Sign-Up From"
                   key="add subs"
                   type="warning"
-                  message="You haven't added any subscribers."
-                  primaryAction={{
-                    label: "Add",
-                    accessibilityLabel: "add",
-                    href: `/subscriber-lists/${params.listName}/${params.listId}/add-subscribers`,
-                    target: "self",
-                  }}
+                  message="Add subscribers manually with a csv file or use a Signup Form to add subscribers from your connected website."
+                  // primaryAction={{
+                  //   label: "Add",
+                  //   accessibilityLabel: "add",
+                  //   href: `/subscriber-lists/${params.listName}/${params.listId}/add-subscribers`,
+                  //   target: "self",
+                  // }}
                   secondaryAction={{
-                    label: "Sync Customers",
+                    label: "Sign-Up Forms",
                     accessibilityLabel: "sync",
-                    href: "/integrations",
+                    href: "/signup-forms",
                     target: "self",
                   }}
                 />

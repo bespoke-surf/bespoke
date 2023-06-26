@@ -18,11 +18,7 @@ export async function loader({ request }: LoaderArgs) {
 export default function SettingIndex() {
   return (
     <>
-      <PageHeader
-        borderStyle="none"
-        title="Settings"
-        subtext="Add or update settings of your business profile, posts, products etc..."
-      />
+      <PageHeader borderStyle="none" title="Settings" />
       <Flex justifyContent="center">
         <Box paddingY={6} width="91.5%">
           <Flex direction="column" gap={{ column: 8, row: 0 }}>

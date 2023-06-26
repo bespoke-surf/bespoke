@@ -1,4 +1,4 @@
-import { Callout, Flex, Heading, Link, List, Text, Upsell } from "gestalt";
+import { Callout, Flex, Upsell } from "gestalt";
 import UnautheticatedPageLayout from "../../components/UnauthenticatedPageLayout";
 import ComparisonTable from "./LandingPage/ComparisonTable";
 
@@ -8,14 +8,14 @@ const common = [
   "Campaign (coming soon)",
   "A/B Testing & Dashboard Analytics",
   "9 Templates & 2 Forms",
-  "Periodic Reports",
+  // "Periodic Reports",
   "Newsletter",
   "Sign-up Form",
   "Subscription Rewards Every Month",
   "Ticket & Chat Support",
   "Automation",
   "Dedicated IPs (coming soon)",
-  "Benchmarks",
+  // "Benchmarks",
 ];
 
 export default function LandingPage() {
@@ -29,8 +29,8 @@ export default function LandingPage() {
     >
       <Flex direction="column" gap={12}>
         <Callout
-          title="Self Host or Sign Up for Bespoke Cloud"
-          message="Self host Bespoke today, follow instruction on Github or Sign up to use Bespoke Cloud"
+          title="Self-Host or Fully Managed"
+          message="Self-host Bespoke or sign up to use Bespoke Cloud."
           iconAccessibilityLabel="recommendation"
           type="recommendation"
           primaryAction={{
@@ -46,8 +46,8 @@ export default function LandingPage() {
         />
         <ComparisonTable />
         <Upsell
-          message="Get started with our free plan"
-          title="Bespoke Cloud Pricing"
+          message="Get started with Bespoke Cloud. See full feature breakdown under pricing."
+          title="Pricing"
           primaryAction={{
             label: "Pricing",
             accessibilityLabel: "Pricing",
@@ -60,7 +60,7 @@ export default function LandingPage() {
           }}
         />
 
-        <Flex gap={4} direction="column">
+        {/* <Flex gap={4} direction="column">
           <Flex direction="column" gap={2}>
             <Heading accessibilityLevel="none" size="400">
               Feature Summary
@@ -87,7 +87,7 @@ export default function LandingPage() {
               <List.Item text={value} key={value} />
             ))}
           </List>
-        </Flex>
+        </Flex> */}
       </Flex>
     </UnautheticatedPageLayout>
   );

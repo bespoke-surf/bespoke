@@ -1,0 +1,8 @@
+query GetEmailTemplates($subdomain: String!) {
+  getEmailTemplates(subdomain: $subdomain) {
+    ...StoreItem
+    item {
+      ...Item
+    }
+  }
+}

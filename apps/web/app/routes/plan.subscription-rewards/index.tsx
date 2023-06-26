@@ -57,7 +57,7 @@ export default function PathCrate() {
         title={`${monthName[
           new Date().getMonth()
         ]?.toUpperCase()} SUBSCRIPTION REWARDS`}
-        subtext="Subscribe to a paid plan and get Premium Templates & Forms. Auto syched when subscription starts."
+        subtext="Auto syched when subscription starts."
       />
       <Flex justifyContent="center">
         <Box width="92.5%" paddingY={6}>

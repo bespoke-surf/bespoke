@@ -139,7 +139,7 @@ export const StoreNav = ({
           <SideNavigation.Group label="Marketing" icon="globe">
             <SideNavigation.NestedItem
               href="/automations"
-              label="Workflows"
+              label="Automations"
               onClick={handleClosIsMobile}
               active={
                 location.pathname.includes("/automations") ? "page" : undefined
@@ -152,6 +152,16 @@ export const StoreNav = ({
               onClick={handleClosIsMobile}
             />
 
+            <SideNavigation.NestedItem
+              href="/campaigns"
+              label="Campaigns"
+              active={
+                location.pathname.includes("/campaigns") ? "page" : undefined
+              }
+              onClick={handleClosIsMobile}
+            />
+          </SideNavigation.Group>
+          <SideNavigation.Group label="Audience" icon="people">
             <SideNavigation.NestedItem
               href="/subscriber-lists"
               label="Lists & Segments"
@@ -170,14 +180,6 @@ export const StoreNav = ({
               }
               onClick={handleClosIsMobile}
             />
-            <SideNavigation.NestedItem
-              href="/campaigns"
-              label="Campaigns"
-              active={
-                location.pathname.includes("/campaigns") ? "page" : undefined
-              }
-              onClick={handleClosIsMobile}
-            />
           </SideNavigation.Group>
 
           <SideNavigation.TopItem
@@ -190,12 +192,10 @@ export const StoreNav = ({
             onClick={handleClosIsMobile}
           />
           <SideNavigation.TopItem
-            href="/starred-lists"
-            label="Starred Lists"
+            href="/starred"
+            label="Starred"
             icon="star"
-            active={
-              location.pathname.includes("/starred-lists") ? "page" : undefined
-            }
+            active={location.pathname.includes("/starred") ? "page" : undefined}
             onClick={handleClosIsMobile}
           />
 

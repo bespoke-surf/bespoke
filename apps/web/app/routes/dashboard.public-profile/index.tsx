@@ -80,14 +80,6 @@ export default function ViewPublic() {
               <Heading size="500" accessibilityLevel={1}>
                 Public Website
               </Heading>
-              <IconButton
-                accessibilityLabel="Dismiss modal"
-                bgColor="white"
-                icon="cancel"
-                iconColor="darkGray"
-                onClick={handleGoBack}
-                size="sm"
-              />
             </Flex>
           }
           onDismiss={handleGoBack}

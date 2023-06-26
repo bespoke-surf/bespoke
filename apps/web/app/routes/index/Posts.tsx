@@ -106,11 +106,6 @@ const Posts = ({ createPost }: { createPost: () => void }) => {
                 value={`${loaderData.posts?.length}` ?? "0"}
               />,
             ]}
-            subtext={
-              rootLoaderData?.isUserSubdomain
-                ? "Write your newsletters and send to your audience. People can also see your published posts here."
-                : undefined
-            }
             primaryAction={{
               component: rootLoaderData.isUserSubdomain ? (
                 <Button

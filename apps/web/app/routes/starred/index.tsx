@@ -69,11 +69,7 @@ export default function Subscribers() {
           <Naviagation />
           <Flex.Item flex="grow">
             <Container>
-              <PageHeader
-                borderStyle="none"
-                title="Starred Lists"
-                subtext="Below are your starred lists"
-              />
+              <PageHeader borderStyle="none" title="Starred Lists & Segments" />
 
               <Flex justifyContent="center">
                 <Box width="92.5%" paddingY={6}>
@@ -81,10 +77,9 @@ export default function Subscribers() {
                   loaderData.lists.length === 0 ? (
                     <Callout
                       iconAccessibilityLabel=""
-                      message="This tab will show your starred lists. To add to Starred Lists,
-          go to the Lists & Segments page and click on the star next to it's name."
+                      message="Quickly view List & Segment data here."
                       type="warning"
-                      title="You haven't Starred a List."
+                      title="Star for Faster Access"
                       primaryAction={{
                         accessibilityLabel: "Lists",
                         label: "Lists & Segments",

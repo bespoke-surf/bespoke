@@ -65,10 +65,10 @@ export default function CalloutErrors() {
       {tableEmpty ? (
         <Callout
           iconAccessibilityLabel="warning"
-          title="Automation table is empty!"
+          title="Start Automating Today"
           key="automation"
           type="info"
-          message="Create a new automation and start sending messages to your customers on autopilot"
+          message="Create a new automation and start sending messages to your customers on autopilot."
           // primaryAction={{
           //   label: "Community",
           //   accessibilityLabel: "Community",

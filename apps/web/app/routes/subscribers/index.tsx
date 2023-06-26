@@ -134,7 +134,6 @@ export default function Profiles() {
                 <PageHeader
                   borderStyle="none"
                   title="SUBSCRIBERS"
-                  subtext="Your subscribers from all of your Lists."
                   items={[
                     <Datapoint
                       key="revenue"
@@ -150,10 +149,10 @@ export default function Profiles() {
                       <Box>
                         <Callout
                           iconAccessibilityLabel="warning"
-                          title="Subscribers table is empty!"
+                          title="All Subscribers"
                           key="add subs"
                           type="warning"
-                          message="Your subscribers will show up here. Also you can sync your subscribers from your business via integrations."
+                          message="All subscribers from across all of your lists will show up here. Quickly sync with integrations."
                           primaryAction={{
                             label: "Sync Subscribers",
                             accessibilityLabel: "sync subscribers",

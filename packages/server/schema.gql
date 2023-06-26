@@ -598,6 +598,11 @@ type GetStoreEmailMetric {
   openedTrend: Float!
 }
 
+type GettingStartedResponse {
+  completed: Boolean!
+  type: String!
+}
+
 input ImageInput {
   height: Int!
   src: String!
@@ -1368,6 +1373,9 @@ type Query {
 
   """get workflows"""
   getWorkflows(subdomain: String!): [Workflow!]
+
+  """getting started"""
+  gettingStarted(subdomain: String!): [GettingStartedResponse!]
   hasProductPost(subdomain: String!): Boolean
   me: User
 

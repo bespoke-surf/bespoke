@@ -76,11 +76,7 @@ export default function SignupForms() {
           <Naviagation />
           <Flex.Item flex="grow">
             <Container>
-              <PageHeader
-                borderStyle="none"
-                title="Templates & Forms"
-                subtext="Received Subscription Rewards also show up here"
-              />
+              <PageHeader borderStyle="none" title="Templates & Forms" />
 
               <Flex justifyContent="center">
                 <Box width="92.5%" paddingY={6}>

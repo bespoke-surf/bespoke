@@ -232,11 +232,6 @@ export default function Products() {
                   value={`${loaderData.productCount}` ?? "0"}
                 />,
               ]}
-              subtext={
-                rootData?.isUserSubdomain
-                  ? "Products sold from your store. You can also add products on posts you create."
-                  : undefined
-              }
               primaryAction={
                 rootData?.isUserSubdomain
                   ? {
@@ -247,7 +242,6 @@ export default function Products() {
                           text="Add"
                           href="/products/add-product"
                           role="link"
-                          type="button"
                         />
                       ),
                       dropdownItems: [
@@ -266,33 +260,29 @@ export default function Products() {
                 {loaderData.products?.length === 0 && (
                   <Callout
                     iconAccessibilityLabel="products"
-                    message={
-                      rootData?.isUserSubdomain
-                        ? "You haven't added any Products."
-                        : `${rootData?.store?.name} hasn't added any Products.`
-                    }
-                    type="error"
-                    title="No products!"
-                    primaryAction={
-                      rootData?.isUserSubdomain
-                        ? {
-                            href: "/products/add-product",
-                            accessibilityLabel: "add product",
-                            label: "Add",
-                            target: "self",
-                          }
-                        : undefined
-                    }
-                    secondaryAction={
-                      rootData.isUserSubdomain
-                        ? {
-                            label: "Sync Products",
-                            accessibilityLabel: "sync",
-                            href: "/integrations",
-                            target: "self",
-                          }
-                        : undefined
-                    }
+                    message="You can insert upto 3 products in a row in your newsletter post."
+                    type="info"
+                    title="Insert Products in Newsletter"
+                    // primaryAction={
+                    //   rootData?.isUserSubdomain
+                    //     ? {
+                    //         href: "/products/add-product",
+                    //         accessibilityLabel: "add product",
+                    //         label: "Add",
+                    //         target: "self",
+                    //       }
+                    //     : undefined
+                    // }
+                    // secondaryAction={
+                    //   rootData.isUserSubdomain
+                    //     ? {
+                    //         label: "Sync Products",
+                    //         accessibilityLabel: "sync",
+                    //         href: "/integrations",
+                    //         target: "self",
+                    //       }
+                    //     : undefined
+                    // }
                   />
                 )}
                 <ClientOnly>

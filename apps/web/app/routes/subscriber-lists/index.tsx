@@ -135,7 +135,6 @@ export default function Subscribers() {
                 <PageHeader
                   borderStyle="none"
                   title="LISTS & SEGMENTS"
-                  subtext="(Segmentation is coming soon)"
                   items={[
                     <Datapoint
                       key="revenue"
@@ -150,7 +149,6 @@ export default function Subscribers() {
                         color="red"
                         size="lg"
                         text="Create"
-                        type="button"
                         href="/subscriber-lists/create-list"
                         role="link"
                       />

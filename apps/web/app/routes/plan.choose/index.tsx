@@ -127,7 +127,7 @@ const common = [
   "Campaign (coming soon)",
   "A/B Testing & Dashboard Analytics",
   "9 Templates & 2 Forms",
-  "Periodic Reports",
+  // "Periodic Reports",
   "Newsletter",
 ];
 

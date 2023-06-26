@@ -50,10 +50,10 @@ export default function UserMenu({
           href="/integrations"
           option={{ value: "item 1", label: "Integrations" }}
         />
-        <Dropdown.Link
+        {/* <Dropdown.Link
           href="/challenges"
           option={{ value: "item 1", label: "Periodic Reports" }}
-        />
+        /> */}
       </Dropdown.Section>
       <Dropdown.Section label="Account">
         <Dropdown.Link
