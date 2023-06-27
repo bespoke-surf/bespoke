@@ -1,8 +1,7 @@
-import { useLocation, useRouteLoaderData, useSubmit } from "@remix-run/react";
+import { useLocation, useRouteLoaderData } from "@remix-run/react";
 
 import type { SideNavigationTopItemProps } from "gestalt";
 import { SideNavigation } from "gestalt";
-import posthog from "posthog-js";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { RootData } from "~/root";
 import { ContactLimitStatus } from "../../graphql/__generated__/graphql";
@@ -17,7 +16,6 @@ export const SideNav = ({
   const location = useLocation();
   const rootLoaderData = useRouteLoaderData("root") as RootData;
   const [close, setClose] = useState(false);
-  const submit = useSubmit();
 
   useEffect(() => {
     if (location && close) {
@@ -62,14 +60,6 @@ export const SideNav = ({
       setClose(true);
     }
   }, [rootLoaderData.isMobile]);
-
-  const handleLogout = useCallback(() => {
-    submit(null, {
-      action: "/logout?index",
-      method: "post",
-    });
-    posthog.reset();
-  }, [submit]);
 
   return (
     <SideNavigation
@@ -267,11 +257,6 @@ export const SideNav = ({
               active={
                 location.pathname.includes("/settings") ? "page" : undefined
               }
-            />
-            <SideNavigation.NestedItem
-              href=""
-              label="Logout"
-              onClick={handleLogout}
             />
           </SideNavigation.Group>
         </>

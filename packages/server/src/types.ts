@@ -37,6 +37,6 @@ export interface EnvironmentVariables {
   OPEN_SOURCE: boolean;
   EMAIL_DOMAIN: string;
   SUPPORT_EMAIL: string;
-  SES_SENDING_RATE: number;
+  SES_SENDING_RATE: string;
   SES_REGION: string;
 }

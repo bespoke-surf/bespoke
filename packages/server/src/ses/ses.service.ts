@@ -56,11 +56,11 @@ export class SesService {
 
   async send(email: Mail.Options[]) {
     const sendingRate = this.configService.get('SES_SENDING_RATE');
-    invariant(typeof sendingRate === 'number', 'SES_SENDING_RATE is missing');
+    invariant(typeof sendingRate === 'string', 'SES_SENDING_RATE is missing');
     const messages = [...email];
     const transporter = nodemailer.createTransport({
       SES: { ses: this.ses, aws },
-      sendingRate: sendingRate,
+      sendingRate: Number(sendingRate),
     });
     transporter.use('compile', htmlToText.htmlToText());
     transporter.once('idle', () => {
@@ -85,6 +85,7 @@ export class SesService {
         userId,
         this.redis,
       );
+      console.log(this.emailDomain, this.supportEmail, 'email domain');
       const mail: Mail.Options = {
         from: `Bespoke <no-reply@${this.emailDomain}>`,
         to: email,
