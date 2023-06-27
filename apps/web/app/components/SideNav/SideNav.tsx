@@ -6,10 +6,10 @@ import posthog from "posthog-js";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { RootData } from "~/root";
 import { ContactLimitStatus } from "../../graphql/__generated__/graphql";
-import Footer from "./storeNav/Footer";
-import Header from "./storeNav/Header";
+import Footer from "../Footer/Footer";
+import Header from "./sideNav/Header";
 
-export const StoreNav = ({
+export const SideNav = ({
   closeMobileSideNav,
 }: {
   closeMobileSideNav?: () => void;

@@ -70,7 +70,9 @@ export default function PathCrate() {
               <Masonry
                 renderItem={({ data }) => <Item data={data} />}
                 items={loaderData.pathCrate}
-                minCols={1}
+                minCols={2}
+                layout="flexible"
+                gutterWidth={8}
               />
             )}
           </ClientOnly>

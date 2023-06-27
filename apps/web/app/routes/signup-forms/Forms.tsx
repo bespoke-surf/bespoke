@@ -72,7 +72,7 @@ const TableData = ({ form }: { form: SignupFormFragment }) => {
   const loading = fetcher.state === "loading" || fetcher.state === "submitting";
 
   const isDeleting =
-    fetcher.submission?.formData.get("_action") ===
+    fetcher.submission?.formData?.get("_action") ===
       SignupFormActionEnum.deleteForm &&
     fetcher.submission.formData.get("formId") === form.id;
 

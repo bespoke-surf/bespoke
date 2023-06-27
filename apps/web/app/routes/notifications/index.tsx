@@ -15,7 +15,6 @@ import {
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { getSubdomain, isPrivateRoute } from "~/utils/utils.server";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
 import type { NotificationLoaderData } from "./types";
 import { NotificationActionEnum } from "./types";
 
@@ -38,6 +37,7 @@ import React, {
 } from "react";
 import { InView } from "react-intersection-observer";
 import { ClientOnly, namedAction } from "remix-utils";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { EventFragment } from "../../graphql/__generated__/graphql";
 import { calculateTimeWhile } from "../../utils/calculateTimeWhile";
 

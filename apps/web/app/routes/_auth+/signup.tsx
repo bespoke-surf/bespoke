@@ -13,7 +13,7 @@ import { useCallback } from "react";
 import * as yup from "yup";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { validateForm } from "~/utils/validateForm.server";
-import UnautheticatedPageLayout from "../../components/UnauthenticatedPageLayout";
+import UnauthPageLayot from "../../components/PageLayout/UnauthPageLayout";
 
 const SignupInputSchema = yup.object().shape({
   name: yup
@@ -173,7 +173,7 @@ const MarketingIndex = () => {
   });
 
   return (
-    <UnautheticatedPageLayout
+    <UnauthPageLayot
       pageHeaderPorps={{
         title: "Sign Up",
         subtext: "By continuing, you agree to Bespoke's",
@@ -299,7 +299,7 @@ const MarketingIndex = () => {
           </Box>
         </Box>
       </Box>
-    </UnautheticatedPageLayout>
+    </UnauthPageLayot>
   );
 };
 export default MarketingIndex;

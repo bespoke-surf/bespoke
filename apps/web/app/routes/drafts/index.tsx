@@ -1,7 +1,9 @@
-import { redirect } from "@remix-run/node";
-
-import type { ActionArgs, LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import {
+  json,
+  redirect,
+  type ActionArgs,
+  type LoaderFunction,
+} from "@remix-run/node";
 import {
   useFetcher,
   useLoaderData,
@@ -20,7 +22,7 @@ import {
 import React, { useCallback, useMemo } from "react";
 import type { RootData } from "~/root";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { PostFragment } from "../../graphql/__generated__/graphql";
 import { sdk } from "../../graphql/graphqlWrapper.server";
 import {

@@ -20,7 +20,7 @@ import { InView } from "react-intersection-observer";
 import { ClientOnly } from "remix-utils";
 import type { RootData } from "~/root";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { PostFragment } from "../../graphql/__generated__/graphql";
 import type { DraftPosts } from "../drafts";
 import PostComponent from "./posts/PostComponent";

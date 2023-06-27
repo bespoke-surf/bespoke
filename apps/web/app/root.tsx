@@ -36,7 +36,8 @@ import { useEffect, useRef, useState } from "react";
 import type { DynamicLinksFunction } from "remix-utils";
 import { DynamicLinks, StructuredData } from "remix-utils";
 import { getEnvVars } from "../env.server";
-import MobileNavigation from "./components/MobileNavigation";
+import MobileNavigation from "./components/MobileNav/MobileNavigation";
+import UnauthMobileNav from "./components/MobileNav/UnauthMobileNav";
 import type {
   StoreFragment,
   UserFragment,
@@ -286,7 +287,9 @@ function App() {
             location.pathname === "/content-guidelines" ||
             location.pathname === "/data-processing-agreement" ||
             location.pathname === "/copyright-dispute-policy" ||
-            location.pathname === "/login") ? null : (
+            location.pathname === "/login") ? (
+            <UnauthMobileNav />
+          ) : (
             <MobileNavigation />
           )}
           <Outlet />

@@ -15,7 +15,7 @@ import {
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { getSubdomain, isPrivateRoute } from "~/utils/utils.server";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";

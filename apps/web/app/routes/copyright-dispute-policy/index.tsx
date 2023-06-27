@@ -1,16 +1,16 @@
 import { Box, Flex, Heading, Link, Text } from "gestalt";
 import React from "react";
 import BigContainer from "../../components/BigContainer";
-import Footer from "../../components/Footer";
-import PublicMobileNav from "../../components/PublicMobileNav";
-import PublicNav from "../../components/PublicNav";
+import Footer2 from "../../components/Footer/Footer2";
+import UnauthMobileNav2 from "../../components/MobileNav/UnauthMobileNav2";
+import UnauthNav2 from "../../components/Navigation/UnauthNav2";
 
 const Rp: React.FC<unknown> = () => {
   return (
     <>
       <BigContainer>
-        <PublicNav />
-        <PublicMobileNav />
+        <UnauthNav2 />
+        <UnauthMobileNav2 />
         <Box paddingY={12} padding={5}>
           <Flex direction="column" gap={{ column: 6, row: 12 }}>
             <Heading>Documents</Heading>
@@ -232,7 +232,7 @@ const Rp: React.FC<unknown> = () => {
           </Box>
         </Box>
       </BigContainer>
-      <Footer />
+      <Footer2 />
     </>
   );
 };

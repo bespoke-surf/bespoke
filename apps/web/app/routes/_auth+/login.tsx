@@ -8,7 +8,7 @@ import { useCallback } from "react";
 import * as yup from "yup";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { validateForm } from "~/utils/validateForm.server";
-import UnautheticatedPageLayout from "../../components/UnauthenticatedPageLayout";
+import UnauthPageLayot from "../../components/PageLayout/UnauthPageLayout";
 
 const LoginInputSchema = yup.object().shape({
   email: yup
@@ -137,7 +137,7 @@ const Login = () => {
   });
 
   return (
-    <UnautheticatedPageLayout
+    <UnauthPageLayot
       pageHeaderPorps={{
         title: "Login",
         subtext: "By continuing, you agree to Bespoke's",
@@ -241,7 +241,7 @@ const Login = () => {
           </Box>
         </Box>
       </Box>
-    </UnautheticatedPageLayout>
+    </UnauthPageLayot>
   );
 };
 export default Login;

@@ -1,13 +1,13 @@
 import { useRouteLoaderData } from "@remix-run/react";
 import { Callout, Flex, Upsell } from "gestalt";
-import UnautheticatedPageLayout from "../../components/UnauthenticatedPageLayout";
+import UnauthPageLayot from "../../components/PageLayout/UnauthPageLayout";
 import type { RootData } from "../../root";
 import ComparisonTable from "./LandingPage/ComparisonTable";
 
 export default function LandingPage() {
   const rootLoaderData = useRouteLoaderData("root") as RootData;
   return (
-    <UnautheticatedPageLayout
+    <UnauthPageLayot
       pageHeaderPorps={{
         title: "Open Source Email, Automation & Newsletter",
         subtext:
@@ -62,6 +62,6 @@ export default function LandingPage() {
           />
         )}
       </Flex>
-    </UnautheticatedPageLayout>
+    </UnauthPageLayot>
   );
 }

@@ -2,7 +2,7 @@ import { Link } from "@remix-run/react";
 import { Box, Dropdown, Flex, Heading, IconButton, Image, Mask } from "gestalt";
 import { useRef, useState } from "react";
 
-const PublicMobileNav = ({
+const UnauthMobileNav2 = ({
   backgroundColor = "white",
   tertiaryButtonColor = "transparent",
 }: {
@@ -111,4 +111,4 @@ const PublicMobileNav = ({
     </>
   );
 };
-export default PublicMobileNav;
+export default UnauthMobileNav2;

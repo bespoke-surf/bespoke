@@ -1,5 +1,5 @@
 import { Callout } from "gestalt";
-import PageLayout from "../../components/PageLayout";
+import PageLayout from "../../components/PageLayout/PageLayout";
 
 export default function Campaigns() {
   return (

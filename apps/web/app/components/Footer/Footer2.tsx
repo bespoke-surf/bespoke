@@ -1,15 +1,13 @@
 import dayjs from "dayjs";
 import { Box, Flex, IconButton, Link, TapArea, Text } from "gestalt";
-import { Suspense, lazy, useReducer, useState } from "react";
-import { TAG_LINE } from "../constants";
-import BigContainer from "./BigContainer";
+import { Suspense, lazy, useState } from "react";
+import { TAG_LINE } from "../../constants";
+import BigContainer from "../BigContainer";
 
-const CookiePrefrences = lazy(() => import("./footer/CookiePrefrences"));
-const JoinTheWaitlist = lazy(() => import("./footer/JoinTheWaitlist"));
+const CookiePrefrences = lazy(() => import("./CookiePrefrences"));
 
-export default function Footer() {
+export default function Footer2() {
   const [cookie, setCookie] = useState(false);
-  const [waitList, setWaitlist] = useReducer((s) => !s, false);
   return (
     <Box
       dangerouslySetInlineStyle={{ __style: { backgroundColor: "#D7EDFF" } }}
@@ -87,11 +85,6 @@ export default function Footer() {
       {cookie && (
         <Suspense>
           <CookiePrefrences dismiss={() => setCookie(false)} />
-        </Suspense>
-      )}
-      {waitList && (
-        <Suspense>
-          <JoinTheWaitlist dismiss={setWaitlist} />
         </Suspense>
       )}
     </Box>

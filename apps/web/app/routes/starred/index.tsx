@@ -1,9 +1,16 @@
-import { Callout, Container, Flex, PageHeader, Text } from "gestalt";
+import {
+  Box,
+  Callout,
+  Container,
+  Flex,
+  PageHeader,
+  Table,
+  Text,
+} from "gestalt";
 
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { Box, Table } from "gestalt";
 import { sdk } from "../../graphql/graphqlWrapper.server";
 import { getSubdomain, isPrivateRoute } from "../../utils/utils.server";
 import type { DashboardLists } from "./types";
@@ -14,7 +21,7 @@ import type { GetStarredListsQuery } from "~/graphql/__generated__/graphql";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";

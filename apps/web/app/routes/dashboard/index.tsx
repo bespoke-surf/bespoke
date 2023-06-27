@@ -16,7 +16,7 @@ import {
 import { ClientOnly } from "remix-utils";
 import * as yup from "yup";
 import BigContainer from "~/components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import { AboutIndustryEnum } from "../../graphql/__generated__/graphql";
 import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
@@ -137,9 +137,12 @@ export default function Dashboard() {
                 ),
                 dropdownItems: [
                   <Dropdown.Link
-                    href="/subscriber-lists"
-                    key="subscriber-lists"
-                    option={{ label: "Lists", value: "upload-list" }}
+                    href="/dashboard/public-profile"
+                    key="public-profile"
+                    option={{
+                      label: "View Public Profile",
+                      value: "public-profile",
+                    }}
                   />,
                 ],
               }}

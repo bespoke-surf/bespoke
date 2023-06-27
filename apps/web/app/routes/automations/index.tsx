@@ -55,7 +55,7 @@ import { FormikProvider, useFormik } from "formik";
 import { ClientOnly } from "remix-utils";
 import BigContainer from "../../components/BigContainer";
 import type { CommentEditorFormikValues } from "../../components/CommentEditor";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import CalloutErrors from "./CalloutErrors";
 import Descirpition from "./Description";
 export {
@@ -344,7 +344,7 @@ const WorkflowRow = ({ workflow }: { workflow: WorkflowFragment }) => {
   const loading = fetcher.state === "loading" || fetcher.state === "submitting";
 
   const isDeleteing =
-    fetcher.submission?.formData.get("_action") ===
+    fetcher.submission?.formData?.get("_action") ===
     AutomationActionEnum.deleteWorkflow;
 
   useEffect(() => {

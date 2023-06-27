@@ -1,10 +1,10 @@
 /* eslint-disable gestalt/no-spread-props */
 import type { PageHeaderProps } from "gestalt";
 import { Box, Container, Flex, PageHeader } from "gestalt";
-import BigContainer from "./BigContainer";
-import { UnauthenticatedNavigation } from "./UnauthenticatedNavigation";
+import BigContainer from "../BigContainer";
+import Naviagation from "../Navigation/Navigation";
 
-export default function UnautheticatedPageLayout({
+export default function PageLayout({
   children,
   pageHeaderPorps,
 }: {
@@ -14,7 +14,7 @@ export default function UnautheticatedPageLayout({
   return (
     <BigContainer>
       <Flex alignItems="start">
-        <UnauthenticatedNavigation />
+        <Naviagation />
         <Flex.Item flex="grow">
           <Container>
             <PageHeader {...pageHeaderPorps} />

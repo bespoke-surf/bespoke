@@ -14,7 +14,7 @@ import { Suspense, lazy, useReducer } from "react";
 import { ClientOnly } from "remix-utils";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";

@@ -12,9 +12,9 @@ import {
 } from "gestalt";
 import { useRef, useState } from "react";
 import type { RootData } from "~/root";
-import BigContainer from "./BigContainer";
+import BigContainer from "../BigContainer";
 
-export default function PublicNav({
+export default function UnauthNav2({
   disableMid = false,
   backgroundColor,
 }: {

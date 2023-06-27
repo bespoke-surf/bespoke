@@ -10,7 +10,7 @@ export default function Resources() {
         </Flex>
       </Flex>
       <Box marginTop={4} />
-      <Flex gap={2}>
+      <Flex gap={{ row: 2, column: 2 }} wrap>
         <Mask height={151} rounding={4} width={242}>
           <Image
             alt="Tropic greens: The taste of Petrol and Porcelain | Interior design, Vintage Sets and Unique Pieces agave"

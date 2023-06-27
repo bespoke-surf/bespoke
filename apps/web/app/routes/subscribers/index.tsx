@@ -35,7 +35,7 @@ import type { SubscriberFragment } from "~/graphql/__generated__/graphql";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { useDebounce } from "~/hooks/useDebounce";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";

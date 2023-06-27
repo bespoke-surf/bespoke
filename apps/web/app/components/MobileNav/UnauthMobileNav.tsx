@@ -1,20 +1,11 @@
-import { Link, useRouteLoaderData } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import { Avatar, Box, Flex, IconButton, Sticky, Text } from "gestalt";
-import { useMemo, useState } from "react";
-import type { RootData } from "../root";
-import { getCloudinaryAvatar } from "../utils/getCloudinaryFavicon";
-import BigContainer from "./BigContainer";
-import { StoreNav } from "./Naviagtion/StoreNav";
+import { useReducer } from "react";
+import BigContainer from "../BigContainer";
+import UnauthSideNav from "../SideNav/UnauthSideNav";
 
-export default function MobileNavigation() {
-  const rootData = useRouteLoaderData("root") as RootData;
-
-  const [shouldShow, setShouldShow] = useState(false);
-
-  const avatar = useMemo(
-    () => getCloudinaryAvatar(rootData?.store?.displayPicture?.src),
-    [rootData?.store?.displayPicture?.src]
-  );
+export default function UnauthMobileNav() {
+  const [shouldShow, toggleShow] = useReducer((s) => !s, false);
 
   return (
     <Sticky top={0}>
@@ -38,13 +29,9 @@ export default function MobileNavigation() {
               <Flex gap={2} alignItems="center" justifyContent="between">
                 <Link to={"/"}>
                   <Flex alignItems="center" gap={2}>
-                    <Avatar
-                      name={rootData?.store?.name ?? ""}
-                      size="md"
-                      src={avatar?.src ?? undefined}
-                    />
+                    <Avatar name="Bespoke" size="md" src="/bespoke-icon.png" />
                     <Text weight="bold" size="200">
-                      {rootData?.store?.name}
+                      Bespoke
                     </Text>
                   </Flex>
                 </Link>
@@ -53,7 +40,7 @@ export default function MobileNavigation() {
                     iconColor="darkGray"
                     accessibilityLabel="menu"
                     icon="menu"
-                    onClick={() => setShouldShow((s) => !s)}
+                    onClick={toggleShow}
                   />
                 </Box>
               </Flex>
@@ -74,7 +61,7 @@ export default function MobileNavigation() {
               color="default"
               zIndex={{ index: () => 999999 }}
             >
-              <StoreNav closeMobileSideNav={() => setShouldShow(false)} />
+              <UnauthSideNav showHeader={false} closeMobileNav={toggleShow} />
             </Box>
           )}
         </BigContainer>

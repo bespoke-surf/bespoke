@@ -50,7 +50,7 @@ const MetricData = ({
   data?: GetStoreEmailMetricQuery | undefined;
 }) => {
   return (
-    <Flex gap={4} justifyContent="between">
+    <Flex gap={{ row: 4, column: 4 }} wrap justifyContent="between">
       <Datapoint
         title="Opened"
         value={`${data?.getStoreEmailMetric?.opened ?? "-"}`}

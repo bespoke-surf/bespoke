@@ -11,7 +11,7 @@ import {
 } from "gestalt";
 import { useState } from "react";
 import BigContainer from "../../components/BigContainer";
-import { UnauthenticatedNavigation } from "../../components/UnauthenticatedNavigation";
+import { UnauthNav } from "../../components/Navigation/UnauthNav";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import { AdditionalFeatures } from "./AdditionalFeatures";
@@ -32,7 +32,7 @@ export default function Pricing() {
   return (
     <BigContainer>
       <Flex alignItems="start">
-        <UnauthenticatedNavigation />
+        <UnauthNav />
         <Flex.Item flex="grow">
           <Container>
             <PageHeader

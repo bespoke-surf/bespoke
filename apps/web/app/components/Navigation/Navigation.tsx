@@ -2,7 +2,7 @@ import { useLocation } from "@remix-run/react";
 import { Box, Sticky } from "gestalt";
 import { useRouteLoaderData } from "react-router-dom";
 import type { RootData } from "~/root";
-import { StoreNav } from "./Naviagtion/StoreNav";
+import { SideNav } from "../SideNav/SideNav";
 
 export default function Naviagation() {
   const location = useLocation();
@@ -20,7 +20,7 @@ export default function Naviagation() {
   return (
     <Sticky top={0} zIndex={{ index: () => 0 }}>
       <Box display="none" mdDisplay="block" lgDisplay="block" height="100vh">
-        <StoreNav />
+        <SideNav />
       </Box>
     </Sticky>
   );

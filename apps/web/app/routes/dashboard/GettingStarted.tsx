@@ -34,7 +34,12 @@ export default function GettingStarted({
           </Flex>
         </Flex.Item>
         {!open && (
-          <>
+          <Box
+            display="none"
+            smDisplay="none"
+            mdDisplay="block"
+            lgDisplay="block"
+          >
             {uncompletedTask?.length && uncompletedTask.length > 0 ? (
               <Button
                 text={
@@ -54,7 +59,7 @@ export default function GettingStarted({
             ) : (
               <Status type="ok" title="Completed" />
             )}
-          </>
+          </Box>
         )}
         <IconButton
           size="lg"

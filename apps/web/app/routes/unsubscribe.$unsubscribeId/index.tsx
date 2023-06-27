@@ -15,11 +15,11 @@ import { json, redirect } from "@remix-run/node";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { useCallback, useMemo } from "react";
 import BigContainer from "../../components/BigContainer";
-import { sdk } from "../../graphql/graphqlWrapper.server";
 import {
   EmailConcentState,
   SubscriberEmailStatus,
 } from "../../graphql/__generated__/graphql";
+import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -114,12 +114,12 @@ export default function Unsubscribe() {
   );
 
   const unsubscribed =
-    fetcher.submission?.formData.get("_action") ===
+    fetcher.submission?.formData?.get("_action") ===
       UnsubscribeActionEnum.unsubscribeFromAllLIst &&
     loaderData.subscriberList?.[0]?.subscriber.emailStatus ===
       SubscriberEmailStatus.Subscribed;
   const subscribed =
-    fetcher.submission?.formData.get("_action") ===
+    fetcher.submission?.formData?.get("_action") ===
       UnsubscribeActionEnum.unsubscribeFromAllLIst &&
     loaderData.subscriberList?.[0]?.subscriber.emailStatus ===
       SubscriberEmailStatus.Unsubscribed;
@@ -246,10 +246,10 @@ const List = ({
   const fetcher = useFetcher();
 
   const unsubscribed =
-    fetcher.submission?.formData.get("_action") ===
+    fetcher.submission?.formData?.get("_action") ===
     UnsubscribeActionEnum.unsubscribeFromList;
   const resubscribe =
-    fetcher.submission?.formData.get("_action") ===
+    fetcher.submission?.formData?.get("_action") ===
     UnsubscribeActionEnum.resubscribeToLIst;
 
   const unsubscribedState =

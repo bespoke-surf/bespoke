@@ -3,7 +3,7 @@ import { Outlet, useRouteLoaderData } from "@remix-run/react";
 import { Box, Button, Container, Dropdown, Flex, PageHeader } from "gestalt";
 import type { RootData } from "~/root";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import { links } from "./links";
@@ -44,15 +44,6 @@ export default function About() {
               borderStyle="none"
               title={`ABOUT ${rootLoader?.store?.name?.toUpperCase()}`}
               subtext={`${rootLoader?.store?.about?.about}` ?? ""}
-              helperLink={
-                rootLoader.isUserSubdomain
-                  ? {
-                      accessibilityLabel: "Edit about",
-                      href: "/settings/business-profile",
-                      text: "Edit",
-                    }
-                  : undefined
-              }
               primaryAction={
                 rootLoader?.isUserSubdomain
                   ? {
