@@ -1,11 +1,14 @@
 import {
   Box,
+  Button,
   Divider,
+  Flex,
   Icon,
   Layer,
   OverlayPanel,
   Spinner,
   TapArea,
+  Text,
 } from "gestalt";
 import type { AutomationActionData } from "../types";
 import {
@@ -16,7 +19,6 @@ import {
 
 import { useFetcher } from "@remix-run/react";
 import { FormikProvider, useFormik } from "formik";
-import { Button, Flex, Text } from "gestalt";
 import { useCallback, useContext, useEffect, useState } from "react";
 import type { MetricType } from "../../../graphql/__generated__/graphql";
 import { NodeSheetContext } from "./NodeSheetProvider";
@@ -176,25 +178,30 @@ export default function TriggerSheet({ close }: { close: () => void }) {
                     </Flex>
                   </Box>
                 </TapArea>
-                <TapArea onTap={() => setTrigger("metricTrigger")}>
-                  <Box borderStyle="shadow" padding={5} rounding={4}>
-                    <Flex gap={2} direction="column">
-                      <Icon
-                        accessibilityLabel="list"
-                        icon="hand-pointing"
-                        color="dark"
-                        size={24}
-                      />
-                      <Text weight="bold" color="dark" size="400">
-                        Metric
-                      </Text>
-                      <Text size="300" color="subtle">
-                        Workflow gets triggered when people take a specific
-                        action (eg. Placed Order).
-                      </Text>
-                    </Flex>
-                  </Box>
-                </TapArea>
+                {/* <TapArea onTap={() => setTrigger("metricTrigger")}> */}
+                <Box
+                  borderStyle="shadow"
+                  padding={5}
+                  rounding={4}
+                  opacity={0.5}
+                >
+                  <Flex gap={2} direction="column">
+                    <Icon
+                      accessibilityLabel="list"
+                      icon="hand-pointing"
+                      color="dark"
+                      size={24}
+                    />
+                    <Text weight="bold" color="dark" size="400">
+                      Metric
+                    </Text>
+                    <Text size="300" color="subtle">
+                      Workflow gets triggered when people take a specific action
+                      (eg. Placed Order).
+                    </Text>
+                  </Flex>
+                </Box>
+                {/* </TapArea> */}
               </Flex>
             )}
             {tirggerType === "listTrigger" && <ListTrigger loading={loading} />}
