@@ -9,6 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { Job, Queue } from 'bull';
 import type { Redis } from 'ioredis';
 import Mail from 'nodemailer/lib/mailer';
+import invariant from 'tiny-invariant';
 import { STORE_WORKFLOW_QUEUE } from '../../constants';
 import { MetricTypeEnum } from '../../metric/enum/metric-type.enum';
 import { MetricService } from '../../metric/metirc.service';
@@ -250,6 +251,8 @@ export class StoreListWorkflowQueueProcessor {
     try {
       const frontEndHost = this.configService.get('FRONTEND_HOST');
       const host = this.configService.get('HOST');
+      const emailDomain = this.configService.get('EMAIL_DOMAIN');
+      invariant(typeof emailDomain === 'string', 'EMAIL_DOMAIN is missing');
       const frontEndHostProtocol = this.configService.get(
         'FRONTEND_HOST_PROTOCOL',
       );
@@ -306,6 +309,7 @@ export class StoreListWorkflowQueueProcessor {
         frontEndHostProtocol,
         host,
         listId,
+        emailDomain,
         subscriber,
         handleBarValues: handleBarValues ? handleBarValues : undefined,
         unsubscribeId,

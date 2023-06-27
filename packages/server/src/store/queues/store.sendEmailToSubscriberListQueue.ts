@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { Job } from 'bull';
 import { Redis } from 'ioredis';
 import Mail from 'nodemailer/lib/mailer';
+import invariant from 'tiny-invariant';
 import { BillingService } from '../../billing/billing.service';
 import { STORE_SEND_EMAIL_TO_SUBSCRIBER_LIST_QUEUE } from '../../constants';
 import { SesService } from '../../ses/ses.service';
@@ -80,10 +81,13 @@ export class StoreSendEmailProcessor {
       if (emailSendStatus === EmailSentLimitStatus.DISALLOWED) {
         throw new Error('email sent limit status dissalowed');
       }
+      const emailDomain = this.configService.get('EMAIL_DOMAIN');
+      invariant(typeof emailDomain === 'string', 'EMAIL_DOMAIN is missing');
 
       const mail: Mail.Options[] = subscribers.map((subscriber) => {
         return smptpSubscriberListEmail({
           frontEndHost,
+          emailDomain,
           frontEndHostProtocol,
           host,
           listId,

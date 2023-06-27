@@ -4,22 +4,6 @@ import UnautheticatedPageLayout from "../../components/UnauthenticatedPageLayout
 import type { RootData } from "../../root";
 import ComparisonTable from "./LandingPage/ComparisonTable";
 
-const common = [
-  "Design Email",
-  "Segmentation (coming soon)",
-  "Campaign (coming soon)",
-  "A/B Testing & Dashboard Analytics",
-  "9 Templates & 2 Forms",
-  // "Periodic Reports",
-  "Newsletter",
-  "Sign-up Form",
-  "Subscription Rewards Every Month",
-  "Ticket & Chat Support",
-  "Automation",
-  "Dedicated IPs (coming soon)",
-  // "Benchmarks",
-];
-
 export default function LandingPage() {
   const rootLoaderData = useRouteLoaderData("root") as RootData;
   return (

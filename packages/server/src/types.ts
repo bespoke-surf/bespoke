@@ -35,4 +35,8 @@ export interface EnvironmentVariables {
   FLY_REGION: string;
   UNLAYER_SECRET: string;
   OPEN_SOURCE: boolean;
+  EMAIL_DOMAIN: string;
+  SUPPORT_EMAIL: string;
+  SES_SENDING_RATE: number;
+  SES_REGION: string;
 }

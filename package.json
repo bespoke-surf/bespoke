@@ -44,7 +44,6 @@
     "nanoid": "3.3.4",
     "typescript": "4.9.5",
     "immer": "9.0.19",
-    "gestalt": "116.0.2",
     "lerna": "5.0.0"
   }
 }

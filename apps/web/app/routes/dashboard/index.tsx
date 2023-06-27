@@ -209,6 +209,7 @@ export default function Dashboard() {
                             href="https://discord.gg/sXAkfWBM"
                             display="inlineBlock"
                             underline="none"
+                            target="blank"
                           >
                             <Text weight="bold" inline>
                               Devs on Discord.
@@ -221,6 +222,7 @@ export default function Dashboard() {
                             href="https://feedback.bespoke.surf/changelog"
                             display="inlineBlock"
                             underline="none"
+                            target="blank"
                           >
                             <Text weight="bold" inline>
                               Feature Releases.
@@ -233,16 +235,18 @@ export default function Dashboard() {
                             href="mailto:support@bespoke.surf"
                             display="inlineBlock"
                             underline="none"
+                            target="blank"
                           >
                             <Text inline weight="bold">
-                              Email{" "}
+                              Email
                             </Text>
-                          </Link>
+                          </Link>{" "}
                           or{" "}
                           <Link
                             href="https://twitter.com/bespoke_surf"
                             display="inlineBlock"
                             underline="none"
+                            target="blank"
                           >
                             <Text inline weight="bold">
                               Twitter DM's.

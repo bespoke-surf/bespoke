@@ -21,6 +21,8 @@ import { createConfirmationCode } from './utils/codeGenerator';
 @Injectable()
 export class SesService {
   ses;
+  emailDomain;
+  supportEmail;
   constructor(
     private readonly configService: ConfigService<EnvironmentVariables>,
     @InjectSentry() private readonly sentryClient: SentryService,
@@ -35,18 +37,30 @@ export class SesService {
       typeof AWS_SES_SECRET_ACCESS_KEY === 'string',
       'aws secret access key',
     );
+    const emailDomain = this.configService.get('EMAIL_DOMAIN');
+    const supportEmail = this.configService.get('SUPPORT_EMAIL');
+    const sesRegion = this.configService.get('SES_REGION');
+    invariant(typeof emailDomain === 'string', 'EMAIL_DOMAIN is missing');
+    invariant(typeof supportEmail === 'string', 'SUPPORT EMAIL is missing');
+    invariant(typeof sesRegion === 'string', 'SES_REGION is missing');
+
+    this.emailDomain = emailDomain;
+    this.supportEmail = supportEmail;
+
     this.ses = new aws.SES({
       apiVersion: '2010-12-01',
-      region: 'us-east-1',
+      region: sesRegion,
       credentialDefaultProvider: defaultProvider,
     });
   }
 
   async send(email: Mail.Options[]) {
+    const sendingRate = this.configService.get('SES_SENDING_RATE');
+    invariant(typeof sendingRate === 'number', 'SES_SENDING_RATE is missing');
     const messages = [...email];
     const transporter = nodemailer.createTransport({
       SES: { ses: this.ses, aws },
-      sendingRate: 14, // max 1 messages/second
+      sendingRate: sendingRate,
     });
     transporter.use('compile', htmlToText.htmlToText());
     transporter.once('idle', () => {
@@ -72,10 +86,10 @@ export class SesService {
         this.redis,
       );
       const mail: Mail.Options = {
-        from: 'Bespoke <no-reply@bespoke.surf>',
+        from: `Bespoke <no-reply@${this.emailDomain}>`,
         to: email,
         subject: `Your temporary Bespoke login code is ${loginOrSignupCode}`,
-        replyTo: 'support@bespoke.surf',
+        replyTo: this.supportEmail,
         html: signupOrLoginEmailTemplate({
           loginOrSignupCode,
         }),
@@ -106,10 +120,10 @@ export class SesService {
       const notificationPage = `${FRONTEND_HOST_PROTOCOL}//${subdomain}.${FRONTEND_HOST}/settings/notifications`;
 
       const mail: Mail.Options = {
-        from: 'Bespoke <no-reply@bespoke.surf>',
+        from: `Bespoke <no-reply@${this.emailDomain}>`,
         to: senderEmail,
         subject: `${subscriberEmail} just susbscribed`,
-        replyTo: 'support@bespoke.surf',
+        replyTo: this.supportEmail,
         html: newSubscriberNotificationTemplate({
           notificationPage,
           listName,
@@ -140,11 +154,12 @@ export class SesService {
         'FRONTEND_HOST_PROTOCOL missing',
       );
       const planPage = `${FRONTEND_HOST_PROTOCOL}//${subdomain}.${FRONTEND_HOST}/plans`;
+
       const mail: Mail.Options = {
-        from: 'Bespoke <no-reply@bespoke.surf>',
+        from: `Bespoke <no-reply@${this.emailDomain}`,
         to: email,
         subject: `Your automated email "${emailSubject}" was revoked from sending`,
-        replyTo: 'support@bespoke.surf',
+        replyTo: this.supportEmail,
         html: automatedEmailFailedTemplate({
           planPage,
           emailSubject,
@@ -178,10 +193,10 @@ export class SesService {
       const subscriberAddressExportCsvLink = `${FRONTEND_HOST_PROTOCOL}//${subdomain}.${FRONTEND_HOST}/subscribers/${subscriberId}/subscriber-address-export`;
 
       const mail: Mail.Options = {
-        from: 'Bespoke <no-reply@bespoke.surf>',
+        from: `Bespoke <no-reply@${this.emailDomain}>`,
         to: email,
         subject: `Bespoke subscriber data requested via Shopify`,
-        replyTo: 'support@bespoke.surf',
+        replyTo: this.supportEmail,
         html: shopifyCustomerDataRequestTemplate({
           dataGeneratedForEmail: subscriberEmail,
           subscriberAddressExportCsvLink,
@@ -202,10 +217,10 @@ export class SesService {
   ) {
     try {
       const mail: Mail.Options = {
-        from: 'Bespoke <no-reply@bespoke.surf>',
+        from: `Bespoke <no-reply@${this.emailDomain}>`,
         to: email,
         subject: `Bespoke Subscriber data erasure requested via Shopify`,
-        replyTo: 'support@bespoke.surf',
+        replyTo: this.supportEmail,
         html: shopifyCustomerDataErasureRequestTemplate({
           dataGeneratedForEmail: subscriberEmail,
         }),
@@ -228,10 +243,10 @@ export class SesService {
       );
 
       const mail: Mail.Options = {
-        from: 'Bespoke <no-reply@bespoke.surf>',
+        from: `Bespoke <no-reply@${this.emailDomain}>`,
         to: email,
         subject: `Bespoke Shopify Shop Redact Request`,
-        replyTo: 'support@bespoke.surf',
+        replyTo: this.supportEmail,
         html: shopifyShopRedactTemplate({ shopifyStore }),
       };
       this.send([mail]);
