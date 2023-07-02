@@ -13,7 +13,7 @@ import { useCallback } from "react";
 import * as yup from "yup";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { validateForm } from "~/utils/validateForm.server";
-import UnauthPageLayot from "../../components/PageLayout/UnauthPageLayout";
+import UnauthPageLayot from "../components/PageLayout/UnauthPageLayout";
 
 const SignupInputSchema = yup.object().shape({
   name: yup
