@@ -109,7 +109,6 @@
     "eslint": "^8.44.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-gestalt": "^116.1.6",
-    "lerna": "^7.0.2",
     "remix-flat-routes": "^0.5.8",
     "rimraf": "^5.0.1",
     "s3-folder-upload": "^2.3.5",
