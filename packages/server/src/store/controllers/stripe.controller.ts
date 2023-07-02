@@ -21,7 +21,7 @@ export class StoreStripeController {
     private readonly stripeService: StripeService,
     private billingService: BillingService,
     @InjectSentry() private readonly sentryClient: SentryService,
-    private readonly storeItemServie: StoreItemService,
+    private readonly storeItemServie: StoreItemService, // private readonly storeService: StoreService,
     private readonly storeService: StoreService,
   ) {}
 
@@ -39,12 +39,6 @@ export class StoreStripeController {
         await this.updateSubscription(event);
       }
       if (event.type === 'customer.subscription.updated') {
-        const { storeId } = this.getMetaData(event);
-        const subscription = event.data.object as Stripe.Subscription;
-        await this.storeService.stripeReportUsageForBilling(
-          storeId,
-          subscription.current_period_start,
-        );
         await this.updateSubscription(event);
       }
       if (event.type === 'customer.subscription.created') {
@@ -55,8 +49,37 @@ export class StoreStripeController {
           subscription.metadata.billingId as string,
         );
       }
+      if (event.type === 'invoice.created') {
+        const invoice = event.data.object as Stripe.Invoice;
+        const subscription = await this.stripeService.getSubscription(
+          invoice.subscription as string,
+        );
+        const { storeId, bespokePlanId } = this.getMetaData(subscription);
+
+        const quantity = await this.storeService.getUsageQuantity(
+          storeId,
+          subscription.current_period_start,
+        );
+
+        if (!quantity) {
+          throw new Error('no exceeded quantity');
+        }
+
+        if (!invoice.lines.data[0]?.id) {
+          throw new Error('invoice id missing');
+        }
+
+        await this.stripeService.createInvoiceItem({
+          quantity: quantity,
+          customerId: invoice.customer as string,
+          invoiceId: invoice.id,
+          subscriptionId: subscription.id,
+          bespokePlanId,
+        });
+      }
     } catch (err) {
       console.log(err);
+
       this.sentryClient.instance().captureException(err);
       if (err instanceof Stripe.errors.StripeError)
         console.log(`⚠️  Webhook signature verification failed.`, err.message);
@@ -68,7 +91,8 @@ export class StoreStripeController {
   async updateSubscription(event: Stripe.Event) {
     const subscription = event.data.object as Stripe.Subscription;
 
-    const { bespokePlanId, billingId, storeId } = this.getMetaData(event);
+    const { bespokePlanId, billingId, storeId } =
+      this.getMetaData(subscription);
     await this.billingService.subscriptionUpdate({
       billingId,
       bespokePlanId,
@@ -81,8 +105,7 @@ export class StoreStripeController {
       await this.storeItemServie.addSubscriptionRewardItem(storeId);
     }
   }
-  getMetaData(event: Stripe.Event): IStripeMetadata {
-    const subscription = event.data.object as Stripe.Subscription;
+  getMetaData(subscription: Stripe.Subscription): IStripeMetadata {
     const metadata = subscription.metadata as unknown as IStripeMetadata;
     return metadata;
   }

@@ -5,7 +5,7 @@ import { Box, Container, Flex, PageHeader } from "gestalt";
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { ClientOnly } from "remix-utils";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";

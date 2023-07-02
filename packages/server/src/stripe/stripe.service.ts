@@ -9,8 +9,8 @@ import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { Stripe } from 'stripe';
 import invariant from 'tiny-invariant';
+import { SHORT_TAG_LINE } from '../constants';
 import { EnvironmentVariables } from '../types';
-import { CreateCheckoutSessionInput } from './dto/createCheckoutSessionInput';
 
 export interface IStripeMetadata {
   storeId: string;
@@ -70,18 +70,20 @@ export class StripeService {
     return customer;
   }
 
-  async createCheckoutSession(
-    input: CreateCheckoutSessionInput,
-  ): Promise<string | null> {
+  async createCheckoutSession({
+    bespokePlanId,
+    billingId,
+    storeId,
+    stripeCustomerId,
+    subdomain,
+  }: {
+    storeId: string;
+    billingId: string;
+    bespokePlanId: PricingIdType;
+    stripeCustomerId: string;
+    subdomain: string;
+  }): Promise<string | null> {
     try {
-      const { storeId, billingId, stripePriceId, stripeCustomerId, subdomain } =
-        input;
-      const bespokePlanId = bespokePricingPlan?.find(
-        ({ stripePriceId: id }) => id === stripePriceId,
-      )?.id;
-
-      if (!bespokePlanId) throw new Error('missing plan id');
-
       const FRONTEND_HOST = this.configService.get('FRONTEND_HOST');
       const FRONTEND_HOST_PROTOCOL = this.configService.get(
         'FRONTEND_HOST_PROTOCOL',
@@ -91,6 +93,15 @@ export class StripeService {
         typeof FRONTEND_HOST_PROTOCOL === 'string',
         'FRONTEND_HOST_PROTOCOL missing',
       );
+
+      if (bespokePlanId === 'OPEN_SOURCE' || bespokePlanId === 'FREE')
+        return null;
+
+      const stripePriceId = this.configService.get(
+        `${bespokePlanId}_STRIPE_PRICE_ID`,
+      ) as string;
+
+      console.log({ stripePriceId });
 
       const session = await this.stripe.checkout.sessions.create({
         billing_address_collection: 'auto',
@@ -256,7 +267,7 @@ export class StripeService {
         },
       },
       business_profile: {
-        headline: 'Bespoke - Helping humanity become financially independent.',
+        headline: `Bespoke - ${SHORT_TAG_LINE}`,
         privacy_policy_url: `https://${FRONTEND_HOST}/privacy-policy`,
         terms_of_service_url: `https://${FRONTEND_HOST}/terms-of-service`,
       },
@@ -327,11 +338,41 @@ export class StripeService {
       {
         quantity: usageQuantity,
         timestamp,
-        action: 'set',
+        action: 'increment',
       },
       {
         idempotencyKey,
       },
     );
+  }
+  async getSubscription(subscriptionId: string): Promise<Stripe.Subscription> {
+    return this.stripe.subscriptions.retrieve(subscriptionId);
+  }
+
+  async createInvoiceItem({
+    invoiceId,
+    quantity,
+    bespokePlanId,
+    customerId,
+    subscriptionId,
+  }: {
+    invoiceId: string;
+    bespokePlanId: string;
+    quantity: number;
+    customerId: string;
+    subscriptionId: string;
+  }) {
+    const bespokePlan = bespokePricingPlan.find(
+      ({ id }) => id === bespokePlanId,
+    );
+    if (!bespokePlan) throw new Error('Missing bespoke plan');
+    await this.stripe.invoiceItems.create({
+      customer: customerId,
+      unit_amount_decimal: String(bespokePlan.overages * 100),
+      quantity,
+      invoice: invoiceId,
+      subscription: subscriptionId,
+      description: `${bespokePlan.contacts + 1} and above`,
+    });
   }
 }

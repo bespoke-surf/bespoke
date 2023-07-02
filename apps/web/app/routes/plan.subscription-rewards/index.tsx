@@ -29,6 +29,9 @@ export const meta: MetaFunction = ({ parentsData }) => {
 };
 
 export async function loader({ request }: LoaderArgs) {
+  if (ENV.OPEN_SOURCE === "true") {
+    return redirect("/");
+  }
   const isPrivate = await isPrivateRoute(request);
   if (isPrivate == false) {
     return redirect("/");
@@ -57,7 +60,7 @@ export default function PathCrate() {
         title={`${monthName[
           new Date().getMonth()
         ]?.toUpperCase()} SUBSCRIPTION REWARDS`}
-        subtext="Subscribe to a paid plan and get Premium Templates & Forms. Auto syched when subscription starts."
+        subtext="Auto syched when subscription starts."
       />
       <Flex justifyContent="center">
         <Box width="92.5%" paddingY={6}>
@@ -66,7 +69,9 @@ export default function PathCrate() {
               <Masonry
                 renderItem={({ data }) => <Item data={data} />}
                 items={loaderData.pathCrate}
-                minCols={1}
+                minCols={2}
+                layout="flexible"
+                gutterWidth={8}
               />
             )}
           </ClientOnly>

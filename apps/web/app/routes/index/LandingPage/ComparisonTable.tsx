@@ -1,4 +1,7 @@
+import { useRouteLoaderData } from "@remix-run/react";
 import { Box, Flex, Icon, Table, Text } from "gestalt";
+import type { RootData } from "../../../root";
+import CloudTable from "./CloudTable";
 /*
  */
 
@@ -53,22 +56,24 @@ const data: IData[] = [
   //   substack: "no",
   //   mailchimp: "yes",
   // },
+
   {
-    text: "You can quickly replicate the top strategies shared by other strategists",
-    readiness: "ready",
-    klaviyo: "no",
-    bespoke: "partial",
-    substack: "no",
-    mailchimp: "no",
-  },
-  {
-    text: "You can execute new campaigns based on personalized or segmented content",
+    text: "You can execute new campaigns based on personalized or segmented data",
     readiness: "ready",
     klaviyo: "yes",
     bespoke: "partial",
     substack: "no",
     mailchimp: "yes",
   },
+  {
+    text: "You can ask questions with surveys and then do personalised targeting via Automations and Campaigns",
+    readiness: "ready",
+    klaviyo: "no",
+    bespoke: "partial",
+    substack: "no",
+    mailchimp: "yes",
+  },
+
   // {
   //   text: "You can create an unique personalized brand expierence for your customers'",
   //   readiness: "ready",
@@ -88,6 +93,7 @@ const data: IData[] = [
 ];
 
 export default function ComparisonTable() {
+  const rootLoaderData = useRouteLoaderData("root") as RootData;
   return (
     <Box width="100%">
       <Table accessibilityLabel="Table.RowDrawer example" stickyColumns={1}>
@@ -165,6 +171,21 @@ export default function ComparisonTable() {
               </Table.Cell>
             </Table.Row>
           ))}
+          {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
+            <>
+              <Table.Row>
+                <Table.Cell>
+                  <Text weight="bold">Bespoke Cloud</Text>
+                </Table.Cell>
+                <Table.Cell>{}</Table.Cell>
+                <Table.Cell>{}</Table.Cell>
+                <Table.Cell>{}</Table.Cell>
+                <Table.Cell>{}</Table.Cell>
+              </Table.Row>
+
+              <CloudTable />
+            </>
+          )}
         </Table.Body>
       </Table>
     </Box>

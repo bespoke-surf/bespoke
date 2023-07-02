@@ -3,7 +3,7 @@ import { redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import { Box, Callout, Flex, PageHeader } from "gestalt";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";

@@ -24,16 +24,16 @@ export default function Logic({ data }: { data: WorkflowNodeData }) {
     });
   }, [data, update]);
 
-  const handleTriggerSplit = useCallback(() => {
-    update({
-      data: {
-        ...data,
-        workflowActivityType: WorkflowActivityType.TriggerSplit,
-        value: undefined,
-      },
-      state: "creating",
-    });
-  }, [data, update]);
+  // const handleTriggerSplit = useCallback(() => {
+  //   update({
+  //     data: {
+  //       ...data,
+  //       workflowActivityType: WorkflowActivityType.TriggerSplit,
+  //       value: undefined,
+  //     },
+  //     state: "creating",
+  //   });
+  // }, [data, update]);
 
   return (
     <Box position="relative">
@@ -64,30 +64,30 @@ export default function Logic({ data }: { data: WorkflowNodeData }) {
       </TapArea>
       <Box position="absolute" display={logic ? "block" : "none"}>
         <Flex gap={2}>
-          <TapArea onTap={handleTriggerSplit}>
-            <Box
-              marginTop={2}
-              borderStyle="shadow"
-              paddingX={5}
-              paddingY={3}
-              rounding={1}
-              onMouseEnter={() => setTriggerHover(true)}
-              onMouseLeave={() => setTriggerHover(false)}
-              color={triggerHover ? "dark" : "light"}
-            >
-              <Flex alignItems="center" direction="column" gap={2}>
-                <Icon
-                  accessibilityLabel="clock"
-                  icon="flash"
-                  size={20}
-                  color={triggerHover ? "light" : "dark"}
-                />
-                <Text color={triggerHover ? "light" : "dark"}>
-                  Trigger Split
-                </Text>
-              </Flex>
-            </Box>
-          </TapArea>
+          {/* <TapArea onTap={handleTriggerSplit}> */}
+          <Box
+            opacity={0.5}
+            dangerouslySetInlineStyle={{ __style: { cursor: "not-allowed" } }}
+            marginTop={2}
+            borderStyle="shadow"
+            paddingX={5}
+            paddingY={3}
+            rounding={1}
+            onMouseEnter={() => setTriggerHover(true)}
+            onMouseLeave={() => setTriggerHover(false)}
+            color={triggerHover ? "dark" : "light"}
+          >
+            <Flex alignItems="center" direction="column" gap={2}>
+              <Icon
+                accessibilityLabel="clock"
+                icon="flash"
+                size={20}
+                color={triggerHover ? "light" : "dark"}
+              />
+              <Text color={triggerHover ? "light" : "dark"}>Trigger Split</Text>
+            </Flex>
+          </Box>
+          {/* </TapArea> */}
           <TapArea onTap={handleConditionalSplit}>
             <Box
               marginTop={2}

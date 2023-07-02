@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
+      - dev
     paths:
       - ".github/workflows/server.yml"
-      - "Dockerfile.production.server"
+      - "Dockerfile.server"
       - "packages/server/**"
       - "!packages/server/package.json"
       - "!packages/server/CHANGELOG.md"

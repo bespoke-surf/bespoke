@@ -242,7 +242,7 @@ const ApiRowData = ({ data }: { data: ApiKeyFragment }) => {
   const [open, toggleOpen] = useReducer((s) => !s, false);
   const fetcher = useFetcher();
   const submission =
-    fetcher.submission?.formData.get("_action") ===
+    fetcher.submission?.formData?.get("_action") ===
     ApiKeyActionEnum.deleteApiKye;
   const loading =
     (submission && fetcher.state === "loading") ||

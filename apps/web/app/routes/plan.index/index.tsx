@@ -139,6 +139,7 @@ export default function ChoosePlan() {
   const parentData = useRouteLoaderData("routes/plan/index") as GrowthPathData;
   const fetcher = useFetcher();
   const navigate = useNavigate();
+  const rootLoaderData = useRouteLoaderData("root") as RootData;
 
   const free = parentData.billing?.billingPlanStatus === BillingPlanStatus.Free;
 
@@ -175,26 +176,28 @@ export default function ChoosePlan() {
       <PageHeader
         borderStyle="none"
         title="PLAN"
-        subtext="Subscription plan to supercharge your business for growth"
-        primaryAction={{
-          component: (
-            <Button
-              color={free ? "red" : "gray"}
-              size="lg"
-              text="Change Plan"
-              type="button"
-              role="link"
-              href="/plan/choose"
-            />
-          ),
-          dropdownItems: [
-            <Dropdown.Link
-              href="/plan/choose"
-              key="choose-plan"
-              option={{ label: "Change Plan", value: "add" }}
-            />,
-          ],
-        }}
+        primaryAction={
+          rootLoaderData.ENV.OPEN_SOURCE === "true"
+            ? undefined
+            : {
+                component: (
+                  <Button
+                    color={free ? "red" : "gray"}
+                    size="lg"
+                    text="Change Plan"
+                    role="link"
+                    href="/plan/choose"
+                  />
+                ),
+                dropdownItems: [
+                  <Dropdown.Link
+                    href="/plan/choose"
+                    key="choose-plan"
+                    option={{ label: "Change Plan", value: "add" }}
+                  />,
+                ],
+              }
+        }
         secondaryAction={
           free
             ? undefined
@@ -226,7 +229,6 @@ export default function ChoosePlan() {
         <Box width="92.5%" paddingY={6}>
           <CalloutErrors />
           <PlanDetails />
-          <Box marginTop={12} />
           <Text weight="bold" size="400">
             Usage
           </Text>
@@ -242,6 +244,7 @@ export default function ChoosePlan() {
 
 const PlanDetails = () => {
   const parentData = useRouteLoaderData("routes/plan/index") as GrowthPathData;
+  const rootLoaderData = useRouteLoaderData("root") as RootData;
 
   const cancelled =
     parentData.billing?.billingPlanStatus === BillingPlanStatus.Cancelled;
@@ -254,8 +257,10 @@ const PlanDetails = () => {
     [parentData.billing?.bespokePlanId]
   );
 
+  if (rootLoaderData.ENV.OPEN_SOURCE === "true") return null;
+
   return (
-    <>
+    <Box marginBottom={12}>
       <Flex justifyContent="between" alignItems="center">
         <Flex gap={3} direction="column">
           <Box>
@@ -286,6 +291,6 @@ const PlanDetails = () => {
           ${planData?.price}.00
         </Text>
       </Flex>
-    </>
+    </Box>
   );
 };

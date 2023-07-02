@@ -1,8 +1,8 @@
-import type { Fetcher } from "@remix-run/react";
 import {
   useFetcher,
   useLoaderData,
   useNavigate,
+  useNavigation,
   useParams,
   useRouteLoaderData,
   useSubmit,
@@ -38,7 +38,8 @@ import PostURL from "./controls/PostURL";
 import type { PostData, PostFormValues, submitStateType } from "./types";
 import { PostActionEnum } from "./types";
 
-export default function Controls({ fetcher }: { fetcher: Fetcher }) {
+export default function Controls() {
+  const navigation = useNavigation();
   const { setFieldValue, handleSubmit, validateForm } =
     useFormikContext<PostFormValues>();
   const submit = useSubmit();
@@ -57,8 +58,7 @@ export default function Controls({ fetcher }: { fetcher: Fetcher }) {
   }, [navigate]);
 
   const loading =
-    (fetcher.state === "loading" || fetcher.state === "submitting") &&
-    fetcher.type !== "normalLoad";
+    navigation.state === "loading" || navigation.state === "submitting";
 
   const handleOnSelect = useCallback(
     async (item: DropdownOption, state: submitStateType) => {

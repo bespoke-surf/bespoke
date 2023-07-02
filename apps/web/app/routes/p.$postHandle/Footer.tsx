@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, Link, Text } from "gestalt";
-import Footer from "../../components/Naviagtion/storeNav/Footer";
+import Footer from "../../components/Footer/Footer";
 
 export default function PostFooter() {
   return (

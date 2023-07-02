@@ -86,7 +86,7 @@ export default function Notifications() {
   const fetcher = useFetcher();
 
   const toggled =
-    fetcher.submission?.formData.get("_action") ===
+    fetcher.submission?.formData?.get("_action") ===
     NotificationActionEnum.newSubscriberNotificationToggle;
 
   const handleNewSubscriberToggle = useCallback(() => {

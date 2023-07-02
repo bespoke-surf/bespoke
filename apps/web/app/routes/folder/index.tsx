@@ -19,7 +19,7 @@ import {
 import { useMemo } from "react";
 import { ClientOnly } from "remix-utils";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { ItemFragment } from "../../graphql/__generated__/graphql";
 import { CdnType, ItemTypeEnum } from "../../graphql/__generated__/graphql";
 import { sdk } from "../../graphql/graphqlWrapper.server";
@@ -76,11 +76,7 @@ export default function SignupForms() {
           <Naviagation />
           <Flex.Item flex="grow">
             <Container>
-              <PageHeader
-                borderStyle="none"
-                title="Templates & Forms"
-                subtext="Received Subscription Rewards also show up here"
-              />
+              <PageHeader borderStyle="none" title="Templates & Forms" />
 
               <Flex justifyContent="center">
                 <Box width="92.5%" paddingY={6}>
@@ -90,7 +86,9 @@ export default function SignupForms() {
                         <Masonry
                           renderItem={({ data }) => <Item data={data} />}
                           items={loaderData.folderItems}
-                          minCols={1}
+                          minCols={2}
+                          layout="flexible"
+                          gutterWidth={8}
                         />
                       )}
                     </ClientOnly>

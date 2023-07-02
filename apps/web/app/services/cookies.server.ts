@@ -5,7 +5,7 @@ export const subdomainPopupCookie = createCookie("subdomainPopupCookie", {
   sameSite: "lax",
   maxAge: 604_800,
   path: "/",
-  secure: process.env.NODE_ENV === "production", // enable this in prod only
+  secure: ENV.MODE === "production", // enable this in prod only
 });
 
 export interface ISubdomainPopupCookie {

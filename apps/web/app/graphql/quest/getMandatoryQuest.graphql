@@ -1,5 +1,0 @@
-query GetMandatoryQuest($questType: QuestType!) {
-  getMandatoryQuest(questType: $questType) {
-    ...Quest
-  }
-}

@@ -1,11 +1,10 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import { Box, Callout, Container, Flex, PageHeader } from "gestalt";
 import BigContainer from "~/components/BigContainer";
 import type { RootData } from "../../root";
 
-import type { LoaderArgs } from "@remix-run/node";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import { isPrivateRoute } from "../../utils/utils.server";

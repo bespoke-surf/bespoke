@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { InjectSentry, SentryService } from '@ntegral/nestjs-sentry';
 import { Queue } from 'bull';
-import { STORE_QUEST_QUEUE, STORE_WORKFLOW_QUEUE } from '../constants';
+import { STORE_WORKFLOW_QUEUE } from '../constants';
 import { MetricTypeEnum } from '../metric/enum/metric-type.enum';
 import {
   METRIC_EMAIL_BOUNCED_EVENT,
@@ -14,8 +14,6 @@ import {
   METRIC_EMAIL_RECEIVED_EVENT,
   METRIC_EMAIL_SENT_EVENT,
   METRIC_EMAIL_UNSUBSCRIBED_EVENT,
-  METRIC_POST_PUBLISHED_EVENT,
-  METRIC_POST_VIEWED_EVENT,
   METRIC_SHOPIFY_CANCELLED_ORDER_EVENT,
   METRIC_SHOPIFY_CHECKOUT_STARTED_EVENT,
   METRIC_SHOPIFY_FULFILLED_ORDER_EVENT,
@@ -29,7 +27,6 @@ import { WorkflowActivityType } from '../workflow-state/enum/workflowActivityTyp
 import { WorkflowState } from '../workflow-state/workflow-state.entity';
 import { WorkflowStateService } from '../workflow-state/workflow-state.service';
 import { WorkflowService } from '../workflow/workflow.service';
-import { StoreXPQuestQueueData } from './queues/store.questQueue';
 import { StoreListWorkflowQueueData } from './queues/store.workflowQueue';
 import { StoreService } from './store.service';
 
@@ -57,36 +54,8 @@ export class StoreListener {
     private storeService: StoreService,
     @InjectQueue(STORE_WORKFLOW_QUEUE)
     private readonly storeWorkflowQueue: Queue<StoreListWorkflowQueueData>,
-    @InjectQueue(STORE_QUEST_QUEUE)
-    private readonly storeXPQuestQueue: Queue<StoreXPQuestQueueData>,
     @InjectSentry() private readonly sentryClient: SentryService,
   ) {}
-
-  @OnEvent(METRIC_POST_PUBLISHED_EVENT)
-  async handlePostPublishedEvent(event: Metric) {
-    await this.storeXPQuestQueue.add(
-      {
-        metricId: event.id,
-      },
-      {
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    );
-  }
-
-  @OnEvent(METRIC_POST_VIEWED_EVENT)
-  async handlePostViewedEvent(event: Metric) {
-    await this.storeXPQuestQueue.add(
-      {
-        metricId: event.id,
-      },
-      {
-        removeOnComplete: true,
-        removeOnFail: true,
-      },
-    );
-  }
 
   @OnEvent(SUBSCRIBER_LIST_ADD_SUBSCRIBER_TO_LIST_EVENT)
   async handleListSubscriberAddedToListEvent(event: SubscriberList) {
@@ -151,15 +120,6 @@ export class StoreListener {
         workflowActivityType: WorkflowActivityType.METRIC_TRIGGER,
         metricType: MetricTypeEnum.EMAIL_LINK_CLICKED,
       });
-      await this.storeXPQuestQueue.add(
-        {
-          metricId: event.id,
-        },
-        {
-          removeOnComplete: true,
-          removeOnFail: true,
-        },
-      );
     } catch (err) {
       console.log(err);
       this.sentryClient.instance().captureException(err);
@@ -193,15 +153,6 @@ export class StoreListener {
         workflowActivityType: WorkflowActivityType.METRIC_TRIGGER,
         metricType: MetricTypeEnum.EMAIL_OPENED,
       });
-      await this.storeXPQuestQueue.add(
-        {
-          metricId: event.id,
-        },
-        {
-          removeOnComplete: true,
-          removeOnFail: true,
-        },
-      );
     } catch (err) {
       console.log(err);
       this.sentryClient.instance().captureException(err);
@@ -218,15 +169,6 @@ export class StoreListener {
         workflowActivityType: WorkflowActivityType.METRIC_TRIGGER,
         metricType: MetricTypeEnum.EMAIL_DELIVERED,
       });
-      await this.storeXPQuestQueue.add(
-        {
-          metricId: event.id,
-        },
-        {
-          removeOnComplete: true,
-          removeOnFail: true,
-        },
-      );
     } catch (err) {
       console.log(err);
       this.sentryClient.instance().captureException(err);
@@ -244,15 +186,6 @@ export class StoreListener {
         workflowActivityType: WorkflowActivityType.METRIC_TRIGGER,
         metricType: MetricTypeEnum.EMAIL_SENT,
       });
-      await this.storeXPQuestQueue.add(
-        {
-          metricId: event.id,
-        },
-        {
-          removeOnComplete: true,
-          removeOnFail: true,
-        },
-      );
     } catch (err) {
       console.log(err);
       this.sentryClient.instance().captureException(err);
@@ -304,15 +237,6 @@ export class StoreListener {
         workflowActivityType: WorkflowActivityType.METRIC_TRIGGER,
         metricType: MetricTypeEnum.SHOPIFY_CHECKOUT_STARTED,
       });
-      await this.storeXPQuestQueue.add(
-        {
-          metricId: event.id,
-        },
-        {
-          removeOnComplete: true,
-          removeOnFail: true,
-        },
-      );
     } catch (err) {
       console.log(err);
       this.sentryClient.instance().captureException(err);
@@ -329,15 +253,6 @@ export class StoreListener {
         workflowActivityType: WorkflowActivityType.METRIC_TRIGGER,
         metricType: MetricTypeEnum.SHOPIFY_FULFILLED_ORDER,
       });
-      await this.storeXPQuestQueue.add(
-        {
-          metricId: event.id,
-        },
-        {
-          removeOnComplete: true,
-          removeOnFail: true,
-        },
-      );
     } catch (err) {
       console.log(err);
       this.sentryClient.instance().captureException(err);
@@ -354,15 +269,6 @@ export class StoreListener {
         workflowActivityType: WorkflowActivityType.METRIC_TRIGGER,
         metricType: MetricTypeEnum.SHOPIFY_PLACED_ORDER,
       });
-      await this.storeXPQuestQueue.add(
-        {
-          metricId: event.id,
-        },
-        {
-          removeOnComplete: true,
-          removeOnFail: true,
-        },
-      );
     } catch (err) {
       console.log(err);
       this.sentryClient.instance().captureException(err);

@@ -79,7 +79,7 @@ export default function PlansSuccess() {
                 >
                   <Box marginStart={2}>
                     <ActivationCard
-                      message="We are supercharged now! Let's get growing!"
+                      message="You are supercharged now! Let's get growing!"
                       status="complete"
                       statusMessage="Completed"
                       title="Activated!"

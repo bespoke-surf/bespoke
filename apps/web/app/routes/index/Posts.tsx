@@ -20,7 +20,7 @@ import { InView } from "react-intersection-observer";
 import { ClientOnly } from "remix-utils";
 import type { RootData } from "~/root";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { PostFragment } from "../../graphql/__generated__/graphql";
 import type { DraftPosts } from "../drafts";
 import PostComponent from "./posts/PostComponent";
@@ -106,20 +106,6 @@ const Posts = ({ createPost }: { createPost: () => void }) => {
                 value={`${loaderData.posts?.length}` ?? "0"}
               />,
             ]}
-            subtext={
-              rootLoaderData?.isUserSubdomain
-                ? "Write your newsletters and send to your audience. People can also see your published posts here."
-                : undefined
-            }
-            helperLink={
-              rootLoaderData.isUserSubdomain
-                ? {
-                    href: "/tools/public-profile",
-                    accessibilityLabel: "how to view public website",
-                    text: "See how to view my public website.",
-                  }
-                : undefined
-            }
             primaryAction={{
               component: rootLoaderData.isUserSubdomain ? (
                 <Button
@@ -136,7 +122,6 @@ const Posts = ({ createPost }: { createPost: () => void }) => {
                   color="red"
                   size="lg"
                   text="Subscribe"
-                  type="button"
                   role="link"
                   href="/subscribe"
                 />

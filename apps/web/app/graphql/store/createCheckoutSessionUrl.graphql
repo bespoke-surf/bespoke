@@ -1,6 +1,6 @@
 mutation CreateCheckoutSessionUrl(
   $subdomain: String!
-  $stripePriceId: String!
+  $bespokePlanId: String!
 ) {
-  createCheckoutSessionUrl(subdomain: $subdomain, stripePriceId: $stripePriceId)
+  createCheckoutSessionUrl(subdomain: $subdomain, bespokePlanId: $bespokePlanId)
 }

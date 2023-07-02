@@ -1,9 +1,0 @@
-fragment Challenge on Challenge {
-  id
-  name
-  description
-  completionCount
-  completionStages
-  measuredMetric
-  challengeType
-}

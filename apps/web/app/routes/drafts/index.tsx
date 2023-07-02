@@ -1,7 +1,9 @@
-import { redirect } from "@remix-run/node";
-
-import type { ActionArgs, LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import {
+  json,
+  redirect,
+  type ActionArgs,
+  type LoaderFunction,
+} from "@remix-run/node";
 import {
   useFetcher,
   useLoaderData,
@@ -20,7 +22,7 @@ import {
 import React, { useCallback, useMemo } from "react";
 import type { RootData } from "~/root";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { PostFragment } from "../../graphql/__generated__/graphql";
 import { sdk } from "../../graphql/graphqlWrapper.server";
 import {
@@ -128,20 +130,6 @@ const Posts = () => {
                 value={`${loaderData.drafts?.length}` ?? "0"}
               />,
             ]}
-            subtext={
-              rootLoaderData?.isUserSubdomain
-                ? "Write your newsletters and send to your audience. People can also see your published posts here."
-                : undefined
-            }
-            helperLink={
-              rootLoaderData.isUserSubdomain
-                ? {
-                    href: "/tools/public-profile",
-                    accessibilityLabel: "how to view public website",
-                    text: "See how to view my public website.",
-                  }
-                : undefined
-            }
             primaryAction={
               rootLoaderData?.isUserSubdomain
                 ? {

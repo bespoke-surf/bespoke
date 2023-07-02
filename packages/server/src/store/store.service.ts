@@ -1,5 +1,6 @@
 import {
   FREE_PLAN_ID,
+  PricingIdType,
   bespokePricingPlan,
 } from '@bespoke/common/dist/pricingPlan';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
@@ -11,7 +12,6 @@ import { InjectQueue } from '@nestjs/bull';
 import {
   Injectable,
   NotFoundException,
-  OnModuleInit,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -70,14 +70,11 @@ import { ProductSource } from '../product/enum/productSource.enum';
 import { ProductType } from '../product/enum/productType.enum';
 import { ProductService } from '../product/product.service';
 import { ShopifyProductData } from '../product/type/shopifyProductData';
-import { QuestType } from '../quest/enum/questType.enum';
 import { ShopifySessionStorage } from '../session/shopifySessionStorage';
 import { Shopify } from '../shopify/shopify.entity';
 import { ShopifyService } from '../shopify/shopify.service';
 import { SignupForm } from '../signup-form/signup-form.entity';
 import { SignupFormService } from '../signup-form/signup-form.service';
-import { StoreChallenge } from '../store-challenge/storeChallenge.entity';
-import { StoreChallengeService } from '../store-challenge/storeChallenge.service';
 import { StoreItemService } from '../store-item/store-item.service';
 import { StripeService } from '../stripe/stripe.service';
 import { SubscriberListService } from '../subscriber-list/subscriber-list.service';
@@ -108,9 +105,10 @@ import { ContactLimitStatus } from './enum/contactLimitStatus.enum';
 import { StoreCurrency } from './enum/currency.enum';
 import { EmailSentLimitStatus } from './enum/emailSentLimitStatus.enum';
 import { Contact, DisplayPicture, Store } from './store.entity';
+import { GettingStartedResponse } from './types/gettingStartedResponse';
 dayjs.extend(utc);
 @Injectable()
-export class StoreService implements OnModuleInit {
+export class StoreService {
   constructor(
     @InjectRepository(Store)
     private storeRepo: Repository<Store>,
@@ -127,12 +125,6 @@ export class StoreService implements OnModuleInit {
     private readonly storeSendEmailQueue: Queue<StoreSendEmailData>,
     @InjectQueue(STORE_PRODUCT_UPLOAD_QUEUE)
     private readonly storeProductUploadQueue: Queue,
-    // @InjectQueue(STORE_DIALY_CRON_QUEUE)
-    // private readonly storeDailyCronQueue: Queue,
-    // @InjectQueue(STORE_WEEKLY_CRON_QUEUE)
-    // private readonly storeWeeklyCronQueue: Queue,
-    // @InjectQueue(STORE_QUARTERLY_CRON_QUEUE)
-    // private readonly storeQuarterlyQueue: Queue,
     private metricService: MetricService,
     private workflowService: WorkflowService,
     private subscriberListService: SubscriberListService,
@@ -144,7 +136,6 @@ export class StoreService implements OnModuleInit {
     private subscriberService: SubscriberService,
     private productService: ProductService,
     private workflowStateService: WorkflowStateService,
-    private storeChallengeService: StoreChallengeService,
     private crediService: CreditService,
     private eventEmitter: EventEmitter2,
     private configService: ConfigService<EnvironmentVariables>,
@@ -155,39 +146,6 @@ export class StoreService implements OnModuleInit {
     @InjectRedis() private redis: Redis,
     private storeItemService: StoreItemService,
   ) {}
-
-  onModuleInit() {
-    // this.storeDailyCronQueue.add(
-    //   {},
-    //   {
-    //     repeat: {
-    //       cron: CronExpression.EVERY_DAY_AT_MIDNIGHT,
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // );
-    // this.storeWeeklyCronQueue.add(
-    //   {},
-    //   {
-    //     repeat: {
-    //       cron: CronExpression.EVERY_WEEK,
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // );
-    // this.storeQuarterlyQueue.add(
-    //   {},
-    //   {
-    //     repeat: {
-    //       cron: CronExpression.EVERY_QUARTER,
-    //     },
-    //     removeOnComplete: true,
-    //     removeOnFail: true,
-    //   },
-    // );
-  }
 
   async emitEvent(eventName: string, storeId: string) {
     const store = await this.storeRepo.findOne({
@@ -334,7 +292,7 @@ export class StoreService implements OnModuleInit {
 
   async createCheckoutSessionUrl(
     subdomain: string,
-    bespokePricingPlanId: string,
+    bespokePlanId: PricingIdType,
   ): Promise<string | null> {
     try {
       const store = await this.storeRepo.findOne({
@@ -352,7 +310,7 @@ export class StoreService implements OnModuleInit {
 
       return await this.stripeService.createCheckoutSession({
         billingId: store.billing.id,
-        stripePriceId: bespokePricingPlanId,
+        bespokePlanId: bespokePlanId,
         storeId: store.id,
         stripeCustomerId: store.user.stripeCustomerId,
         subdomain: store.subdomain,
@@ -794,10 +752,10 @@ export class StoreService implements OnModuleInit {
       }
 
       const emailSentThisMonth =
-        await this.metricService.getEmailSentDuringPeriod(
-          store.subdomain,
-          'month',
-        );
+        await this.metricService.getEmailSentDuringPeriod({
+          subdomain: store.subdomain,
+          unit: 'month',
+        });
 
       const sentQuantity = bespokePricingPlan.find(
         ({ id }) => id === billing.bespokePlanId,
@@ -846,7 +804,10 @@ export class StoreService implements OnModuleInit {
     }
 
     const emailSentThisMonth =
-      await this.metricService.getEmailSentDuringPeriod(subdomain, 'month');
+      await this.metricService.getEmailSentDuringPeriod({
+        subdomain,
+        unit: 'month',
+      });
 
     const sendingQuantity =
       await this.subscriberListService.getSubscribersInListCount(listId);
@@ -1236,30 +1197,6 @@ export class StoreService implements OnModuleInit {
     }
   }
 
-  async getCurrentStoreChallengesByQuestType({
-    subdomain,
-    questType,
-  }: {
-    subdomain: string;
-    questType: QuestType;
-  }): Promise<StoreChallenge[] | null> {
-    const store = await this.storeRepo.findOne({
-      where: {
-        subdomain,
-      },
-    });
-
-    if (!store) return null;
-
-    const challenges =
-      await this.storeChallengeService.getCurrentStoreChallengesByQuestType({
-        questType,
-        storeId: store.id,
-      });
-
-    return challenges;
-  }
-
   async getStoreCredits(subdomain: string): Promise<number> {
     const store = await this.getStoreWithSubdomain(subdomain);
 
@@ -1550,7 +1487,7 @@ export class StoreService implements OnModuleInit {
 
   async prorateStripeSubscription(
     subdomain: string,
-    newStripePriceId: string,
+    newBespokePlanId: string,
   ): Promise<boolean> {
     try {
       const store = await this.getStoreWithSubdomain(subdomain);
@@ -1561,16 +1498,20 @@ export class StoreService implements OnModuleInit {
         throw new Error('missing billing data');
 
       const bespokePlanId = bespokePricingPlan.find(
-        ({ stripePriceId }) => stripePriceId === newStripePriceId,
+        ({ id }) => id === newBespokePlanId,
       )?.id;
 
       if (!bespokePlanId) throw Error('missing plan id');
+      if (bespokePlanId === 'OPEN_SOURCE' || bespokePlanId === 'FREE')
+        return false;
 
       await this.billingService.updateBespokePlanId(billing.id, bespokePlanId);
 
       await this.stripeService.prorateSubscirption({
         subscriptionId: billing.subscriptionId,
-        newStripePriceId: newStripePriceId,
+        newStripePriceId: this.configService.get(
+          `${bespokePlanId}_STRIPE_PRICE_ID`,
+        ) as string,
         bespokePlanId,
         billingId: billing.id,
         storeId: store.id,
@@ -1643,8 +1584,6 @@ export class StoreService implements OnModuleInit {
         ({ id }) => id === billing?.bespokePlanId,
       );
 
-      console.log(billingPlan);
-
       if (billingPlan?.type === 'basic') {
         throw new Error('not authorized to create workflow on basic plan');
       }
@@ -1676,74 +1615,142 @@ export class StoreService implements OnModuleInit {
       throw new Error('email sent limit reached');
   }
 
-  async stripeReportUsageForBilling(
+  async getUsageQuantity(
     storeId: string,
-    currentPeriodStart: number,
-  ) {
-    try {
-      const store = await this.getStore(storeId);
-      if (!store || !store.subdomain) throw new Error('missing store');
+    currentPeriodStartInUnix: number,
+  ): Promise<number> {
+    const store = await this.getStore(storeId);
+    if (!store || !store.subdomain) throw new Error('missing store');
 
-      const subdomain = store?.subdomain;
+    const subdomain = store?.subdomain;
 
-      const billing = await this.billingService.getStoreBilling(subdomain);
-      if (!billing) throw new Error('missing billing');
+    const billing = await this.billingService.getStoreBilling(subdomain);
+    if (!billing) throw new Error('missing billing');
 
-      if (
-        billing?.billingSubscriptionEntity !== BillingSubscriptionEntity.STRIPE
-      ) {
-        throw new Error('not stripe billing');
-      }
-      if (!billing.subscriptionId) {
-        throw new Error('missing subscription id');
-      }
-      if (!billing.currentPeriodEnd) {
-        throw new Error('missing period end');
-      }
-
-      const billingPlanStaus = await this.billingService.billingPlanStatus(
-        billing,
-      );
-
-      if (
-        billingPlanStaus === BillingPlanStatus.CANCELLED ||
-        billingPlanStaus === BillingPlanStatus.FREE
-      ) {
-        throw new Error('invalid billling status');
-      }
-
-      const emailSentUsageCount =
-        await this.metricService.getEmailSentDuringPeriod(subdomain, 'month');
-
-      const contactUsageCount =
-        await this.subscriberService.getSubscribersCount(subdomain);
-
-      const billingPlan = bespokePricingPlan.find(
-        ({ id }) => id === billing.bespokePlanId,
-      );
-
-      if (!billingPlan) throw new Error('billing plan is missing');
-
-      if (billingPlan?.type === 'default')
-        throw new Error('billing is free plan');
-
-      const usageEmail = emailSentUsageCount - billingPlan.emails;
-      let totalUsage = contactUsageCount + 6000;
-
-      if (usageEmail > 0) {
-        totalUsage += usageEmail;
-      }
-
-      if (!totalUsage || totalUsage <= 0) throw new Error('usage not exceeded');
-      console.log({ currentPeriodStart });
-
-      await this.stripeService.createUsageRecords({
-        subscriptionId: billing.subscriptionId,
-        usageQuantity: 60000,
-        timestamp: dayjs.unix(currentPeriodStart).add(1, 'minute').unix(),
-      });
-    } catch (error) {
-      console.log(error);
+    if (
+      billing?.billingSubscriptionEntity !== BillingSubscriptionEntity.STRIPE
+    ) {
+      throw new Error('not stripe billing');
     }
+    if (!billing.subscriptionId) {
+      throw new Error('missing subscription id');
+    }
+    if (!billing.currentPeriodEnd) {
+      throw new Error('missing period end');
+    }
+
+    const billingPlanStaus = await this.billingService.billingPlanStatus(
+      billing,
+    );
+
+    if (
+      billingPlanStaus === BillingPlanStatus.CANCELLED ||
+      billingPlanStaus === BillingPlanStatus.FREE
+    ) {
+      throw new Error('invalid billling status');
+    }
+
+    const emailSentUsageCount =
+      await this.metricService.getEmailSentDuringPeriod({
+        subdomain,
+        unixTime: currentPeriodStartInUnix,
+      });
+
+    const contactUsageCount = await this.subscriberService.getSubscribersCount(
+      subdomain,
+    );
+
+    const billingPlan = bespokePricingPlan.find(
+      ({ id }) => id === billing.bespokePlanId,
+    );
+
+    if (!billingPlan) throw new Error('billing plan is missing');
+
+    if (billingPlan?.type === 'default')
+      throw new Error('billing is free plan');
+
+    const usageEmail = emailSentUsageCount - billingPlan.emails;
+    const contactUsage = contactUsageCount - billingPlan.contacts;
+
+    // const usageEmailAmount = usageEmail * billingPlan.overages;
+    // const contactUsageAmount = contactUsage * billingPlan.overages;
+
+    // const totalUsageAmount =
+    //   usageEmailAmount + contactUsageAmount + billingPlan.price;
+
+    // count subscribes as total count with usageEmail on top
+    let exceededQuantity = 0;
+    if (contactUsage > 0) {
+      exceededQuantity += contactUsage;
+    }
+    if (usageEmail > 0) {
+      exceededQuantity += usageEmail;
+    }
+
+    return exceededQuantity;
+  }
+
+  async gettingStarted(
+    subdoamin: string,
+  ): Promise<GettingStartedResponse[] | null> {
+    const response: GettingStartedResponse[] = [];
+    const store = await this.getStoreWithSubdomain(subdoamin);
+
+    if (!store) return null;
+
+    const product = await this.productService.getProductCount(subdoamin);
+    if (product > 0) {
+      response.push({
+        completed: true,
+        type: 'product',
+      });
+    } else {
+      response.push({
+        completed: false,
+        type: 'product',
+      });
+    }
+
+    const form = await this.signupFormService.getSignupFormCount(store.id);
+    if (form > 0) {
+      response.push({
+        completed: true,
+        type: 'form',
+      });
+    } else {
+      response.push({
+        completed: false,
+        type: 'form',
+      });
+    }
+
+    const automation = await this.workflowService.getWorkflowCount(subdoamin);
+    if (automation > 0) {
+      response.push({
+        completed: true,
+        type: 'automation',
+      });
+    } else {
+      response.push({
+        completed: false,
+        type: 'automation',
+      });
+    }
+
+    const post = await this.postService.getPostCount(subdoamin);
+
+    if (post > 0) {
+      response.push({
+        completed: true,
+        type: 'post',
+      });
+    } else {
+      response.push({
+        completed: false,
+        type: 'post',
+      });
+    }
+
+    return response;
   }
 }

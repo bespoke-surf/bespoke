@@ -1,4 +1,4 @@
-import { FREE_PLAN_ID, PricingIdType } from '@bespoke/common/dist/pricingPlan';
+import { PricingIdType } from '@bespoke/common/dist/pricingPlan';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   Column,
@@ -49,7 +49,7 @@ export class Billing {
   subscriptionId?: string;
 
   @Field()
-  @Column({ default: FREE_PLAN_ID })
+  @Column()
   bespokePlanId: PricingIdType;
 
   @OneToOne(() => Store, (store) => store.billing, {

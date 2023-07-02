@@ -1,3 +1,5 @@
+import { TAG_LINE } from '../../constants';
+
 export const shopifyCustomerDataErasureRequestTemplate = ({
   dataGeneratedForEmail,
 }: {
@@ -173,7 +175,7 @@ export const shopifyCustomerDataErasureRequestTemplate = ({
   <tbody>
     <tr>
       <td style="padding:18px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Bespoke.surf</div>
-<div style="font-family: inherit; text-align: inherit"><span style="color: #afafaf">Helping humanity become financially independent</span></div><div></div></div></td>
+<div style="font-family: inherit; text-align: inherit"><span style="color: #afafaf">${TAG_LINE}</span></div><div></div></div></td>
     </tr>
   </tbody>
 </table></td>

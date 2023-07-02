@@ -1,10 +1,16 @@
-import { FREE_PLAN_ID, PricingIdType } from '@bespoke/common/dist/pricingPlan';
+import {
+  FREE_PLAN_ID,
+  OPEN_SOURCE_PLAN_ID,
+  PricingIdType,
+} from '@bespoke/common/dist/pricingPlan';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import dayjs from 'dayjs';
 import Stripe from 'stripe';
 import { Repository } from 'typeorm';
 import { Store } from '../store/store.entity';
+import { EnvironmentVariables } from '../types';
 import { Billing } from './billing.entity';
 import { BillingPlanStatus } from './enum/billingPlanStatus.enum';
 import { BillingSubscriptionEntity } from './enum/billingSubscriptionEntity.enum';
@@ -15,11 +21,17 @@ export class BillingService {
   constructor(
     @InjectRepository(Billing)
     private readonly billingRepo: Repository<Billing>,
+    private readonly configService: ConfigService<EnvironmentVariables>,
   ) {}
 
   async createBilling(store: Store): Promise<Billing> {
+    console.log(this.configService.get('OPEN_SOURCE'), 'config');
     const billing = await this.billingRepo.save({
       store,
+      bespokePlanId:
+        this.configService.get('OPEN_SOURCE') === 'true'
+          ? OPEN_SOURCE_PLAN_ID
+          : FREE_PLAN_ID,
     });
     return billing;
   }

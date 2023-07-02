@@ -1,5 +1,6 @@
 import type { SignupForm } from "../app/graphql/__generated__/graphql";
 
+// not using remix, using dotenv-cli for process.env
 const FRONTEND_HOST = process.env.FRONTEND_HOST as string;
 const BACKEND_HOST = process.env.BACKEND_HOST as string;
 

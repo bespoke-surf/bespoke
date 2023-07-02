@@ -1,3 +1,4 @@
+import { PricingIdType } from '@bespoke/common/dist/pricingPlan';
 import { UseGuards } from '@nestjs/common';
 import {
   Args,
@@ -15,10 +16,8 @@ import { HasStoreAccessWithList } from '../guard/hasStoreAccessWithList';
 import { HasStoreAccessWithPost } from '../guard/hasStoreAccessWithPost';
 import { HasStoreAccessWithShopify } from '../guard/hasStoreAccessWithShopify';
 import { HasStoreAccessWithSubdomain } from '../guard/hasStoreAccessWithSubdomain';
-import { QuestType } from '../quest/enum/questType.enum';
 import { Shopify } from '../shopify/shopify.entity';
 import { SignupForm } from '../signup-form/signup-form.entity';
-import { StoreChallenge } from '../store-challenge/storeChallenge.entity';
 import { Workflow } from '../workflow/workflow.entity';
 import { UpdateDisplayPictureInput } from './dto/add-display-picture-input';
 import { BenchmarkData } from './dto/benchmarkData';
@@ -31,6 +30,7 @@ import { StoreCurrency } from './enum/currency.enum';
 import { EmailSentLimitStatus } from './enum/emailSentLimitStatus.enum';
 import { Store } from './store.entity';
 import { StoreService } from './store.service';
+import { GettingStartedResponse } from './types/gettingStartedResponse';
 
 @Resolver(() => Store)
 export class StoreResolver {
@@ -206,10 +206,10 @@ export class StoreResolver {
   createCheckoutSessionUrl(
     @Args('subdomain')
     subdomain: string,
-    @Args('stripePriceId')
-    stripePriceId: string,
+    @Args('bespokePlanId')
+    bespokePlanId: PricingIdType,
   ): Promise<string | null> {
-    return this.storeService.createCheckoutSessionUrl(subdomain, stripePriceId);
+    return this.storeService.createCheckoutSessionUrl(subdomain, bespokePlanId);
   }
 
   @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
@@ -275,18 +275,6 @@ export class StoreResolver {
   }
 
   @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
-  @Query(() => [StoreChallenge], { nullable: true })
-  getCurrentStoreChallengesByQuestType(
-    @Args('subdomain') subdomain: string,
-    @Args('questType', { type: () => QuestType }) questType: QuestType,
-  ): Promise<StoreChallenge[] | null> {
-    return this.storeService.getCurrentStoreChallengesByQuestType({
-      subdomain,
-      questType,
-    });
-  }
-
-  @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
   @Query(() => Int)
   getStoreCredits(@Args('subdomain') subdomain: string): Promise<number> {
     return this.storeService.getStoreCredits(subdomain);
@@ -341,7 +329,7 @@ export class StoreResolver {
   })
   prorateStripeSubscription(
     @Args('subdomain') subdomain: string,
-    @Args('newStripePriceId') id: string,
+    @Args('newBespokePlanId') id: string,
   ): Promise<boolean> {
     return this.storeService.prorateStripeSubscription(subdomain, id);
   }
@@ -377,5 +365,16 @@ export class StoreResolver {
     @Args('subdomain') subdoamin: string,
   ): Promise<Workflow | null> {
     return this.storeService.createWorkflow(subdoamin);
+  }
+
+  @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
+  @Query(() => [GettingStartedResponse], {
+    nullable: true,
+    description: 'getting started',
+  })
+  gettingStarted(
+    @Args('subdomain') subdoamin: string,
+  ): Promise<GettingStartedResponse[] | null> {
+    return this.storeService.gettingStarted(subdoamin);
   }
 }

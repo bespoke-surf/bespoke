@@ -1,6 +1,16 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { Link } from "@remix-run/react";
-import { Box, Flex, Heading, Icon, PageHeader } from "gestalt";
+import { Link, useSubmit } from "@remix-run/react";
+import {
+  Box,
+  Button,
+  Dropdown,
+  Flex,
+  Heading,
+  Icon,
+  PageHeader,
+} from "gestalt";
+import posthog from "posthog-js";
+import { useCallback } from "react";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import { isPrivateRoute } from "../../utils/utils.server";
@@ -16,12 +26,36 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function SettingIndex() {
+  const submit = useSubmit();
+  const handleLogout = useCallback(() => {
+    submit(null, {
+      action: "/logout?index",
+      method: "post",
+    });
+    posthog.reset();
+  }, [submit]);
   return (
     <>
       <PageHeader
         borderStyle="none"
         title="Settings"
-        subtext="Add or update settings of your business profile, posts, products etc..."
+        primaryAction={{
+          component: (
+            <Button
+              text="Logout"
+              onClick={handleLogout}
+              size="lg"
+              color="gray"
+            />
+          ),
+          dropdownItems: [
+            <Dropdown.Item
+              onSelect={handleLogout}
+              option={{ label: "Logout", value: "logout" }}
+              key="logout"
+            />,
+          ],
+        }}
       />
       <Flex justifyContent="center">
         <Box paddingY={6} width="91.5%">

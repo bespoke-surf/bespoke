@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/bespoke-surf/bespoke/compare/v0.1.0...v0.2.0) (2023-07-02)
+
+
+### Bug Fixes
+
+* **env:** removing variable in env ([ec23314](https://github.com/bespoke-surf/bespoke/commit/ec23314d8a43ae799dfc35eb8301699bd61b25e1))
+* **navigation:** fixing logout ([e523e6d](https://github.com/bespoke-surf/bespoke/commit/e523e6dc097e669e8884749e8f9bc87eda09a61b))
+* only lerna 4.0.0 ([b55e983](https://github.com/bespoke-surf/bespoke/commit/b55e983aa64444f4ab76197a5dadaddac152d4bf))
+* **redis:** using redis port and host, removed redis url ([ccc9fce](https://github.com/bespoke-surf/bespoke/commit/ccc9fceb43b9a6147127238a4ad96e2c794105af))
+* removing + based folders ([cda8813](https://github.com/bespoke-surf/bespoke/commit/cda881395d51d0339f11444d6b43b99f868c99d9))
+* **web:** activate newsletter on draft page ([db57b9c](https://github.com/bespoke-surf/bespoke/commit/db57b9c03af2d640ba4006f0f2e86653a45d6e30))
+* **web:** masonry was not rendering ([8a8e687](https://github.com/bespoke-surf/bespoke/commit/8a8e687239a31b4a43c559bdddff6781af56be03))
+* **web:** moved from fetcher to submit for post submission ([5144c9d](https://github.com/bespoke-surf/bespoke/commit/5144c9d3ee57d33c98fd713d1fd35099f556d4d2))
+
+
+### Features
+
+* **web:** getting started ([0987171](https://github.com/bespoke-surf/bespoke/commit/0987171467ba04999e1eee0a1c512ec73c7a0894))
+
+
+
+
+
 # 0.1.0 (2023-06-22)
 
 ### Bug Fixes

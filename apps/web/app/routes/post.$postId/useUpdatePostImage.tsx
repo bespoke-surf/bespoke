@@ -24,13 +24,13 @@ const useUpdatePostImage = (): { uppy: Uppy } => {
           allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
         },
       }).use(XHRUpload, {
-        endpoint: rootLoaderData.CLOUDINARY_UPLOAD_IMAGE_URL as string,
+        endpoint: rootLoaderData.ENV.CLOUDINARY_UPLOAD_IMAGE_URL as string,
         method: "POST",
         formData: true,
         fieldName: "file",
         allowedMetaFields: ["file", "folder", "upload_preset"],
       }),
-    [rootLoaderData.CLOUDINARY_UPLOAD_IMAGE_URL]
+    [rootLoaderData.ENV.CLOUDINARY_UPLOAD_IMAGE_URL]
   );
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const useUpdatePostImage = (): { uppy: Uppy } => {
       const folder = `${STORE_PREFIX}/${rootLoaderData?.user?.id}/${STORE_PRODUCT_IMAGE_POSTFIX}`;
       uppy.setFileMeta(file.id, {
         folder,
-        upload_preset: rootLoaderData.CLOUDINARY_PRESET,
+        upload_preset: rootLoaderData.ENV.CLOUDINARY_PRESET,
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

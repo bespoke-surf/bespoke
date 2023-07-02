@@ -1,80 +1,77 @@
-import { Callout, Flex, Heading, List, Upsell } from "gestalt";
-import UnautheticatedPageLayout from "../../components/UnauthenticatedPageLayout";
+import { useRouteLoaderData } from "@remix-run/react";
+import { Box, Callout, Flex, Heading, Text, Upsell } from "gestalt";
+import UnauthPageLayot from "../../components/PageLayout/UnauthPageLayout";
+import type { RootData } from "../../root";
 import ComparisonTable from "./LandingPage/ComparisonTable";
 
-const common = [
-  "Design Email",
-  "Segmentation (coming soon)",
-  "Campaign (coming soon)",
-  "A/B Testing & Dashboard Analytics",
-  "9 Templates & 2 Forms",
-  "Periodic Reports",
-  "Newsletter",
-  "Sign-up Form",
-  "Subscription Rewards Every Month",
-  "Ticket & Chat Support",
-  "Automation",
-  "Dedicated IPs (coming soon)",
-  "Benchmarks",
-];
-
 export default function LandingPage() {
+  const rootLoaderData = useRouteLoaderData("root") as RootData;
   return (
-    <UnautheticatedPageLayout
+    <UnauthPageLayot
       pageHeaderPorps={{
-        title: "Open Source Email, Automation & Newsletter",
-        subtext:
-          "Combining best parts of Mailchimp, Klaviyo's automation, Substack's newsletter & eventually Typeform for surveys",
+        title: "",
+        subtext: "",
       }}
     >
+      <Box marginBottom={8} marginTop={-12}>
+        <Heading size="500">
+          Open Source Personalized Marketing Platform
+        </Heading>
+        <Box marginTop={2}>
+          <Text>
+            Combining best parts of Mailchimp, Klaviyo's automation, Substack's
+            newsletter & Typeform for surveys
+          </Text>
+        </Box>
+      </Box>
       <Flex direction="column" gap={12}>
-        <Callout
-          title="Self Host or Sign Up!"
-          message="Self host Bespoke today, follow instruction on Github or Sign up to use Bespoke"
-          iconAccessibilityLabel="recommendation"
-          type="recommendation"
-          primaryAction={{
-            label: "Sign Up",
-            accessibilityLabel: "Sign Up",
-            href: "/signup",
-          }}
-          secondaryAction={{
-            label: "Github",
-            accessibilityLabel: "Github",
-            href: "https://github.com/bespoke-surf/bespoke",
-          }}
-        />
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
+          <Callout
+            title="Self-Host or Fully Managed"
+            message="Self-host Bespoke or sign up to use Bespoke Cloud."
+            iconAccessibilityLabel="recommendation"
+            type="recommendation"
+            primaryAction={{
+              label: "Sign Up",
+              accessibilityLabel: "Sign Up",
+              href: "/signup",
+            }}
+            secondaryAction={{
+              label: "Github",
+              accessibilityLabel: "Github",
+              href: "https://github.com/bespoke-surf/bespoke",
+            }}
+          />
+        )}
         <ComparisonTable />
-        <Upsell
-          message="Get started with our free plan"
-          title="Pricing"
-          primaryAction={{
-            label: "Pricing",
-            accessibilityLabel: "Pricing",
-            href: "/pricing",
-          }}
-          secondaryAction={{
-            label: "Get started",
-            accessibilityLabel: "sign up",
-            href: "/signup",
-          }}
-        />
-
-        <Flex gap={4} direction="column">
-          <Heading accessibilityLevel="none" size="400">
-            Feature Summary
-          </Heading>
-          <List
-            labelDisplay="hidden"
-            label="Use the synchronous analytics endpoints if:"
-            type="unordered"
-          >
-            {common.map((value) => (
-              <List.Item text={value} key={value} />
-            ))}
-          </List>
-        </Flex>
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? (
+          <Upsell
+            message="We welcome your PR's. Join and be part of the personalization frontier. Right here on Gihtub."
+            title="Personalization Frontier"
+            primaryAction={{
+              label: "Github",
+              accessibilityLabel: "Pricing",
+              href: "https://github.com/bespoke-surf/bespoke",
+              target: "blank",
+            }}
+          />
+        ) : (
+          <Upsell
+            message="Get started with Bespoke Cloud. See full feature breakdown under pricing."
+            title="Pricing"
+            primaryAction={{
+              label: "Pricing",
+              accessibilityLabel: "Pricing",
+              href: "/pricing",
+            }}
+            secondaryAction={{
+              label: "Get started",
+              accessibilityLabel: "sign up",
+              href: "/signup",
+            }}
+          />
+        )}
       </Flex>
-    </UnautheticatedPageLayout>
+    </UnauthPageLayot>
   );
 }

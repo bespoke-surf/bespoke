@@ -1,9 +1,9 @@
 mutation ProrateStripeSubscription(
   $subdomain: String!
-  $newStripePriceId: String!
+  $newBespokePlanId: String!
 ) {
   prorateStripeSubscription(
     subdomain: $subdomain
-    newStripePriceId: $newStripePriceId
+    newBespokePlanId: $newBespokePlanId
   )
 }

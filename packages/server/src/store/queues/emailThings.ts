@@ -50,7 +50,9 @@ export const smptpSubscriberListEmail = ({
   listId,
   host,
   redis,
+  emailDomain,
 }: {
+  emailDomain: string;
   subscriber: Subscriber;
   postWithStoreAndContact: Post;
   frontEndHost: string;
@@ -75,7 +77,7 @@ export const smptpSubscriberListEmail = ({
 
   return {
     to: subscriber.user.email,
-    from: `${postWithStoreAndContact.store.contact?.senderName} <${postWithStoreAndContact.store.subdomain}@bespoke.surf>`,
+    from: `${postWithStoreAndContact.store.contact?.senderName} <${postWithStoreAndContact.store.subdomain}@${emailDomain}>`,
     replyTo: `${postWithStoreAndContact.store.contact?.senderName} <${postWithStoreAndContact.store.contact?.senderEmail}>`,
     subject: `${postWithStoreAndContact.title}`,
     html: htmlOutput({
@@ -117,6 +119,7 @@ export const smptpAutomationEmail = ({
   frontEndHost,
   frontEndHostProtocol,
   unsubscribeId,
+  emailDomain,
 }: {
   subscriber: Subscriber;
   frontEndHost: string;
@@ -126,6 +129,7 @@ export const smptpAutomationEmail = ({
   html: string;
   subject: string;
   unsubscribeId: string;
+  emailDomain: string;
   storeWithContact: Store;
   handleBarValues?: HandleBarValues;
 }): Mail.Options => {
@@ -139,7 +143,7 @@ export const smptpAutomationEmail = ({
 
   return {
     to: subscriber.user.email,
-    from: `${storeWithContact.contact?.senderName} <${storeWithContact.subdomain}@bespoke.surf>`,
+    from: `${storeWithContact.contact?.senderName} <${storeWithContact.subdomain}@${emailDomain}>`,
     replyTo: `${storeWithContact.contact?.senderName} <${storeWithContact.contact?.senderEmail}>`,
     subject: `${subject}`,
     list: listId

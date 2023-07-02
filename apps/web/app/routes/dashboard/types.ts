@@ -5,6 +5,7 @@ import type {
   GetStoreDailyRevenueTrendQuery,
   GetStoreEmailMetricQuery,
   GetStoreRevenueQuery,
+  GettingStartedQuery,
 } from "../../graphql/__generated__/graphql";
 import { AboutIndustryEnum } from "../../graphql/__generated__/graphql";
 
@@ -12,6 +13,7 @@ export type DashboardData = {
   billing: BillingFragment | null | undefined;
   emailMetricPromise: Promise<GetStoreEmailMetricQuery>;
   benchmarkDataPromise: Promise<GetBenchmarkDataQuery>;
+  gettinStartedPromise: Promise<GettingStartedQuery>;
   // storeRevenuePromise: Promise<GetStoreRevenueQuery>;
   // storeDailyRevenuePromise: Promise<GetStoreDailyRevenueTrendQuery>;
 };

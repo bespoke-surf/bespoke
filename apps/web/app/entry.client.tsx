@@ -4,25 +4,23 @@ import type { Integration } from "@sentry/types";
 import posthog from "posthog-js";
 import { StrictMode, startTransition, useEffect } from "react";
 import { hydrateRoot } from "react-dom/client";
-import { getEnvVars } from "../env.server";
 
-if (process.env.NODE_ENV === "production") {
-  const {
-    POSTHOG_TOKEN,
-    POSTHOG_ORGANISATION,
-    POSTHOG_PROJECT_ID,
-    SENTRY_DSN,
-  } = getEnvVars();
-
-  posthog.init(String(POSTHOG_TOKEN), {
+if (
+  ENV.MODE === "production" &&
+  ENV.SENTRY_DSN &&
+  ENV.POSTHOG_TOKEN &&
+  ENV.POSTHOG_ORGANISATION &&
+  ENV.POSTHOG_PROJECT_ID
+) {
+  posthog.init(String(ENV.POSTHOG_TOKEN), {
     api_host: "https://app.posthog.com",
   });
 
   Sentry.init({
-    dsn: SENTRY_DSN,
+    dsn: ENV.SENTRY_DSN,
     tracesSampleRate: 1,
-    environment: process.env.NODE_ENV,
-    replaysOnErrorSampleRate: 0.1,
+    environment: ENV.MODE,
+    replaysOnErrorSampleRate: 1.0,
     replaysSessionSampleRate: 0.1,
     attachStacktrace: true,
     integrations: [
@@ -36,8 +34,8 @@ if (process.env.NODE_ENV === "production") {
       }),
       new posthog.SentryIntegration(
         posthog,
-        POSTHOG_ORGANISATION,
-        Number(POSTHOG_PROJECT_ID)
+        ENV.POSTHOG_ORGANISATION,
+        Number(ENV.POSTHOG_PROJECT_ID)
       ) as Integration,
     ],
   });

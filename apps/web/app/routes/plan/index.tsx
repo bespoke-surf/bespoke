@@ -3,7 +3,7 @@ import { json, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import { Container, Flex } from "gestalt";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import { sdk } from "../../graphql/graphqlWrapper.server";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";

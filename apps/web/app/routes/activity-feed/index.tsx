@@ -23,7 +23,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { InView } from "react-intersection-observer";
 import { ClientOnly } from "remix-utils";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type {
   MetricFragment,
   MetricType,

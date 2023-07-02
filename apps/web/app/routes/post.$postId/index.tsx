@@ -3,9 +3,9 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import {
   Outlet,
   useActionData,
-  useFetcher,
   useLoaderData,
   useRouteLoaderData,
+  useSubmit,
 } from "@remix-run/react";
 import type {
   ActionFunction,
@@ -38,6 +38,7 @@ import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
+import { ClientOnly } from "remix-utils";
 import { links as editorLinks } from "../../components/Editor";
 import { isPrivateRoute } from "../../utils/utils.server";
 export {
@@ -167,6 +168,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         },
         { request, forbiddenRedirect: "/" }
       );
+      console.log({ response });
       if (response.publishPostHere) {
         return json<PostActionData>({
           share: true,
@@ -223,7 +225,7 @@ function MyCustomAutoFocusPlugin() {
 }
 
 const Home = () => {
-  const fetcher = useFetcher();
+  const submit = useSubmit();
   const loaderData = useLoaderData<PostData>();
   const rootLoader = useRouteLoaderData("root") as RootData;
   const actionData = useActionData<PostActionData>();
@@ -269,18 +271,18 @@ const Home = () => {
       );
       if (values.submitState === "save") {
         formData.append("_action", PostActionEnum.updatePost);
-        fetcher.submit(formData, { method: "post", replace: true });
+        submit(formData, { method: "post", replace: true });
       } else if (values.submitState === "publishToBespoke") {
         formData.append("_action", PostActionEnum.publishPostHere);
         if (values.handle === "") {
           return action.setFieldError("handle", "Please add a post URL");
         } else {
           formData.append("handle", values.handle);
-          fetcher.submit(formData, { method: "post", replace: true });
+          submit(formData, { method: "post", replace: true });
         }
       } else if (values.submitState === "unpublish") {
         formData.append("_action", PostActionEnum.unpublish);
-        fetcher.submit(formData, { method: "post", replace: true });
+        submit(formData, { method: "post", replace: true });
       } else if (values.submitState === "emailBlast") {
         if (values.handle === "") {
           return action.setFieldError("handle", "Please add a post URL");
@@ -288,11 +290,11 @@ const Home = () => {
           formData.append("listId", values.listId);
           formData.append("handle", values.handle);
           formData.append("_action", PostActionEnum.publishPostToList);
-          fetcher.submit(formData, { method: "post", replace: true });
+          submit(formData, { method: "post", replace: true });
         }
       }
     },
-    [fetcher]
+    [submit]
   );
 
   const formik = useFormik<PostFormValues>({
@@ -317,14 +319,14 @@ const Home = () => {
   });
 
   if (actionData?.share === true) {
-    return <ShareAfterSubmit />;
+    return <ClientOnly>{() => <ShareAfterSubmit />}</ClientOnly>;
   }
 
   return (
     <Container>
       <FormikProvider value={formik}>
         <LexicalComposer initialConfig={initialConfig}>
-          <Controls fetcher={fetcher} />
+          <Controls />
           <div className="editor-shell">
             <Editor
               disableOptionAndTime={true}

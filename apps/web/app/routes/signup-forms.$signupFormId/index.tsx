@@ -5,7 +5,6 @@ import { load } from "cheerio";
 import { FormikProvider, useFormik } from "formik";
 import { Box, Layer, Sticky } from "gestalt";
 import { useCallback } from "react";
-import { getEnvVars } from "../../../env.server";
 import type {
   SignupFormData,
   SignupFormDataInput,
@@ -130,7 +129,7 @@ export async function action({ request, params }: ActionArgs) {
             formId: signupFormId,
             successFormId: `${signupFormId}-success`,
             key,
-            backendHost: getEnvVars().BACKEND_HOST,
+            backendHost: ENV.BACKEND_HOST,
             storeId,
           }),
           scriptModule: signuFromModuleJs(signupFormId, key),

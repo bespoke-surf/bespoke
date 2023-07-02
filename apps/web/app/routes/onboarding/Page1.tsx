@@ -27,7 +27,7 @@ export default function Page1() {
           label="Brand name"
           onChange={({ event }) => handleChange(event)}
           onBlur={({ event }) => handleBlur(event)}
-          placeholder="Bespoke"
+          placeholder="Nike, Adidas, Microsoft, Tesla etc..."
           value={values.name}
           type="text"
           name="name"

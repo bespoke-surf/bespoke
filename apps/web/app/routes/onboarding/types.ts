@@ -1,6 +1,5 @@
 import * as yup from "yup";
 import type {
-  QuestFragment,
   StoreFragment,
   WorkflowFragment,
 } from "../../graphql/__generated__/graphql";
@@ -22,7 +21,6 @@ export interface IOnboardingFormValues {
 
 export type OnboardingData = {
   store: StoreFragment | null | undefined;
-  dailyQuest: QuestFragment | null | undefined;
   workflows: WorkflowFragment[] | null | undefined;
 };
 

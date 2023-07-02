@@ -35,7 +35,7 @@ import type { SubscriberFragment } from "~/graphql/__generated__/graphql";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { useDebounce } from "~/hooks/useDebounce";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -134,7 +134,6 @@ export default function Profiles() {
                 <PageHeader
                   borderStyle="none"
                   title="SUBSCRIBERS"
-                  subtext="Your subscribers from all of your Lists."
                   items={[
                     <Datapoint
                       key="revenue"
@@ -150,10 +149,10 @@ export default function Profiles() {
                       <Box>
                         <Callout
                           iconAccessibilityLabel="warning"
-                          title="Subscribers table is empty!"
+                          title="All Subscribers"
                           key="add subs"
                           type="warning"
-                          message="Your subscribers will show up here. Also you can sync your subscribers from your business via integrations."
+                          message="All subscribers from across all of your lists will show up here. Quickly sync with integrations."
                           primaryAction={{
                             label: "Sync Subscribers",
                             accessibilityLabel: "sync subscribers",

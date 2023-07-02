@@ -19,10 +19,11 @@ import {
   IconButton,
   PageHeader,
   Table,
+  TapArea,
   Text,
 } from "gestalt";
 
-import type { LoaderArgs, MetaFunction } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { useCallback, useMemo, useRef, useState } from "react";
 import type { ListFragment } from "~/graphql/__generated__/graphql";
@@ -31,12 +32,10 @@ import { getSubdomain, isPrivateRoute } from "~/utils/utils.server";
 import type { ListData } from "./types";
 import { ListActionEnum } from "./types";
 
-import type { ActionArgs } from "@remix-run/node";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
-import { TapArea } from "gestalt";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -135,7 +134,6 @@ export default function Subscribers() {
                 <PageHeader
                   borderStyle="none"
                   title="LISTS & SEGMENTS"
-                  subtext="(Segmentation is coming soon)"
                   items={[
                     <Datapoint
                       key="revenue"
@@ -150,7 +148,6 @@ export default function Subscribers() {
                         color="red"
                         size="lg"
                         text="Create"
-                        type="button"
                         href="/subscriber-lists/create-list"
                         role="link"
                       />

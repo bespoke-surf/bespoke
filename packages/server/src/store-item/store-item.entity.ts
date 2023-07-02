@@ -14,7 +14,7 @@ import { Item } from '../item/items.entity';
 import { Store } from '../store/store.entity';
 
 @ObjectType({
-  description: 'Store challenge',
+  description: 'Store Item',
 })
 @Entity()
 export class StoreItem {
@@ -30,7 +30,7 @@ export class StoreItem {
   @Column()
   itemId: string;
 
-  @ManyToOne(() => Store, (store) => store.storeChallenge, {
+  @ManyToOne(() => Store, (store) => store.storeItem, {
     onDelete: 'CASCADE',
   })
   store: Relation<Store>;

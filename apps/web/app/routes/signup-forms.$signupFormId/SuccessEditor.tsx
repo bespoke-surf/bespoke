@@ -5,7 +5,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type EmailEditor from "react-email-editor";
 import type { MyFromValue, loader } from ".";
 import { ReactEmailEditor } from "../../components/ReactEmailEditor";
-import { UNLAYER_PROJECT_ID } from "../../constants";
 import type { RootData } from "../../root";
 import { customFonts } from "../../utils/customFonts";
 import { addFormData } from "./utilts";
@@ -88,7 +87,7 @@ export const SuccessEditor = () => {
         ref={successEditorRef}
         displayMode="popup"
         onReady={handleSuccessEditorReady}
-        projectId={UNLAYER_PROJECT_ID}
+        projectId={Number(rootData.ENV.UNLAYER_PROJECT_ID)}
         editorId="bespoke-editor-success"
         appearance={{ panels: { tools: { dock: "left" } }, theme: "light" }}
         minHeight={`calc(100vh - ${values.boxHeight}px)`}

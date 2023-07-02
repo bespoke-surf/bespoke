@@ -21,7 +21,6 @@ import React, {
 import type EmailEditor from "react-email-editor";
 import type { Design } from "react-email-editor";
 import { ReactEmailEditor } from "../../../../components/ReactEmailEditor";
-import { UNLAYER_PROJECT_ID } from "../../../../constants";
 import { WorkflowActivityType } from "../../../../graphql/__generated__/graphql";
 import type { RootData } from "../../../../root";
 import { customFonts } from "../../../../utils/customFonts";
@@ -264,7 +263,7 @@ export default function SendEmailComplexLayer({
         }}
         ref={emailEditorRef}
         onReady={onReady}
-        projectId={UNLAYER_PROJECT_ID}
+        projectId={Number(rootData.ENV.UNLAYER_PROJECT_ID)}
         editorId="bespoke-editor"
         appearance={{ panels: { tools: { dock: "left" } }, theme: "light" }}
         minHeight={`calc(100% - ${firstComponentHeight}px)`}

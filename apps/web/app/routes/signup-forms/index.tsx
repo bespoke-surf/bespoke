@@ -14,7 +14,7 @@ import { Suspense, lazy, useReducer } from "react";
 import { ClientOnly } from "remix-utils";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -110,7 +110,6 @@ export default function SignupForms() {
               <PageHeader
                 borderStyle="none"
                 title="SIGN-UP FORMS"
-                subtext="Forms to add subscribers to a list. Create a form to display on your website"
                 primaryAction={{
                   component: (
                     <Button
@@ -168,10 +167,10 @@ export default function SignupForms() {
                     <Box marginBottom={8}>
                       <Callout
                         iconAccessibilityLabel="warning"
-                        title="Create or Add Forms!"
+                        title="Quickly Add Forms"
                         key="add subs"
                         type="recommendation"
-                        message="Create a new form here or add forms from the Template & Forms tab. Also subscribe to a paid plan to get new forms every month."
+                        message="You can add forms from the Template & Forms page. Also subscribe to a paid plan to get new forms every month."
                         primaryAction={{
                           accessibilityLabel: "templates and forms",
                           label: "Templates & Forms",

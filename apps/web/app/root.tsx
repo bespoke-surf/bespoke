@@ -35,8 +35,8 @@ import posthog from "posthog-js";
 import { useEffect, useRef, useState } from "react";
 import type { DynamicLinksFunction } from "remix-utils";
 import { DynamicLinks, StructuredData } from "remix-utils";
-import { getEnvVars } from "../env.server";
-import MobileNavigation from "./components/MobileNavigation";
+import MobileNavigation from "./components/MobileNav/MobileNavigation";
+import UnauthMobileNav from "./components/MobileNav/UnauthMobileNav";
 import type {
   StoreFragment,
   UserFragment,
@@ -45,7 +45,9 @@ import { sdk } from "./graphql/graphqlWrapper.server";
 import { useClientNavigationLinks } from "./hooks/useClientNavigationLinks";
 import { pathedRoutes } from "./other-routes.server";
 import rootCss from "./styles/root.css";
+import { getEnv } from "./utils/env.server";
 import { getCloudinaryFavicons } from "./utils/getCloudinaryFavicon";
+import { useNonce } from "./utils/nonce-provider";
 import {
   getSubdomain,
   isMobile,
@@ -104,12 +106,12 @@ export const meta: MetaFunction = ({ data }) => {
 
   const title = isOnSubdomain
     ? `${rootData.store?.name}`
-    : "Introducing a revolutionary way to strategize emails";
+    : "Open Source Personalized Marketing Platform";
   const description = isOnSubdomain
     ? rootData.isUserSubdomain
       ? "Write your newsletter & marketing emails and send to your audience. People can also see your published posts here."
       : `All posts published by ${rootData.store?.name}.`
-    : "Introducing a revolutionary way to strategize emails";
+    : "Open Source Persnolized Marketing Platform";
 
   return {
     charset: "utf-8",
@@ -144,8 +146,7 @@ export interface RootData {
   unReadCount: number;
   BACKEND_HOST?: string | null | undefined;
   isMobile: boolean;
-  CLOUDINARY_UPLOAD_IMAGE_URL?: string | null | undefined;
-  CLOUDINARY_PRESET?: string | null | undefined;
+  ENV: ReturnType<typeof getEnv>;
 }
 
 export let loader: LoaderFunction = async ({ request }) => {
@@ -205,9 +206,7 @@ export let loader: LoaderFunction = async ({ request }) => {
           isUserSubdomain,
           unReadCount,
           isMobile: mobile,
-          BACKEND_HOST: getEnvVars().BACKEND_HOST,
-          CLOUDINARY_UPLOAD_IMAGE_URL: getEnvVars().CLOUDINARY_UPLOAD_IMAGE_URL,
-          CLOUDINARY_PRESET: getEnvVars().CLOUDINARY_PRESET,
+          ENV: getEnv(),
         },
         {
           headers: {
@@ -224,6 +223,7 @@ export let loader: LoaderFunction = async ({ request }) => {
           isUserSubdomain: false,
           unReadCount: 0,
           isMobile: mobile,
+          ENV: getEnv(),
         },
         {
           headers: {
@@ -246,17 +246,18 @@ export async function action() {
 
 function App() {
   useClientNavigationLinks();
+  const nonce = useNonce();
   const location = useLocation();
   const loaderData = useLoaderData<RootData>();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
   useEffect(() => {
-    if (process.env.NODE_ENV === "production" && loaderData.user) {
+    if (loaderData.user && loaderData.ENV.MODE === "production") {
       posthog.identify(loaderData.user?.id);
       posthog.people.set({ email: loaderData.user?.email });
     }
-  }, [loaderData.user]);
+  }, [loaderData.ENV.MODE, loaderData.user]);
 
   return (
     <html lang="en">
@@ -283,14 +284,25 @@ function App() {
             location.pathname === "/content-guidelines" ||
             location.pathname === "/data-processing-agreement" ||
             location.pathname === "/copyright-dispute-policy" ||
-            location.pathname === "/login") ? null : (
+            location.pathname === "/login") ? (
+            <UnauthMobileNav />
+          ) : (
             <MobileNavigation />
           )}
           <Outlet />
         </DeviceTypeProvider>
-        <ScrollRestoration getKey={(location) => location.pathname} />
-        <Scripts />
-        <LiveReload />
+        <ScrollRestoration
+          nonce={nonce}
+          getKey={(location) => location.pathname}
+        />
+        <Scripts nonce={nonce} />
+        <LiveReload nonce={nonce} />
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(loaderData.ENV)}`,
+          }}
+        />
         <Box
           margin={4}
           position="fixed"

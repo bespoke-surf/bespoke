@@ -6,8 +6,18 @@ import { renderToPipeableStream } from "react-dom/server";
 import { etag } from "remix-etag";
 import { isPrefetch } from "remix-utils";
 import { PassThrough } from "stream";
-import { getEnvVars } from "../env.server";
 import { routes as otherRoutes } from "./other-routes.server";
+import { getEnv, init } from "./utils/env.server";
+
+init();
+global.ENV = getEnv();
+
+if (ENV.MODE === "production" && ENV.SENTRY_DSN) {
+  Sentry.init({
+    dsn: ENV.SENTRY_DSN,
+    tracesSampleRate: 1,
+  });
+}
 
 const ABORT_DELAY = 5000;
 
@@ -20,11 +30,11 @@ export default function handleRequest(
   const isBot = isbot(request.headers.get("user-agent"));
   const callbackName = isBot ? "onAllReady" : "onShellReady";
 
-  if (!isBot && process.env.NODE_ENV === "production") {
+  if (!isBot && ENV.MODE === "production") {
     Sentry.init({
-      dsn: getEnvVars().SENTRY_DSN,
+      dsn: ENV.SENTRY_DSN,
       tracesSampleRate: 1,
-      environment: process.env.NODE_ENV,
+      environment: ENV.MODE,
     });
   }
 

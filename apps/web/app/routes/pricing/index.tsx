@@ -2,22 +2,22 @@ import clayStyles from "@clayui/css/lib/css/atlas.css";
 import type { LinksFunction } from "@remix-run/node";
 import {
   Box,
-  Button,
   Container,
-  Dropdown,
   Flex,
   PageHeader,
+  SegmentedControl,
   Text,
   Upsell,
 } from "gestalt";
+import { useState } from "react";
 import BigContainer from "../../components/BigContainer";
-import { UnauthenticatedNavigation } from "../../components/UnauthenticatedNavigation";
+import { UnauthNav } from "../../components/Navigation/UnauthNav";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
 import { AdditionalFeatures } from "./AdditionalFeatures";
 import { AdvancedPlan } from "./AdvancedPlan";
 import { BasicPlan } from "./BasicPlan";
-import { FreePlan } from "./FreePlan";
+import { FreePlan, FreePlanHosted } from "./FreePlan";
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: clayStyles }];
 };
@@ -28,47 +28,72 @@ export {
 };
 
 export default function Pricing() {
+  const [type, setType] = useState<"hosted" | "cloud">("cloud");
   return (
     <BigContainer>
       <Flex alignItems="start">
-        <UnauthenticatedNavigation />
+        <UnauthNav />
         <Flex.Item flex="grow">
           <Container>
             <PageHeader
-              title="Pricing"
-              subtext="Try out our free plan. Store upto 2,000 contacts & 6,000 emails/mo"
-              primaryAction={{
-                component: (
-                  <Button
-                    text="Get started"
-                    href="/signup"
-                    size="lg"
-                    color="red"
-                    role="link"
-                  />
-                ),
-                dropdownItems: [
-                  <Dropdown.Link
-                    href="/signup"
-                    option={{ label: "Get started", value: "signup" }}
-                    key="signup"
-                  />,
-                ],
-              }}
+              title={
+                type === "cloud"
+                  ? "We host Bespoke for you. Fully Managed!"
+                  : "Host on your own servers. Free Forever!"
+              }
             />
             <Flex justifyContent="center">
               <Box width="92.5%" paddingY={6}>
-                <FreePlan />
+                {/* {type === "cloud" ? (
+                  <>
+                    <Text align="center" size="500" weight="bold">
+                      We host Bespoke For you. Generous Free Plan!
+                    </Text>
+                    <Box marginTop={8} />
+                  </>
+                ) : (
+                  <>
+                    <Text align="center" size="500" weight="bold">
+                      Host on your own servers. Free Forever!
+                    </Text>
+                    <Box marginTop={8} />
+                  </>
+                )} */}
+                <SegmentedControl
+                  onChange={({ activeIndex }) => {
+                    if (activeIndex === 0) {
+                      setType("hosted");
+                    } else {
+                      setType("cloud");
+                    }
+                  }}
+                  items={["Self-Hosted", "Cloud"]}
+                  selectedItemIndex={type === "hosted" ? 0 : 1}
+                  responsive
+                />
                 <Box marginTop={12} />
-                <BasicPlan />
-                <Box marginTop={12} />
-                <AdvancedPlan />
-                <Box marginTop={12} />
+                {type === "cloud" ? (
+                  <>
+                    <FreePlan />
+                    <Box marginTop={12} />
+                    <BasicPlan />
+                    <Box marginTop={12} />
+                    <AdvancedPlan />
+                    <Box marginTop={12} />
+                  </>
+                ) : (
+                  <>
+                    <FreePlanHosted />
+                    <Box marginTop={12} />
+                  </>
+                )}
 
                 <Flex gap={2} direction="column">
-                  <Text size="400" align="center">
-                    FULL FEATURE BREAKDOWN
-                  </Text>
+                  <Box id="full-feature-breakdown">
+                    <Text size="400" align="center">
+                      FULL FEATURE BREAKDOWN
+                    </Text>
+                  </Box>
                   <Text size="600" align="center" weight="bold">
                     Choose exactly what you need.
                   </Text>

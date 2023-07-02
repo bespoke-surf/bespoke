@@ -1,6 +1,6 @@
 import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
+import { Outlet, useLocation } from "@remix-run/react";
 import {
   Box,
   Button,
@@ -15,7 +15,7 @@ import {
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { getSubdomain, isPrivateRoute } from "~/utils/utils.server";
 import BigContainer from "../../components/BigContainer";
-import Naviagation from "../../components/Navigation";
+import Naviagation from "../../components/Navigation/Navigation";
 import type { RootData } from "../../root";
 import { GenericCatchBoundary } from "../../route-containers/GenericCatchBoundry";
 import { GenericErrorBoundary } from "../../route-containers/GenericErrorBoundry";
@@ -59,7 +59,6 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function Integration() {
-  const loaderData = useLoaderData<IntegrationData>();
   const location = useLocation();
   return (
     <BigContainer>
@@ -76,7 +75,7 @@ export default function Integration() {
                   helperLink={{
                     accessibilityLabel: "Tell us other integration to create",
                     href: "https://bespoke.canny.io/integrations",
-                    text: "Suggest other integrations.",
+                    text: "Suggest integrations.",
                     onClick: () => undefined,
                   }}
                 />
@@ -97,13 +96,13 @@ export default function Integration() {
                           <Flex direction="column">
                             <Heading size="400">Shopify</Heading>
                             <Text color="subtle">
-                              Integrate with Shopify ecommerce. Sync Shopify
-                              products & customers.
+                              Integrate and sync with Shopify products &
+                              customers.
                             </Text>
                           </Flex>
                         </Flex>
                         <Box>
-                          <Button
+                          {/* <Button
                             text={
                               loaderData.integration?.shopify?.authenticated
                                 ? "Edit"
@@ -116,7 +115,8 @@ export default function Integration() {
                             }
                             role="link"
                             href="/integrations/shopify"
-                          />
+                          /> */}
+                          <Button text="Coming Soon" color="white" />
                         </Box>
                       </Flex>
                       <Divider />

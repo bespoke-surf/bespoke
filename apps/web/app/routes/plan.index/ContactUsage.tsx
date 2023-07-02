@@ -49,7 +49,13 @@ export default function ContactUsage() {
               CONTACTS
             </Text>
           </Box>
-          <Box display={statusFree ? "block" : "none"}>
+          <Box
+            display={
+              statusFree && rootData.ENV.OPEN_SOURCE === "false"
+                ? "block"
+                : "none"
+            }
+          >
             <Box>
               <Text size="200" inline color="subtle" weight="bold">
                 OF{" "}
