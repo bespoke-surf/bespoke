@@ -24,7 +24,6 @@ import '@shopify/shopify-api/adapters/node';
 import { restResources } from '@shopify/shopify-api/rest/admin/2023-01';
 import cors from 'cors';
 import { GraphQLJSONObject, PhoneNumberResolver } from 'graphql-scalars';
-import { Redis } from 'ioredis';
 import { ThrottlerStorageRedisService } from 'nestjs-throttler-storage-redis';
 import { join } from 'node:path';
 import { Init1688216057842 } from '../migrations/1688216057842-Init';
@@ -75,18 +74,15 @@ import { WorkflowModule } from './workflow/workflow.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        storage: new ThrottlerStorageRedisService(
-          new Redis(configService.get('REDIS_URL') as string, {
-            family: 6,
-          }),
-          // {
-          // host: configService.get('REDIS_HOST'),
-          // port: configService.get('REDIS_PORT'),
-          // password: configService.get('REDIS_PASSWORD'),
-          // tls: configService.get('NODE_ENV') === 'production' ? {} : undefined,
-          // family: 6,
-          // },
-        ),
+        storage: new ThrottlerStorageRedisService({
+          host: configService.get('REDIS_HOST'),
+          port: configService.get('REDIS_PORT'),
+          password: configService.get('REDIS_PASSWORD'),
+          tls: configService.get('NODE_ENV') === 'production' ? {} : undefined,
+          // new Redis(configService.get('REDIS_URL') as string, {
+          //   family: 6,
+          // }),
+        }),
       }),
     }),
     ScheduleModule.forRoot(),
@@ -99,12 +95,12 @@ import { WorkflowModule } from './workflow/workflow.module';
         configService: ConfigService<EnvironmentVariables>,
       ) => ({
         config: {
-          // host: configService.get('REDIS_HOST'),
-          // port: configService.get('REDIS_PORT'),
-          // password: configService.get('REDIS_PASSWORD'),
-          // tls: configService.get('NODE_ENV') === 'production' ? {} : undefined,
-          url: configService.get('REDIS_URL'),
-          family: 6,
+          host: configService.get('REDIS_HOST'),
+          port: configService.get('REDIS_PORT'),
+          password: configService.get('REDIS_PASSWORD'),
+          tls: configService.get('NODE_ENV') === 'production' ? {} : undefined,
+          // url: configService.get('REDIS_URL'),
+          // family: 6,
         },
       }),
       inject: [ConfigService],
@@ -167,19 +163,19 @@ import { WorkflowModule } from './workflow/workflow.module';
       useFactory: async (
         configService: ConfigService<EnvironmentVariables>,
       ) => {
-        // const REDIS_PASSWORD = configService.get('REDIS_PASSWORD');
-        // const REDIS_PORT = configService.get('REDIS_PORT');
-        // const REDIS_HOST = configService.get('REDIS_HOST');
-        const REDIS_URL = configService.get('REDIS_URL');
-        // const NODE_ENV = configService.get('NODE_ENV');
+        const REDIS_PASSWORD = configService.get('REDIS_PASSWORD');
+        const REDIS_PORT = configService.get('REDIS_PORT');
+        const REDIS_HOST = configService.get('REDIS_HOST');
+        // const REDIS_URL = configService.get('REDIS_URL');
+        const NODE_ENV = configService.get('NODE_ENV');
         return {
-          url: REDIS_URL,
+          // url: REDIS_URL,
           redis: {
-            // host: REDIS_HOST,
-            // port: Number(REDIS_PORT),
-            // password: REDIS_PASSWORD,
-            family: 6,
-            // tls: NODE_ENV === 'production' ? {} : undefined,
+            host: REDIS_HOST,
+            port: Number(REDIS_PORT),
+            password: REDIS_PASSWORD,
+            tls: NODE_ENV === 'production' ? {} : undefined,
+            // family: 6,
           },
         };
       },

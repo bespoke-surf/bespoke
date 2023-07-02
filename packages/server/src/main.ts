@@ -37,11 +37,12 @@ declare module 'express-session' {
 
 const PORT = process.env.PORT;
 
-const { NODE_ENV, REDIS_URL, OPEN_SOURCE } = process.env;
-invariant(typeof REDIS_URL === 'string', 'redis url is missing');
-// invariant(typeof REDIS_HOST === 'string', 'redis url is missing');
-// invariant(typeof REDIS_PORT === 'string', 'redis port is missing');
-// invariant(typeof REDIS_PASSWORD === 'string', 'redis password is missing');
+const { NODE_ENV, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, OPEN_SOURCE } =
+  process.env;
+// invariant(typeof REDIS_URL === 'string', 'redis url is missing');
+invariant(typeof REDIS_HOST === 'string', 'redis url is missing');
+invariant(typeof REDIS_PORT === 'string', 'redis port is missing');
+invariant(typeof REDIS_PASSWORD === 'string', 'redis password is missing');
 invariant(typeof NODE_ENV === 'string', 'MISSING NODE_ENV');
 invariant(typeof OPEN_SOURCE === 'string', 'MISSING OPEN_SOURCE_ENV');
 
@@ -139,12 +140,12 @@ async function bootstrap() {
   app.use(
     session({
       store: new RedisStore({
-        client: new Redis(REDIS_URL, {
-          // host: REDIS_HOST,
-          // port: Number(REDIS_PORT),
-          // password: REDIS_PASSWORD,
-          // tls: NODE_ENV === 'production' ? {} : undefined,
-          family: 6,
+        client: new Redis({
+          host: REDIS_HOST,
+          port: Number(REDIS_PORT),
+          password: REDIS_PASSWORD,
+          tls: NODE_ENV === 'production' ? {} : undefined,
+          // family: 6,
         }),
       }),
       name: process.env.COOKIE_NAME,

@@ -10,6 +10,9 @@ export interface EnvironmentVariables {
   NODE_ENV: 'production' | 'development';
   COOKIE_NAME: string;
   REDIS_URL: string;
+  REDIS_HOST: string;
+  REDIS_PORT: string;
+  REDIS_PASSWORD: string;
   S3_BUCKET_ACCESS_KEY_ID: string;
   S3_BUCKET_SECRET_ACCESS_KEY: string;
   S3_BUCKET_REGION: string;
