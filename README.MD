@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://strapi.io/#gh-dark-mode-only">
-    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/3761062/249185775-0a8b0b49-2656-49a6-87ff-cdeebef45eff.svg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230627%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230627T143018Z&X-Amz-Expires=300&X-Amz-Signature=576f387513f11079938b226b3d15ff82599cc01107366045aa327313f75f5e7e&X-Amz-SignedHeaders=host&actor_id=3761062&key_id=0&repo_id=640822375" width="318px" alt="Strapi logo" />
+  <a href="https://bespoke.surf">
+    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/523654f1-74f1-4395-885c-b3ca1dc40a7a" width="318px" alt="Bespoke logo" />
   </a>
 
   <!-- <h1 align="center"><a href="https://bespoke.surf">Bespoke</a></h1> -->
@@ -23,8 +23,8 @@
 <br />
 
 <p align="center">
-  <a href="https://strapi.io">
-    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/3761062/249144282-d698afb1-1286-4fa3-ba2d-32c5314f0a98.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230627%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230627T120414Z&X-Amz-Expires=300&X-Amz-Signature=aa38dd8003fa42cff02952907e0a7ed5a402e45416a749777d133f00da48cdd6&X-Amz-SignedHeaders=host&actor_id=3761062&key_id=0&repo_id=640822375" alt="Administration panel" />
+  <a href="https://bespoke.surf">
+    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/192c2c20-3eb4-46f4-99f3-9c672dde2b0f" alt="Administration panel" />
   </a>
 </p>
 <div align="center">
