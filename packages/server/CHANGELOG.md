@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/bespoke-surf/bespoke/compare/v0.1.0...v0.2.0) (2023-07-02)
+
+
+### Bug Fixes
+
+* **env:** removing variable in env ([ec23314](https://github.com/bespoke-surf/bespoke/commit/ec23314d8a43ae799dfc35eb8301699bd61b25e1))
+* **navigation:** fixing logout ([e523e6d](https://github.com/bespoke-surf/bespoke/commit/e523e6dc097e669e8884749e8f9bc87eda09a61b))
+* **redis:** using redis port and host, removed redis url ([ccc9fce](https://github.com/bespoke-surf/bespoke/commit/ccc9fceb43b9a6147127238a4ad96e2c794105af))
+* **server:** changed subscription item dates ([2a5fe3d](https://github.com/bespoke-surf/bespoke/commit/2a5fe3d9591f1e274a884489c51527b54af5a1b6))
+* **stripe:** fixed invoicing issue for stripe ([417c598](https://github.com/bespoke-surf/bespoke/commit/417c59855226a20b1bbedf6c59286e223b11c5f4))
+* **stripe:** fixing quantity usage calcualtion ([d467f51](https://github.com/bespoke-surf/bespoke/commit/d467f51ff4a90deced1d2543ec470b6f758ef05b))
+* **web:** masonry was not rendering ([8a8e687](https://github.com/bespoke-surf/bespoke/commit/8a8e687239a31b4a43c559bdddff6781af56be03))
+
+
+### Features
+
+* **web:** getting started ([0987171](https://github.com/bespoke-surf/bespoke/commit/0987171467ba04999e1eee0a1c512ec73c7a0894))
+
+
+
+
+
 # 0.1.0 (2023-06-22)
 
 ### Bug Fixes
