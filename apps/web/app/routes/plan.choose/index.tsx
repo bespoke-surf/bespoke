@@ -19,15 +19,15 @@ import {
   Icon,
   Module,
   PageHeader,
+  Spinner,
   Text,
 } from "gestalt";
 import { numberWithCommas } from "../pricing/pricingUtil";
 
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { namedAction } from "remix-utils";
-import { getEnvVars } from "../../../env.server";
 import { BottomToast } from "../../components/BottomToast";
 import type {
   CreateCheckoutSessionUrlMutationVariables,
@@ -42,7 +42,7 @@ import type { IActionData } from "./type";
 import { PlanChooseActionEnum } from "./type";
 
 export async function loader({ request }: LoaderArgs) {
-  if (getEnvVars().OPEN_SOURCE) {
+  if (ENV.OPEN_SOURCE === "true") {
     return redirect("/");
   }
   const isPrivate = await isPrivateRoute(request);
@@ -59,14 +59,13 @@ export async function action({ request }: ActionArgs) {
 
   return namedAction(request, {
     async [PlanChooseActionEnum.createCheckoutSessionUrl]() {
-      const stripePriceId = formData.get(
-        "stripePriceId"
-      ) as CreateCheckoutSessionUrlMutationVariables["stripePriceId"];
-
+      const bespokePlanId = formData.get(
+        "bespokePlanId"
+      ) as CreateCheckoutSessionUrlMutationVariables["bespokePlanId"];
       const response = await sdk.CreateCheckoutSessionUrl(
         {
-          stripePriceId,
           subdomain,
+          bespokePlanId,
         },
         { request }
       );
@@ -76,19 +75,18 @@ export async function action({ request }: ActionArgs) {
       return json(null);
     },
     async [PlanChooseActionEnum.prorateStripeSubscription]() {
-      const newStripePriceId = formData.get(
-        "newStripePriceId"
-      ) as ProrateStripeSubscriptionMutationVariables["newStripePriceId"];
+      const newBespokePlanId = formData.get(
+        "newBespokePlanId"
+      ) as ProrateStripeSubscriptionMutationVariables["newBespokePlanId"];
 
       const response = await sdk.ProrateStripeSubscription(
         {
-          newStripePriceId,
+          newBespokePlanId,
           subdomain,
         },
         { request }
       );
       if (response.prorateStripeSubscription) {
-        console.log("response");
         return json<IActionData>({
           notifyProrated: true,
         });
@@ -144,6 +142,7 @@ const PlanDetails = ({
 }) => {
   const submit = useSubmit();
   const parentData = useRouteLoaderData("routes/plan/index") as GrowthPathData;
+  const [prorating, setProrating] = useState(false);
   const statusCancelled =
     parentData.billing?.billingPlanStatus === BillingPlanStatus.Cancelled;
 
@@ -168,7 +167,8 @@ const PlanDetails = ({
         "_action",
         PlanChooseActionEnum.prorateStripeSubscription
       );
-      formData.append("newStripePriceId", data.stripePriceId);
+      formData.append("newBespokePlanId", data.id);
+      setProrating(true);
     } else if (
       // if its free plan and in cancelled state
       parentData.billing?.billingPlanStatus === BillingPlanStatus.Cancelled &&
@@ -176,8 +176,8 @@ const PlanDetails = ({
     ) {
       formData.append("_action", PlanChooseActionEnum.updateToFreePlan);
     } else {
+      formData.append("bespokePlanId", data.id);
       formData.append("_action", PlanChooseActionEnum.createCheckoutSessionUrl);
-      formData.append("stripePriceId", data.stripePriceId);
     }
 
     submit(formData, { method: "POST" });
@@ -208,15 +208,19 @@ const PlanDetails = ({
               <CurrentPlan />
             ) : (
               <>
-                <Button
-                  text={
-                    !statusCancelled && !statusFree && !isFree
-                      ? "One-Click Update"
-                      : "Select"
-                  }
-                  onClick={handleSelect}
-                  type="button"
-                />
+                {prorating ? (
+                  <Spinner show accessibilityLabel="updating" />
+                ) : (
+                  <Button
+                    text={
+                      !statusCancelled && !statusFree && !isFree
+                        ? "One-Click Update"
+                        : "Select"
+                    }
+                    onClick={handleSelect}
+                    type="button"
+                  />
+                )}
               </>
             )}
           </Flex>

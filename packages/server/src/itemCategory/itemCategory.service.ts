@@ -16,8 +16,8 @@ export class ItemCategoryService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    this.seedSubscriptionReward();
-    this.seedDefaultTemplateAndForms();
+    // this.seedSubscriptionReward();
+    // this.seedDefaultTemplateAndForms();
   }
 
   async createCategory({

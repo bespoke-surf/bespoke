@@ -302,6 +302,7 @@ const WorkflowTable = () => {
       )),
     [loaderData.workflows]
   );
+  console.log("hello");
 
   return (
     <Box>

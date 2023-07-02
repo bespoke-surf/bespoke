@@ -4,7 +4,6 @@ import { useLoaderData } from "@remix-run/react";
 import { Box, Flex, Image, Mask, Masonry, PageHeader, Text } from "gestalt";
 import { useMemo } from "react";
 import { ClientOnly } from "remix-utils";
-import { getEnvVars } from "../../../env.server";
 import type { ItemFragment } from "../../graphql/__generated__/graphql";
 import { CdnType, ItemTypeEnum } from "../../graphql/__generated__/graphql";
 import { sdk } from "../../graphql/graphqlWrapper.server";
@@ -30,7 +29,7 @@ export const meta: MetaFunction = ({ parentsData }) => {
 };
 
 export async function loader({ request }: LoaderArgs) {
-  if (getEnvVars().OPEN_SOURCE) {
+  if (ENV.OPEN_SOURCE === "true") {
     return redirect("/");
   }
   const isPrivate = await isPrivateRoute(request);

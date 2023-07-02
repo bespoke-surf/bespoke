@@ -28,9 +28,10 @@ export class BillingService {
     console.log(this.configService.get('OPEN_SOURCE'), 'config');
     const billing = await this.billingRepo.save({
       store,
-      bespokePlanId: this.configService.get('OPEN_SOURCE')
-        ? OPEN_SOURCE_PLAN_ID
-        : FREE_PLAN_ID,
+      bespokePlanId:
+        this.configService.get('OPEN_SOURCE') === 'true'
+          ? OPEN_SOURCE_PLAN_ID
+          : FREE_PLAN_ID,
     });
     return billing;
   }

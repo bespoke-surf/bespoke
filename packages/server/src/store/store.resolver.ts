@@ -1,3 +1,4 @@
+import { PricingIdType } from '@bespoke/common/dist/pricingPlan';
 import { UseGuards } from '@nestjs/common';
 import {
   Args,
@@ -205,10 +206,10 @@ export class StoreResolver {
   createCheckoutSessionUrl(
     @Args('subdomain')
     subdomain: string,
-    @Args('stripePriceId')
-    stripePriceId: string,
+    @Args('bespokePlanId')
+    bespokePlanId: PricingIdType,
   ): Promise<string | null> {
-    return this.storeService.createCheckoutSessionUrl(subdomain, stripePriceId);
+    return this.storeService.createCheckoutSessionUrl(subdomain, bespokePlanId);
   }
 
   @UseGuards(AuthGuard, HasStoreAccessWithSubdomain)
@@ -328,7 +329,7 @@ export class StoreResolver {
   })
   prorateStripeSubscription(
     @Args('subdomain') subdomain: string,
-    @Args('newStripePriceId') id: string,
+    @Args('newBespokePlanId') id: string,
   ): Promise<boolean> {
     return this.storeService.prorateStripeSubscription(subdomain, id);
   }

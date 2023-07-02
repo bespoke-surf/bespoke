@@ -9,9 +9,7 @@ export interface EnvironmentVariables {
   PORT: string;
   NODE_ENV: 'production' | 'development';
   COOKIE_NAME: string;
-  REDIS_PORT: string;
-  REDIS_HOST: string;
-  REDIS_PASSWORD: string;
+  REDIS_URL: string;
   S3_BUCKET_ACCESS_KEY_ID: string;
   S3_BUCKET_SECRET_ACCESS_KEY: string;
   S3_BUCKET_REGION: string;
@@ -34,9 +32,19 @@ export interface EnvironmentVariables {
   PRIMARY_REGION: string;
   FLY_REGION: string;
   UNLAYER_SECRET: string;
-  OPEN_SOURCE: boolean;
+  OPEN_SOURCE: 'true' | 'false';
   EMAIL_DOMAIN: string;
   SUPPORT_EMAIL: string;
   SES_SENDING_RATE: string;
   SES_REGION: string;
+  BASIC_5K_STRIPE_PRICE_ID: string;
+  BASIC_10K_STRIPE_PRICE_ID: string;
+  BASIC_20K_STRIPE_PRICE_ID: string;
+  BASIC_50K_STRIPE_PRICE_ID: string;
+  BASIC_100K_STRIPE_PRICE_ID: string;
+  ADVANCED_10K_STRIPE_PRICE_ID: string;
+  ADVANCED_20K_STRIPE_PRICE_ID: string;
+  ADVANCED_50K_STRIPE_PRICE_ID: string;
+  ADVANCED_100K_STRIPE_PRICE_ID: string;
+  ADVANCED_200K_STRIPE_PRICE_ID: string;
 }

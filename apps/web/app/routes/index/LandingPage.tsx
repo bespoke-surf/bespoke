@@ -1,5 +1,5 @@
 import { useRouteLoaderData } from "@remix-run/react";
-import { Callout, Flex, Upsell } from "gestalt";
+import { Box, Callout, Flex, Heading, Text, Upsell } from "gestalt";
 import UnauthPageLayot from "../../components/PageLayout/UnauthPageLayout";
 import type { RootData } from "../../root";
 import ComparisonTable from "./LandingPage/ComparisonTable";
@@ -9,13 +9,23 @@ export default function LandingPage() {
   return (
     <UnauthPageLayot
       pageHeaderPorps={{
-        title: "Open Source Email, Automation & Newsletter",
-        subtext:
-          "Combining best parts of Mailchimp, Klaviyo's automation, Substack's newsletter & eventually Typeform for surveys",
+        title: "",
+        subtext: "",
       }}
     >
+      <Box marginBottom={8} marginTop={-12}>
+        <Heading size="500">
+          Open Source Personalized Marketing Platform
+        </Heading>
+        <Box marginTop={2}>
+          <Text>
+            Combining best parts of Mailchimp, Klaviyo's automation, Substack's
+            newsletter & Typeform for surveys
+          </Text>
+        </Box>
+      </Box>
       <Flex direction="column" gap={12}>
-        {rootLoaderData.OPEN_SOURCE ? null : (
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
           <Callout
             title="Self-Host or Fully Managed"
             message="Self-host Bespoke or sign up to use Bespoke Cloud."
@@ -34,7 +44,7 @@ export default function LandingPage() {
           />
         )}
         <ComparisonTable />
-        {rootLoaderData.OPEN_SOURCE ? (
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? (
           <Upsell
             message="We welcome your PR's. Join and be part of the personalization frontier. Right here on Gihtub."
             title="Personalization Frontier"

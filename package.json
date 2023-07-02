@@ -13,18 +13,21 @@
     "flush": "yarn cache clean &&  lerna clean --yes && rm -rf node_modules && yarn",
     "postinstall": "patch-package",
     "release": "lerna version --conventional-commits --yes",
+    "setup": "turbo run build --scope=@bespoke/common --no-deps --force",
     "build": "turbo run build",
     "build:web": "turbo run build --scope=@bespoke/web --include-dependencies --no-deps --force",
     "build:server": "turbo run build --scope=@bespoke/server --include-dependencies --no-deps --force",
-    "deploy:server": "fly deploy --config ./fly.server.toml --dockerfile ./Dockerfile.production.server",
-    "deploy:web": "fly deploy  --config ./fly.web.toml --dockerfile ./Dockerfile.production.web --build-arg SENTRY_AUTH_TOKEN= --build-arg SENTRY_ORG= --build-arg SENTRY_PROJECT= --build-arg AWS_ACCESS_KEY_ID= --build-arg AWS_SECRET_ACCESS_KEY= --build-arg AWS_S3_BUCKET_REGION= --build-arg AWS_S3_BUCKET= --build-arg CLOUDFRONT="
+    "fly:web": "fly deploy  --config ./fly.web.toml --dockerfile ./Dockerfile.web --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN --build-arg SENTRY_ORG=$SENTRY_ORG --build-arg SENTRY_PROJECT=$SENTRY_PROJECT --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --build-arg AWS_S3_BUCKET_REGION=$AWS_S3_BUCKET_REGION --build-arg AWS_S3_BUCKET=$AWS_S3_BUCKET --build-arg CLOUDFRONT=$CLOUDFRONT",
+    "deploy:server": "fly deploy --config ./fly.server.toml --dockerfile ./Dockerfile.server",
+    "deploy:web": "dotenv -- yarn fly:web"
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "3.3.0",
+    "dotenv-cli": "^7.2.1",
     "lerna": "^5.0.0",
     "prettier": "2.8.8",
-    "turbo": "1.10.6"
+    "turbo": "1.10.7"
   },
   "engines": {
     "npm": ">=7.0.0",

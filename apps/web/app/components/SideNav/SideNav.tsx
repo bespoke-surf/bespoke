@@ -220,7 +220,8 @@ export const SideNav = ({
                 onClick={handleClosIsMobile}
                 active={location.pathname === "/plan" ? "page" : undefined}
               />
-              {rootLoaderData.OPEN_SOURCE ? null : (
+
+              {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
                 <SideNavigation.NestedItem
                   href="/plan/subscription-rewards"
                   label="Subscription Rewards"

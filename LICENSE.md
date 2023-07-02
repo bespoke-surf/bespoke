@@ -1,3 +1,9 @@
+> Please look at BUSINESS_LICENCE for the usage of the software when the
+> environment variable used to run the software is set to "false" for OPEN_SOURCE
+
+**This license only affects the usage of the software if the environment
+variable used to run the software is set to "true" for "OPEN_SOURCE"**
+
 MIT License
 
 Copyright (c) 2023 Bespoke
@@ -19,3 +25,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Additionally, this license only affects the usage of the software if the environment
+variable used to run the software is set to "true" for "OPEN_SOURCE".

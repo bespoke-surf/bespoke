@@ -177,7 +177,7 @@ export default function ChoosePlan() {
         borderStyle="none"
         title="PLAN"
         primaryAction={
-          rootLoaderData.OPEN_SOURCE
+          rootLoaderData.ENV.OPEN_SOURCE === "true"
             ? undefined
             : {
                 component: (
@@ -257,7 +257,7 @@ const PlanDetails = () => {
     [parentData.billing?.bespokePlanId]
   );
 
-  if (rootLoaderData.OPEN_SOURCE) return null;
+  if (rootLoaderData.ENV.OPEN_SOURCE === "true") return null;
 
   return (
     <Box marginBottom={12}>

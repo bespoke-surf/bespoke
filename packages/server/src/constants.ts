@@ -38,5 +38,6 @@ export const EMAIL_HEADER_UNSUBSCRIBE_ID_KEY = 'X-Bmail-Unsubscribe';
 
 export const UNLAYER_SIGNATURE_KEY = 'unlayerSignature:';
 
-export const TAG_LINE =
-  'Open Source Personalized Recommendation and Marketing Platform.';
+export const TAG_LINE = 'Open Source Personalized Marketing Platform.';
+
+export const SHORT_TAG_LINE = 'Personalized Marketing Platform.';

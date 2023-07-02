@@ -43,7 +43,7 @@ export default function UnauthSideNav({
         onClick={closeMobileNav}
       />
 
-      {rootLoaderData.OPEN_SOURCE ? null : (
+      {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
         <SideNavigation.TopItem
           href="/pricing"
           active={location.pathname === "/pricing" ? "page" : undefined}
@@ -68,7 +68,7 @@ export default function UnauthSideNav({
       </SideNavigation.Section>
 
       <SideNavigation.Section label="External Links">
-        {rootLoaderData.OPEN_SOURCE ? null : (
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
           <SideNavigation.TopItem
             href="https://github.com/bespoke-surf/bespoke"
             label="Self Host Guide | Github"
@@ -87,7 +87,7 @@ export default function UnauthSideNav({
           onClick={closeMobileNav}
         />
 
-        {rootLoaderData.OPEN_SOURCE ? null : (
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
           <SideNavigation.Group label="Support">
             <SideNavigation.NestedItem
               href="https://discord.gg/sXAkfWBM"

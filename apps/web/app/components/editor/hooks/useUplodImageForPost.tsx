@@ -22,13 +22,13 @@ const useUploadImageForPost = (activeEditor: LexicalEditor) => {
           allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
         },
       }).use(XHRUpload, {
-        endpoint: loaderData.CLOUDINARY_UPLOAD_IMAGE_URL ?? "",
+        endpoint: loaderData.ENV.CLOUDINARY_UPLOAD_IMAGE_URL ?? "",
         method: "POST",
         formData: true,
         fieldName: "file",
         allowedMetaFields: ["file", "folder", "upload_preset"],
       }),
-    [loaderData.CLOUDINARY_UPLOAD_IMAGE_URL]
+    [loaderData.ENV.CLOUDINARY_UPLOAD_IMAGE_URL]
   );
 
   const handleFileAdded = useCallback(
@@ -38,10 +38,10 @@ const useUploadImageForPost = (activeEditor: LexicalEditor) => {
       const folder = `${STORE_PREFIX}/${loaderData?.user?.id}/${STORE_PRODUCT_IMAGE_POSTFIX}`;
       uppy.setFileMeta(file.id, {
         folder,
-        upload_preset: loaderData.CLOUDINARY_PRESET,
+        upload_preset: loaderData.ENV.CLOUDINARY_PRESET,
       });
     },
-    [loaderData.CLOUDINARY_PRESET, loaderData?.user?.id, uppy]
+    [loaderData.ENV.CLOUDINARY_PRESET, loaderData?.user?.id, uppy]
   );
 
   const handleFileUploaded = useCallback(

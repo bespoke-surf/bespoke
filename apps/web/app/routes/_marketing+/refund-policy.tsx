@@ -1,14 +1,13 @@
 import { redirect } from "@remix-run/node";
 import { Box, Flex, Heading, Link, Text } from "gestalt";
 import React from "react";
-import { getEnvVars } from "../../../env.server";
 import BigContainer from "../../components/BigContainer";
 import Footer2 from "../../components/Footer/Footer2";
 import UnauthMobileNav2 from "../../components/MobileNav/UnauthMobileNav2";
 import UnauthNav2 from "../../components/Navigation/UnauthNav2";
 
 export async function loader() {
-  if (getEnvVars().OPEN_SOURCE) {
+  if (ENV.OPEN_SOURCE === "true") {
     return redirect("/");
   }
   return {};

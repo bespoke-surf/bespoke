@@ -6,29 +6,29 @@ import { Item } from '../items.entity';
 import {
   pathCaretFromDesign,
   pathCratesuccessFormDesign,
-} from './subscriptionRewards/may/signupFrom';
-import { siteWideOff } from './subscriptionRewards/may/siteWideOff';
-import { winOver100 } from './subscriptionRewards/may/winOver100';
+} from './subscriptionRewards/july/signupFrom';
+import { siteWideOff } from './subscriptionRewards/july/siteWideOff';
+import { winOver100 } from './subscriptionRewards/july/winOver100';
 
 import {
-  marchFormDesign,
-  marchSuccessForm,
-} from './subscriptionRewards/june/signupform';
-import { marchTemplate1 } from './subscriptionRewards/june/template1';
-import { marchTemplate2 } from './subscriptionRewards/june/template2';
-
-const start_date_june = new Date(
-  dayjs().month(5).startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
-);
-const end_date_june = new Date(
-  dayjs().month(5).endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
-);
+  augustFormDesign,
+  augustSuccessForm,
+} from './subscriptionRewards/august/signupform';
+import { augutsTemplate1 } from './subscriptionRewards/august/template1';
+import { augustTemplate2 } from './subscriptionRewards/august/template2';
 
 const start_date_july = new Date(
   dayjs().month(6).startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
 );
 const end_date_july = new Date(
   dayjs().month(6).endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
+);
+
+const start_date_august = new Date(
+  dayjs().month(7).startOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
+);
+const end_date_august = new Date(
+  dayjs().month(7).endOf('month').format(DAYJS_TIMESTAMPZ_FORMAT),
 );
 
 export const subscrpitonRewardItems: Partial<Item>[] = [
@@ -43,8 +43,8 @@ export const subscrpitonRewardItems: Partial<Item>[] = [
         width: 600,
       },
     ],
-    start_date: start_date_june,
-    end_date: end_date_june,
+    start_date: start_date_july,
+    end_date: end_date_july,
 
     data: {
       design: winOver100,
@@ -61,8 +61,8 @@ export const subscrpitonRewardItems: Partial<Item>[] = [
       },
     ],
     type: ItemTypeEnum.EMAIL_TEMPLATE,
-    start_date: start_date_june,
-    end_date: end_date_june,
+    start_date: start_date_july,
+    end_date: end_date_july,
 
     data: {
       design: siteWideOff,
@@ -73,8 +73,8 @@ export const subscrpitonRewardItems: Partial<Item>[] = [
     name: 'Do you want 10% off?',
     description: '',
     type: ItemTypeEnum.SIGNUP_FORM,
-    start_date: start_date_june,
-    end_date: end_date_june,
+    start_date: start_date_july,
+    end_date: end_date_july,
 
     imageData: [
       {
@@ -102,8 +102,8 @@ export const subscrpitonRewardItems: Partial<Item>[] = [
     name: 'Explore new-in white dress',
     description: '',
     type: ItemTypeEnum.EMAIL_TEMPLATE,
-    start_date: start_date_july,
-    end_date: end_date_july,
+    start_date: start_date_august,
+    end_date: end_date_august,
     imageData: [
       {
         src: 'https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1677651686/_home_afi_Desktop_form_1_fwlg4r.png',
@@ -112,15 +112,15 @@ export const subscrpitonRewardItems: Partial<Item>[] = [
       },
     ],
     data: {
-      design: marchTemplate1,
+      design: augutsTemplate1,
     } satisfies ItemEmailTemplateData,
   },
   {
     name: 'Spring collection just dropped ',
     description: '',
     type: ItemTypeEnum.EMAIL_TEMPLATE,
-    start_date: start_date_july,
-    end_date: end_date_july,
+    start_date: start_date_august,
+    end_date: end_date_august,
     imageData: [
       {
         src: 'https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1677686343/Frame_13_3_ejfxfr.png',
@@ -129,15 +129,15 @@ export const subscrpitonRewardItems: Partial<Item>[] = [
       },
     ],
     data: {
-      design: marchTemplate2,
+      design: augustTemplate2,
     } satisfies ItemEmailTemplateData,
   },
   {
     name: 'Join the club and get rewards',
     description: '',
     type: ItemTypeEnum.SIGNUP_FORM,
-    start_date: start_date_july,
-    end_date: end_date_july,
+    start_date: start_date_august,
+    end_date: end_date_august,
     imageData: [
       {
         src: 'https://res.cloudinary.com/bespoke-cloudinary/image/upload/v1677685980/Frame_12_4_qj8a5n.png',
@@ -156,8 +156,8 @@ export const subscrpitonRewardItems: Partial<Item>[] = [
       },
     ],
     data: {
-      formDesign: marchFormDesign,
-      successDesign: marchSuccessForm,
+      formDesign: augustFormDesign,
+      successDesign: augustSuccessForm,
     } satisfies ItemSignupFormData,
   },
 ];

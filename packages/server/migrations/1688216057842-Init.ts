@@ -1,16 +1,19 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Migrations1684427301725 implements MigrationInterface {
-    name = 'Migrations1684427301725'
+export class Init1688216057842 implements MigrationInterface {
+    name = 'Init1688216057842'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TYPE "public"."billing_billingsubscriptionstatus_enum" AS ENUM('unsubscribed', 'active', 'past_due', 'incomplete', 'canceled', 'incomplete_expired', 'unpaid', 'trialing')`);
+        await queryRunner.query(`CREATE TYPE "public"."api_key_scopes_enum" AS ENUM('list:read', 'list:manage', 'subscriber:read', 'subscriber:manage')`);
+        await queryRunner.query(`CREATE TYPE "public"."api_key_accesslevel_enum" AS ENUM('read', 'custom', 'full')`);
+        await queryRunner.query(`CREATE TABLE "api_key" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, "key" character varying NOT NULL, "lastUsed" TIMESTAMP WITH TIME ZONE, "scopes" "public"."api_key_scopes_enum" array NOT NULL, "accessLevel" "public"."api_key_accesslevel_enum" NOT NULL, "storeId" uuid NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updateAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_b1bd840641b8acbaad89c3d8d11" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."billing_billingsubscriptionstatus_enum" AS ENUM('unsubscribed', 'active', 'past_due', 'incomplete', 'unpaid', 'canceled', 'incomplete_expired', 'trialing')`);
         await queryRunner.query(`CREATE TYPE "public"."billing_billingsubscriptionentity_enum" AS ENUM('stripe', 'shopify')`);
-        await queryRunner.query(`CREATE TABLE "billing" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "billingSubscriptionStatus" "public"."billing_billingsubscriptionstatus_enum" NOT NULL DEFAULT 'unsubscribed', "billingSubscriptionEntity" "public"."billing_billingsubscriptionentity_enum", "currentPeriodEnd" TIMESTAMP WITH TIME ZONE, "cancelAtPeriodEnd" boolean NOT NULL DEFAULT false, "subscriptionId" character varying, "contactsQuantity" integer NOT NULL DEFAULT '2000', "emailSendQuantity" integer NOT NULL DEFAULT '6000', CONSTRAINT "PK_d9043caf3033c11ed3d1b29f73c" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TYPE "public"."item_category_type_enum" AS ENUM('SHOP')`);
+        await queryRunner.query(`CREATE TABLE "billing" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "billingSubscriptionStatus" "public"."billing_billingsubscriptionstatus_enum" NOT NULL DEFAULT 'unsubscribed', "billingSubscriptionEntity" "public"."billing_billingsubscriptionentity_enum", "currentPeriodEnd" TIMESTAMP WITH TIME ZONE, "cancelAtPeriodEnd" boolean NOT NULL DEFAULT false, "subscriptionId" character varying, "bespokePlanId" character varying NOT NULL, CONSTRAINT "PK_d9043caf3033c11ed3d1b29f73c" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."item_category_type_enum" AS ENUM('FREE', 'SUBSCRIPTION', 'SHOP')`);
         await queryRunner.query(`CREATE TABLE "item_category" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "type" "public"."item_category_type_enum" NOT NULL, CONSTRAINT "PK_91ba90f150e8804bdaad7b17ff8" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "public"."item_type_enum" AS ENUM('EMAIL_TEMPLATE', 'SIGNUP_FORM', 'CREDITS')`);
-        await queryRunner.query(`CREATE TABLE "item" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, "credits" integer, "imageData" jsonb NOT NULL, "description" character varying, "data" jsonb NOT NULL, "type" "public"."item_type_enum" NOT NULL, "start_date" TIMESTAMP WITH TIME ZONE NOT NULL, "end_date" TIMESTAMP WITH TIME ZONE NOT NULL, "itemCategoryId" uuid NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_d3c0c71f23e7adcf952a1d13423" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "item" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, "credits" integer, "imageData" jsonb NOT NULL, "description" character varying, "data" jsonb NOT NULL, "type" "public"."item_type_enum" NOT NULL, "start_date" TIMESTAMP WITH TIME ZONE, "end_date" TIMESTAMP WITH TIME ZONE, "itemCategoryId" uuid NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_d3c0c71f23e7adcf952a1d13423" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "store_item" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "storeId" uuid NOT NULL, "itemId" uuid NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "creditId" uuid, CONSTRAINT "REL_0fbd166b61190fb6f19d079bf7" UNIQUE ("creditId"), CONSTRAINT "PK_d8d520cf8af78e9dd5bc47943c2" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "credit" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "storeId" uuid NOT NULL, "credited" integer NOT NULL DEFAULT '0', "debited" integer NOT NULL DEFAULT '0', "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_c98add8e192ded18b69c3e345a5" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "shopify" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "listIdToCollectEmail" uuid, "storeUrl" character varying NOT NULL, "productSyncJobId" text, "customerSyncJobId" text, "authenticated" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_100ad612b6b8742f478791e4b1a" PRIMARY KEY ("id"))`);
@@ -45,13 +48,6 @@ export class Migrations1684427301725 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "metric" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "metricType" "public"."metric_metrictype_enum" NOT NULL, "message" character varying NOT NULL, "data" jsonb, "signupFormId" uuid, "subscriberId" uuid, "listId" uuid, "postId" uuid, "storeId" uuid NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_7d24c075ea2926dd32bd1c534ce" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "list" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "isDefaultStoreList" boolean NOT NULL DEFAULT false, "name" character varying NOT NULL, "starred" boolean NOT NULL DEFAULT false, "storeId" uuid NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, CONSTRAINT "PK_d8feafd203525d5f9c37b3ed3b9" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "notification" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "newSubscriber" boolean NOT NULL DEFAULT true, CONSTRAINT "PK_705b6c7cdf9b2c2ff7ac7872cb7" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TYPE "public"."quest_questtype_enum" AS ENUM('DAILY', 'WEEKLY', 'MILESTONE', 'CUSTOME')`);
-        await queryRunner.query(`CREATE TABLE "quest" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, "description" character varying, "questType" "public"."quest_questtype_enum" NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_0d6873502a58302d2ae0b82631c" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TYPE "public"."challenge_challengetype_enum" AS ENUM('CHALLENGE')`);
-        await queryRunner.query(`CREATE TYPE "public"."challenge_measuredunit_enum" AS ENUM('PERCENTAGE', 'RATE')`);
-        await queryRunner.query(`CREATE TYPE "public"."challenge_measuredmetric_enum" AS ENUM('SHOPIFY_ORDERED_PRODUCT', 'SHOPIFY_REFUNDED_ORDER', 'SHOPIFY_PLACED_ORDER', 'SHOPIFY_CHECKOUT_STARTED', 'SHOPIFY_FULFILLED_ORDER', 'SHOPIFY_CANCELLED_ORDER', 'SHOPIFY_CANCELLED_ORDER_VALUE', 'SHOPIFY_CHECKOUT_STARTED_VALUE', 'SHOPIFY_FULFILLED_ORDER_VALUE', 'SHOPIFY_ORDERED_PRODUCT_VALUE', 'SHOPIFY_PLACED_ORDER_VALUE', 'SHOPIFY_REFUNDED_ORDER_VALUE', 'EMAIL_OPENED', 'EMAIL_DELIVERED', 'EMAIL_SENT', 'EMAIL_LINK_CLICKED', 'EMAIL_BOUNCED', 'EMAIL_DROPPED', 'EMAIL_MARKED_AS_SPAM', 'EMAIL_UNSUBSCRIBED', 'POST_PUBLISHED', 'POST_UNPUBLISHED', 'POST_DELETED', 'POST_VIEWED', 'PRODUCT_VIEWED', 'FORM_VIEWED', 'FORM_SUBMITTED')`);
-        await queryRunner.query(`CREATE TABLE "challenge" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, "description" character varying, "measuredValue" integer, "completionCount" integer NOT NULL DEFAULT '1', "completionStages" integer NOT NULL DEFAULT '1', "challengeType" "public"."challenge_challengetype_enum" NOT NULL, "measuredUnit" "public"."challenge_measuredunit_enum", "measuredMetric" "public"."challenge_measuredmetric_enum", "isHidden" boolean NOT NULL DEFAULT false, "questId" uuid NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_5f31455ad09ea6a836a06871b7a" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "store_challenge" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "completedCount" integer NOT NULL, "completedStages" integer NOT NULL, "storeId" uuid NOT NULL, "challengeId" uuid NOT NULL, "allCompleted" boolean NOT NULL DEFAULT false, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_f7220c487c5b1c86437bd8bb9e4" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "workflow_transition" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "otherWise" boolean NOT NULL DEFAULT false, "workflowId" uuid NOT NULL, "workflowStateId" uuid NOT NULL, "nextStateId" uuid NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), CONSTRAINT "PK_9dcbde65e2386a8e8de78585df2" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "public"."workflow_state_workflowstatetype_enum" AS ENUM('START', 'NORMAL', 'COMPLETE', 'DENIED', 'CANCELLED')`);
         await queryRunner.query(`CREATE TYPE "public"."workflow_state_workflowactivitytype_enum" AS ENUM('LIST_TRIGGER', 'METRIC_TRIGGER', 'SEND_EMAIL', 'DELAY', 'CONDITIONAL_SPLIT', 'TRIGGER_SPLIT')`);
@@ -64,6 +60,7 @@ export class Migrations1684427301725 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "contact" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "senderName" character varying NOT NULL, "senderEmail" character varying NOT NULL, "address1" character varying NOT NULL, "address2" character varying, "city" character varying NOT NULL, "country" character varying NOT NULL, "state" character varying, "zipCode" character varying NOT NULL, CONSTRAINT "PK_2cbbe00f59ab6b3bb5b8d19f989" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "public"."about_industry_enum" AS ENUM('Ecommerce (Apparel & Accessories)', 'Ecommerce (Automotive)', 'Ecommerce (Electronics)', 'Ecommerce (Food & Beverage)', 'Ecommerce (Jewelry)', 'Ecommerce (Housewares, Home Furnishings, & Garden)', 'Ecommerce (Hardware & Home Improvement)', 'Ecommerce (Health & Beauty)', 'Ecommerce (Mass Merchant)', 'Ecommerce (Office Supplies)', 'Ecommerce (Specialty)', 'Ecommerce (Sporting Goods)', 'Ecommerce (Toys & Hobbies)', 'Ecommerce (Other)', 'Agency, Marketing, and Consulting', 'Banking, Financial Services, and Insurance', 'Education', 'Events & Entertainment', 'Non-Profit', 'Politics and Government', 'Real Estate and Construction', 'Restaurants', 'Telecommunications', 'Software / SaaS', 'Travel', 'Other')`);
         await queryRunner.query(`CREATE TABLE "about" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "about" character varying, "aboutLexical" character varying, "aboutHTML" character varying, "industry" "public"."about_industry_enum", CONSTRAINT "PK_e7b581a8a74d0a2ea3aa53226ee" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`ALTER TABLE "api_key" ADD CONSTRAINT "FK_adfff8b3312798d6db2038a474f" FOREIGN KEY ("storeId") REFERENCES "store"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "item" ADD CONSTRAINT "FK_5bd02a93f5b64c5f1d0d2c77781" FOREIGN KEY ("itemCategoryId") REFERENCES "item_category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "store_item" ADD CONSTRAINT "FK_40b9bf33944256a6e5cbaac9262" FOREIGN KEY ("storeId") REFERENCES "store"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "store_item" ADD CONSTRAINT "FK_fda69506c0479b21637581c143a" FOREIGN KEY ("itemId") REFERENCES "item"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
@@ -93,9 +90,6 @@ export class Migrations1684427301725 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "metric" ADD CONSTRAINT "FK_018742aa3dc41a9381ef7a8567f" FOREIGN KEY ("signupFormId") REFERENCES "signup_form"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "metric" ADD CONSTRAINT "FK_b16817c37aa3e12868cd0456a61" FOREIGN KEY ("storeId") REFERENCES "store"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "list" ADD CONSTRAINT "FK_e1208628a04a52d1cb766c74652" FOREIGN KEY ("storeId") REFERENCES "store"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "challenge" ADD CONSTRAINT "FK_b50f27bc95678a26486dc8610d6" FOREIGN KEY ("questId") REFERENCES "quest"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "store_challenge" ADD CONSTRAINT "FK_47c2723b1788c5bbea2bfbc2195" FOREIGN KEY ("storeId") REFERENCES "store"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "store_challenge" ADD CONSTRAINT "FK_f604b5de65efddadcef81f59d71" FOREIGN KEY ("challengeId") REFERENCES "challenge"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "workflow_transition" ADD CONSTRAINT "FK_907ac2f87497624f7d60efe2927" FOREIGN KEY ("workflowId") REFERENCES "workflow"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "workflow_transition" ADD CONSTRAINT "FK_8b7225273dc89a28d027c73db66" FOREIGN KEY ("workflowStateId") REFERENCES "workflow_state"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "workflow_state" ADD CONSTRAINT "FK_925c78c275d61b3514cfda22141" FOREIGN KEY ("workflowId") REFERENCES "workflow"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
@@ -119,9 +113,6 @@ export class Migrations1684427301725 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "workflow_state" DROP CONSTRAINT "FK_925c78c275d61b3514cfda22141"`);
         await queryRunner.query(`ALTER TABLE "workflow_transition" DROP CONSTRAINT "FK_8b7225273dc89a28d027c73db66"`);
         await queryRunner.query(`ALTER TABLE "workflow_transition" DROP CONSTRAINT "FK_907ac2f87497624f7d60efe2927"`);
-        await queryRunner.query(`ALTER TABLE "store_challenge" DROP CONSTRAINT "FK_f604b5de65efddadcef81f59d71"`);
-        await queryRunner.query(`ALTER TABLE "store_challenge" DROP CONSTRAINT "FK_47c2723b1788c5bbea2bfbc2195"`);
-        await queryRunner.query(`ALTER TABLE "challenge" DROP CONSTRAINT "FK_b50f27bc95678a26486dc8610d6"`);
         await queryRunner.query(`ALTER TABLE "list" DROP CONSTRAINT "FK_e1208628a04a52d1cb766c74652"`);
         await queryRunner.query(`ALTER TABLE "metric" DROP CONSTRAINT "FK_b16817c37aa3e12868cd0456a61"`);
         await queryRunner.query(`ALTER TABLE "metric" DROP CONSTRAINT "FK_018742aa3dc41a9381ef7a8567f"`);
@@ -151,6 +142,7 @@ export class Migrations1684427301725 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "store_item" DROP CONSTRAINT "FK_fda69506c0479b21637581c143a"`);
         await queryRunner.query(`ALTER TABLE "store_item" DROP CONSTRAINT "FK_40b9bf33944256a6e5cbaac9262"`);
         await queryRunner.query(`ALTER TABLE "item" DROP CONSTRAINT "FK_5bd02a93f5b64c5f1d0d2c77781"`);
+        await queryRunner.query(`ALTER TABLE "api_key" DROP CONSTRAINT "FK_adfff8b3312798d6db2038a474f"`);
         await queryRunner.query(`DROP TABLE "about"`);
         await queryRunner.query(`DROP TYPE "public"."about_industry_enum"`);
         await queryRunner.query(`DROP TABLE "contact"`);
@@ -163,13 +155,6 @@ export class Migrations1684427301725 implements MigrationInterface {
         await queryRunner.query(`DROP TYPE "public"."workflow_state_workflowactivitytype_enum"`);
         await queryRunner.query(`DROP TYPE "public"."workflow_state_workflowstatetype_enum"`);
         await queryRunner.query(`DROP TABLE "workflow_transition"`);
-        await queryRunner.query(`DROP TABLE "store_challenge"`);
-        await queryRunner.query(`DROP TABLE "challenge"`);
-        await queryRunner.query(`DROP TYPE "public"."challenge_measuredmetric_enum"`);
-        await queryRunner.query(`DROP TYPE "public"."challenge_measuredunit_enum"`);
-        await queryRunner.query(`DROP TYPE "public"."challenge_challengetype_enum"`);
-        await queryRunner.query(`DROP TABLE "quest"`);
-        await queryRunner.query(`DROP TYPE "public"."quest_questtype_enum"`);
         await queryRunner.query(`DROP TABLE "notification"`);
         await queryRunner.query(`DROP TABLE "list"`);
         await queryRunner.query(`DROP TABLE "metric"`);
@@ -211,6 +196,9 @@ export class Migrations1684427301725 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "billing"`);
         await queryRunner.query(`DROP TYPE "public"."billing_billingsubscriptionentity_enum"`);
         await queryRunner.query(`DROP TYPE "public"."billing_billingsubscriptionstatus_enum"`);
+        await queryRunner.query(`DROP TABLE "api_key"`);
+        await queryRunner.query(`DROP TYPE "public"."api_key_accesslevel_enum"`);
+        await queryRunner.query(`DROP TYPE "public"."api_key_scopes_enum"`);
     }
 
 }

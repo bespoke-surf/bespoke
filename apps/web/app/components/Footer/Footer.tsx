@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <Flex gap={3} direction="column">
       <Flex gap={2} justifyContent="start" wrap>
-        {rootLoaderData.OPEN_SOURCE ? null : (
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
           <Link
             underline="hover"
             display="inline"
@@ -27,7 +27,7 @@ export default function Footer() {
           </Link>
         )}
 
-        {rootLoaderData.OPEN_SOURCE ? null : (
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
           <Link
             underline="hover"
             display="inline"
@@ -38,7 +38,7 @@ export default function Footer() {
             </Text>
           </Link>
         )}
-        {rootLoaderData.OPEN_SOURCE ? null : (
+        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
           <Link
             underline="hover"
             display="inline"
@@ -55,7 +55,7 @@ export default function Footer() {
           </Text>
         </TapArea>
       </Flex>
-      {rootLoaderData.OPEN_SOURCE ? null : (
+      {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
         <Text size="100" color="subtle">
           © {dayjs().get("year")}{" "}
           {rootLoaderData.store?.name

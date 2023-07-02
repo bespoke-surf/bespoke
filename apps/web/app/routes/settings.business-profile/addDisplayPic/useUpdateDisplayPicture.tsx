@@ -20,13 +20,13 @@ const useUpdateDisplayPicture = (): { uppy: Uppy } => {
           allowedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".gif"],
         },
       }).use(XHRUpload, {
-        endpoint: storeData.CLOUDINARY_UPLOAD_IMAGE_URL as string,
+        endpoint: storeData.ENV.CLOUDINARY_UPLOAD_IMAGE_URL as string,
         method: "POST",
         formData: true,
         fieldName: "file",
         allowedMetaFields: ["file", "folder", "upload_preset"],
       }),
-    [storeData.CLOUDINARY_UPLOAD_IMAGE_URL]
+    [storeData.ENV.CLOUDINARY_UPLOAD_IMAGE_URL]
   );
 
   const handleFileAdded = useCallback(
@@ -36,11 +36,11 @@ const useUpdateDisplayPicture = (): { uppy: Uppy } => {
       const folder = `${STORE_PREFIX}/${storeData?.store?.id}/${STORE_DISPLAY_PICTURE_POSTFIX}`;
       uppy.setFileMeta(file.id, {
         folder,
-        upload_preset: storeData.CLOUDINARY_PRESET,
+        upload_preset: storeData.ENV.CLOUDINARY_PRESET,
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [storeData.CLOUDINARY_PRESET, storeData?.store?.id]
+    [storeData.ENV.CLOUDINARY_PRESET, storeData?.store?.id]
   );
 
   const handleUploadSuccess = useCallback(

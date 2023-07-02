@@ -171,7 +171,7 @@ export default function ComparisonTable() {
               </Table.Cell>
             </Table.Row>
           ))}
-          {rootLoaderData.OPEN_SOURCE ? null : (
+          {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
             <>
               <Table.Row>
                 <Table.Cell>

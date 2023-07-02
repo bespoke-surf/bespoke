@@ -52,6 +52,7 @@ export let action: ActionFunction = async ({ request }) => {
         { input: { email } },
         { request }
       );
+      console.log({ emialLogin });
       if (emialLogin?.emailLogin) {
         return json<ActionData>({
           confirmCode: true,

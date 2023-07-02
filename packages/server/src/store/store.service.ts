@@ -1,5 +1,6 @@
 import {
   FREE_PLAN_ID,
+  PricingIdType,
   bespokePricingPlan,
 } from '@bespoke/common/dist/pricingPlan';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
@@ -291,7 +292,7 @@ export class StoreService {
 
   async createCheckoutSessionUrl(
     subdomain: string,
-    bespokePricingPlanId: string,
+    bespokePlanId: PricingIdType,
   ): Promise<string | null> {
     try {
       const store = await this.storeRepo.findOne({
@@ -309,7 +310,7 @@ export class StoreService {
 
       return await this.stripeService.createCheckoutSession({
         billingId: store.billing.id,
-        stripePriceId: bespokePricingPlanId,
+        bespokePlanId: bespokePlanId,
         storeId: store.id,
         stripeCustomerId: store.user.stripeCustomerId,
         subdomain: store.subdomain,
@@ -1486,7 +1487,7 @@ export class StoreService {
 
   async prorateStripeSubscription(
     subdomain: string,
-    newStripePriceId: string,
+    newBespokePlanId: string,
   ): Promise<boolean> {
     try {
       const store = await this.getStoreWithSubdomain(subdomain);
@@ -1497,16 +1498,20 @@ export class StoreService {
         throw new Error('missing billing data');
 
       const bespokePlanId = bespokePricingPlan.find(
-        ({ stripePriceId }) => stripePriceId === newStripePriceId,
+        ({ id }) => id === newBespokePlanId,
       )?.id;
 
       if (!bespokePlanId) throw Error('missing plan id');
+      if (bespokePlanId === 'OPEN_SOURCE' || bespokePlanId === 'FREE')
+        return false;
 
       await this.billingService.updateBespokePlanId(billing.id, bespokePlanId);
 
       await this.stripeService.prorateSubscirption({
         subscriptionId: billing.subscriptionId,
-        newStripePriceId: newStripePriceId,
+        newStripePriceId: this.configService.get(
+          `${bespokePlanId}_STRIPE_PRICE_ID`,
+        ) as string,
         bespokePlanId,
         billingId: billing.id,
         storeId: store.id,
@@ -1610,7 +1615,7 @@ export class StoreService {
       throw new Error('email sent limit reached');
   }
 
-  async getUsageQuanityt(
+  async getUsageQuantity(
     storeId: string,
     currentPeriodStartInUnix: number,
   ): Promise<number> {

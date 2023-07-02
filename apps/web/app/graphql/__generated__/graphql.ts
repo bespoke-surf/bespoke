@@ -1115,7 +1115,7 @@ export type MutationCreateApiKeyArgs = {
 
 
 export type MutationCreateCheckoutSessionUrlArgs = {
-  stripePriceId: Scalars['String']['input'];
+  bespokePlanId: Scalars['String']['input'];
   subdomain: Scalars['String']['input'];
 };
 
@@ -1272,7 +1272,7 @@ export type MutationNewSubscriberNotificationToggleArgs = {
 
 
 export type MutationProrateStripeSubscriptionArgs = {
-  newStripePriceId: Scalars['String']['input'];
+  newBespokePlanId: Scalars['String']['input'];
   subdomain: Scalars['String']['input'];
 };
 
@@ -3139,7 +3139,7 @@ export type CheckUserOrboardedQuery = { __typename?: 'Query', checkUserOnboarded
 
 export type CreateCheckoutSessionUrlMutationVariables = Exact<{
   subdomain: Scalars['String']['input'];
-  stripePriceId: Scalars['String']['input'];
+  bespokePlanId: Scalars['String']['input'];
 }>;
 
 
@@ -3227,7 +3227,7 @@ export type GettingStartedQuery = { __typename?: 'Query', gettingStarted?: Array
 
 export type ProrateStripeSubscriptionMutationVariables = Exact<{
   subdomain: Scalars['String']['input'];
-  newStripePriceId: Scalars['String']['input'];
+  newBespokePlanId: Scalars['String']['input'];
 }>;
 
 
@@ -4686,8 +4686,8 @@ export const CheckUserOrboardedDocument = gql`
 }
     `;
 export const CreateCheckoutSessionUrlDocument = gql`
-    mutation CreateCheckoutSessionUrl($subdomain: String!, $stripePriceId: String!) {
-  createCheckoutSessionUrl(subdomain: $subdomain, stripePriceId: $stripePriceId)
+    mutation CreateCheckoutSessionUrl($subdomain: String!, $bespokePlanId: String!) {
+  createCheckoutSessionUrl(subdomain: $subdomain, bespokePlanId: $bespokePlanId)
 }
     `;
 export const CreateShopifyAppSubscriptionDocument = gql`
@@ -4776,10 +4776,10 @@ export const GettingStartedDocument = gql`
 }
     `;
 export const ProrateStripeSubscriptionDocument = gql`
-    mutation ProrateStripeSubscription($subdomain: String!, $newStripePriceId: String!) {
+    mutation ProrateStripeSubscription($subdomain: String!, $newBespokePlanId: String!) {
   prorateStripeSubscription(
     subdomain: $subdomain
-    newStripePriceId: $newStripePriceId
+    newBespokePlanId: $newBespokePlanId
   )
 }
     `;

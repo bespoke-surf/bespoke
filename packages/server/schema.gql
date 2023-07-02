@@ -875,7 +875,7 @@ type Mutation {
   createApiKey(accessLevel: ApiAccessLevel!, name: String!, scopes: [ApiKeyAccessScopeEnum!], storeId: String!): ApiKey
 
   """create checkout session url"""
-  createCheckoutSessionUrl(stripePriceId: String!, subdomain: String!): String
+  createCheckoutSessionUrl(bespokePlanId: String!, subdomain: String!): String
 
   """update conditional split node"""
   createConditionalSplitNode(input: CreateConditionalSplitNodeInput!): WorkflowState
@@ -959,7 +959,7 @@ type Mutation {
   newSubscriberNotificationToggle(subdomain: String!): Notification
 
   """prorate stripe subscription"""
-  prorateStripeSubscription(newStripePriceId: String!, subdomain: String!): Boolean
+  prorateStripeSubscription(newBespokePlanId: String!, subdomain: String!): Boolean
 
   """publish post here"""
   publishPostHere(postHandle: String!, postId: String!): Boolean!

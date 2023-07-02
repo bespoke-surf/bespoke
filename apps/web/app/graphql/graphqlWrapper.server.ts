@@ -3,7 +3,6 @@ import axios from "axios";
 import type { DocumentNode } from "graphql";
 import { print } from "graphql";
 import invariant from "tiny-invariant";
-import { getEnvVars } from "../../env.server";
 import { getSdk } from "./__generated__/graphql";
 
 export interface QueryOptions {
@@ -22,7 +21,7 @@ async function sendQuery<Response, Variables = {}>(options: {
   headers?: Headers;
   request?: Request;
 }): Promise<GraphqlResponse<Response> & { headers: Headers }> {
-  const { FLY_BACKEND_HOST } = getEnvVars();
+  const { FLY_BACKEND_HOST } = process.env;
   invariant(typeof FLY_BACKEND_HOST === "string", "Backend host missing");
 
   const headers = new Headers(options.headers);

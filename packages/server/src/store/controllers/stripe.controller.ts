@@ -56,7 +56,7 @@ export class StoreStripeController {
         );
         const { storeId, bespokePlanId } = this.getMetaData(subscription);
 
-        const quantity = await this.storeService.getUsageQuanityt(
+        const quantity = await this.storeService.getUsageQuantity(
           storeId,
           subscription.current_period_start,
         );
