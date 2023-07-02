@@ -126,7 +126,7 @@ Prior to your first deployment, you'll need to do a few things:
     1. Add the following secrets to your fly app secrets, to do this you can run the following commands:
 
        ```sh
-       fly secrets set FRONTEND_HOST= BACKEND_HOST= FLY_BACKEND_HOST= SENTRY_DSN= POSTHOG_TOKEN= POSTHOG_ORGANISATION= POSTHOG_PROJECT_ID= CLOUDINARY_UPLOAD_IMAGE_URL= CLOUDINARY_PRESET= OPEN_SOURCE=true --app [your-app-name]-web
+       fly secrets set FRONTEND_HOST= BACKEND_HOST= FLY_BACKEND_HOST= SENTRY_DSN= POSTHOG_TOKEN= POSTHOG_ORGANISATION= POSTHOG_PROJECT_ID= CLOUDINARY_UPLOAD_IMAGE_URL= CLOUDINARY_PRESET= UNLAYER_PROJECT_ID= OPEN_SOURCE=true --app [your-app-name]-web
        ```
 
     2. Add `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_S3_BUCKET_REGION`, `AWS_S3_BUCKET`, `CLOUDFRONT`, `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT` to [your repo secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in Gihub. This is used during docker container build.
@@ -142,15 +142,18 @@ Prior to your first deployment, you'll need to do a few things:
     1.  Add to your fly app secrets, to do this you can run the following commands:
 
         ```sh
-        fly secrets set HOST= FRONTEND_HOST= FRONTEND_HOST_PROTOCOL= SESSION_SECRET=$(openssl rand -hex 32) AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= SES_REGION= SES_SENDING_RATE= REDIS_URL= UNLAYER_SECRET= OPEN_SOURCE=true EMAIL_DOMAIN= SUPPORT_EMAIL= SENTRY_DSN= POSTHOG_KEY= --app [your-app-name]-server
+        fly secrets set HOST= FRONTEND_HOST= FRONTEND_HOST_PROTOCOL= SESSION_SECRET=$(openssl rand -hex 32) AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= SES_REGION= SES_SENDING_RATE= REDIS_PORT= REDIS_HOST= REDIS_PASSWORD= UNLAYER_SECRET= OPEN_SOURCE=true EMAIL_DOMAIN= SUPPORT_EMAIL= SENTRY_DSN= POSTHOG_KEY= --app [your-app-name]-server
         ```
 
     2.  Create a Fly [Postgres Cluster](https://fly.io/docs/postgres/getting-started/create-pg-cluster/)
 
     3.  [Attach](https://fly.io/docs/postgres/managing/attach-detach/) Postgres Cluster to Bespoke Server
 
-    4.  Create a [Redis instance](https://fly.io/docs/reference/redis/). Add `REDIS_URL` to fly secrets
-    5.  For the initial `fly deploy` you can use:
+    4.  We recommend `not using` Redis by Upstash in Fly.
+
+    5.  Before deploying please read AWS SES & SNS setup
+
+    6.  For the initial `fly deploy` you can use:
 
         ```sh
          ~/bespoke$: yarn deploy:server
@@ -159,6 +162,66 @@ Prior to your first deployment, you'll need to do a few things:
 Now that everything is set up you can commit and push your changes to your repo. Every commit to your main branch will trigger a deployment to your production environment.
 
 <br>
+
+### Setting up Email Provider
+
+We are currently using AWS SES with AWS SNS subscriptions to receive `Hard bounce` events, `Open` events etc...
+
+<br>
+
+#### AWS SNS Setup
+
+We need to create a new subscription and confirm the https endpoint.
+
+1. Create a new Subscription
+
+2. Add Topic name and select `HTTPS` protocol
+
+3. Add your endpoint i.e `[server-hostname]/user/sns-webhook`
+
+4. `console.log()` the data in your `sns-webhook` under user controller
+
+5. Before deploying add and confirm a localhost endpoint
+
+6. Deploy the server and confirm your production endpoint
+
+<br>
+
+#### AWS SES Setup
+
+We need to create a new configuration set and add the SNS subscription as the destination for events.
+
+1. Create a new configuration set with default values
+
+2. Add a new Event Destination
+
+3. Select all event types except `Redering failures` & also select open and click tracking
+
+4. Under destination option, select `Amazon SNS` and select the SNS topic you created
+
+<br>
+
+### SES Sending Rate
+
+For the `SES_SENDING_RATE` env variable, you can get the value from the SES dashboard. It would be under maximum send rate.
+
+<br>
+
+### Unlayer Project Id & Unlayer Secret
+
+For Signup Forms and Email templates we are using [Unlayer](https://unlayer.com/embed).
+
+1. Login or Signup to [Unlayer embed](https://unlayer.com/embed)
+
+2. Create a project and get the project id from the url
+
+3. Use project id for `UNLAYER_PROJECT_ID` env variabe for bespoke web
+
+4. Go to the `Security` tab and enforce identity verification.
+
+5. Copy secret and add to `UNLAYER_SECRET` env varaible for bespoke server
+
+   <br>
 
 ## Contributing
 

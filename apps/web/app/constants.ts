@@ -1,5 +1,3 @@
-export const UNLAYER_PROJECT_ID = 125274;
-
 export const STORE_PRODUCT_IMAGE_POSTFIX = "product";
 export const STORE_DISPLAY_PICTURE_POSTFIX = "display-picture";
 export const STORE_PREFIX = "store";
