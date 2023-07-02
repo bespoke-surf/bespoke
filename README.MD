@@ -34,8 +34,6 @@
 
 We gather customer data through various means, including API's, behavioral intent, surveys and integrations with platforms for data ingestion. Recommendations are delivered via Automations and Campaigns.</p>
 
-<br>
-
 ## Feature roadmap
 
 - [x] Automations
@@ -52,14 +50,10 @@ We gather customer data through various means, including API's, behavioral inten
 
 > For full feature breakdown see Bespoke Cloud [Pricing Page](https://bespoke.surf/pricing)
 
-<br>
-
 ## Documentation
 
 - [API Reference](https://bespoke-api.readme.io/reference/introduction-to-bespoke) for Bespoke REST API
 - Details about Bespoke's [Suppression](https://bespoke-api.readme.io/reference/supression-hit-tier) process
-
-<br>
 
 ## Quick Links
 
@@ -70,8 +64,6 @@ We gather customer data through various means, including API's, behavioral inten
   [Feature and Integration Requests](https://feedback.bespoke.surf).
 - 🐛 Open a [GitHub issue](https://github.com/bespoke-surf/bespoke/issues) to
   report a bug.
-
-<br>
 
 ## Developing Bespoke
 
@@ -104,8 +96,6 @@ We gather customer data through various means, including API's, behavioral inten
    > Do not forget to fill the env variables in `web` and `server` folder
 
 This starts your app in development mode.
-
-<br>
 
 ## Deploying Bespoke
 
@@ -159,15 +149,9 @@ Prior to your first deployment, you'll need to do a few things:
          ~/bespoke$: yarn deploy:server
         ```
 
-Now that everything is set up you can commit and push your changes to your repo. Every commit to your main branch will trigger a deployment to your production environment.
-
-<br>
-
 ### Setting up Email Provider
 
-We are currently using AWS SES with AWS SNS subscriptions to receive `Hard bounce` events, `Open` events etc...
-
-<br>
+To receive Hard bounce, Open, Delivery events etc, let's setup AWS SES with AWS SNS
 
 #### AWS SNS Setup
 
@@ -185,8 +169,6 @@ We need to create a new subscription and confirm the https endpoint.
 
 6. Deploy the server and confirm your production endpoint
 
-<br>
-
 #### AWS SES Setup
 
 We need to create a new configuration set and add the SNS subscription as the destination for events.
@@ -199,17 +181,13 @@ We need to create a new configuration set and add the SNS subscription as the de
 
 4. Under destination option, select `Amazon SNS` and select the SNS topic you created
 
-<br>
-
 ### SES Sending Rate
 
-For the `SES_SENDING_RATE` env variable, you can get the value from the SES dashboard. It would be under maximum send rate.
-
-<br>
+For the `SES_SENDING_RATE` env variable, you can get the value from the SES dashboard.
 
 ### Unlayer Project Id & Unlayer Secret
 
-For Signup Forms and Email templates we are using [Unlayer](https://unlayer.com/embed).
+Let's setup [Unlayer](https://unlayer.com/embed) for Signup-Forms and Email templates to work
 
 1. Login or Signup to [Unlayer embed](https://unlayer.com/embed)
 
@@ -221,7 +199,7 @@ For Signup Forms and Email templates we are using [Unlayer](https://unlayer.com/
 
 5. Copy secret and add to `UNLAYER_SECRET` env varaible for bespoke server
 
-   <br>
+Now that everything is set up you can commit and push your changes to your repo. Every commit to your main branch will trigger a deployment to your production environment.
 
 ## Contributing
 
@@ -234,15 +212,11 @@ For Signup Forms and Email templates we are using [Unlayer](https://unlayer.com/
    - `git push origin my-new-branch`
 4. Go to the repository page in GitHub and click on "Compare & pull request"
 
-<br>
-
 ## Support
 
 If you have any questions about Bespoke, would like to discuss a bug report, or have questions about new integrations, feel free to join us at [our Discord server](https://discord.gg/sXAkfWBM).
 
 Bespoke engineers are checking this regularly.
-
-<br>
 
 ### License
 
