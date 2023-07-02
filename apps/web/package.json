@@ -1,6 +1,6 @@
 {
   "name": "@bespoke/web",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.363.0",
-    "@bespoke/common": "^0.1.0",
+    "@bespoke/common": "^0.2.0",
     "@clayui/css": "^3.99.0",
     "@clayui/slider": "^3.96.0",
     "@lexical/code": "^0.11.1",
@@ -89,6 +89,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "4.0.1",
+    "@graphql-codegen/client-preset": "4.0.1",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-generic-sdk": "^3.1.0",
     "@graphql-codegen/typescript-operations": "^4.0.1",
@@ -112,8 +113,7 @@
     "remix-flat-routes": "^0.5.8",
     "rimraf": "^5.0.1",
     "s3-folder-upload": "^2.3.5",
-    "typescript": "^4.9.5",
-    "@graphql-codegen/client-preset": "4.0.1"
+    "typescript": "^4.9.5"
   },
   "engines": {
     "node": ">=14"
