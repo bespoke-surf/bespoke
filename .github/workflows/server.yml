@@ -1,4 +1,4 @@
-name: 🚀 Deploy
+name: Server Deploy
 on:
   workflow_dispatch:
   push:
@@ -11,14 +11,11 @@ on:
       - "packages/server/**"
       - "!packages/server/package.json"
       - "!packages/server/CHANGELOG.md"
-  pull_request: {}
+  pull_request:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-permissions:
-  actions: write
-  contents: read
 
 jobs:
   lint:
