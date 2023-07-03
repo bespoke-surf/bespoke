@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/bespoke-surf/bespoke/compare/v0.2.0...v0.2.1) (2023-07-03)
+
+
+### Bug Fixes
+
+* **server:** subscription rewards and templates seed ([409a683](https://github.com/bespoke-surf/bespoke/commit/409a683e37bdc35b420551849cb8fa9adf449155))
+
+
+
+
+
 # [0.2.0](https://github.com/bespoke-surf/bespoke/compare/v0.1.0...v0.2.0) (2023-07-02)
 
 
