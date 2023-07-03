@@ -14,9 +14,7 @@ export default function LandingPage() {
       }}
     >
       <Box marginBottom={8} marginTop={-12}>
-        <Heading size="500">
-          Open Source Personalized Marketing Platform
-        </Heading>
+        <Heading size="500">The open source Mailchimp alternative</Heading>
         <Box marginTop={2}>
           <Text>
             Combining best parts of Mailchimp, Klaviyo's automation, Substack's

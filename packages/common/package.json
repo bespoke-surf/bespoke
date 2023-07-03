@@ -15,6 +15,6 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "build": "tsup src/index.ts src/pricingPlan.ts --format esm,cjs"
+    "build": "tsup src/index.ts src/pricingPlan.ts --format esm,cjs --onSuccess 'tsc --emitDeclarationOnly --declaration'"
   }
 }

@@ -44,21 +44,6 @@ export default function Pricing() {
             />
             <Flex justifyContent="center">
               <Box width="92.5%" paddingY={6}>
-                {/* {type === "cloud" ? (
-                  <>
-                    <Text align="center" size="500" weight="bold">
-                      We host Bespoke For you. Generous Free Plan!
-                    </Text>
-                    <Box marginTop={8} />
-                  </>
-                ) : (
-                  <>
-                    <Text align="center" size="500" weight="bold">
-                      Host on your own servers. Free Forever!
-                    </Text>
-                    <Box marginTop={8} />
-                  </>
-                )} */}
                 <SegmentedControl
                   onChange={({ activeIndex }) => {
                     if (activeIndex === 0) {

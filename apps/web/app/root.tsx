@@ -104,14 +104,13 @@ export const meta: MetaFunction = ({ data }) => {
         width: "1600",
       };
 
-  const title = isOnSubdomain
-    ? `${rootData.store?.name}`
-    : "Open Source Personalized Marketing Platform";
+  const defautlTitle = "The open source Mailchimp alternative";
+  const title = isOnSubdomain ? `${rootData.store?.name}` : defautlTitle;
   const description = isOnSubdomain
     ? rootData.isUserSubdomain
       ? "Write your newsletter & marketing emails and send to your audience. People can also see your published posts here."
       : `All posts published by ${rootData.store?.name}.`
-    : "Open Source Persnolized Marketing Platform";
+    : defautlTitle;
 
   return {
     charset: "utf-8",
