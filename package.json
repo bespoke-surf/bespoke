@@ -12,7 +12,7 @@
     "dev": "turbo run dev --parallel",
     "flush": "yarn cache clean &&  lerna clean --yes && rm -rf node_modules && yarn",
     "postinstall": "patch-package",
-    "release": "lerna version --conventional-commits --yes",
+    "release": "lerna version --conventional-commits --create-release github --yes",
     "setup": "turbo run build --scope=@bespoke/common --no-deps --force",
     "build": "turbo run build",
     "build:web": "turbo run build --scope=@bespoke/web --include-dependencies --no-deps --force",
