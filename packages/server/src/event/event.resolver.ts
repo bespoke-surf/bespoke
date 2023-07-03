@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CurrentUserId } from '../decorator/userDecorator';
+import { CurrentUserId } from '../decorator/currentUserId';
 import { AuthGuard } from '../guard/authGuard';
 import { Event } from './event.entity';
 import { EventService } from './event.service';
