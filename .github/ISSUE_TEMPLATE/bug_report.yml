@@ -2,6 +2,11 @@ name: 🐛 Bug Report
 description: Something is wrong with Besppoke.
 labels:
   - "bug:unverified"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping to improve Bespoke!
   - type: input
     attributes:
       label: What version of Bespoke are you using?
