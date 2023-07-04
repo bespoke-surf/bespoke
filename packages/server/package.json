@@ -1,6 +1,6 @@
 {
   "name": "@bespoke/server",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "scripts": {
     "prebuild": "rimraf dist",
@@ -28,7 +28,7 @@
     "@apollo/utils.keyvadapter": "^3.0.0",
     "@aws-sdk/client-ses": "^3.363.0",
     "@aws-sdk/credential-provider-node": "^3.363.0",
-    "@bespoke/common": "^0.2.1",
+    "@bespoke/common": "^0.2.2",
     "@bull-board/api": "^5.6.0",
     "@bull-board/express": "^5.6.0",
     "@casl/ability": "^6.5.0",
