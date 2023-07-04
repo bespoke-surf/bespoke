@@ -38,7 +38,7 @@ import { ApiVersion, apiPagination } from '../utils/constants';
 import { CreateListDto } from './dto/createList';
 import { ListIdParam } from './dto/listIdParam';
 import { UpdateListDto } from './dto/updateList';
-import { ListApiService } from './list.apiService';
+import { ListApiService } from './list.api.service';
 import { List } from './list.entity';
 
 @UseGuards(ApiKeyAuthGurad)
@@ -57,7 +57,7 @@ import { List } from './list.entity';
 @ApiResponse({ status: '4XX', type: ExceptionResponse })
 @ApiResponse({ status: '5XX', type: ExceptionResponse })
 @Controller('api/list')
-export class ListController {
+export class ListAPIController {
   constructor(
     private listApiService: ListApiService,
     private subscriberListApiService: SubscriberListApiService,

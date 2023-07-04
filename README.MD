@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://bespoke.surf">
-    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/523654f1-74f1-4395-885c-b3ca1dc40a7a" width="318px" alt="Bespoke logo" />
+    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/78bb1d07-c715-41d6-b616-34e7d1a6d073" width="318px" alt="Bespoke logo" />
   </a>
 
   <!-- <h1 align="center"><a href="https://bespoke.surf">Bespoke</a></h1> -->
@@ -24,7 +24,7 @@
 
 <p align="center">
   <a href="https://bespoke.surf">
-    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/192c2c20-3eb4-46f4-99f3-9c672dde2b0f" alt="Administration panel" />
+    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/8dae2e53-b492-4693-acad-d123c1b4feec" alt="Administration panel" />
   </a>
 </p>
 <div align="center">
