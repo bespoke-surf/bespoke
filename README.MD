@@ -58,7 +58,7 @@ We gather customer data through various means, including API's, behavioral inten
 ## Quick Links
 
 - 🆘 Join
-  [Disocrd](https://discord.gg/h8gekTtq)
+  [Discord](https://discord.gg/h8gekTtq)
   to talk to devs
 - 💡 Suggest
   [Feature and Integration Requests](https://feedback.bespoke.surf).
