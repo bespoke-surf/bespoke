@@ -209,7 +209,7 @@ export default function Dashboard() {
                         <Text color="subtle" inline>
                           Get quick real time help from{" "}
                           <Link
-                            href="https://discord.gg/sXAkfWBM"
+                            href="https://discord.gg/h8gekTtq"
                             display="inlineBlock"
                             underline="none"
                             target="blank"
