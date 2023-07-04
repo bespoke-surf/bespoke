@@ -8,7 +8,7 @@
 
 <strong>
 <h3 align="center">Open Source Personalized Marketing Platform.</h3></strong>
-<p align="center">Combining best parts of Mailchimp, Kalvioy's automation, Substack's newsletter and Typeform for surveys.</p>
+<p align="center">Combining best parts of Mailchimp, Kalviyo's automation, Substack's newsletter and Typeform for surveys.</p>
 <p align="center"><a href="https://bespoke.surf">Bespoke Cloud</a> · <a href="https://bespoke-api.readme.io/reference">API Reference</a></p>
 
 <p align="center">
@@ -30,7 +30,7 @@
 <div align="center">
 </div>
    <p>
-   Bespoke's mission is to gather information about the customer and do personalized content recommendations.
+   Bespoke's mission is to gather information about the customer and do personalized targetting.
 
 We gather customer data through various means, including API's, behavioral intent, surveys and integrations with platforms for data ingestion. Recommendations are delivered via Automations and Campaigns.</p>
 
