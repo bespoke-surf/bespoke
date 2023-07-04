@@ -80,6 +80,11 @@ export default function UnauthSideNav({
           label="API Reference"
           onClick={closeMobileNav}
         />
+        <SideNavigation.TopItem
+          href="https://bespoke.bespoke.surf"
+          label="Blog"
+          onClick={closeMobileNav}
+        />
 
         <SideNavigation.TopItem
           href="https://feedback.bespoke.surf/changelog"
