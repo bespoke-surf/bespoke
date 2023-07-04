@@ -90,7 +90,7 @@ export default function UnauthSideNav({
         {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
           <SideNavigation.Group label="Support">
             <SideNavigation.NestedItem
-              href="https://discord.gg/sXAkfWBM"
+              href="https://discord.gg/h8gekTtq"
               label="Devs on Discord"
               onClick={closeMobileNav}
             />

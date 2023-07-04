@@ -23,7 +23,7 @@ import { Throttle } from '@nestjs/throttler';
 import { Response } from 'express';
 import { ApiKeyAccessScopeEnum } from '../apiKey/enum/apikScopeEnum';
 import { AppAbility } from '../casl/casl-ability.factory/casl-ability.factory';
-import { ApiKey } from '../decorator/ApiKeyId';
+import { ApiKey } from '../decorator/apiKeyId';
 import { CheckPolicies } from '../decorator/checkPolicies';
 import { ApiKeyAuthGurad } from '../guard/api/apiKeyAuthGuard';
 import { ApiPoliciesGuard } from '../guard/api/apiPoliciesGuard';

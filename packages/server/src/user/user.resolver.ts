@@ -8,7 +8,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { CurrentUserId } from '../decorator/userDecorator';
+import { CurrentUserId } from '../decorator/currentUserId';
 import { AuthGuard } from '../guard/authGuard';
 import { HasStoreAccess } from '../guard/hasStoreAccess';
 import { HasStoreAccessWithShopify } from '../guard/hasStoreAccessWithShopify';

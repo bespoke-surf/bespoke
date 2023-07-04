@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/bespoke-surf/bespoke/compare/v0.2.1...v0.2.2) (2023-07-04)
+
+
+### Performance Improvements
+
+* **graphql:** cache with signle redis instance ([1e12e04](https://github.com/bespoke-surf/bespoke/commit/1e12e048aefeb3b42d4532c2eb0e78f2ecd16421))
+
+
+
+
+
 ## [0.2.1](https://github.com/bespoke-surf/bespoke/compare/v0.2.0...v0.2.1) (2023-07-03)
 
 

@@ -1,4 +1,7 @@
+import responseCachePlugin from '@apollo/server-plugin-response-cache';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { KeyvAdapter } from '@apollo/utils.keyvadapter';
+import KeyvRedis from '@keyv/redis';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { ShopifyAuthModule } from '@nestjs-shopify/auth';
 import { ShopifyCoreModule } from '@nestjs-shopify/core';
@@ -24,6 +27,8 @@ import '@shopify/shopify-api/adapters/node';
 import { restResources } from '@shopify/shopify-api/rest/admin/2023-01';
 import cors from 'cors';
 import { GraphQLJSONObject, PhoneNumberResolver } from 'graphql-scalars';
+import { Redis } from 'ioredis';
+import Keyv from 'keyv';
 import { ThrottlerStorageRedisService } from 'nestjs-throttler-storage-redis';
 import { join } from 'node:path';
 import { Init1688216057842 } from '../migrations/1688216057842-Init';
@@ -62,7 +67,7 @@ import { StoreModule } from './store/store.module';
 import { StripeModule } from './stripe/stripe.module';
 import { SubscriberListModule } from './subscriber-list/subscriber-list.module';
 import { SubscriberModule } from './subscriber/subscriber.module';
-import { EnvironmentVariables } from './types';
+import { EnvironmentVariables, MyContext } from './types';
 import { UserModule } from './user/user.module';
 import { WorkflowStateModule } from './workflow-state/workflow-state.module';
 import { WorkflowTransitionModule } from './workflow-transition/workflow-transition.module';
@@ -144,14 +149,38 @@ import { WorkflowModule } from './workflow/workflow.module';
         playground: false,
         autoSchemaFile: join(process.cwd(), './schema.gql'),
         sortSchema: true,
-        cache: 'bounded',
-        csrfPrevention: true,
-        plugins: [ApolloServerPluginLandingPageLocalDefault()],
+        cache: new KeyvAdapter(
+          new Keyv({
+            store: new KeyvRedis(
+              new Redis({
+                port: configService.get('REDIS_PORT'),
+                host: configService.get('REDIS_HOST'),
+                password: configService.get('REDIS_PASSWORD'),
+                tls:
+                  configService.get('NODE_ENV') === 'production'
+                    ? {}
+                    : undefined,
+              }),
+            ),
+          }),
+        ),
+        plugins: [
+          ApolloServerPluginLandingPageLocalDefault(),
+          responseCachePlugin({
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            sessionId: (context) =>
+              ((context.contextValue as unknown as MyContext).req.session
+                ?.userId ??
+                null) ||
+              null,
+          }),
+        ],
         resolvers: {
           PhoneNumber: PhoneNumberResolver,
           JSONObject: GraphQLJSONObject,
         },
-        context: ({ req, res }: any) => ({ req, res }),
+        context: ({ req, res }: MyContext) => ({ req, res }),
         cors: {
           credentials: true,
           origin: corsOrigin,

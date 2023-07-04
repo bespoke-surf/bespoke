@@ -5,6 +5,7 @@ import { RawBodyRequest, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Queue } from 'bull';
+import compression from 'compression';
 import RedisStore from 'connect-redis';
 import { NextFunction, Request, Response, json } from 'express';
 import expressListRoutes from 'express-list-routes';
@@ -81,6 +82,7 @@ async function bootstrap() {
     },
   });
 
+  app.use(compression());
   app.useGlobalPipes(new ValidationPipe());
 
   if (NODE_ENV === 'production') {

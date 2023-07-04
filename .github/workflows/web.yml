@@ -1,4 +1,4 @@
-name: 🚀 Deploy
+name: Web Deploy
 on:
   workflow_dispatch:
   push:
@@ -11,15 +11,11 @@ on:
       - "apps/web/**"
       - "!apps/web/package.json"
       - "!apps/web/CHANGELOG.md"
-  pull_request: {}
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
-permissions:
-  actions: write
-  contents: read
 
 jobs:
   lint:

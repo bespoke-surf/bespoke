@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://bespoke.surf">
-    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/523654f1-74f1-4395-885c-b3ca1dc40a7a" width="318px" alt="Bespoke logo" />
+    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/78bb1d07-c715-41d6-b616-34e7d1a6d073" width="318px" alt="Bespoke logo" />
   </a>
 
   <!-- <h1 align="center"><a href="https://bespoke.surf">Bespoke</a></h1> -->
@@ -12,7 +12,7 @@
 <p align="center"><a href="https://bespoke.surf">Bespoke Cloud</a> · <a href="https://bespoke-api.readme.io/reference">API Reference</a></p>
 
 <p align="center">
-<a href="https://discord.gg/sXAkfWBM">
+<a href="https://discord.gg/h8gekTtq">
     <img src="https://img.shields.io/discord/957706478670712893?label=Discord" alt="Bespoke on Discord" />
   </a>
   <a href="https://twitter.com/intent/follow?screen_name=bespoke_surf">
@@ -24,7 +24,7 @@
 
 <p align="center">
   <a href="https://bespoke.surf">
-    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/192c2c20-3eb4-46f4-99f3-9c672dde2b0f" alt="Administration panel" />
+    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/8dae2e53-b492-4693-acad-d123c1b4feec" alt="Administration panel" />
   </a>
 </p>
 <div align="center">
@@ -58,7 +58,7 @@ We gather customer data through various means, including API's, behavioral inten
 ## Quick Links
 
 - 🆘 Join
-  [Disocrd](https://discord.gg/sXAkfWBM)
+  [Disocrd](https://discord.gg/h8gekTtq)
   to talk to devs
 - 💡 Suggest
   [Feature and Integration Requests](https://feedback.bespoke.surf).
@@ -214,14 +214,14 @@ Now that everything is set up you can commit and push your changes to your repo.
 
 ## Support
 
-If you have any questions about Bespoke, would like to discuss a bug report, or have questions about new integrations, feel free to join us at [our Discord server](https://discord.gg/sXAkfWBM).
+If you have any questions about Bespoke, would like to discuss a bug report, or have questions about new integrations, feel free to join us at [our Discord server](https://discord.gg/h8gekTtq).
 
 Bespoke engineers are checking this regularly.
 
 ### License
 
-Bespoke is [MIT licensed](https://github.com/bespoke-surf/bespoke/LICENSE.md) for env variabe `OPEN_SOURCE=true`
+Bespoke is [MIT licensed](https://github.com/bespoke-surf/bespoke/blob/main/LICENSE.md) for env variabe `OPEN_SOURCE=true`
 
-Bespoke Cloud is [Business Source Licenced](https://github.com/bespoke-surf/bespoke/BUSINESS_LICENSE.md) for env variable `OPEN_SOURCE=false`
+Bespoke Cloud is [Business Source Licenced](https://github.com/bespoke-surf/bespoke/blob/main/BUSINESS_LICENSE.md) for env variable `OPEN_SOURCE=false`
 
-⚠️ You will be violating our [Business Source Licence](https://github.com/bespoke-surf/bespoke/BUSINESS_LICENSE.md) if you have the environment variable `OPEN_SOURCE=false`
+⚠️ You will be violating our [Business Source Licence](https://github.com/bespoke-surf/bespoke/blob/main/BUSINESS_LICENSE.md) if you have the environment variable `OPEN_SOURCE=false`

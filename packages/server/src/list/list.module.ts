@@ -5,8 +5,8 @@ import { CaslModule } from '../casl/casl.module';
 import { EventModule } from '../event/event.module';
 import { SubscriberListModule } from '../subscriber-list/subscriber-list.module';
 import { WorkflowStateModule } from '../workflow-state/workflow-state.module';
-import { ListApiService } from './list.apiService';
-import { ListController } from './list.controller';
+import { ListAPIController } from './list.api.controller';
+import { ListApiService } from './list.api.service';
 import { List } from './list.entity';
 import { ListListener } from './list.listner';
 import { ListResolver } from './list.resolver';
@@ -23,6 +23,6 @@ import { ListService } from './list.service';
   ],
   providers: [ListResolver, ListService, ListListener, ListApiService],
   exports: [ListService],
-  controllers: [ListController],
+  controllers: [ListAPIController],
 })
 export class ListModule {}

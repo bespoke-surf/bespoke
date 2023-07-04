@@ -24,7 +24,7 @@ import { Throttle } from '@nestjs/throttler';
 import { Response } from 'express';
 import { ApiKeyAccessScopeEnum } from '../apiKey/enum/apikScopeEnum';
 import { AppAbility } from '../casl/casl-ability.factory/casl-ability.factory';
-import { ApiKey } from '../decorator/ApiKeyId';
+import { ApiKey } from '../decorator/apiKeyId';
 import { CheckPolicies } from '../decorator/checkPolicies';
 import { ApiKeyAuthGurad } from '../guard/api/apiKeyAuthGuard';
 import { ApiPoliciesGuard } from '../guard/api/apiPoliciesGuard';
@@ -38,7 +38,7 @@ import { ApiVersion, apiPagination } from '../utils/constants';
 import { CreateListDto } from './dto/createList';
 import { ListIdParam } from './dto/listIdParam';
 import { UpdateListDto } from './dto/updateList';
-import { ListApiService } from './list.apiService';
+import { ListApiService } from './list.api.service';
 import { List } from './list.entity';
 
 @UseGuards(ApiKeyAuthGurad)
@@ -57,7 +57,7 @@ import { List } from './list.entity';
 @ApiResponse({ status: '4XX', type: ExceptionResponse })
 @ApiResponse({ status: '5XX', type: ExceptionResponse })
 @Controller('api/list')
-export class ListController {
+export class ListAPIController {
   constructor(
     private listApiService: ListApiService,
     private subscriberListApiService: SubscriberListApiService,
