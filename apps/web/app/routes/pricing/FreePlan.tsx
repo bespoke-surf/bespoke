@@ -74,7 +74,7 @@ export const FreePlanHosted = () => {
                   <Box />
                   <Button
                     text="Self Host Guide"
-                    href=""
+                    href="https://github.com/bespoke-surf/bespoke#deploying-bespoke"
                     role="link"
                     size="lg"
                     color="blue"

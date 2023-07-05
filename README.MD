@@ -50,20 +50,25 @@ We gather customer data through various means, including API's, behavioral inten
 
 > For full feature breakdown see Bespoke Cloud [Pricing Page](https://bespoke.surf/pricing)
 
-## Documentation
+## Documentation & Links
 
 - [API Reference](https://bespoke-api.readme.io/reference/introduction-to-bespoke) for Bespoke REST API
 - Details about Bespoke's [Suppression](https://bespoke-api.readme.io/reference/supression-hit-tier) process
-
-## Quick Links
-
-- 🆘 Join
+- Join
   [Discord](https://discord.gg/h8gekTtq)
   to talk to devs
-- 💡 Suggest
+- Suggest
   [Feature and Integration Requests](https://feedback.bespoke.surf).
-- 🐛 Open a [GitHub issue](https://github.com/bespoke-surf/bespoke/issues) to
+- Open a [GitHub issue](https://github.com/bespoke-surf/bespoke/issues) to
   report a bug.
+
+## OpenAPI and Postman
+
+Experience seamless integration with Bespoke's OpenAPI and Postman. Explore our latest OpenAPI specification.
+
+For quick and convenient interaction with our APIs, import the [OpenAPI spec](https://github.com/bespoke-surf/openapi/tree/main) into your preferred API tool, such as Postman. This will enable you to immediately begin working with our new APIs.
+
+To further simplify your workflow, we have created a dedicated [Postman Workspace](https://www.postman.com/bespoke-surf/workspace/bespoke-developers). By visiting our Postman Workspace, you will have access to our latest collection of requests, along with the comprehensive API definitions.
 
 ## Developing Bespoke
 
@@ -185,6 +190,10 @@ We need to create a new configuration set and add the SNS subscription as the de
 
 For the `SES_SENDING_RATE` env variable, you can get the value from the SES dashboard.
 
+### OPEN_SOURCE=true
+
+To get unlimited contacts and to send emails with no restriction and to create unlimited signup-forms, please set `OPEN_SOURCE=true`
+
 ### Unlayer Project Id & Unlayer Secret
 
 Let's setup [Unlayer](https://unlayer.com/embed) for Signup-Forms and Email templates to work
@@ -218,10 +227,6 @@ If you have any questions about Bespoke, would like to discuss a bug report, or 
 
 Bespoke engineers are checking this regularly.
 
-### License
+## License
 
-Bespoke is [MIT licensed](https://github.com/bespoke-surf/bespoke/blob/main/LICENSE.md) for env variabe `OPEN_SOURCE=true`
-
-Bespoke Cloud is [Business Source Licenced](https://github.com/bespoke-surf/bespoke/blob/main/BUSINESS_LICENSE.md) for env variable `OPEN_SOURCE=false`
-
-⚠️ You will be violating our [Business Source Licence](https://github.com/bespoke-surf/bespoke/blob/main/BUSINESS_LICENSE.md) if you have the environment variable `OPEN_SOURCE=false`
+Bespoke is [MIT licensed](https://github.com/bespoke-surf/bespoke/blob/main/LICENSE.md)
