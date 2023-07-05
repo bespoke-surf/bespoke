@@ -229,4 +229,4 @@ Bespoke engineers are checking this regularly.
 
 ## License
 
-Bespoke is [MIT licensed](https://github.com/bespoke-surf/bespoke/blob/main/LICENSE.md)
+Bespoke is [AGPL-3.0 license](https://github.com/bespoke-surf/bespoke/blob/main/LICENSE.md)
