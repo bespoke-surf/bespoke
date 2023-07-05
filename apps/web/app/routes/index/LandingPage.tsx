@@ -35,9 +35,9 @@ export default function LandingPage() {
               href: "/signup",
             }}
             secondaryAction={{
-              label: "Github",
-              accessibilityLabel: "Github",
-              href: "https://github.com/bespoke-surf/bespoke",
+              label: "Guide",
+              accessibilityLabel: "Guide",
+              href: "https://github.com/bespoke-surf/bespoke#deploying-bespoke",
             }}
           />
         )}
@@ -48,7 +48,7 @@ export default function LandingPage() {
             title="Personalization Frontier"
             primaryAction={{
               label: "Github",
-              accessibilityLabel: "Pricing",
+              accessibilityLabel: "Github",
               href: "https://github.com/bespoke-surf/bespoke",
               target: "blank",
             }}
