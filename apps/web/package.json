@@ -1,6 +1,6 @@
 {
   "name": "@bespoke/web",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.367.0",
-    "@bespoke/common": "^0.2.12",
+    "@bespoke/common": "^0.2.13",
     "@clayui/css": "^3.99.0",
     "@clayui/slider": "^3.96.0",
     "@lexical/code": "^0.11.1",
