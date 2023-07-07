@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.11](https://github.com/bespoke-surf/bespoke/compare/v0.2.10...v0.2.11) (2023-07-07)
+
+**Note:** Version bump only for package @bespoke/common
+
+
+
+
+
 ## [0.2.10](https://github.com/bespoke-surf/bespoke/compare/v0.2.9...v0.2.10) (2023-07-07)
 
 **Note:** Version bump only for package @bespoke/common
