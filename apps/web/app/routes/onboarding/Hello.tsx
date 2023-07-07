@@ -16,7 +16,7 @@ export default function Hello() {
       </Box>
       <Box marginTop={8}>
         <Text inline>
-          We're here to be your enthusiastic companions throughout every step of
+          We're here to be your enthusiastic companion throughout every step of
           your exhilarating journey!
         </Text>
       </Box>

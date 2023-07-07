@@ -1,6 +1,6 @@
 {
   "name": "@bespoke/common",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -10,7 +10,7 @@
     "dist/**"
   ],
   "devDependencies": {
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.25",
     "tsup": "^7.1.0",
     "typescript": "^4.9.5"
   },

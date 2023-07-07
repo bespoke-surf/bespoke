@@ -14,7 +14,7 @@ import {
 } from "@remix-run/react";
 import type { FormikConfig, FormikHelpers } from "formik";
 import { Formik } from "formik";
-import { Box, Button, Container, Dropdown, Flex, PageHeader } from "gestalt";
+import { Box, Button, Container, Flex } from "gestalt";
 import React, { useCallback, useState } from "react";
 import { sdk } from "~/graphql/graphqlWrapper.server";
 import { validateForm } from "~/utils/validateForm.server";
@@ -329,57 +329,27 @@ const FormikStepper: React.FC<
         return (
           <Form>
             <Container>
-              <PageHeader
-                borderStyle="none"
-                title=""
-                primaryAction={{
-                  component: (
-                    <Button
-                      text={text}
-                      onClick={handleButtonClick}
-                      size="lg"
-                      color="red"
-                      disabled={disableNext}
-                    />
-                  ),
-                  dropdownItems: [
-                    <Dropdown.Item
-                      key="create"
-                      option={{
-                        value: "value",
-                        label: text,
-                      }}
-                      onSelect={handleButtonClick}
-                    />,
-                  ],
-                }}
-                secondaryAction={
-                  step === 0
-                    ? undefined
-                    : {
-                        component: (
-                          <Button
-                            onClick={backButtonClick}
-                            disabled={disableBackButton}
-                            size="lg"
-                            text="Back"
-                          />
-                        ),
-                        dropdownItems: [
-                          <Dropdown.Item
-                            key="create"
-                            option={{
-                              value: "back",
-                              label: "Back",
-                            }}
-                            onSelect={backButtonClick}
-                          />,
-                        ],
-                      }
-                }
-              />
               <Flex justifyContent="center">
                 <Box width="91.5%" paddingY={6}>
+                  <Flex justifyContent="end" gap={1}>
+                    {step === 0 ? undefined : (
+                      <Button
+                        text="Back"
+                        onClick={backButtonClick}
+                        disabled={disableBackButton}
+                        color="gray"
+                        size="lg"
+                      />
+                    )}
+                    <Button
+                      size="lg"
+                      color="red"
+                      text={text}
+                      disabled={disableNext}
+                      onClick={handleButtonClick}
+                    />
+                  </Flex>
+                  <Box marginTop={4} />
                   {currentChild}
                 </Box>
               </Flex>

@@ -96,7 +96,7 @@ export default function ComparisonTable() {
   const rootLoaderData = useRouteLoaderData("root") as RootData;
   return (
     <Box width="100%">
-      <Table accessibilityLabel="Table.RowDrawer example" stickyColumns={1}>
+      <Table accessibilityLabel="Table.RowDrawer example">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
