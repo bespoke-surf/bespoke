@@ -1,6 +1,6 @@
 {
   "name": "@bespoke/common",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
