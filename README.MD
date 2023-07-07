@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://bespoke.surf">
-    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/de93f538-fd90-49df-bd01-d562f5c82f7a" width="318px" alt="Bespoke logo" />
+    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/59936991-c64d-4e97-abd0-3f801f8b9a52" width="318px" alt="Bespoke logo" />
   </a>
 
   <!-- <h1 align="center"><a href="https://bespoke.surf">Bespoke</a></h1> -->
