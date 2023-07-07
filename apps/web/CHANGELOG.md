@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.12](https://github.com/bespoke-surf/bespoke/compare/v0.2.11...v0.2.12) (2023-07-07)
+
+
+### Bug Fixes
+
+* sitemap fix ([894f7c5](https://github.com/bespoke-surf/bespoke/commit/894f7c5383fb7430570fd1113518d1f48ea4850a))
+
+
+
+
+
 ## [0.2.11](https://github.com/bespoke-surf/bespoke/compare/v0.2.10...v0.2.11) (2023-07-07)
 
 **Note:** Version bump only for package @bespoke/web
