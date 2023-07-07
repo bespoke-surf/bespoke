@@ -1,10 +1,10 @@
-<p align="center">
-  <a href="https://bespoke.surf">
-    <img src="https://github.com/bespoke-surf/bespoke/assets/3761062/59936991-c64d-4e97-abd0-3f801f8b9a52" width="318px" alt="Bespoke logo" />
-  </a>
-
-  <!-- <h1 align="center"><a href="https://bespoke.surf">Bespoke</a></h1> -->
-</p>
+<div align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/bespoke-surf/bespoke/assets/3761062/6c0be29b-b3a6-4e06-a146-920d82a430da">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/bespoke-surf/bespoke/assets/3761062/ffdf1a48-7771-42db-bc9f-c76ba2557b23">
+  <img alt="Bespoke Logo" src="https://github.com/bespoke-surf/bespoke/assets/3761062/ffdf1a48-7771-42db-bc9f-c76ba2557b23" width="318px" >
+</picture>
+</div>
 
 <strong>
 <h3 align="center">Open Source Personalized Marketing Platform.</h3></strong>

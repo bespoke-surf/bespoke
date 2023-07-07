@@ -103,7 +103,7 @@ async function getSitemapXml(request: Request, remixContext: EntryContext) {
   }: KCDSitemapEntry & { postHandle: string }) {
     return `
 <url>
-  <loc>${domainUrl.protocol}://${route}.${domainUrl.host}/${postHandle}</loc>
+  <loc>${domainUrl.protocol}://${route}.${domainUrl.host}/p/${postHandle}</loc>
   ${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}
   ${changefreq ? `<changefreq>${changefreq}</changefreq>` : ""}
   ${priority ? `<priority>${priority}</priority>` : ""}
