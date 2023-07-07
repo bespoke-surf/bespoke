@@ -10,7 +10,7 @@
     "dist/**"
   ],
   "devDependencies": {
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.25",
     "tsup": "^7.1.0",
     "typescript": "^4.9.5"
   },

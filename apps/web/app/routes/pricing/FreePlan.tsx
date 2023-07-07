@@ -57,31 +57,33 @@ export const FreePlanDetails = () => {
   );
 };
 
+export const SelfHostedPlan = () => {
+  return (
+    <Module id="free" type="info" title="Self-Hosted">
+      <Flex direction="column" gap={8}>
+        <Text size="300">Free, forever</Text>
+        <Flex direction="row" justifyContent="between" alignItems="baseline">
+          <Box />
+          <Button
+            text="Self Host Guide"
+            href="https://github.com/bespoke-surf/bespoke#deploying-bespoke"
+            role="link"
+            size="lg"
+            color="blue"
+          />
+        </Flex>
+      </Flex>
+    </Module>
+  );
+};
+
 export const FreePlanHosted = () => {
   return (
     <>
       <Box display="none" smDisplay="none" mdDisplay="block" lgDisplay="block">
         <Flex justifyContent="between" gap={{ row: 4, column: 0 }}>
           <Flex.Item flex="grow">
-            <Module id="free" type="info" title="Self-Hosted">
-              <Flex direction="column" gap={8}>
-                <Text size="300">Free, forever</Text>
-                <Flex
-                  direction="row"
-                  justifyContent="between"
-                  alignItems="baseline"
-                >
-                  <Box />
-                  <Button
-                    text="Self Host Guide"
-                    href="https://github.com/bespoke-surf/bespoke#deploying-bespoke"
-                    role="link"
-                    size="lg"
-                    color="blue"
-                  />
-                </Flex>
-              </Flex>
-            </Module>
+            <SelfHostedPlan />
           </Flex.Item>
           <Box
             marginStart={12}
@@ -95,7 +97,7 @@ export const FreePlanHosted = () => {
         </Flex>
       </Box>
       <Box display="block" smDisplay="block" mdDisplay="none" lgDisplay="none">
-        <FreePlanModal />
+        <SelfHostedPlan />
       </Box>
     </>
   );
@@ -104,7 +106,7 @@ export const FreePlanHosted = () => {
 export const FreePlanDetailsHosted = () => {
   return (
     <Flex gap={2} direction="column">
-      <Details data="Open Source under MIT Licence" type="success" />
+      <Details data="Open Source" type="success" />
       <Details data="Everthing under Cloud Free Plan" type="success" />
       <Details data="REST API" type="success" />
       <Details data="Unlimited Sign-up Forms" type="success" />

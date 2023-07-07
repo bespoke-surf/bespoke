@@ -20,7 +20,6 @@ import {
   Heading,
   IconButton,
   Layer,
-  Link,
   Modal,
   RadioGroup,
   SlimBanner,
@@ -356,13 +355,8 @@ const PublishModal = ({ close }: { close: () => void }) => {
               <Flex direction="column" gap={{ row: 0, column: 2 }}>
                 <Text weight="bold">Publishing method</Text>
                 <Text size="200" inline>
-                  You can publish to a list of subscribers or publish only here
-                  as a post.{" "}
-                  <Link display="inlineBlock" href="/tools/public-profile">
-                    <Text inline underline size="100">
-                      See how to view public website
-                    </Text>
-                  </Link>
+                  You can publish to a list of subscribers, or just publish
+                  here.
                 </Text>
               </Flex>
               <RadioGroup
