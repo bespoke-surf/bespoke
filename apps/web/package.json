@@ -4,7 +4,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build --sourcemap && yarn gen:scripts && yarn sentry-upload && yarn upload-assets",
+    "build": "remix build --sourcemap && yarn gen:scripts && yarn sentry-upload",
     "sentry-upload": "is-ci && yarn sentry-upload-sourcemaps --release $npm_package_version && yarn clean-sourcemap",
     "clean-sourcemap": "node ./deleteSourcemaps.js",
     "upload-assets": "node ./uploadToS3.js",
