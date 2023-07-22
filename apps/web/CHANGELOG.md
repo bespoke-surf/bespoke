@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.14](https://github.com/bespoke-surf/bespoke/compare/v0.2.13...v0.2.14) (2023-07-22)
+
+
+### Bug Fixes
+
+* failing CDN, temp fix ([f692d7f](https://github.com/bespoke-surf/bespoke/commit/f692d7f375d9ac426ca7b850ef1d2ba291999937))
+
+
+
+
+
 ## [0.2.13](https://github.com/bespoke-surf/bespoke/compare/v0.2.12...v0.2.13) (2023-07-07)
 
 **Note:** Version bump only for package @bespoke/web
