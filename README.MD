@@ -1,3 +1,6 @@
+⚠️ Bespoke has seized maintenance. This repository has been archived.
+
+<hr>
 <br/>
 <div align="center">
 <picture>
@@ -10,17 +13,17 @@
 <br/>
 
 <strong>
-<h3 align="center">Open Source Personalized Marketing Platform.</h3></strong>
+<h3 align="center">Open Source Mailchimp Alternative.</h3></strong>
 <p align="center">Combining best parts of Mailchimp, Kalviyo's automation, Substack's newsletter and Typeform for surveys.</p>
-<p align="center"><a href="https://bespoke.surf">Bespoke Cloud</a> · <a href="https://bespoke-api.readme.io/reference">API Reference</a></p>
+<!-- <p align="center"><a href="https://bespoke-api.readme.io/reference">API Reference</a></p> -->
 
 <p align="center">
-<a href="https://discord.gg/h8gekTtq">
+<!-- <a href="https://discord.gg/h8gekTtq">
     <img src="https://img.shields.io/discord/957706478670712893?label=Discord" alt="Bespoke on Discord" />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=bespoke_surf">
+  </a> -->
+  <!-- <a href="https://twitter.com/intent/follow?screen_name=bespoke_surf">
     <img alt="Follow us on Twitter" src="https://img.shields.io/twitter/follow/bespoke_surf?style=social"/>
-  </a>
+  </a> -->
 </p>
 
 <br />
@@ -51,15 +54,10 @@ We gather customer data through various means, including API's, behavioral inten
 - [ ] Surveys
 - [ ] Behavioral Intent API
 
-> For full feature breakdown see Bespoke Cloud [Pricing Page](https://bespoke.surf/pricing)
-
 ## Documentation & Links
 
 - [API Reference](https://bespoke-api.readme.io/reference/introduction-to-bespoke) for Bespoke REST API
 - Details about Bespoke's [Suppression](https://bespoke-api.readme.io/reference/supression-hit-tier) process
-- Join
-  [Discord](https://discord.gg/h8gekTtq)
-  to talk to devs
 - Suggest
   [Feature and Integration Requests](https://feedback.bespoke.surf).
 - Open a [GitHub issue](https://github.com/bespoke-surf/bespoke/issues) to
@@ -224,9 +222,9 @@ Now that everything is set up you can commit and push your changes to your repo.
    - `git push origin my-new-branch`
 4. Go to the repository page in GitHub and click on "Compare & pull request"
 
-## Support
+<!-- ## Support
 
-If you have any questions about Bespoke, would like to discuss a bug report, or have questions about new integrations, feel free to join us at [our Discord server](https://discord.gg/h8gekTtq).
+If you have any questions about Bespoke, would like to discuss a bug report, or have questions about new integrations, feel free to join us at [our Discord server](https://discord.gg/h8gekTtq). -->
 
 Bespoke engineers are checking this regularly.
 
