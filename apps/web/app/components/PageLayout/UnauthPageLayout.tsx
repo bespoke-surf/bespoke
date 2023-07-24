@@ -2,7 +2,6 @@
 import type { PageHeaderProps } from "gestalt";
 import { Box, Container, Flex, PageHeader } from "gestalt";
 import BigContainer from "../BigContainer";
-import { UnauthNav } from "../Navigation/UnauthNav";
 
 export default function UnauthPageLayot({
   children,
@@ -14,7 +13,6 @@ export default function UnauthPageLayot({
   return (
     <BigContainer>
       <Flex alignItems="start">
-        <UnauthNav />
         <Flex.Item flex="grow">
           <Container>
             <PageHeader {...pageHeaderPorps} />

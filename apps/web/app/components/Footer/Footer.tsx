@@ -1,5 +1,4 @@
 import { useRouteLoaderData } from "@remix-run/react";
-import dayjs from "dayjs";
 
 import { Flex, Link, TapArea, Text } from "gestalt";
 import { Suspense, lazy, useState } from "react";
@@ -55,14 +54,6 @@ export default function Footer() {
           </Text>
         </TapArea>
       </Flex>
-      {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
-        <Text size="100" color="subtle">
-          © {dayjs().get("year")}{" "}
-          {rootLoaderData.store?.name
-            ? rootLoaderData.store.name
-            : "Cartegan Software, Pvt Ltd."}
-        </Text>
-      )}
       {cookie && (
         <Suspense>
           <CookiePrefrences dismiss={() => setCookie(false)} />

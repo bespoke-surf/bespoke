@@ -1,7 +1,5 @@
-import { useLocation, useRouteLoaderData } from "@remix-run/react";
+import { useLocation } from "@remix-run/react";
 import { Avatar, Flex, Link, SideNavigation, Text } from "gestalt";
-import type { RootData } from "../../root";
-import Footer from "../Footer/Footer";
 
 export default function UnauthSideNav({
   closeMobileNav,
@@ -11,7 +9,6 @@ export default function UnauthSideNav({
   showHeader?: boolean;
 }) {
   const location = useLocation();
-  const rootLoaderData = useRouteLoaderData("root") as RootData;
   return (
     <SideNavigation
       title="Menu"
@@ -34,7 +31,6 @@ export default function UnauthSideNav({
           </Flex>
         ) : undefined
       }
-      footer={<Footer />}
     >
       <SideNavigation.TopItem
         href="/"
@@ -42,76 +38,6 @@ export default function UnauthSideNav({
         label="What is Bespoke?"
         onClick={closeMobileNav}
       />
-
-      {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
-        <SideNavigation.TopItem
-          href="/pricing"
-          active={location.pathname === "/pricing" ? "page" : undefined}
-          label="Pricing"
-          onClick={closeMobileNav}
-        />
-      )}
-
-      <SideNavigation.Section label="App">
-        <SideNavigation.TopItem
-          active={location.pathname === "/signup" ? "page" : undefined}
-          href="/signup"
-          label="Sign Up"
-          onClick={closeMobileNav}
-        />
-        <SideNavigation.TopItem
-          active={location.pathname === "/login" ? "page" : undefined}
-          href="/login"
-          label="Login"
-          onClick={closeMobileNav}
-        />
-      </SideNavigation.Section>
-
-      <SideNavigation.Section label="External Links">
-        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
-          <SideNavigation.TopItem
-            href="https://github.com/bespoke-surf/bespoke"
-            label="Self Host Guide | Github"
-            onClick={closeMobileNav}
-          />
-        )}
-        <SideNavigation.TopItem
-          href="https://bespoke-api.readme.io/"
-          label="API Reference"
-          onClick={closeMobileNav}
-        />
-        <SideNavigation.TopItem
-          href="https://bespoke.bespoke.surf"
-          label="Blog"
-          onClick={closeMobileNav}
-        />
-
-        <SideNavigation.TopItem
-          href="https://feedback.bespoke.surf/changelog"
-          label="See What's New"
-          onClick={closeMobileNav}
-        />
-
-        {rootLoaderData.ENV.OPEN_SOURCE === "true" ? null : (
-          <SideNavigation.Group label="Support">
-            <SideNavigation.NestedItem
-              href="https://discord.gg/h8gekTtq"
-              label="Devs on Discord"
-              onClick={closeMobileNav}
-            />
-            <SideNavigation.NestedItem
-              href="https://twitter.com/bespoke_surf"
-              label="Twitter"
-              onClick={closeMobileNav}
-            />
-            <SideNavigation.NestedItem
-              href="mailto:support@bespoke.surf"
-              label="Email Us"
-              onClick={closeMobileNav}
-            />
-          </SideNavigation.Group>
-        )}
-      </SideNavigation.Section>
     </SideNavigation>
   );
 }

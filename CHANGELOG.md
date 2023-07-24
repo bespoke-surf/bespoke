@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.15](https://github.com/bespoke-surf/bespoke/compare/v0.2.14...v0.2.15) (2023-07-24)
+
+
+### Bug Fixes
+
+* deprecating Bespoke ([6aeb1d9](https://github.com/bespoke-surf/bespoke/commit/6aeb1d91fbb639dd31c3f2c4a50fa321ff0152fb))
+
+
+
+
+
 ## [0.2.14](https://github.com/bespoke-surf/bespoke/compare/v0.2.13...v0.2.14) (2023-07-22)
 
 
